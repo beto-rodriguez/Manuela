@@ -1,128 +1,16 @@
-﻿
+﻿using Manuela.Theming;
+
 namespace Manuela;
-
-public struct ManuelaStyle
-{
-    public UIBrush Background { get; set; }
-}
-
-internal struct ManuelaStyleSet
-{
-    public bool IsInitialized;
-
-    public ManuelaStyle All;
-    public ManuelaStyle Sm;
-    public ManuelaStyle Md;
-    public ManuelaStyle Lg;
-    public ManuelaStyle Xl;
-    public ManuelaStyle Xxl;
-
-    public ManuelaStyleSet SetInitialized(bool value)
-    {
-        return new ManuelaStyleSet
-        {
-            IsInitialized = value,
-            All = All,
-            Sm = Sm,
-            Md = Md,
-            Lg = Lg,
-            Xl = Xl,
-            Xxl = Xxl
-        };
-    }
-
-    public ManuelaStyleSet SetAll(ManuelaStyle style)
-    {
-        return new ManuelaStyleSet
-        {
-            IsInitialized = IsInitialized,
-            All = style,
-            Sm = Sm,
-            Md = Md,
-            Lg = Lg,
-            Xl = Xl,
-            Xxl = Xxl
-        };
-    }
-
-    public ManuelaStyleSet SetSm(ManuelaStyle style)
-    {
-        return new ManuelaStyleSet
-        {
-            IsInitialized = IsInitialized,
-            All = All,
-            Sm = style,
-            Md = Md,
-            Lg = Lg,
-            Xl = Xl,
-            Xxl = Xxl
-        };
-    }
-
-    public ManuelaStyleSet SetMd(ManuelaStyle style)
-    {
-        return new ManuelaStyleSet
-        {
-            IsInitialized = IsInitialized,
-            All = All,
-            Sm = Sm,
-            Md = style,
-            Lg = Lg,
-            Xl = Xl,
-            Xxl = Xxl
-        };
-    }
-
-    public ManuelaStyleSet SetLg(ManuelaStyle style)
-    {
-        return new ManuelaStyleSet
-        {
-            IsInitialized = IsInitialized,
-            All = All,
-            Sm = Sm,
-            Md = Md,
-            Lg = style,
-            Xl = Xl,
-            Xxl = Xxl
-        };
-    }
-
-    public ManuelaStyleSet SetXl(ManuelaStyle style)
-    {
-        return new ManuelaStyleSet
-        {
-            IsInitialized = IsInitialized,
-            All = All,
-            Sm = Sm,
-            Md = Md,
-            Lg = Lg,
-            Xl = style,
-            Xxl = Xxl
-        };
-    }
-
-    public ManuelaStyleSet SetXxl(ManuelaStyle style)
-    {
-        return new ManuelaStyleSet
-        {
-            IsInitialized = IsInitialized,
-            All = All,
-            Sm = Sm,
-            Md = Md,
-            Lg = Lg,
-            Xl = Xl,
-            Xxl = style
-        };
-    }
-}
 
 public class ManuelaStyleExtension : IMarkupExtension<ManuelaStyle>
 {
-    public UIBrush Background { get; set; }
+    private readonly ManuelaStyle _style = [];
+
+    public UIBrush Background { set => _style[ManuelaProperty.Background] = value; }
 
     public ManuelaStyle ProvideValue(IServiceProvider serviceProvider)
     {
-        return new ManuelaStyle { Background = Background };
+        return _style;
     }
 
     object IMarkupExtension.ProvideValue(IServiceProvider serviceProvider)
@@ -133,11 +21,39 @@ public class ManuelaStyleExtension : IMarkupExtension<ManuelaStyle>
 
 public enum UIBrush
 {
+    Unset = 0,
+
     Primary = UICC.Primary,
     Secondary = UICC.Secondary,
     Tertiary = UICC.Tertiary,
     Gray = UICC.Gray
 }
+
+public enum UIColor
+{
+    Unset = 0,
+
+    Primary = UICC.Primary,
+    Secondary = UICC.Secondary,
+    Tertiary = UICC.Tertiary,
+    Gray = UICC.Gray
+}
+
+public enum UISize
+{
+    Unset = 0,
+
+    None,
+    Xs,
+    Sm,
+    Md,
+    Lg,
+    Xl,
+    Huge,
+    Enormous,
+    Giant
+}
+
 
 internal static class UICC // UIColorConstants
 {
