@@ -14,14 +14,21 @@
     </Application.Resources>
     <Application.MainPage>
         <m:AppPage>
+
+            <m:AppPage.Resources>
+                <m:Set x:Key="this" Background="Primary"/>
+            </m:AppPage.Resources>
+
             <StackLayout Padding="50" BackgroundColor="White">
                 <Label Text="GELLO"/>
 
-                <Button Text="Main" m:Router.Link="MainView"
-                    m:On.Xl="{m:ManuelaStyle Background=Tertiary}"/>
-                <Button Text="Second" m:Router.Link="SecondView"
-                    m:On.Xl="{m:ManuelaStyle Background=Tertiary}"/>
-
+                <Button
+                    Text="Main"
+                    m:Router.Link="MainView">
+                    <m:On.All>
+                        <m:Set BorderRadius="40" Rotation="50" />
+                    </m:On.All>
+                </Button>
                 <m:AppBody>
                     <local:MainView/>
                 </m:AppBody>

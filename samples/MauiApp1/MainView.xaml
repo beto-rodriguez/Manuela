@@ -4,9 +4,5 @@
              xmlns:m="clr-namespace:Manuela;assembly=Manuela"
              x:Class="MauiApp1.MainView">
     <VerticalStackLayout>
-        <!--<Label
-            Text="Main"
-            m:On.All="{m:ManuelaStyle Background=Primary}"
-            m:On.Xl="{m:ManuelaStyle Background=Secondary}"/>-->
     </VerticalStackLayout>
 </ContentView>

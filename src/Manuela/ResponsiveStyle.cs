@@ -1,4 +1,5 @@
-﻿using Manuela.Theming;
+﻿using System.Diagnostics;
+using Manuela.Theming;
 
 namespace Manuela;
 
@@ -137,7 +138,22 @@ public class ResponsiveStyle
                 if (bindable is Span) return Span.TextDecorationsProperty;
                 return null;
             }
-        }
+        },
+        { ManuelaProperty.VerticalOptions, bindable => View.VerticalOptionsProperty },
+        { ManuelaProperty.HorizontalOptions, bindable => View.HorizontalOptionsProperty },
+        { ManuelaProperty.Opacity, bindable => VisualElement.OpacityProperty },
+        { ManuelaProperty.Width, bindable => VisualElement.WidthRequestProperty },
+        { ManuelaProperty.Height, bindable => VisualElement.HeightRequestProperty },
+        { ManuelaProperty.XAnchor, bindable => VisualElement.AnchorXProperty },
+        { ManuelaProperty.YAnchor, bindable => VisualElement.AnchorYProperty },
+        { ManuelaProperty.TranslateX, bindable => VisualElement.TranslationXProperty },
+        { ManuelaProperty.TranslateY, bindable => VisualElement.TranslationYProperty },
+        { ManuelaProperty.Rotation, bindable => VisualElement.RotationProperty },
+        { ManuelaProperty.RotationX, bindable => VisualElement.RotationXProperty },
+        { ManuelaProperty.RotationY, bindable => VisualElement.RotationYProperty },
+        { ManuelaProperty.Scale, bindable => VisualElement.ScaleProperty },
+        { ManuelaProperty.ScaleX, bindable => VisualElement.ScaleXProperty },
+        { ManuelaProperty.ScaleY, bindable => VisualElement.ScaleYProperty }
     };
     private static readonly Dictionary<ManuelaProperty, Func<ResponsiveStyle, object?, object?>> s_converters = new()
     {
@@ -175,8 +191,16 @@ public class ResponsiveStyle
         foreach (var property in query)
         {
             if (hashSet.Contains(property)) continue;
-
             var bindableProperty = GetBindableProperty(property);
+
+            if (bindableProperty is null)
+            {
+#if DEBUG
+                Trace.WriteLine($"Property {property} is not supported on {bindable.GetType().Name}");
+#endif
+                continue;
+            }
+
             var value = Get(property, p);
 
             if (value == Unset)
@@ -315,8 +339,8 @@ public class ResponsiveStyle
                 sw2 = UICC.Sw700;
             }
 
-            Point start = new(0, 0);
-            Point end = new(1, 1);
+            Point start = new(0.5, 0);
+            Point end = new(0.5, 1);
 
             if ((intBrush & UICC.GradientX) > 0)
             {
@@ -376,6 +400,9 @@ public class ResponsiveStyle
     private static object? ShadowConverter(ResponsiveStyle style, object? source)
     {
         if (source is null) return null;
+
+        // if the source is already a shadow, return it
+        if (source is Shadow shadow) return shadow;
 
         var uiSize = (UISize)source;
 
