@@ -228,7 +228,7 @@ public class ResponsiveStyle
         if (window is null || BindableObject is null) return;
 
         var p = GetBreakpoint(window.Width);
-        var styleSet = (ResponsiveStyle)BindableObject.GetValue(On.ManuelaStyleSetProperty);
+        var styleSet = (ResponsiveStyle)BindableObject.GetValue(On.ResponsiveStyleProperty);
 
         if (styleSet.ActiveBreakPoint == p || styleSet.BindableObject is null) return;
 

@@ -3,8 +3,8 @@
 public class On
 {
 #pragma warning disable CA2211 // Non-constant fields should not be visible
-    public static BindableProperty ManuelaStyleSetProperty = BindableProperty.CreateAttached(
-        "ManuelaStyleSet", typeof(ResponsiveStyle), typeof(On), null);
+    public static BindableProperty ResponsiveStyleProperty = BindableProperty.CreateAttached(
+        "ResponsiveStyle", typeof(ResponsiveStyle), typeof(On), null);
 
     public static BindableProperty AllProperty = BindableProperty.CreateAttached(
         "All", typeof(ManuelaStyle), typeof(On), null, propertyChanged: GetBreakpointStyleChangedDelegate(BreakPoint.all));
@@ -45,7 +45,7 @@ public class On
             if (newValue is null) return;
             var newStyle = (ManuelaStyle)newValue;
 
-            var styleSet = (ResponsiveStyle?)bindable.GetValue(ManuelaStyleSetProperty);
+            var styleSet = (ResponsiveStyle?)bindable.GetValue(ResponsiveStyleProperty);
             styleSet ??= new();
 
             if (!styleSet.IsInitialized)
@@ -70,7 +70,7 @@ public class On
                 default: break;
             }
 
-            bindable.SetValue(ManuelaStyleSetProperty, styleSet);
+            bindable.SetValue(ResponsiveStyleProperty, styleSet);
         };
     }
 }
