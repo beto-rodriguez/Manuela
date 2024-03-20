@@ -1,0 +1,29 @@
+﻿namespace Manuela;
+
+public class Router
+{
+#pragma warning disable CA2211 // Non-constant fields should not be visible
+    public static BindableProperty LinkProperty = BindableProperty.CreateAttached(
+        "Link", typeof(string), typeof(On), null, propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var route = (string)newValue;
+
+            if (bindable is Button button)
+            {
+                button.Clicked += (_, _) => Routing.GoTo(route);
+
+                return;
+            }
+
+            if (bindable is not View view) return;
+
+            view.GestureRecognizers.Add(new TapGestureRecognizer
+            {
+                Command = new Command(() => Routing.GoTo(route))
+            });
+        });
+#pragma warning restore CA2211 // Non-constant fields should not be visible
+
+    public static string GetLink(BindableObject view) => (string)view.GetValue(LinkProperty);
+    public static void SetLink(BindableObject view, string value) => view.SetValue(LinkProperty, value);
+}

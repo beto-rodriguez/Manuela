@@ -1,0 +1,30 @@
+﻿<?xml version = "1.0" encoding = "UTF-8" ?>
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:m="clr-namespace:Manuela;assembly=Manuela"
+             xmlns:local="clr-namespace:MauiApp1"
+             x:Class="MauiApp1.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+    <Application.MainPage>
+        <m:AppPage>
+            <StackLayout Padding="50" BackgroundColor="White">
+                <Label Text="GELLO"/>
+
+                <Button Text="Main" m:Router.Link="MainView" />
+                <Button Text="Second" m:Router.Link="SecondView" />
+
+                <m:AppBody>
+                    <local:MainView/>
+                </m:AppBody>
+
+            </StackLayout>
+        </m:AppPage>
+    </Application.MainPage>
+</Application>
