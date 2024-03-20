@@ -27,7 +27,5 @@ public enum BreakPoint
     /// <summary>
     /// 1536px.
     /// </summary>
-    xxl = 5,
-
-    unknown = 99
+    xxl = 5
 }

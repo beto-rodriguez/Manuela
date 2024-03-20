@@ -2,8 +2,16 @@
 
 namespace Manuela;
 
-public class ManuelaStyleSet
+public class ResponsiveStyle
 {
+    public static Dictionary<int, int> Screens { get; set; } = new()
+    {
+        { (int)BreakPoint.sm, 640 },
+        { (int)BreakPoint.md, 768 },
+        { (int)BreakPoint.lg, 1024 },
+        { (int)BreakPoint.xl, 1280 },
+        { (int)BreakPoint.xxl, 1536 }
+    };
     private static readonly Dictionary<ManuelaProperty, Func<BindableObject, BindableProperty?>> s_propertiesMap = new()
     {
         { ManuelaProperty.Background, bindable => VisualElement.BackgroundProperty },
@@ -131,7 +139,7 @@ public class ManuelaStyleSet
             }
         }
     };
-    private static readonly Dictionary<ManuelaProperty, Func<BindableObject, object?, object?>> s_converters = new()
+    private static readonly Dictionary<ManuelaProperty, Func<ResponsiveStyle, object?, object?>> s_converters = new()
     {
         { ManuelaProperty.Background, BrushConverter },
         { ManuelaProperty.BorderColor, BorderColorConverter },
@@ -139,16 +147,10 @@ public class ManuelaStyleSet
         { ManuelaProperty.TextColor, ColorConverter }
     };
 
-    public ManuelaStyleSet()
-    {
-        ActiveBreakPoint = BreakPoint.unknown;
-        IsInitialized = false;
-    }
-
     public static object Unset { get; } = new();
-    public BreakPoint ActiveBreakPoint { get; set; }
-    public BindableObject? BindableObject { get; set; }
-    public bool IsInitialized { get; set; }
+    public BreakPoint ActiveBreakPoint { get; private set; }
+    public BindableObject? BindableObject { get; private set; }
+    public bool IsInitialized { get; private set; }
     public ManuelaStyle? All { get; set; }
     public ManuelaStyle? Sm { get; set; }
     public ManuelaStyle? Md { get; set; }
@@ -156,8 +158,11 @@ public class ManuelaStyleSet
     public ManuelaStyle? Xl { get; set; }
     public ManuelaStyle? Xxl { get; set; }
 
-    public void Apply(BreakPoint p, BindableObject bindable)
+    public void Apply(BreakPoint p)
     {
+        var bindable = BindableObject;
+        if (bindable is null) return;
+
         var hashSet = new HashSet<ManuelaProperty>();
 
         var query = (All?.Keys ?? Enumerable.Empty<ManuelaProperty>())
@@ -171,8 +176,8 @@ public class ManuelaStyleSet
         {
             if (hashSet.Contains(property)) continue;
 
-            var bindableProperty = GetBindableProperty(property, bindable);
-            var value = Get(property, p, bindable);
+            var bindableProperty = GetBindableProperty(property);
+            var value = Get(property, p);
 
             if (value == Unset)
             {
@@ -185,9 +190,64 @@ public class ManuelaStyleSet
 
             _ = hashSet.Add(property);
         }
+
+        ActiveBreakPoint = p;
     }
 
-    private object? Get(ManuelaProperty property, BreakPoint p, BindableObject bindable)
+    public void Initialize(BindableObject bindable)
+    {
+        BindableObject = bindable;
+        bindable.PropertyChanging += OnBindablePropertyChanging;
+        bindable.PropertyChanged += OnBindablePropertyChanged;
+        IsInitialized = true;
+    }
+
+    private void OnBindablePropertyChanging(object sender, PropertyChangingEventArgs e)
+    {
+        if (e.PropertyName != nameof(VisualElement.Window) || sender is not VisualElement ve) return;
+
+        if (ve.Window is not null)
+        {
+            ve.Window.SizeChanged -= OnWindowSizeChanged;
+        }
+    }
+
+    private void OnBindablePropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName != nameof(VisualElement.Window) || sender is not VisualElement ve) return;
+
+        if (ve.Window is not null)
+        {
+            ve.Window.SizeChanged += OnWindowSizeChanged;
+        }
+    }
+
+    private void OnWindowSizeChanged(object? sender, EventArgs e)
+    {
+        var window = (Window?)sender;
+        if (window is null || BindableObject is null) return;
+
+        var p = GetBreakpoint(window.Width);
+        var styleSet = (ResponsiveStyle)BindableObject.GetValue(On.ManuelaStyleSetProperty);
+
+        if (styleSet.ActiveBreakPoint == p || styleSet.BindableObject is null) return;
+
+        styleSet.Apply(p);
+    }
+
+    public static BreakPoint GetBreakpoint(double width)
+    {
+        var breakPoint = BreakPoint.all;
+
+        if (width >= Screens[1]) breakPoint = BreakPoint.md;
+        if (width >= Screens[2]) breakPoint = BreakPoint.lg;
+        if (width >= Screens[3]) breakPoint = BreakPoint.xl;
+        if (width >= Screens[4]) breakPoint = BreakPoint.xxl;
+
+        return breakPoint;
+    }
+
+    private object? Get(ManuelaProperty property, BreakPoint p)
     {
         var value = Unset;
 
@@ -203,23 +263,25 @@ public class ManuelaStyleSet
 
         if (s_converters.TryGetValue(property, out var converter))
         {
-            return converter(bindable, value);
+            return converter(this, value);
         }
 
         return value;
     }
 
-    private static BindableProperty? GetBindableProperty(ManuelaProperty property, BindableObject bindable)
+    private BindableProperty? GetBindableProperty(ManuelaProperty property)
     {
+        if (BindableObject is null) return null;
+
         if (s_propertiesMap.TryGetValue(property, out var getter))
         {
-            return getter(bindable);
+            return getter(BindableObject);
         }
 
         return null;
     }
 
-    private static object? BrushConverter(BindableObject bindable, object? source)
+    private static object? BrushConverter(ResponsiveStyle style, object? source)
     {
         if (source is null) return null;
 
@@ -282,7 +344,7 @@ public class ManuelaStyleSet
         return new SolidColorBrush(colors.Colors[uiBrush]);
     }
 
-    private static object? ColorConverter(BindableObject bindable, object? source)
+    private static object? ColorConverter(ResponsiveStyle style, object? source)
     {
         if (source is null) return null;
 
@@ -302,16 +364,16 @@ public class ManuelaStyleSet
         return colors.Colors[(UIBrush)uiColor];
     }
 
-    private static object? BorderColorConverter(BindableObject bindable, object? source)
+    private static object? BorderColorConverter(ResponsiveStyle style, object? source)
     {
-        if (source is null) return null;
+        if (source is null || style.BindableObject is null) return null;
 
-        if (bindable is Border) return BrushConverter(bindable, source);
+        if (style.BindableObject is Border) return BrushConverter(style, source);
 
-        return ColorConverter(bindable, source);
+        return ColorConverter(style, source);
     }
 
-    private static object? ShadowConverter(BindableObject bindable, object? source)
+    private static object? ShadowConverter(ResponsiveStyle style, object? source)
     {
         if (source is null) return null;
 

@@ -2,20 +2,9 @@
 
 public class On
 {
-    public static Dictionary<int, int> Screens { get; set; } = new()
-    {
-        { (int)BreakPoint.sm, 640 },
-        { (int)BreakPoint.md, 768 },
-        { (int)BreakPoint.lg, 1024 },
-        { (int)BreakPoint.xl, 1280 },
-        { (int)BreakPoint.xxl, 1536 }
-    };
-
-    #region Attached Properties things...
-
 #pragma warning disable CA2211 // Non-constant fields should not be visible
     public static BindableProperty ManuelaStyleSetProperty = BindableProperty.CreateAttached(
-        "ManuelaStyleSet", typeof(ManuelaStyleSet), typeof(On), new ManuelaStyleSet());
+        "ManuelaStyleSet", typeof(ResponsiveStyle), typeof(On), null);
 
     public static BindableProperty AllProperty = BindableProperty.CreateAttached(
         "All", typeof(ManuelaStyle), typeof(On), null, propertyChanged: GetBreakpointStyleChangedDelegate(BreakPoint.all));
@@ -49,20 +38,6 @@ public class On
     public static ManuelaStyle GetXxl(BindableObject view) => (ManuelaStyle)view.GetValue(XxlProperty);
     public static void SetXxl(BindableObject view, ManuelaStyle value) => view.SetValue(XxlProperty, value);
 
-    #endregion
-
-    public static BreakPoint GetBreakpoint(double width)
-    {
-        var breakPoint = BreakPoint.all;
-
-        if (width >= Screens[1]) breakPoint = BreakPoint.md;
-        if (width >= Screens[2]) breakPoint = BreakPoint.lg;
-        if (width >= Screens[3]) breakPoint = BreakPoint.xl;
-        if (width >= Screens[4]) breakPoint = BreakPoint.xxl;
-
-        return breakPoint;
-    }
-
     private static BindableProperty.BindingPropertyChangedDelegate GetBreakpointStyleChangedDelegate(BreakPoint p)
     {
         return (BindableObject bindable, object? oldValue, object? newValue) =>
@@ -70,14 +45,18 @@ public class On
             if (newValue is null) return;
             var newStyle = (ManuelaStyle)newValue;
 
-            var styleSet = (ManuelaStyleSet)bindable.GetValue(ManuelaStyleSetProperty);
+            var styleSet = (ResponsiveStyle?)bindable.GetValue(ManuelaStyleSetProperty);
+            styleSet ??= new();
 
             if (!styleSet.IsInitialized)
             {
-                styleSet.BindableObject = bindable;
-                bindable.PropertyChanging += OnBindablePropertyChanging;
-                bindable.PropertyChanged += OnBindablePropertyChanged;
-                styleSet.IsInitialized = true;
+                styleSet.Initialize(bindable);
+
+                if (bindable is VisualElement ve && ve.Window is not null)
+                {
+                    // when the window is already set, we need to apply the style now.
+                    //styleSet.Apply(ResponsiveStyle.GetBreakpoint(ve.Width));
+                }
             }
 
             switch (p)
@@ -88,44 +67,10 @@ public class On
                 case BreakPoint.lg: styleSet.Lg = newStyle; break;
                 case BreakPoint.xl: styleSet.Xl = newStyle; break;
                 case BreakPoint.xxl: styleSet.Xxl = newStyle; break;
-                case BreakPoint.unknown: default: break;
+                default: break;
             }
 
             bindable.SetValue(ManuelaStyleSetProperty, styleSet);
         };
-    }
-
-    private static void OnBindablePropertyChanging(object sender, PropertyChangingEventArgs e)
-    {
-        if (e.PropertyName != nameof(VisualElement.Window) || sender is not VisualElement ve) return;
-
-        if (ve.Window is not null)
-        {
-            ve.Window.SizeChanged -= OnWindowSizeChanged;
-        }
-    }
-
-    private static void OnBindablePropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
-    {
-        if (e.PropertyName != nameof(VisualElement.Window) || sender is not VisualElement ve) return;
-
-        if (ve.Window is not null)
-        {
-            ve.Window.SizeChanged += OnWindowSizeChanged;
-        }
-    }
-
-    private static void OnWindowSizeChanged(object? sender, EventArgs e)
-    {
-        var window = (Window?)sender;
-        if (window is null) return;
-
-        var p = GetBreakpoint(window.Width);
-        var styleSet = (ManuelaStyleSet)window.GetValue(ManuelaStyleSetProperty);
-
-        if (styleSet.ActiveBreakPoint == p || styleSet.BindableObject is null) return;
-
-        styleSet.ActiveBreakPoint = p;
-        styleSet.Apply(p, styleSet.BindableObject);
     }
 }
