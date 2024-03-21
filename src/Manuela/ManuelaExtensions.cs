@@ -46,4 +46,3 @@ public static class ManuelaExtensions
         return builder;
     }
 }
-

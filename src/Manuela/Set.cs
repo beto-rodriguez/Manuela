@@ -49,3 +49,16 @@ public class Set
     public double ScaleX { set => Setters[ManuelaProperty.ScaleX] = value; }
     public double ScaleY { set => Setters[ManuelaProperty.ScaleY] = value; }
 }
+
+public class SetExtension : Set, IMarkupExtension<Set>
+{
+    public Set ProvideValue(IServiceProvider serviceProvider)
+    {
+        return this;
+    }
+
+    object IMarkupExtension.ProvideValue(IServiceProvider serviceProvider)
+    {
+        return ProvideValue(serviceProvider);
+    }
+}

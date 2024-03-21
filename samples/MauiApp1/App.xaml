@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:m="clr-namespace:Manuela;assembly=Manuela"
              xmlns:local="clr-namespace:MauiApp1"
-             x:Class="MauiApp1.App">
+             x:Class="MauiApp1.App"
+             x:DataType="local:App">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -20,15 +21,20 @@
             </m:AppPage.Resources>
 
             <StackLayout Padding="50" BackgroundColor="White">
-                <Label Text="GELLO"/>
+                <Label Text="{Binding Condition.Name}"/>
 
-                <Button
-                    Text="Main"
-                    m:Router.Link="MainView">
-                    <m:On.All>
-                        <m:Set BorderRadius="40" Rotation="50" />
-                    </m:On.All>
-                </Button>
+                <Entry
+                    m:Router.Link="MainView"
+                    m:On.Lg="{m:Set Background=Primary}">
+                    <m:If.IsTrue>
+                        <m:ConditionalSet
+                            Condition="{Binding Condition}"
+                            Set="{m:Set Background=Secondary}"/>
+                    </m:If.IsTrue>
+                </Entry>
+
+                <Entry />
+
                 <m:AppBody>
                     <local:MainView/>
                 </m:AppBody>
