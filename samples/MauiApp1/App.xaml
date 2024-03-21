@@ -21,16 +21,16 @@
             </m:AppPage.Resources>
 
             <StackLayout Padding="50" BackgroundColor="White">
-                <Label Text="{Binding Condition.Name}"/>
+                <Button Text="main" m:Router.Link="MainView"/>
 
                 <Entry
-                    m:Router.Link="MainView"
                     m:On.Lg="{m:Set Background=Primary}">
-                    <m:If.IsTrue>
+                    <m:On.State>
                         <m:ConditionalSet
-                            Condition="{Binding Condition}"
-                            Set="{m:Set Background=Secondary}"/>
-                    </m:If.IsTrue>
+                            x:Key="focused"
+                            Condition="{Binding IsVisualFocused}"
+                            Set="{m:Set Background=Secondary}" />
+                    </m:On.State>
                 </Entry>
 
                 <Entry />

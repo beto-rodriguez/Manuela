@@ -62,3 +62,22 @@ public class SetExtension : Set, IMarkupExtension<Set>
         return ProvideValue(serviceProvider);
     }
 }
+
+[ContentProperty(nameof(Condition))]
+public class SetIfExtension : Set, IMarkupExtension<ConditionalSet>
+{
+    public BindingBase? Condition { get; set; }
+
+    public ConditionalSet ProvideValue(IServiceProvider serviceProvider)
+    {
+        var conditionalSet = new ConditionalSet { Set = this };
+        conditionalSet.SetBinding(ConditionalSet.ConditionProperty, Condition);
+
+        return conditionalSet;
+    }
+
+    object IMarkupExtension.ProvideValue(IServiceProvider serviceProvider)
+    {
+        return ProvideValue(serviceProvider);
+    }
+}

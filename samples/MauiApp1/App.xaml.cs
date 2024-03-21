@@ -10,7 +10,7 @@ public partial class App : Application
         InitializeComponent();
     }
 
-    public Manuela.Condition Condition => new Manuela.Condition
+    public Manuela.Condition IsVisualFocused => new()
     {
         Predicate = v => v.IsFocused,
         Triggers = v =>

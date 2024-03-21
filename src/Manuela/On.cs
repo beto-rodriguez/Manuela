@@ -3,43 +3,11 @@ using Manuela.Theming;
 
 namespace Manuela;
 
-public class If
-{
-#pragma warning disable CA2211 // Non-constant fields should not be visible
-    public static BindableProperty IsTrueProperty = BindableProperty.CreateAttached(
-        "IsTrue", typeof(ConditionalSet), typeof(If), null, propertyChanged: OnIsTrueChanged);
-#pragma warning restore CA2211 // Non-constant fields should not be visible
-
-    public static ConditionalSet GetIsTrue(BindableObject view) => (ConditionalSet)view.GetValue(IsTrueProperty);
-    public static void SetIsTrue(BindableObject view, ConditionalSet value) => view.SetValue(IsTrueProperty, value);
-
-    public static void OnIsTrueChanged(BindableObject bindable, object? oldValue, object? newValue)
-    {
-        if (newValue is null || bindable is not VisualElement ve) return;
-
-        var conditionalSet = (ConditionalSet)newValue;
-
-        conditionalSet.PropertyChanged += (sender, e) =>
-        {
-            if (e.PropertyName == nameof(ConditionalSet.Condition))
-            {
-                if (!conditionalSet.IsInitialized)
-                {
-                    var a = ve.BindingContext;
-                    conditionalSet.Initialize(ve);
-                }
-            }
-        };
-
-        ve.AddLogicalChild(conditionalSet);
-    }
-}
-
 public class ConditionalSet : Element
 {
 #pragma warning disable CA2211 // Non-constant fields should not be visible
     public static BindableProperty ConditionProperty = BindableProperty.Create(
-        nameof(Condition), typeof(Condition), typeof(ConditionalSet), null, propertyChanged: OnConditionalPropertyChanged);
+        nameof(Condition), typeof(Condition), typeof(ConditionalSet), null);
 #pragma warning restore CA2211 // Non-constant fields should not be visible
 
     public Set Set { get; set; }
@@ -106,11 +74,6 @@ public class ConditionalSet : Element
         }
 
         IsInitialized = true;
-    }
-
-    public static void OnConditionalPropertyChanged(BindableObject bindable, object? oldValue, object? newValue)
-    {
-        var changed = true;
     }
 }
 
@@ -402,7 +365,6 @@ public static class ManuelaThings
 
 public class Condition
 {
-    public string Name { get; set; } = "Hi from conditional set";
     public Func<VisualElement, bool> Predicate { get; set; }
     public Func<VisualElement, ConditionUpdateTrigger[]> Triggers { get; set; }
 }
@@ -431,6 +393,9 @@ public class On
         "Xl", typeof(Set), typeof(On), null, propertyChanged: GetBreakpointStyleChangedDelegate(BreakPoint.xl));
     public static BindableProperty XxlProperty = BindableProperty.CreateAttached(
         "Xxl", typeof(Set), typeof(On), null, propertyChanged: GetBreakpointStyleChangedDelegate(BreakPoint.xxl));
+
+    public static BindableProperty StateProperty = BindableProperty.CreateAttached(
+        "State", typeof(ConditionalSet), typeof(On), null, propertyChanged: OnStateChanged);
 #pragma warning restore CA2211 // Non-constant fields should not be visible
 
     public static Set GetAllScreens(BindableObject view) => (Set)view.GetValue(AllScreensProperty);
@@ -450,6 +415,26 @@ public class On
 
     public static Set GetXxl(BindableObject view) => (Set)view.GetValue(XxlProperty);
     public static void SetXxl(BindableObject view, Set value) => view.SetValue(XxlProperty, value);
+
+    public static ConditionalSet GetState(BindableObject view) => (ConditionalSet)view.GetValue(StateProperty);
+    public static void SetState(BindableObject view, ConditionalSet value) => view.SetValue(StateProperty, value);
+
+    public static void OnStateChanged(BindableObject bindable, object? oldValue, object? newValue)
+    {
+        if (newValue is null || bindable is not VisualElement ve) return;
+
+        var conditionalSet = (ConditionalSet)newValue;
+
+        conditionalSet.PropertyChanged += (sender, e) =>
+        {
+            if (conditionalSet.Condition is null || conditionalSet.IsInitialized) return;
+
+            var a = ve.BindingContext;
+            conditionalSet.Initialize(ve);
+        };
+
+        ve.AddLogicalChild(conditionalSet);
+    }
 
     private static BindableProperty.BindingPropertyChangedDelegate GetBreakpointStyleChangedDelegate(BreakPoint p)
     {
