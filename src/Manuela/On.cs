@@ -3,14 +3,14 @@ using Manuela.Theming;
 
 namespace Manuela;
 
-public class ConditionalSet : Element
+public class SetIf : Element
 {
 #pragma warning disable CA2211 // Non-constant fields should not be visible
     public static BindableProperty ConditionProperty = BindableProperty.Create(
-        nameof(Condition), typeof(Condition), typeof(ConditionalSet), null);
+        nameof(Condition), typeof(Condition), typeof(StatesCollection), null);
 #pragma warning restore CA2211 // Non-constant fields should not be visible
 
-    public Set Set { get; set; }
+    public Set Setters { get; set; }
 
     public Condition? Condition
     {
@@ -18,14 +18,13 @@ public class ConditionalSet : Element
         set => SetValue(ConditionProperty, value);
     }
 
-    public VisualElement? BindableObject { get; private set; }
-
-    public bool IsInitialized { get; private set; }
+    // Note #1
+    // initialization must be per bindable.
+    // to avoid a possible issue when a resource is shared using x:StaticResource.
+    public HashSet<VisualElement> IsInitialized { get; } = [];
 
     public void Initialize(VisualElement bindable)
     {
-        BindableObject = bindable;
-
         if (bindable is VisualElement ve)
         {
             var triggers = Condition?.Triggers(ve) ?? [];
@@ -38,44 +37,55 @@ public class ConditionalSet : Element
                         return;
 
                     // at this point, the target property changed and the condition was met
-                    foreach (var property in Set.Setters.Keys)
-                    {
-                        var bindableProperty = ManuelaThings.GetBindableProperty(BindableObject, property);
-
-                        if (bindableProperty is null)
-                        {
-#if DEBUG
-                            Trace.WriteLine($"Property {property} is not supported on {bindable.GetType().Name}");
-#endif
-                            continue;
-                        }
-
-                        if (Condition?.Predicate(ve) == true)
-                        {
-                            if (!Set.Setters.TryGetValue(property, out var value)) continue;
-                            value = ManuelaThings.TryConvert(BindableObject, property, value);
-                            bindable.SetValue(bindableProperty, value);
-                        }
-                        else
-                        {
-                            var responsiveStyle = (ResponsiveStyle?)bindable.GetValue(On.ResponsiveStyleProperty);
-                            if (responsiveStyle is null)
-                            {
-                                bindable.ClearValue(bindableProperty);
-                            }
-                            else
-                            {
-                                responsiveStyle.Apply(responsiveStyle.ActiveBreakPoint);
-                            }
-                        }
-                    }
+                    Apply(bindable);
                 };
             }
         }
 
-        IsInitialized = true;
+        _ = IsInitialized.Add(bindable);
+        Apply(bindable);
+    }
+
+    public void Apply(BindableObject? bindable)
+    {
+        if (bindable is null || !IsInitialized.Contains(bindable) || bindable is not VisualElement ve) return;
+
+        foreach (var property in Setters.Setters.Keys)
+        {
+            var bindableProperty = ManuelaThings.GetBindableProperty(bindable, property);
+
+            if (bindableProperty is null)
+            {
+#if DEBUG
+                Trace.WriteLine($"Property {property} is not supported on {bindable.GetType().Name}");
+#endif
+                continue;
+            }
+
+            if (Condition?.Predicate(ve) == true)
+            {
+                if (!Setters.Setters.TryGetValue(property, out var value)) continue;
+                value = ManuelaThings.TryConvert(bindable, property, value);
+                bindable.SetValue(bindableProperty, value);
+            }
+            else
+            {
+                var responsiveStyle = (ResponsiveStyle?)bindable.GetValue(On.ResponsiveStyleProperty);
+                if (responsiveStyle is null)
+                {
+                    bindable.ClearValue(bindableProperty);
+                }
+                else
+                {
+                    responsiveStyle.Apply(responsiveStyle.ActiveBreakPoint);
+                }
+            }
+        }
     }
 }
+
+public class StatesCollection : List<SetIf>
+{ }
 
 public static class ManuelaThings
 {
@@ -394,8 +404,8 @@ public class On
     public static BindableProperty XxlProperty = BindableProperty.CreateAttached(
         "Xxl", typeof(Set), typeof(On), null, propertyChanged: GetBreakpointStyleChangedDelegate(BreakPoint.xxl));
 
-    public static BindableProperty StateProperty = BindableProperty.CreateAttached(
-        "State", typeof(ConditionalSet), typeof(On), null, propertyChanged: OnStateChanged);
+    public static BindableProperty ConditionalStatesProperty = BindableProperty.CreateAttached(
+        "ConditionalStates", typeof(StatesCollection), typeof(On), null, propertyChanged: OnStateChanged);
 #pragma warning restore CA2211 // Non-constant fields should not be visible
 
     public static Set GetAllScreens(BindableObject view) => (Set)view.GetValue(AllScreensProperty);
@@ -416,24 +426,27 @@ public class On
     public static Set GetXxl(BindableObject view) => (Set)view.GetValue(XxlProperty);
     public static void SetXxl(BindableObject view, Set value) => view.SetValue(XxlProperty, value);
 
-    public static ConditionalSet GetState(BindableObject view) => (ConditionalSet)view.GetValue(StateProperty);
-    public static void SetState(BindableObject view, ConditionalSet value) => view.SetValue(StateProperty, value);
+    public static StatesCollection GetConditionalStates(BindableObject view) => (StatesCollection)view.GetValue(ConditionalStatesProperty);
+    public static void SetConditionalStates(BindableObject view, StatesCollection value) => view.SetValue(ConditionalStatesProperty, value);
 
     public static void OnStateChanged(BindableObject bindable, object? oldValue, object? newValue)
     {
         if (newValue is null || bindable is not VisualElement ve) return;
 
-        var conditionalSet = (ConditionalSet)newValue;
+        var statesCollection = (StatesCollection?)newValue ?? [];
 
-        conditionalSet.PropertyChanged += (sender, e) =>
+        foreach (var conditionalSet in statesCollection)
         {
-            if (conditionalSet.Condition is null || conditionalSet.IsInitialized) return;
+            conditionalSet.PropertyChanged += (sender, e) =>
+            {
+                if (conditionalSet.Condition is null || conditionalSet.IsInitialized.Contains(bindable)) return;
 
-            var a = ve.BindingContext;
-            conditionalSet.Initialize(ve);
-        };
+                var a = ve.BindingContext;
+                conditionalSet.Initialize(ve);
+            };
 
-        ve.AddLogicalChild(conditionalSet);
+            ve.AddLogicalChild(conditionalSet);
+        }
     }
 
     private static BindableProperty.BindingPropertyChangedDelegate GetBreakpointStyleChangedDelegate(BreakPoint p)

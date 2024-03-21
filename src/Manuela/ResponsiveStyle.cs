@@ -16,6 +16,11 @@ public class ResponsiveStyle
     public static object Unset { get; } = new();
     public BreakPoint ActiveBreakPoint { get; private set; }
     public BindableObject? BindableObject { get; private set; }
+
+    // Based on Note #1
+    // in this case initialization could be shared between instances
+    // because we are subscribing to the VisualElement.Window.SizeChanged event
+    // in theory the window instance is the same for both?
     public bool IsInitialized { get; private set; }
     public ManuelaStyle? All { get; set; }
     public ManuelaStyle? Sm { get; set; }

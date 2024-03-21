@@ -18,4 +18,13 @@ public partial class App : Application
             new ConditionUpdateTrigger(v, [nameof(VisualElement.IsFocused)])
         ]
     };
+
+    public Manuela.Condition IsVisualDisabled => new()
+    {
+        Predicate = v => !v.IsEnabled,
+        Triggers = v =>
+        [
+            new ConditionUpdateTrigger(v, [nameof(VisualElement.IsEnabled)])
+        ]
+    };
 }
