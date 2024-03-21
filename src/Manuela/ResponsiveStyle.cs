@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-
 namespace Manuela;
 
 public class ResponsiveStyle
@@ -15,7 +14,7 @@ public class ResponsiveStyle
 
     public static object Unset { get; } = new();
     public BreakPoint ActiveBreakPoint { get; private set; }
-    public BindableObject? BindableObject { get; private set; }
+    public VisualElement? VisualElement { get; private set; }
 
     // Based on Note #1
     // in this case initialization could be shared between instances
@@ -33,8 +32,8 @@ public class ResponsiveStyle
     {
         if (!IsInitialized) return;
 
-        var bindable = BindableObject;
-        if (bindable is null) return;
+        var visual = VisualElement;
+        if (visual is null) return;
 
         var hashSet = new HashSet<ManuelaProperty>();
 
@@ -45,42 +44,53 @@ public class ResponsiveStyle
             .Concat(Xl?.Keys ?? Enumerable.Empty<ManuelaProperty>())
             .Concat(Xxl?.Keys ?? Enumerable.Empty<ManuelaProperty>());
 
+        var states = (StatesCollection?)visual.GetValue(On.ConditionalStatesProperty);
+
+        ActiveBreakPoint = p;
+
         foreach (var property in query)
         {
+            // if the property was already evaluated, skip it
             if (hashSet.Contains(property)) continue;
 
-            var bindableProperty = ManuelaThings.GetBindableProperty(BindableObject, property);
+            var bindableProperty = ManuelaThings.GetBindableProperty(VisualElement, property);
 
             if (bindableProperty is null)
             {
 #if DEBUG
-                Trace.WriteLine($"Property {property} is not supported on {bindable.GetType().Name}");
+                Trace.WriteLine($"Property {property} is not supported on {visual.GetType().Name}");
 #endif
                 continue;
             }
 
-            var value = Get(property, p);
+            var stateApplied = states?.ApplyFirstPropertyMet(visual, property, bindableProperty) ?? false;
 
-            if (value == Unset)
-            {
-                bindable.ClearValue(bindableProperty);
-            }
-            else
-            {
-                bindable.SetValue(bindableProperty, value);
-            }
+            if (!stateApplied)
+                ApplyProperty(visual, property, bindableProperty);
 
             _ = hashSet.Add(property);
         }
-
-        ActiveBreakPoint = p;
     }
 
-    public void Initialize(BindableObject bindable)
+    public void ApplyProperty(VisualElement visual, ManuelaProperty property, BindableProperty bindableProperty)
     {
-        BindableObject = bindable;
-        bindable.PropertyChanging += OnBindablePropertyChanging;
-        bindable.PropertyChanged += OnBindablePropertyChanged;
+        var value = Get(property);
+
+        if (value == Unset)
+        {
+            visual.ClearValue(bindableProperty);
+        }
+        else
+        {
+            visual.SetValue(bindableProperty, value);
+        }
+    }
+
+    public void Initialize(VisualElement visual)
+    {
+        VisualElement = visual;
+        visual.PropertyChanging += OnBindablePropertyChanging;
+        visual.PropertyChanged += OnBindablePropertyChanged;
         IsInitialized = true;
     }
 
@@ -107,14 +117,14 @@ public class ResponsiveStyle
     private void OnWindowSizeChanged(object? sender, EventArgs e)
     {
         var window = (Window?)sender;
-        if (window is null || BindableObject is null) return;
+        if (window is null || VisualElement is null) return;
 
         var p = GetBreakpoint(window.Width);
-        var styleSet = (ResponsiveStyle)BindableObject.GetValue(On.ResponsiveStyleProperty);
+        var responsiveStyle = (ResponsiveStyle)VisualElement.GetValue(On.ResponsiveStyleProperty);
 
-        if (styleSet.ActiveBreakPoint == p || styleSet.BindableObject is null) return;
+        if (responsiveStyle.ActiveBreakPoint == p || responsiveStyle.VisualElement is null) return;
 
-        styleSet.Apply(p);
+        responsiveStyle.Apply(p);
     }
 
     public static BreakPoint GetBreakpoint(double width)
@@ -129,8 +139,10 @@ public class ResponsiveStyle
         return breakPoint;
     }
 
-    private object? Get(ManuelaProperty property, BreakPoint p)
+    private object? Get(ManuelaProperty property)
     {
+        var p = ActiveBreakPoint;
+
         var value = Unset;
 
         if (All?.TryGetValue(property, out var all) ?? false) value = all;
@@ -141,8 +153,8 @@ public class ResponsiveStyle
         if (p >= BreakPoint.xl && (Xl?.TryGetValue(property, out var xl) ?? false)) value = xl;
         if (p >= BreakPoint.xxl && (Xxl?.TryGetValue(property, out var xxl) ?? false)) value = xxl;
 
-        if (value == Unset || BindableObject is null) return value;
+        if (value == Unset || VisualElement is null) return value;
 
-        return ManuelaThings.TryConvert(BindableObject, property, value);
+        return ManuelaThings.TryConvert(VisualElement, property, value);
     }
 }

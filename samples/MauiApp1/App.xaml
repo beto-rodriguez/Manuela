@@ -18,13 +18,12 @@
 
             <m:AppPage.Resources>
                 <m:StatesCollection x:Key="states">
-                    <m:SetIf Condition="{Binding IsVisualFocused}" Setters="{m:Set Background=Tertiary}" />
-                    <m:SetIf Condition="{Binding IsVisualDisabled}" Setters="{m:Set Background=Gray}" />
+                    <m:StyleIf Condition="{Binding IsVisualFocused}" Style="{m:Style Background=Tertiary}" />
+                    <m:StyleIf Condition="{Binding IsVisualDisabled}" Style="{m:Style Background=Gray}" />
                 </m:StatesCollection>
 
-                <m:Set x:Key="set" Background="Primary"/>
-                <m:Set x:Key="set2" Background="Secondary"/>
-
+                <m:Style x:Key="set" Background="Primary"/>
+                <m:Style  x:Key="set2" Background="Secondary"/>
             </m:AppPage.Resources>
 
             <StackLayout Padding="50" BackgroundColor="White">
@@ -43,7 +42,8 @@
 
                 <Entry
                     m:On.Lg="{x:StaticResource set}"
-                    m:On.Xxl="{x:StaticResource set2}"/>
+                    m:On.Xxl="{x:StaticResource set2}"
+                    m:On.ConditionalStates="{x:StaticResource states}"/>
 
                 <m:AppBody>
                     <local:MainView/>

@@ -2,7 +2,7 @@
 
 namespace Manuela;
 
-public class Set
+public class Style
 {
     public ManuelaStyle Setters { get; } = [];
 
@@ -50,9 +50,9 @@ public class Set
     public double ScaleY { set => Setters[ManuelaProperty.ScaleY] = value; }
 }
 
-public class SetExtension : Set, IMarkupExtension<Set>
+public class StyleExtension : Style, IMarkupExtension<Style>
 {
-    public Set ProvideValue(IServiceProvider serviceProvider)
+    public Style ProvideValue(IServiceProvider serviceProvider)
     {
         return this;
     }
