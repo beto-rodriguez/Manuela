@@ -1,4 +1,5 @@
 ﻿using System.Collections.Immutable;
+using System.Runtime.InteropServices;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -53,8 +54,7 @@ public class Generator : IIncrementalGenerator
         var map = new TriggersMap(
             propertyDeclarationSymbol.ContainingType.Name,
             propertyDeclarationSymbol.ContainingNamespace.ToDisplayString(),
-            propertyDeclarationSymbol.Name,
-            result.LambdaParameterName);
+            propertyDeclarationSymbol.Name);
 
         var referenceOperations = context.SemanticModel.GetOperation(result.RootNode)
             .Descendants()
@@ -67,7 +67,7 @@ public class Generator : IIncrementalGenerator
         foreach (var referenceOperation in referenceOperations)
         {
             var memberName = referenceOperation.Member.Name;
-            var parentMemberName = referenceOperation.Instance?.Syntax.ToString() ?? "this";
+            var parentMemberName = GetParentMemberName(referenceOperation, result.LambdaParameterName);
 
             var isContainedInNpc = referenceOperation.Member.ContainingType?.AllInterfaces
                 .Any(x => SymbolEqualityComparer.Default.Equals(x, s_npcSymbol)) ?? false;
@@ -100,6 +100,17 @@ public class Generator : IIncrementalGenerator
 
             TriggerTemplate.Generate(context, mapGroup);
         }
+    }
+
+    private static string GetParentMemberName(
+        IMemberReferenceOperation referenceOperation, string lambdaParameterName)
+    {
+        var instanceSyntax = referenceOperation.Instance?.Syntax;
+
+        var replacer = new ReplaceClosureToVISUAL_ELEMENT_NAME(lambdaParameterName);
+        var newSyntax = replacer.Visit(instanceSyntax);
+
+        return newSyntax?.ToString() ?? "this";
     }
 
     private static RootResult GetXamlConditionExpression(PropertyDeclarationSyntax propertyDeclaration)

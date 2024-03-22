@@ -91,6 +91,17 @@ public class StyleIf : Element
     }
 }
 
+public class LargeScreen : StyleIf
+{
+    public LargeScreen()
+    {
+        Condition = new XamlCondition(visualElement => visualElement.Window?.Width > 1024)
+        {
+            Triggers = v => [new(v, [nameof(v.Window.Width)])]
+        };
+    }
+}
+
 public class FocusedState : StyleIf
 {
     public FocusedState()

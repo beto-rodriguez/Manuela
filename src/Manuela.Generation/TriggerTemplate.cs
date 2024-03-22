@@ -5,6 +5,8 @@ namespace Manuela.Generation;
 
 public class TriggerTemplate
 {
+    public const string VISUAL_ELEMENT_NAME = "visual";
+
     public static void Generate(SourceProductionContext context, IGrouping<string, TriggersMap?> maps)
     {
         var first = maps.FirstOrDefault();
@@ -38,26 +40,27 @@ public partial class {first.ContainingTypeName}
 
             _ = sb.Append("        ");
             _ = sb.Append(triggeredProperty.PropertyName);
-            _ = sb.Append(".Triggers = v =>");
+            _ = sb.Append(".Triggers = ");
+            _ = sb.Append(VISUAL_ELEMENT_NAME);
+            _ = sb.Append(" =>");
             _ = sb.Append("\r\n        [");
 
             var notifierCount = 0;
             foreach (var notifier in triggeredProperty.PropertiesByNotifier)
             {
                 var notifierName = notifier.Key;
-                if (notifier.Value.IsLambdaParameter) notifierName = "v";
 
                 _ = sb.Append("\r\n            new(");
                 _ = sb.Append(notifierName.PadRight(30));
                 _ = sb.Append(", [");
 
                 var depCount = 0;
-                foreach (var dependentProperty in notifier.Value.DependentProperties)
+                foreach (var dependentProperty in notifier.Value)
                 {
                     _ = sb.Append("\"");
                     _ = sb.Append(dependentProperty);
                     _ = sb.Append("\"");
-                    if (depCount < notifier.Value.DependentProperties.Count - 1) _ = sb.Append(", ");
+                    if (depCount < notifier.Value.Count - 1) _ = sb.Append(", ");
 
                     depCount++;
                 }

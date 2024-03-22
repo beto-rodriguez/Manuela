@@ -15,15 +15,19 @@ public partial class App : Application
         InitializeTriggers();
     }
 
-    public XamlCondition IsVisualFocused { get; } =
+    public XamlCondition HasText { get; } =
+        new(visualElement => ((Entry)visualElement).Text?.Length > 5);
+
+    public XamlCondition IsFocused { get; } =
         new(visualElement => visualElement.IsFocused);
 
-    public XamlCondition IsVisualDisabled { get; } =
-        new(visualElement =>
-        {
-            return !visualElement.IsEnabled;
-        });
+    public XamlCondition IsValid2 { get; } =
+        new(visualElement => IsValid);
+
+    public XamlCondition IsThisThing { get; } =
+        new(visualElement => ThisThing.MyProperty > 0);
 }
+
 
 public class ThisThing : INotifyPropertyChanged
 {

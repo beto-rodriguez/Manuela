@@ -16,38 +16,22 @@
     <Application.MainPage>
         <m:AppPage>
 
-            <m:AppPage.Resources>
-                <m:StatesCollection x:Key="states">
-                    <m:FocusedState>
-                        <m:Style Background="Tertiary"/>
-                    </m:FocusedState>
-                    <m:DisabledState>
-                        <m:Style Background="Gray,Swatch300" />
-                    </m:DisabledState>
-                </m:StatesCollection>
-
-                <m:Style x:Key="set" Background="Primary"/>
-                <m:Style x:Key="set2" Background="Secondary"/>
-            </m:AppPage.Resources>
 
             <StackLayout Padding="50" BackgroundColor="White">
                 <Button Text="main" m:Router.Link="MainView"/>
 
-                <Entry
-                    m:On.Lg="{x:StaticResource set}"
-                    m:On.Xxl="{x:StaticResource set2}"
-                    m:On.ConditionalStates="{x:StaticResource states}"/>
+                <Entry>
+                    <m:On.ConditionalStates>
+                        <m:StatesCollection>
+                            <m:FocusedState Style="{m:Style Background=Tertiary}"/>
+                            <m:StyleIf Condition="{Binding HasText}" Style="{m:Style TextColor=Primary}"/>
+                        </m:StatesCollection>
+                    </m:On.ConditionalStates>
+                </Entry>
 
-                <Entry
-                    IsEnabled="False"
-                    m:On.Lg="{x:StaticResource set}"
-                    m:On.Xxl="{x:StaticResource set2}"
-                    m:On.ConditionalStates="{x:StaticResource states}"/>
+                <Entry/>
 
-                <Entry
-                    m:On.Lg="{x:StaticResource set}"
-                    m:On.Xxl="{x:StaticResource set2}"
-                    m:On.ConditionalStates="{x:StaticResource states}"/>
+                <Entry/>
 
                 <m:AppBody>
                     <local:MainView/>
