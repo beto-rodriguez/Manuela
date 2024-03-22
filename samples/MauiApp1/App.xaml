@@ -18,12 +18,16 @@
 
             <m:AppPage.Resources>
                 <m:StatesCollection x:Key="states">
-                    <m:StyleIf Condition="{Binding IsVisualFocused}" Style="{m:Style Background=Tertiary}" />
-                    <m:StyleIf Condition="{Binding IsVisualDisabled}" Style="{m:Style Background=Gray}" />
+                    <m:FocusedState>
+                        <m:Style Background="Tertiary"/>
+                    </m:FocusedState>
+                    <m:DisabledState>
+                        <m:Style Background="Gray,Swatch300" />
+                    </m:DisabledState>
                 </m:StatesCollection>
 
                 <m:Style x:Key="set" Background="Primary"/>
-                <m:Style  x:Key="set2" Background="Secondary"/>
+                <m:Style x:Key="set2" Background="Secondary"/>
             </m:AppPage.Resources>
 
             <StackLayout Padding="50" BackgroundColor="White">

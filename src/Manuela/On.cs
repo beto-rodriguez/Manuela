@@ -1,17 +1,5 @@
 ﻿namespace Manuela;
 
-public class Condition
-{
-    public Func<VisualElement, bool> Predicate { get; set; }
-    public Func<VisualElement, ConditionUpdateTrigger[]> Triggers { get; set; }
-}
-
-public class ConditionUpdateTrigger(BindableObject bindable, HashSet<string> properties)
-{
-    public BindableObject Target { get; } = bindable;
-    public HashSet<string> Properties { get; } = properties;
-}
-
 public class On
 {
 #pragma warning disable CA2211 // Non-constant fields should not be visible

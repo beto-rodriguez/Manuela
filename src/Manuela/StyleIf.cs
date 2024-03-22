@@ -1,20 +1,21 @@
 ﻿using System.Diagnostics;
-using Microsoft.Maui.Controls;
+using Manuela.Expressions;
 
 namespace Manuela;
 
+[ContentProperty(nameof(Style))]
 public class StyleIf : Element
 {
 #pragma warning disable CA2211 // Non-constant fields should not be visible
     public static BindableProperty ConditionProperty = BindableProperty.Create(
-        nameof(Condition), typeof(Condition), typeof(StatesCollection), null);
+        nameof(Condition), typeof(XamlCondition), typeof(StatesCollection), null);
 #pragma warning restore CA2211 // Non-constant fields should not be visible
 
     public Style Style { get; set; }
 
-    public Condition? Condition
+    public XamlCondition? Condition
     {
-        get => (Condition)GetValue(ConditionProperty);
+        get => (XamlCondition)GetValue(ConditionProperty);
         set => SetValue(ConditionProperty, value);
     }
 
@@ -25,11 +26,16 @@ public class StyleIf : Element
 
     public void Initialize(VisualElement visual)
     {
+        if (Condition?.Triggers is null)
+            throw new Exception(
+                "Manuela was not able to find the Expression triggers. " +
+                "Ensure the InitializeTriggers() method is called.");
+
         var triggers = Condition?.Triggers(visual) ?? [];
 
         foreach (var trigger in triggers)
         {
-            trigger.Target.PropertyChanged += (sender, e) =>
+            trigger.Notifier.PropertyChanged += (sender, e) =>
             {
                 if (e.PropertyName is null || !trigger.Properties.Contains(e.PropertyName))
                     return;
@@ -82,5 +88,28 @@ public class StyleIf : Element
         visual.SetValue(bindableProperty, value);
 
         return true;
+    }
+}
+
+public class FocusedState : StyleIf
+{
+    public FocusedState()
+    {
+        Condition = new XamlCondition(visualElement => visualElement.IsFocused)
+        {
+            Triggers = v => [new(v, [nameof(VisualElement.IsFocused)])]
+        };
+    }
+}
+
+
+public class DisabledState : StyleIf
+{
+    public DisabledState()
+    {
+        Condition = new XamlCondition(visualElement => !visualElement.IsEnabled)
+        {
+            Triggers = v => [new(v, [nameof(VisualElement.IsEnabled)])]
+        };
     }
 }
