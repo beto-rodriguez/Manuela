@@ -2,7 +2,7 @@
 
 namespace Manuela.Styling;
 
-public class Style
+public class SetExtension : IMarkupExtension<ManuelaSettersDictionary>
 {
     public ManuelaSettersDictionary Setters { get; } = [];
 
@@ -49,5 +49,15 @@ public class Style
     public double ScaleX { set => Setters[ManuelaProperty.ScaleX] = value; }
     public double ScaleY { set => Setters[ManuelaProperty.ScaleY] = value; }
 
-    public IList<Setter> AsMauiSetters(BindableObject bindable) => Setters.AsMauiSetters(bindable);
+    public Style Style { set => Setters[ManuelaProperty.Style] = value; }
+
+    public ManuelaSettersDictionary ProvideValue(IServiceProvider serviceProvider)
+    {
+        return Setters;
+    }
+
+    object IMarkupExtension.ProvideValue(IServiceProvider serviceProvider)
+    {
+        return ProvideValue(serviceProvider);
+    }
 }

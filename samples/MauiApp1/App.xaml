@@ -17,12 +17,16 @@
         <m:AppPage>
 
             <StackLayout Padding="50" BackgroundColor="White">
-
                 <Button>
+                    <Button.Resources>
+                        <Style x:Key="default" TargetType="Button">
+                            <Setter Property="Background" Value="Beige"/>
+                        </Style>
+                    </Button.Resources>
                     <m:Has.Styles>
                         <m:StylesCollection>
-                            <m:Normal Style="{m:Style Background=Primary}"/>
-                            <m:Hovered Style="{m:Style Background=Secondary}"/>
+                            <m:Normal Setters="{m:Set Style={x:StaticResource Key=default}}"/>
+                            <m:Hovered Setters="{m:Set Background=Secondary}" />
                         </m:StylesCollection>
                     </m:Has.Styles>
                 </Button>

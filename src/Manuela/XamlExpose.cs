@@ -63,7 +63,7 @@ public class Has
     }
 }
 
-public class StyleExtension : Styling.StyleExtension { }
+public class SetExtension : Styling.SetExtension { }
 
 public class StylesCollection : Styling.StylesCollection { }
 

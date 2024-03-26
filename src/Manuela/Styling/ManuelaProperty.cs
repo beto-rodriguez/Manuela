@@ -31,4 +31,6 @@ public enum ManuelaProperty
     Scale,
     ScaleX,
     ScaleY,
+
+    Style
 }

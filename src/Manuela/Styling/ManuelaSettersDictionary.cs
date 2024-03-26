@@ -1,6 +1,4 @@
-﻿using Manuela.Styling;
-
-namespace Manuela;
+﻿namespace Manuela.Styling;
 
 public class ManuelaSettersDictionary : Dictionary<ManuelaProperty, object?>
 {

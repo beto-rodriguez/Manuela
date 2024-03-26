@@ -14,7 +14,7 @@ public class Selected : ConditionalStyle
                 // Maybe Maui should add an attached property for this case???
 
                 var selectedState = new VisualState { Name = "Selected" };
-                foreach (var item in Style?.AsMauiSetters(v) ?? [])
+                foreach (var item in Setters?.AsMauiSetters(v) ?? [])
                     selectedState.Setters.Add(item);
 
                 v.SetValue(

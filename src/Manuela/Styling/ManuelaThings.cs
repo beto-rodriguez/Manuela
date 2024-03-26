@@ -149,7 +149,8 @@ public static class ManuelaThings
         { ManuelaProperty.RotationY, bindable => VisualElement.RotationYProperty },
         { ManuelaProperty.Scale, bindable => VisualElement.ScaleProperty },
         { ManuelaProperty.ScaleX, bindable => VisualElement.ScaleXProperty },
-        { ManuelaProperty.ScaleY, bindable => VisualElement.ScaleYProperty }
+        { ManuelaProperty.ScaleY, bindable => VisualElement.ScaleYProperty },
+        { ManuelaProperty.Style, bindable => VisualElement.StyleProperty }
     };
     private static readonly Dictionary<ManuelaProperty, Func<BindableObject, object?, object?>> s_converters = new()
     {

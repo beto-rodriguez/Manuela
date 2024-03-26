@@ -11,7 +11,7 @@ public class ConditionalStyle : Element
         nameof(Condition), typeof(XamlCondition), typeof(StylesCollection), null);
 #pragma warning restore CA2211 // Non-constant fields should not be visible
 
-    public Style? Style { get; set; }
+    public ManuelaSettersDictionary? Setters { get; set; }
 
     public XamlCondition? Condition
     {
@@ -50,7 +50,7 @@ public class ConditionalStyle : Element
     {
         if (visual is null || !IsInitialized.Contains(visual)) return;
 
-        var keys = Style?.Setters.Keys;
+        var keys = Setters?.Keys;
         if (keys is null) return;
 
         var allStates = (StylesCollection?)visual.GetValue(Has.StylesProperty);
@@ -82,7 +82,7 @@ public class ConditionalStyle : Element
 
     public bool ApplyPropertyIfMet(VisualElement visual, ManuelaProperty property, BindableProperty bindableProperty)
     {
-        if (Style is null || !Style.Setters.TryGetValue(property, out var value)) return false;
+        if (Setters is null || !Setters.TryGetValue(property, out var value)) return false;
         if (!Condition?.Predicate(visual) ?? false) return false;
 
         value = ManuelaThings.TryConvert(visual, property, value);
