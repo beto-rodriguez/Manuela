@@ -1,4 +1,4 @@
-﻿using Manuela;
+﻿using Manuela.AppRouting;
 using Microsoft.Extensions.Logging;
 
 namespace MauiApp1;
@@ -9,7 +9,7 @@ public static class MauiProgram
         var builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
-            .UseManuela([
+            .UseManuelaRouting([
                 new Route<MainView>(),
                 new Route<SecondView>()
             ])

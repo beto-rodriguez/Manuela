@@ -1,10 +1,10 @@
 ﻿using Microsoft.Maui.Handlers;
 
-namespace Manuela;
+namespace Manuela.AppRouting;
 
-public static class ManuelaExtensions
+public static class ManuelaRoutingExtensions
 {
-    public static MauiAppBuilder UseManuela(
+    public static MauiAppBuilder UseManuelaRouting(
         this MauiAppBuilder builder,
         Route[]? routes = null,
         bool addBorderlessPicker = true)
@@ -25,23 +25,21 @@ public static class ManuelaExtensions
         Routing.ServiceCollection = serviceCollection;
 
         if (addBorderlessPicker)
-        {
             PickerHandler.Mapper.AppendToMapping("borderless", (handler, picker) =>
             {
 #if ANDROID
-            handler.PlatformView.BackgroundTintList =
-                Android.Content.Res.ColorStateList.ValueOf(
-                    Microsoft.Maui.Controls.Compatibility.Platform.Android.ColorExtensions.ToAndroid(Colors.Transparent));
+                handler.PlatformView.BackgroundTintList =
+                    Android.Content.Res.ColorStateList.ValueOf(
+                        Microsoft.Maui.Controls.Compatibility.Platform.Android.ColorExtensions.ToAndroid(Colors.Transparent));
 #elif IOS && !MACCATALYST
-            handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
+                handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
 #elif MACCATALYST
-        // how?
+                // how?
 #elif WINDOWS
                 handler.PlatformView.BorderThickness = new Microsoft.UI.Xaml.Thickness(0);
                 handler.PlatformView.Style = null;
 #endif
             });
-        }
 
         return builder;
     }

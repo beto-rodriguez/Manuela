@@ -1,4 +1,4 @@
-﻿namespace Manuela;
+﻿namespace Manuela.AppRouting;
 
 public class Route(Type type, string? name = null, bool isSingleton = false)
 {

@@ -1,10 +1,10 @@
 ﻿using Manuela.Theming;
 
-namespace Manuela;
+namespace Manuela.Styling;
 
 public class Style
 {
-    public ManuelaStyle Setters { get; } = [];
+    public ManuelaSettersDictionary Setters { get; } = [];
 
     public Brush CustomBackground { set => Setters[ManuelaProperty.Background] = value; }
     public UIBrush Background { set => Setters[ManuelaProperty.Background] = value; }
@@ -49,18 +49,5 @@ public class Style
     public double ScaleX { set => Setters[ManuelaProperty.ScaleX] = value; }
     public double ScaleY { set => Setters[ManuelaProperty.ScaleY] = value; }
 
-    public IList<Setter> AsSetters(BindableObject bindable) => Setters.AsSetters(bindable);
-}
-
-public class StyleExtension : Style, IMarkupExtension<Style>
-{
-    public Style ProvideValue(IServiceProvider serviceProvider)
-    {
-        return this;
-    }
-
-    object IMarkupExtension.ProvideValue(IServiceProvider serviceProvider)
-    {
-        return ProvideValue(serviceProvider);
-    }
+    public IList<Setter> AsMauiSetters(BindableObject bindable) => Setters.AsMauiSetters(bindable);
 }

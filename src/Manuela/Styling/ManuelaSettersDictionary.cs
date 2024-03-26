@@ -1,8 +1,10 @@
-﻿namespace Manuela;
+﻿using Manuela.Styling;
 
-public class ManuelaStyle : Dictionary<ManuelaProperty, object?>
+namespace Manuela;
+
+public class ManuelaSettersDictionary : Dictionary<ManuelaProperty, object?>
 {
-    public IList<Setter> AsSetters(BindableObject bindable)
+    public IList<Setter> AsMauiSetters(BindableObject bindable)
     {
         var setters = new List<Setter>();
 

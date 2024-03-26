@@ -1,4 +1,4 @@
-﻿namespace Manuela;
+﻿namespace Manuela.Styling;
 
 public enum ManuelaProperty
 {

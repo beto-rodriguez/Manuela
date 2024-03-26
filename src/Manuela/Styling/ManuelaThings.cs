@@ -1,12 +1,17 @@
 ﻿using Manuela.Theming;
 
-namespace Manuela;
+namespace Manuela.Styling;
 
 public static class ManuelaThings
 {
     private static readonly Dictionary<ManuelaProperty, Func<BindableObject, BindableProperty?>> s_propertiesMap = new()
     {
-        { ManuelaProperty.Background, bindable => VisualElement.BackgroundProperty },
+        { ManuelaProperty.Background, bindable =>
+            {
+                if (bindable is CheckBox) return CheckBox.ColorProperty;
+                return VisualElement.BackgroundProperty;
+            }
+        },
         { ManuelaProperty.Margin, bindable => View.MarginProperty },
         { ManuelaProperty.Padding, bindable =>
             {
@@ -159,9 +164,7 @@ public static class ManuelaThings
         if (bindable is null) return null;
 
         if (s_propertiesMap.TryGetValue(property, out var getter))
-        {
             return getter(bindable);
-        }
 
         return null;
     }
@@ -169,9 +172,7 @@ public static class ManuelaThings
     public static object? TryConvert(BindableObject bindable, ManuelaProperty property, object? value)
     {
         if (s_converters.TryGetValue(property, out var converter))
-        {
             return converter(bindable, value);
-        }
 
         return value;
     }
@@ -182,6 +183,9 @@ public static class ManuelaThings
 
         // if the source is already a brush, return it
         if (source is Brush brush) return brush;
+
+        // exception for CheckBox....
+        if (bindable is CheckBox) return ColorConverter(bindable, source);
 
         // otherwise, convert the source to a brush
         var uiBrush = (UIBrush)source;

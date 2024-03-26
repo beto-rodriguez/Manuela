@@ -1,6 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 
-namespace Manuela;
+namespace Manuela.Controls;
 
 public class AppPage : ContentPage
 {
@@ -45,7 +45,6 @@ public class AppPage : ContentPage
         parent ??= Content;
 
         if (parent is Layout layout)
-        {
             foreach (var child in layout.Children)
             {
                 if (child is AppBody appBoddy)
@@ -57,7 +56,6 @@ public class AppPage : ContentPage
                 if (child is Layout cLayout) FindAppContent(cLayout);
                 if (_appBodyElement is not null) return;
             }
-        }
 
         if (_appBodyElement is null)
             throw new InvalidOperationException($"The {nameof(Body)} element was not found.");

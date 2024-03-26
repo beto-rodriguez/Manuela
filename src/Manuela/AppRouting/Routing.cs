@@ -1,4 +1,4 @@
-﻿namespace Manuela;
+﻿namespace Manuela.AppRouting;
 
 /// <summary>
 /// Defines the route map for the application.
@@ -33,6 +33,6 @@ public static class Routing
 
         Navigating?.Invoke(previousRoute);
 
-        AppPage.Current.Body = view;
+        Controls.AppPage.Current.Body = view;
     }
 }

@@ -1,6 +1,8 @@
-﻿namespace Manuela;
+﻿using Manuela.Styling.ConditionalStyles;
 
-public class StatesCollection : List<ConditionalStyle>
+namespace Manuela.Styling;
+
+public class StylesCollection : List<ConditionalStyle>
 {
     public bool ApplyPropertyIfMet(VisualElement visual, ManuelaProperty property, BindableProperty bindableProperty)
     {
