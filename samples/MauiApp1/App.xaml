@@ -10,24 +10,62 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+                <ResourceDictionary>
+                    <Style TargetType="Label">
+                        <Setter Property="Background" Value="Green"/>
+                        <Setter Property="m:Has.States">
+                                <Setter.Value>
+                                    <m:StatesCollection>
+                                        <m:Selected Style="{m:Style Background=Primary}" />
+                                    </m:StatesCollection>
+                                </Setter.Value>
+                            </Setter>
+                    </Style>
+                </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
     <Application.MainPage>
         <m:AppPage>
 
-
+            <m:AppPage.Resources>
+                
+            </m:AppPage.Resources>
+            
             <StackLayout Padding="50" BackgroundColor="White">
                 <Button Text="main" m:Router.Link="MainView"/>
 
                 <Entry>
-                    <m:On.ConditionalStates>
+                    <!--<Entry.Style>
+                        <Style TargetType="Entry">
+                            <Setter Property="Background" Value="Red"/>
+                        </Style>
+                    </Entry.Style>-->
+                    <!--<m:Has.States>
                         <m:StatesCollection>
-                            <m:FocusedState Style="{m:Style Background=Tertiary}"/>
-                            <m:StyleIf Condition="{Binding HasText}" Style="{m:Style TextColor=Primary}"/>
+                            <m:Focused Style="{m:Style Background=Tertiary}" />
+                            <m:LargeScreen Style="{m:Style Background=Primary}" />
+                            <m:ConditionalStyle Condition="{Binding HasText}" Style="{m:Style TextColor=Primary}"/>
+                            <m:Hovered Style="{m:Style Background=Secondary}"/>
                         </m:StatesCollection>
-                    </m:On.ConditionalStates>
+                    </m:Has.States>-->
                 </Entry>
+
+                <Label Text="helo world"/>
+
+                <CollectionView ItemsSource="{Binding Data}" SelectionMode="Single">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Label Text="{Binding .}" x:Name="{Binding .}" >
+                                <!--<m:Has.States>
+                                    <m:StatesCollection>
+                                        <m:Selected Style="{m:Style Background=Primary}" />
+                                    </m:StatesCollection>
+                                </m:Has.States>-->
+                            </Label>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
 
                 <Entry/>
 

@@ -4,7 +4,7 @@ public class Router
 {
 #pragma warning disable CA2211 // Non-constant fields should not be visible
     public static BindableProperty LinkProperty = BindableProperty.CreateAttached(
-        "Link", typeof(string), typeof(On), null, propertyChanged: (bindable, oldValue, newValue) =>
+        "Link", typeof(string), typeof(Has), null, propertyChanged: (bindable, oldValue, newValue) =>
         {
             var route = (string)newValue;
 

@@ -1,11 +1,17 @@
 ﻿namespace Manuela;
 
-public class StatesCollection : List<StyleIf>
+public class StatesCollection : List<ConditionalStyle>
 {
-    public bool ApplyFirstPropertyMet(VisualElement visual, ManuelaProperty property, BindableProperty bindableProperty)
+    public bool ApplyPropertyIfMet(VisualElement visual, ManuelaProperty property, BindableProperty bindableProperty)
     {
-        foreach (var state in this)
-            if (state.ApplyPropertyIfMet(visual, property, bindableProperty)) return true;
+        // as soon as one condition is met, we can stop
+        // we should be applying on the same property multiple times.
+
+        foreach (var conditionalStyle in this)
+        {
+            var conditionMet = conditionalStyle.ApplyPropertyIfMet(visual, property, bindableProperty);
+            if (conditionMet) return true;
+        }
 
         return false;
     }

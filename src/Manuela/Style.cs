@@ -48,6 +48,8 @@ public class Style
     public double Scale { set => Setters[ManuelaProperty.Scale] = value; }
     public double ScaleX { set => Setters[ManuelaProperty.ScaleX] = value; }
     public double ScaleY { set => Setters[ManuelaProperty.ScaleY] = value; }
+
+    public IList<Setter> AsSetters(BindableObject bindable) => Setters.AsSetters(bindable);
 }
 
 public class StyleExtension : Style, IMarkupExtension<Style>
