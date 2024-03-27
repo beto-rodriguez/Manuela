@@ -15,27 +15,32 @@
     </Application.Resources>
     <Application.MainPage>
         <m:AppPage>
+            <AbsoluteLayout>
 
-            <StackLayout Padding="50" BackgroundColor="White">
-                <Button>
-                    <Button.Resources>
-                        <Style x:Key="default" TargetType="Button">
-                            <Setter Property="Background" Value="Beige"/>
-                        </Style>
-                    </Button.Resources>
+                <!-- side menu -->
+                <Border
+                    AbsoluteLayout.LayoutBounds="0,0,300,1"
+                    AbsoluteLayout.LayoutFlags="HeightProportional">
                     <m:Has.Styles>
                         <m:StylesCollection>
-                            <m:Normal Setters="{m:Set Style={x:StaticResource Key=default}}"/>
-                            <m:Hovered Setters="{m:Set Background=Secondary}" />
+                            <m:OnScreenXs Setters="{m:Set TranslateX=-300, Background=Primary}"/>
+                            <m:OnScreenXl Setters="{m:Set TranslateX=0}"/>
                         </m:StylesCollection>
                     </m:Has.Styles>
-                </Button>
+                </Border>
 
-                <m:AppBody>
-                    <local:MainView/>
-                </m:AppBody>
+                <!-- content -->
+                <Border>
 
-            </StackLayout>
+                    <m:Has.Styles>
+                        <m:StylesCollection>
+                            <m:Normal Setters="{m:Set Background=Secondary}"/>
+                        </m:StylesCollection>
+                    </m:Has.Styles>
+                    
+                    <m:AppBody/>
+                </Border>
+            </AbsoluteLayout>
         </m:AppPage>
     </Application.MainPage>
 </Application>

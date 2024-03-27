@@ -1,4 +1,4 @@
-﻿namespace Manuela.Styling.ConditionalStyles;
+﻿namespace Manuela.Styling.ConditionalStyles.Screen;
 
 public class OnScreenSize : ConditionalStyle
 {

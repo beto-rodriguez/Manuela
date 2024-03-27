@@ -9,10 +9,41 @@
 namespace Manuela;
 
 public class AppPage : Controls.AppPage { }
-
 public class AppBody : Controls.AppBody { }
 
-// it seems that Xaml intellisense does not work with this approach..
+public class SetExtension : Styling.SetExtension { }
+public class StylesCollection : Styling.StylesCollection { }
+
+public class Checked : Styling.ConditionalStyles.Checked { }
+public class Disabled : Styling.ConditionalStyles.Disabled { }
+public class Focused : Styling.ConditionalStyles.Focused { }
+public class Hovered : Styling.ConditionalStyles.Hovered { }
+public class Normal : Styling.ConditionalStyles.Normal { }
+public class Pressed : Styling.ConditionalStyles.Pressed { }
+public class Selected : Styling.ConditionalStyles.Selected { }
+public class Unchecked : Styling.ConditionalStyles.Unchecked { }
+
+public class OnScreenXs : Styling.ConditionalStyles.Screen.OnScreenXs { }
+public class OnScreenSmall : Styling.ConditionalStyles.Screen.OnScreenSmall { }
+public class OnScreenMedium : Styling.ConditionalStyles.Screen.OnScreenMedium { }
+public class OnScreenLarge : Styling.ConditionalStyles.Screen.OnScreenLarge { }
+public class OnScreenXl : Styling.ConditionalStyles.Screen.OnScreenXl { }
+public class OnScreenXxl : Styling.ConditionalStyles.Screen.OnScreenXxl { }
+
+public class OnDesktop : Styling.ConditionalStyles.Device.OnDesktop { }
+public class OnPhone : Styling.ConditionalStyles.Device.OnPhone { }
+public class OnTablet : Styling.ConditionalStyles.Device.OnTablet { }
+public class OnTV : Styling.ConditionalStyles.Device.OnTV { }
+public class OnWatch : Styling.ConditionalStyles.Device.OnWatch { }
+
+public class OnAndroid : Styling.ConditionalStyles.Platform.OnPlatformAndroid { }
+public class OnIOS : Styling.ConditionalStyles.Platform.OnPlatformIOS { }
+public class OnMacOS : Styling.ConditionalStyles.Platform.OnPlatformMacOS { }
+public class OnTizen : Styling.ConditionalStyles.Platform.OnPlatformTizen { }
+public class OnWatchOS : Styling.ConditionalStyles.Platform.OnPlatformWatchOS { }
+public class OnWindows : Styling.ConditionalStyles.Platform.OnPlatformWindows { }
+
+// it seems that Xaml intellisense does not work if attached properties are inherited..
 // lets write it here...
 public class Has
 {
@@ -63,37 +94,7 @@ public class Has
     }
 }
 
-public class SetExtension : Styling.SetExtension { }
-
-public class StylesCollection : Styling.StylesCollection { }
-
-public class Checked : Styling.ConditionalStyles.Checked { }
-
-public class Disabled : Styling.ConditionalStyles.Disabled { }
-
-public class Focused : Styling.ConditionalStyles.Focused { }
-
-public class Hovered : Styling.ConditionalStyles.Hovered { }
-
-public class Normal : Styling.ConditionalStyles.Normal { }
-
-public class OnScreenLarge : Styling.ConditionalStyles.OnScreenLarge { }
-
-public class OnScreenMedium : Styling.ConditionalStyles.OnScreenMedium { }
-
-public class OnScreenSmall : Styling.ConditionalStyles.OnScreenSmall { }
-
-public class OnScreenXl : Styling.ConditionalStyles.OnScreenXl { }
-
-public class OnScreenXxl : Styling.ConditionalStyles.OnScreenXxl { }
-
-public class Pressed : Styling.ConditionalStyles.Pressed { }
-
-public class Selected : Styling.ConditionalStyles.Selected { }
-
-public class Unchecked : Styling.ConditionalStyles.Unchecked { }
-
-// it seems that Xaml intellisense does not work with this approach..
+// it seems that Xaml intellisense does not work if attached properties are inherited..
 // lets write it here...
 public class Router
 {

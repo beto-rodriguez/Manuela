@@ -22,7 +22,7 @@ public class AppPage : ContentPage
     {
         set
         {
-            if (_appBodyElement is null) FindAppContent();
+            if (_appBodyElement is null) GetAppBody();
             _appBodyElement!.Content = value;
         }
     }
@@ -32,7 +32,7 @@ public class AppPage : ContentPage
         base.OnPropertyChanged(propertyName);
 
         if (propertyName != nameof(Content)) return;
-        FindAppContent();
+        GetAppBody();
 
 #if WINDOWS
         // a hack to cover also the title bar (32px)
@@ -40,24 +40,34 @@ public class AppPage : ContentPage
 #endif
     }
 
-    private void FindAppContent(View? parent = null)
+    private void GetAppBody()
     {
-        parent ??= Content;
-
-        if (parent is Layout layout)
-            foreach (var child in layout.Children)
-            {
-                if (child is AppBody appBoddy)
-                {
-                    _appBodyElement = appBoddy;
-                    return;
-                }
-
-                if (child is Layout cLayout) FindAppContent(cLayout);
-                if (_appBodyElement is not null) return;
-            }
+        TryGetAppBody(Content);
 
         if (_appBodyElement is null)
-            throw new InvalidOperationException($"The {nameof(Body)} element was not found.");
+            throw new InvalidOperationException(
+                $"{nameof(AppBody)} not found. Manuela required an element of type {nameof(AppBody)}, " +
+                $"to get more info and get started, see Manuela docs.");
+    }
+
+    private void TryGetAppBody(IView view)
+    {
+        if (view is AppBody appBody)
+        {
+            _appBodyElement = appBody;
+            return;
+        }
+        else if (view is IContentView contentView && contentView.Content is IView contentViewContent)
+        {
+            TryGetAppBody(contentViewContent);
+        }
+        else if (view is Layout layout)
+        {
+            foreach (var child in layout.Children)
+            {
+                TryGetAppBody(child);
+                if (_appBodyElement is not null) return;
+            }
+        }
     }
 }
