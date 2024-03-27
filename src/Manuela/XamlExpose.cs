@@ -4,7 +4,7 @@
 // https://learn.microsoft.com/en-us/dotnet/maui/xaml/namespaces/custom-namespace-schemas?view=net-maui-8.0#consume-a-custom-namespace-schema
 // is that really necessary?
 
-// as a workaround we do it the old way... expose everything in this ns.
+// as a workaround we do it the old way... expose everything in this n
 
 namespace Manuela;
 
@@ -13,6 +13,9 @@ public class AppBody : Controls.AppBody { }
 
 public class SetExtension : Styling.SetExtension { }
 public class StylesCollection : Styling.StylesCollection { }
+
+public class TransitionsCollection : Transitions.TransitionsCollection { }
+public class Transition : Transitions.Transition { }
 
 public class Checked : Styling.ConditionalStyles.Checked { }
 public class Disabled : Styling.ConditionalStyles.Disabled { }
@@ -62,6 +65,9 @@ public class Has
 
     public static BindableProperty IsValidStateProperty = BindableProperty.CreateAttached(
         "IsValidState", typeof(bool), typeof(Has), true);
+
+    public static BindableProperty TransitionsProperty = BindableProperty.CreateAttached(
+        "Transitions", typeof(TransitionsCollection), typeof(Has), null);
 #pragma warning restore CA2211 // Non-constant fields should not be visible
 
     public static StylesCollection GetStyles(BindableObject view)
@@ -72,6 +78,16 @@ public class Has
     public static void SetStyles(BindableObject view, StylesCollection value)
     {
         view.SetValue(StylesProperty, value);
+    }
+
+    public static TransitionsCollection GetTransitions(BindableObject view)
+    {
+        return (TransitionsCollection)view.GetValue(TransitionsProperty);
+    }
+
+    public static void SetTransitions(BindableObject view, TransitionsCollection value)
+    {
+        view.SetValue(TransitionsProperty, value);
     }
 
     public static void OnStyleCollectionChanged(BindableObject bindable, object? oldValue, object? newValue)

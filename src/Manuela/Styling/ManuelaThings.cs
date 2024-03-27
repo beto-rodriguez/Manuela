@@ -159,6 +159,106 @@ public static class ManuelaThings
         { ManuelaProperty.Shadow, ShadowConverter },
         { ManuelaProperty.TextColor, ColorConverter }
     };
+    private static readonly Dictionary<Type, Func<BindableObject, BindableProperty, object, Animation>> s_transitions = new()
+    {
+        { typeof(double), (bindable, property, targeValue) =>
+            {
+                var start = (double)bindable.GetValue(property);
+                var end = (double)targeValue;
+                return new(t =>
+                    bindable.SetValue(
+                        property,
+                        start + t * (end - start)),
+                        0,
+                        1);
+            }
+        },
+        { typeof(Brush), (bindable, property, targeValue) =>
+            {
+                var start = bindable.GetValue(property);
+                var end = targeValue;
+
+                if (start is SolidColorBrush startBrush && end is SolidColorBrush endBrush)
+                {
+                    var s = startBrush.Color;
+                    var e = endBrush.Color;
+
+                    return new(t =>
+                        startBrush.Color = Color.FromRgba(
+                            s.Red + t * (e.Red - s.Red),
+                            s.Green + t * (e.Green - s.Green),
+                            s.Blue + t * (e.Blue - s.Blue),
+                            s.Alpha + t * (e.Alpha - s.Alpha)));
+                    // NOTE #1
+                    // maybe better performance? set a new instance of?
+                    //bindable.SetValue(
+                    //    property,
+                    //    new SolidColorBrush(Color.FromRgba(
+                    //        s.Red + t * (e.Red - s.Red),
+                    //        s.Green + t * (e.Green - s.Green),
+                    //        s.Blue + t * (e.Blue - s.Blue),
+                    //        s.Alpha + t * (e.Alpha - s.Alpha)))),
+                    //    0,
+                    //    1);
+                }
+
+                throw new NotImplementedException("Only Solid color brush is supported for now...");
+            }
+        },
+        { typeof(Color), (bindable, property, targeValue) =>
+            {
+                var start = (Color)bindable.GetValue(property);
+                var end = (Color)targeValue;
+
+                return new(t =>
+                    bindable.SetValue(
+                        property,
+                        Color.FromRgba(
+                            start.Red + t * (end.Red - start.Red),
+                            start.Green + t * (end.Green - start.Green),
+                            start.Blue + t * (end.Blue - start.Blue),
+                            start.Alpha + t * (end.Alpha - start.Alpha))),
+                        0,
+                        1);
+            }
+        },
+        { typeof(Thickness), (bindable, property, targeValue) =>
+            {
+                var start = (Thickness)bindable.GetValue(property);
+                var end = (Thickness)targeValue;
+
+                return new(t =>
+                    bindable.SetValue(
+                        property,
+                        new Thickness(
+                            start.Left + t * (end.Left - start.Left),
+                            start.Top + t * (end.Top - start.Top),
+                            start.Right + t * (end.Right - start.Right),
+                            start.Bottom + t * (end.Bottom - start.Bottom))),
+                        0,
+                        1);
+            }
+        },
+        { typeof(Shadow), (bindable, property, targeValue) =>
+            {
+                var start = (Shadow)bindable.GetValue(property);
+                var end = (Shadow)targeValue;
+
+                // see NOTE #1... same question
+                // we are also just animating the offset, blur and opacity... not the color.
+                return new(t =>
+                    {
+                        start.Radius = (float)(start.Radius + t * (end.Radius - start.Radius));
+                        start.Offset = new(
+                            start.Offset.X + t * (end.Offset.X - start.Offset.X),
+                            start.Offset.Y + t * (end.Offset.Y - start.Offset.Y));
+                        start.Opacity = (float)(start.Opacity + t * (end.Opacity - start.Opacity));
+                    },
+                    0,
+                    1);
+            }
+        }
+    };
 
     public static BindableProperty? GetBindableProperty(BindableObject? bindable, ManuelaProperty property)
     {
@@ -176,6 +276,16 @@ public static class ManuelaThings
             return converter(bindable, value);
 
         return value;
+    }
+
+    public static Animation GetAnimation(BindableObject bindable, BindableProperty property, object targetValue)
+    {
+        if (s_transitions.TryGetValue(property.ReturnType, out var animationBuilder))
+            return animationBuilder(bindable, property, targetValue);
+
+#if DEBUG
+        throw new NotImplementedException($"Transition for {property.ReturnType} is not supported.");
+#endif
     }
 
     private static object? BrushConverter(BindableObject bindable, object? source)

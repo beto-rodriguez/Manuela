@@ -21,25 +21,36 @@
                 <Border
                     AbsoluteLayout.LayoutBounds="0,0,300,1"
                     AbsoluteLayout.LayoutFlags="HeightProportional">
+                    <m:Has.Transitions>
+                        <m:TransitionsCollection>
+                            <m:Transition Property="TranslateX" Easing="{x:Static Easing.CubicOut}" Duration="800"/>
+                        </m:TransitionsCollection>
+                    </m:Has.Transitions>
                     <m:Has.Styles>
                         <m:StylesCollection>
-                            <m:OnScreenXs Setters="{m:Set TranslateX=-300, Background=Primary}"/>
+                            <m:Normal Setters="{m:Set Background=Primary, BorderThickness=0}"/>
+                            <m:OnScreenXs Setters="{m:Set TranslateX=-300}"/>
                             <m:OnScreenXl Setters="{m:Set TranslateX=0}"/>
                         </m:StylesCollection>
                     </m:Has.Styles>
                 </Border>
 
-                <!-- content -->
-                <Border>
+                <m:AppBody/>
 
+                <!-- content -->
+                <!--<Border
+                    AbsoluteLayout.LayoutBounds="0,0,1,1"
+                    AbsoluteLayout.LayoutFlags="WidthProportional,HeightProportional">
                     <m:Has.Styles>
                         <m:StylesCollection>
-                            <m:Normal Setters="{m:Set Background=Secondary}"/>
+                            <m:Normal Setters="{m:Set Background=Secondary, BorderThickness=0}"/>
+                            <m:OnScreenXs Setters="{m:Set Margin='0', Background=Secondary}"/>
+                            <m:OnScreenXl Setters="{m:Set Margin='300,0,0,0'}"/>
                         </m:StylesCollection>
                     </m:Has.Styles>
                     
                     <m:AppBody/>
-                </Border>
+                </Border>-->
             </AbsoluteLayout>
         </m:AppPage>
     </Application.MainPage>

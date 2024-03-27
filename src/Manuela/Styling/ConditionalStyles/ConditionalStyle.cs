@@ -3,7 +3,7 @@ using Manuela.Expressions;
 
 namespace Manuela.Styling.ConditionalStyles;
 
-[ContentProperty(nameof(Style))]
+[ContentProperty(nameof(Setters))]
 public class ConditionalStyle : Element
 {
 #pragma warning disable CA2211 // Non-constant fields should not be visible
@@ -54,6 +54,7 @@ public class ConditionalStyle : Element
         if (keys is null) return;
 
         var allStates = (StylesCollection?)visual.GetValue(Has.StylesProperty);
+        var transitions = (TransitionsCollection?)visual.GetValue(Has.TransitionsProperty);
 
         foreach (var property in keys)
         {
@@ -67,11 +68,11 @@ public class ConditionalStyle : Element
                 continue;
             }
 
-            var conditionMet = ApplyPropertyIfMet(visual, property, bindableProperty);
+            var conditionMet = ApplyPropertyIfMet(visual, property, bindableProperty, transitions);
 
             if (!conditionMet)
             {
-                var anyOtherStateMet = allStates?.ApplyPropertyIfMet(visual, property, bindableProperty)
+                var anyOtherStateMet = allStates?.ApplyPropertyIfMet(visual, property, bindableProperty, transitions)
                     ?? false;
 
                 if (!anyOtherStateMet)
@@ -80,13 +81,28 @@ public class ConditionalStyle : Element
         }
     }
 
-    public bool ApplyPropertyIfMet(VisualElement visual, ManuelaProperty property, BindableProperty bindableProperty)
+    public bool ApplyPropertyIfMet(
+        VisualElement visual,
+        ManuelaProperty property,
+        BindableProperty bindableProperty,
+        TransitionsCollection? transitions)
     {
         if (Setters is null || !Setters.TryGetValue(property, out var value)) return false;
         if (!Condition?.Predicate(visual) ?? false) return false;
 
         value = ManuelaThings.TryConvert(visual, property, value);
-        visual.SetValue(bindableProperty, value);
+
+        if (value is not null && transitions is not null && transitions.TryGetValue(property, out var transition))
+        {
+            // animate if a transition is defined
+            // also ignore nulls... how do we animate nulls?
+            var animation = ManuelaThings.GetAnimation(visual, bindableProperty, value);
+            animation.Commit(visual, $"{property} animation", easing: transition.Easing);
+        }
+        else
+        {
+            visual.SetValue(bindableProperty, value);
+        }
 
 #if DEBUG
         Trace.WriteLine($"Applied {property} to {value}");
