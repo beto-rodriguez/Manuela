@@ -1,5 +1,4 @@
 ﻿using System.Collections.Immutable;
-using System.Runtime.InteropServices;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -11,7 +10,6 @@ namespace Manuela.Generation;
 public class Generator : IIncrementalGenerator
 {
     private static ISymbol? s_npcSymbol;
-    private static readonly IEqualityComparer<ISymbol?> s_sec = SymbolEqualityComparer.Default;
 
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {

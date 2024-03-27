@@ -10,46 +10,60 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+                <ResourceDictionary>
+                    <m:Set x:Key="MenuClosedStyle" TranslateX="-300" />
+                    <m:Set x:Key="MenuOpenedStyle" TranslateX="0"/>
+                    <m:Set x:Key="BodyExpandedStyle" Padding="0"/>
+                    <m:Set x:Key="BodyContractedStyle" Padding="300,0,0,0"/>
+                </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
     <Application.MainPage>
         <m:AppPage>
+
             <AbsoluteLayout>
 
                 <!-- side menu -->
                 <Border
+                    x:Name="SideMenu"
                     ZIndex="1"
                     AbsoluteLayout.LayoutBounds="0,0,300,1"
                     AbsoluteLayout.LayoutFlags="HeightProportional">
                     <m:Has.Transitions>
                         <m:TransitionsCollection>
-                            <m:Transition Property="TranslateX" Easing="{x:Static Easing.CubicOut}" Duration="800"/>
+                            <m:Transition Property="TranslateX"/>
                         </m:TransitionsCollection>
                     </m:Has.Transitions>
                     <m:Has.Styles>
                         <m:StylesCollection>
-                            <m:Normal Setters="{m:Set Background='Gray,Swatch800', BorderThickness=0}"/>
-                            <m:OnXsScreen Setters="{m:Set TranslateX=-300}"/>
-                            <m:OnLargeScreen Setters="{m:Set TranslateX=0}"/>
+                            <m:Normal Setters="{m:Set Background='Gray,Swatch950', BorderThickness=0}"/>
+                            <m:OnXsScreen Setters="{x:StaticResource MenuClosedStyle}"/>
+                            <m:OnLargeScreen Setters="{x:StaticResource MenuOpenedStyle}"/>
                         </m:StylesCollection>
                     </m:Has.Styles>
                 </Border>
 
-                <!-- content -->
+                <!-- body -->
                 <Border
+                    x:Name="Body"
                     AbsoluteLayout.LayoutBounds="0,0,1,1"
                     AbsoluteLayout.LayoutFlags="WidthProportional,HeightProportional">
+                    <m:Has.Transitions>
+                        <m:TransitionsCollection>
+                            <m:Transition Property="Padding"/>
+                        </m:TransitionsCollection>
+                    </m:Has.Transitions>
                     <m:Has.Styles>
                         <m:StylesCollection>
                             <m:Normal Setters="{m:Set Background='Gray,Swatch100', BorderThickness=0}"/>
-                            <m:OnXsScreen Setters="{m:Set Padding='0'}"/>
-                            <m:OnLargeScreen Setters="{m:Set Padding='300,0,0,0'}"/>
+                            <m:OnXsScreen Setters="{x:StaticResource BodyExpandedStyle}"/>
+                            <m:OnLargeScreen Setters="{x:StaticResource BodyContractedStyle}"/>
                         </m:StylesCollection>
                     </m:Has.Styles>
 
                     <VerticalStackLayout Padding="50">
-                        <Label Text="Hello"/>
+                        <Button Text="Toggle" Clicked="Button_Clicked"></Button>
                         <m:AppBody/>
                     </VerticalStackLayout>
                 </Border>

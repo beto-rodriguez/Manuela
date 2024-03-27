@@ -53,7 +53,7 @@ public class ConditionalStyle : Element
         var keys = Setters?.Keys;
         if (keys is null) return;
 
-        var allStates = (StylesCollection?)visual.GetValue(Has.StylesProperty);
+        var allStyles = (StylesCollection?)visual.GetValue(Has.StylesProperty);
         var transitions = (TransitionsCollection?)visual.GetValue(Has.TransitionsProperty);
 
         foreach (var property in keys)
@@ -72,7 +72,7 @@ public class ConditionalStyle : Element
 
             if (!conditionMet)
             {
-                var anyOtherStateMet = allStates?.ApplyPropertyIfMet(visual, property, bindableProperty, transitions)
+                var anyOtherStateMet = allStyles?.ApplyPropertyIfMet(visual, property, bindableProperty, transitions)
                     ?? false;
 
                 if (!anyOtherStateMet)
@@ -117,4 +117,3 @@ public class ConditionalStyle : Element
         return true;
     }
 }
-
