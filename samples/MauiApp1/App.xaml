@@ -24,6 +24,7 @@
                     <m:Has.Transitions>
                         <m:TransitionsCollection>
                             <m:Transition Property="TranslateX" Easing="{x:Static Easing.CubicOut}" Duration="800"/>
+                            <m:Transition Property="Background" Easing="{x:Static Easing.BounceIn}" Duration="500"/>
                         </m:TransitionsCollection>
                     </m:Has.Transitions>
                     <m:Has.Styles>
