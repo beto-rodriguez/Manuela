@@ -101,8 +101,6 @@ public class Has
 
         foreach (var style in styleCollection)
         {
-            ve.AddLogicalChild(style);
-
             if (ve.IsLoaded) style.Initialize(ve);
             else ve.Loaded += (_, _) => style.Initialize(ve);
 
