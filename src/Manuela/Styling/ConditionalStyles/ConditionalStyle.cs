@@ -4,20 +4,11 @@ using Manuela.Expressions;
 namespace Manuela.Styling.ConditionalStyles;
 
 [ContentProperty(nameof(Setters))]
-public class ConditionalStyle : Element
+public class ConditionalStyle
 {
-#pragma warning disable CA2211 // Non-constant fields should not be visible
-    public static BindableProperty ConditionProperty = BindableProperty.Create(
-        nameof(Condition), typeof(XamlCondition), typeof(StylesCollection), null);
-#pragma warning restore CA2211 // Non-constant fields should not be visible
-
     public ManuelaSettersDictionary? Setters { get; set; }
 
-    public XamlCondition? Condition
-    {
-        get => (XamlCondition)GetValue(ConditionProperty);
-        set => SetValue(ConditionProperty, value);
-    }
+    public XamlCondition? Condition { get; set; }
 
     // initialization must be per visual.
     // to avoid a possible issue when a resource is shared using x:StaticResource.
