@@ -1,12 +1,14 @@
-﻿using Manuela.Theming;
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using Manuela.Theming;
 
 namespace Manuela.Styling;
 
-public class SetExtension : IMarkupExtension<ManuelaSettersDictionary>
+public class SetExtension : IMarkupExtension<ManuelaSettersDictionary>, INotifyPropertyChanged
 {
     public ManuelaSettersDictionary Setters { get; } = [];
 
-    public Brush CustomBackground { set => Setters[ManuelaProperty.Background] = value; }
+    public Brush CustomBackground { set { Setters[ManuelaProperty.Background] = value; OnPropertyChanged(); } }
     public UIBrush Background { set => Setters[ManuelaProperty.Background] = value; }
 
     public Thickness Margin { set => Setters[ManuelaProperty.Margin] = value; }
@@ -51,6 +53,8 @@ public class SetExtension : IMarkupExtension<ManuelaSettersDictionary>
 
     public Style Style { set => Setters[ManuelaProperty.Style] = value; }
 
+    public event PropertyChangedEventHandler? PropertyChanged;
+
     public ManuelaSettersDictionary ProvideValue(IServiceProvider serviceProvider)
     {
         return Setters;
@@ -59,5 +63,10 @@ public class SetExtension : IMarkupExtension<ManuelaSettersDictionary>
     object IMarkupExtension.ProvideValue(IServiceProvider serviceProvider)
     {
         return ProvideValue(serviceProvider);
+    }
+
+    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

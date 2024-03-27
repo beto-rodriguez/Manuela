@@ -6,22 +6,31 @@ namespace Manuela.Styling.ConditionalStyles;
 [ContentProperty(nameof(Setters))]
 public class ConditionalStyle
 {
-    public ManuelaSettersDictionary? Setters { get; set; }
+    private ManuelaSettersDictionary? _setters;
+    private XamlCondition? _condition;
 
-    public XamlCondition? Condition { get; set; }
+    public ManuelaSettersDictionary? Setters
+    {
+        get => _setters;
+        set { _setters = value; ReApply(); }
+    }
+
+    public XamlCondition? Condition
+    {
+        get => _condition;
+        set { _condition = value; ReApply(); }
+    }
 
     // initialization must be per visual.
     // to avoid a possible issue when a resource is shared using x:StaticResource.
-    public HashSet<VisualElement> IsInitialized { get; } = [];
+    public HashSet<VisualElement> InitializedElements { get; } = [];
 
     public void Initialize(VisualElement visual)
     {
-        if (IsInitialized.Contains(visual)) return;
+        if (InitializedElements.Contains(visual)) return;
 
         if (Application.Current is not null)
-        {
-            Application.Current.RequestedThemeChanged += (_, _) => Apply(visual);
-        }
+            Application.Current.RequestedThemeChanged += OnThemeChanged;
 
         if (Condition?.Triggers is null)
             throw new Exception(
@@ -38,13 +47,13 @@ public class ConditionalStyle
                 Apply(visual);
             };
 
-        _ = IsInitialized.Add(visual);
+        _ = InitializedElements.Add(visual);
         Apply(visual);
     }
 
     public void Apply(VisualElement? visual)
     {
-        if (visual is null || !IsInitialized.Contains(visual)) return;
+        if (visual is null || !InitializedElements.Contains(visual)) return;
 
         var keys = Setters?.Keys;
         if (keys is null) return;
@@ -111,5 +120,16 @@ public class ConditionalStyle
 #endif
 
         return true;
+    }
+
+    protected void ReApply()
+    {
+        foreach (var visualElement in InitializedElements)
+            Apply(visualElement);
+    }
+
+    private void OnThemeChanged(object? sender, AppThemeChangedEventArgs e)
+    {
+        ReApply();
     }
 }
