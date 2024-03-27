@@ -26,12 +26,12 @@ public class Pressed : Styling.ConditionalStyles.Pressed { }
 public class Selected : Styling.ConditionalStyles.Selected { }
 public class Unchecked : Styling.ConditionalStyles.Unchecked { }
 
-public class OnScreenXs : Styling.ConditionalStyles.Screen.OnScreenXs { }
-public class OnScreenSmall : Styling.ConditionalStyles.Screen.OnScreenSmall { }
-public class OnScreenMedium : Styling.ConditionalStyles.Screen.OnScreenMedium { }
-public class OnScreenLarge : Styling.ConditionalStyles.Screen.OnScreenLarge { }
-public class OnScreenXl : Styling.ConditionalStyles.Screen.OnScreenXl { }
-public class OnScreenXxl : Styling.ConditionalStyles.Screen.OnScreenXxl { }
+public class OnXsScreen : Styling.ConditionalStyles.Screen.OnXsScreen { }
+public class OnSmallScreen : Styling.ConditionalStyles.Screen.OnSmallScreen { }
+public class OnMediumScreen : Styling.ConditionalStyles.Screen.OnMediumScreen { }
+public class OnLargeScreen : Styling.ConditionalStyles.Screen.OnLargeScreen { }
+public class OnXlScreen : Styling.ConditionalStyles.Screen.OnXlScreen { }
+public class OnXxlScreen : Styling.ConditionalStyles.Screen.OnXxlScreen { }
 
 public class OnDesktop : Styling.ConditionalStyles.Device.OnDesktop { }
 public class OnPhone : Styling.ConditionalStyles.Device.OnPhone { }
@@ -53,6 +53,9 @@ public class Has
 #pragma warning disable CA2211 // Non-constant fields should not be visible
     public static BindableProperty StylesProperty = BindableProperty.CreateAttached(
         "Styles", typeof(StylesCollection), typeof(Has), null, propertyChanged: OnStyleCollectionChanged);
+
+    public static BindableProperty ScreenBreakPointProperty = BindableProperty.CreateAttached(
+        "ScreenBreakPoint", typeof(Styling.ConditionalStyles.Screen.Breakpoint), typeof(Has), Styling.ConditionalStyles.Screen.Breakpoint.Xs);
 
     public static BindableProperty IsHoverStateProperty = BindableProperty.CreateAttached(
         "IsHoverState", typeof(bool), typeof(Has), false);
