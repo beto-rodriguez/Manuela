@@ -27,6 +27,11 @@ public class ConditionalStyle : Element
     {
         if (IsInitialized.Contains(visual)) return;
 
+        if (Application.Current is not null)
+        {
+            Application.Current.RequestedThemeChanged += (_, _) => Apply(visual);
+        }
+
         if (Condition?.Triggers is null)
             throw new Exception(
                 "Manuela was not able to find the Expression triggers. " +
