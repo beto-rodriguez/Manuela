@@ -26,7 +26,7 @@
                 <!-- side menu -->
                 <Border
                     x:Name="SideMenu"
-                    ZIndex="1"
+                    ZIndex="10"
                     AbsoluteLayout.LayoutBounds="0,0,300,1"
                     AbsoluteLayout.LayoutFlags="HeightProportional">
 
@@ -45,7 +45,9 @@
                     </m:Has.Styles>
 
                     <VerticalStackLayout>
-                        <Button Text="Toggle" Clicked="Button_Clicked"/>
+                        <Border StrokeThickness="0" Padding="0, 20">
+                            <Image Source="manuela_text_light.png" MaximumHeightRequest="50"/>
+                        </Border>
                     </VerticalStackLayout>
                     
                 </Border>
@@ -70,10 +72,33 @@
                         </m:StylesCollection>
                     </m:Has.Styles>
 
-                    <VerticalStackLayout Padding="50">
-                        <Button Text="Toggle" Clicked="Button_Clicked"/>
+                    <VerticalStackLayout>
+                        <VerticalStackLayout>
+                            <HorizontalStackLayout Padding="20" Spacing="20">
+                                <Image Source="hamburger_dark.png" HeightRequest="15">
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="ToggleMenu"/>
+                                    </Image.GestureRecognizers>
+                                </Image>
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                        
                         <m:AppBody/>
+
                     </VerticalStackLayout>
+                </Border>
+
+                <!-- shadow -->
+                <Border
+                    x:Name="Shadow"
+                    ZIndex="9"
+                    AbsoluteLayout.LayoutBounds="0,0,1,1"
+                    AbsoluteLayout.LayoutFlags="WidthProportional,HeightProportional"
+                    BackgroundColor="#90303030"
+                    IsVisible="False">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="ToggleMenu"/>
+                    </Border.GestureRecognizers>
                 </Border>
 
             </AbsoluteLayout>

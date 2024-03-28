@@ -151,6 +151,11 @@ public static class ManuelaThings
         { ManuelaProperty.Scale, bindable => VisualElement.ScaleProperty },
         { ManuelaProperty.ScaleX, bindable => VisualElement.ScaleXProperty },
         { ManuelaProperty.ScaleY, bindable => VisualElement.ScaleYProperty },
+        { ManuelaProperty.MaxWidth, bindable => VisualElement.MaximumWidthRequestProperty },
+        { ManuelaProperty.MaxHeight, bindable => VisualElement.MaximumHeightRequestProperty },
+        { ManuelaProperty.MinWidth, bindable => VisualElement.MinimumWidthRequestProperty },
+        { ManuelaProperty.MinHeight, bindable => VisualElement.MinimumHeightRequestProperty },
+        { ManuelaProperty.Visible, bindable => VisualElement.IsVisibleProperty },
         { ManuelaProperty.Style, bindable => VisualElement.StyleProperty }
     };
     private static readonly Dictionary<ManuelaProperty, Func<BindableObject, object?, object?>> s_converters = new()

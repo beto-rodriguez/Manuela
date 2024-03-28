@@ -49,7 +49,11 @@ public class SetExtension : IMarkupExtension<ManuelaSettersDictionary>, INotifyP
     public double Scale { set => Setters[ManuelaProperty.Scale] = value; }
     public double ScaleX { set => Setters[ManuelaProperty.ScaleX] = value; }
     public double ScaleY { set => Setters[ManuelaProperty.ScaleY] = value; }
-
+    public double MaxWidth { set => Setters[ManuelaProperty.MaxWidth] = value; }
+    public double MaxHeight { set => Setters[ManuelaProperty.MaxHeight] = value; }
+    public double MinWidth { set => Setters[ManuelaProperty.MinWidth] = value; }
+    public double MinHeight { set => Setters[ManuelaProperty.MinHeight] = value; }
+    public bool Visible { set => Setters[ManuelaProperty.Visible] = value; }
     public Style Style { set => Setters[ManuelaProperty.Style] = value; }
 
     public event PropertyChangedEventHandler? PropertyChanged;

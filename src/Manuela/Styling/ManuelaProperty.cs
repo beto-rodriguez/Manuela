@@ -1,5 +1,7 @@
 ﻿namespace Manuela.Styling;
 
+// there is no specific order in this enum.. this is just the order they were added to the enum.
+
 public enum ManuelaProperty
 {
     Background,
@@ -31,6 +33,10 @@ public enum ManuelaProperty
     Scale,
     ScaleX,
     ScaleY,
-
+    MaxWidth,
+    MaxHeight,
+    MinWidth,
+    MinHeight,
+    Visible,
     Style
 }

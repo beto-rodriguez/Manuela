@@ -18,11 +18,11 @@ public partial class App : Application
         base.OnStart();
 
         // declares a zone where the pointer events will pass through the title bar on windows
-        // in this case 300x32px (300 the side menu width, 32 the windows title bar height)
-        ManuelaThings.SetPointerPassthroughRegion([new(0, 0, 300, 32)]);
+        // in this case 380x32px (300 the side menu width + 80 the hamburger menu x 32 the windows title bar height)
+        ManuelaThings.SetPointerPassthroughRegion([new(0, 0, 380, 32)]);
     }
 
-    private void Button_Clicked(object sender, EventArgs e)
+    private void ToggleMenu(object sender, TappedEventArgs e)
     {
         _isMenuOpen = !_isMenuOpen;
 
@@ -38,10 +38,16 @@ public partial class App : Application
 
         SideMenu.SetManuelaStyle(_isMenuOpen ? menuOpened : menuClosed);
 
-        if (Body.GetScreenBreakpoint() >= Breakpoint.Lg)
+        // any visual that was a ScreenStyle, can be used to get the current breakpoint.
+        // in this case we use the Body, but it also could be the SideMenu.
+        var currentBreakpoint = Body.GetScreenBreakpoint();
+
+        if (currentBreakpoint >= Breakpoint.Lg)
         {
             // do not contract the body when the app is on < large screens
             Body.SetManuelaStyle(_isMenuOpen ? bodyContracted : bodyExpanded);
         }
+
+        Shadow.IsVisible = currentBreakpoint < Breakpoint.Lg && _isMenuOpen;
     }
 }
