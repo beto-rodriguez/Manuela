@@ -2,16 +2,6 @@
 
 public class OnScreenSize : ConditionalStyle
 {
-    private static readonly Dictionary<Breakpoint, double> s_screenSizes = new()
-    {
-        { Breakpoint.Xs, 0 },
-        { Breakpoint.Sm, 640 },
-        { Breakpoint.Md, 768 },
-        { Breakpoint.Lg, 1024 },
-        { Breakpoint.Xl, 1280 },
-        { Breakpoint.Xxl, 1536 }
-    };
-
     private VisualElement? _element;
     private EventHandler? _windowHandler;
 
@@ -65,11 +55,11 @@ public class OnScreenSize : ConditionalStyle
 
         var maxBreakpoint = Breakpoint.Xs;
 
-        if (w > s_screenSizes[Breakpoint.Sm]) maxBreakpoint = Breakpoint.Sm;
-        if (w > s_screenSizes[Breakpoint.Md]) maxBreakpoint = Breakpoint.Md;
-        if (w > s_screenSizes[Breakpoint.Lg]) maxBreakpoint = Breakpoint.Lg;
-        if (w > s_screenSizes[Breakpoint.Xl]) maxBreakpoint = Breakpoint.Xl;
-        if (w > s_screenSizes[Breakpoint.Xxl]) maxBreakpoint = Breakpoint.Xxl;
+        if (w > (int)Breakpoint.Sm) maxBreakpoint = Breakpoint.Sm;
+        if (w > (int)Breakpoint.Md) maxBreakpoint = Breakpoint.Md;
+        if (w > (int)Breakpoint.Lg) maxBreakpoint = Breakpoint.Lg;
+        if (w > (int)Breakpoint.Xl) maxBreakpoint = Breakpoint.Xl;
+        if (w > (int)Breakpoint.Xxl) maxBreakpoint = Breakpoint.Xxl;
 
         return maxBreakpoint;
     }

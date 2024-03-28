@@ -2,10 +2,10 @@
 
 public enum Breakpoint
 {
-    Xs,
-    Sm,
-    Md,
-    Lg,
-    Xl,
-    Xxl
+    Xs = 0,
+    Sm = 640,
+    Md = 768,
+    Lg = 1024,
+    Xl = 1280,
+    Xxl = 1536
 }

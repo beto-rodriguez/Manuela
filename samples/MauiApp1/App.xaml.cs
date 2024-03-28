@@ -17,9 +17,8 @@ public partial class App : Application
     {
         base.OnStart();
 
-        // declares a zone where the pointer events will pass through the title bar on windows
-        // in this case 360x32px (300 the side menu width + 60 the hamburger menu x 32 the windows title bar height)
-        ManuelaThings.SetPointerPassthroughRegion([new(0, 0, 360, 32)]);
+        UpdatePointerPassthroughRegion();
+        SideMenu.Window.SizeChanged += (_, _) => UpdatePointerPassthroughRegion();
     }
 
     private void ToggleMenu(object sender, TappedEventArgs e)
@@ -51,11 +50,21 @@ public partial class App : Application
         Shadow.IsVisible = currentBreakpoint < Breakpoint.Lg && _isMenuOpen;
 
         // update the pointer passthrough region
-        ManuelaThings.SetPointerPassthroughRegion([new(0, 0, _isMenuOpen ? 360 : 60, 32)]);
+        UpdatePointerPassthroughRegion();
     }
 
     private void OnPointerReleased(object sender, PointerEventArgs e)
     {
         ToggleMenu(sender, new(null));
+    }
+
+    private void UpdatePointerPassthroughRegion()
+    {
+        // declares a zone where the pointer events will pass through the title bar on windows
+        // in this case 360x32px (300 the side menu width + 60 the hamburger menu x 32 the windows title bar height)
+
+        var width = (_isMenuOpen || Body.Window.Width >= (int)Breakpoint.Lg) ? 360 : 60;
+
+        ManuelaThings.SetPointerPassthroughRegion([new(0, 0, width, 32)]);
     }
 }
