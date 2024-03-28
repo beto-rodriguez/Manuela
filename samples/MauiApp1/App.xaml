@@ -38,7 +38,7 @@
 
                     <m:Has.Styles>
                         <m:StylesCollection>
-                            <m:Normal Setters="{m:Set Background=Primary, BorderThickness=0}"/>
+                            <m:Normal Setters="{m:Set Background='Gray,Swatch50', BorderThickness=0}"/>
                             <m:OnXsScreen Setters="{x:StaticResource MenuClosedStyle}"/>
                             <m:OnLargeScreen Setters="{x:StaticResource MenuOpenedStyle}"/>
                         </m:StylesCollection>
@@ -59,7 +59,7 @@
 
                     <m:Has.Styles>
                         <m:StylesCollection>
-                            <m:Normal Setters="{m:Set Background='Gray,Swatch200', BorderThickness=0}"/>
+                            <m:Normal Setters="{m:Set Background='Gray,Swatch100', BorderThickness=0}"/>
                             <m:OnXsScreen Setters="{x:StaticResource BodyExpandedStyle}"/>
                             <m:OnLargeScreen Setters="{x:StaticResource BodyContractedStyle}"/>
                         </m:StylesCollection>
