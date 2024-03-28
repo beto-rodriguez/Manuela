@@ -2,6 +2,9 @@
 
 public class Hovered : ConditionalStyle
 {
+    private View? _element;
+    private PointerGestureRecognizer? _pointerRecognizer;
+
     public Hovered()
     {
         Condition = new(visualElement => (bool)visualElement.GetValue(Has.IsHoverStateProperty))
@@ -15,24 +18,36 @@ public class Hovered : ConditionalStyle
                         $"The type does not inherit from {nameof(View)}");
 #endif
 
-                var pointerRecognizer = new PointerGestureRecognizer();
+                _element = view;
 
-                pointerRecognizer.PointerEntered += (sender, e) =>
+                _pointerRecognizer = new PointerGestureRecognizer();
+
+                _pointerRecognizer.PointerEntered += (sender, e) =>
                 {
                     if (sender is null || sender is not BindableObject bindable) return;
                     bindable.SetValue(Has.IsHoverStateProperty, true);
                 };
 
-                pointerRecognizer.PointerExited += (sender, e) =>
+                _pointerRecognizer.PointerExited += (sender, e) =>
                 {
                     if (sender is null || sender is not BindableObject bindable) return;
                     bindable.SetValue(Has.IsHoverStateProperty, false);
                 };
 
-                view.GestureRecognizers.Add(pointerRecognizer);
+                view.GestureRecognizers.Add(_pointerRecognizer);
 
                 return [new(v, ["IsHoverState"])];
             }
         };
+    }
+
+    public override void Dispose()
+    {
+        if (_element is not null)
+            _ = _element.GestureRecognizers.Remove(_pointerRecognizer);
+
+        _element = null;
+
+        base.Dispose();
     }
 }

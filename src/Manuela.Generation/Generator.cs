@@ -4,6 +4,9 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Operations;
 
+// experimental generator that makes XAMLa little bit more simple. 
+// this generator does nothing special here yet.
+
 namespace Manuela.Generation;
 
 [Generator]

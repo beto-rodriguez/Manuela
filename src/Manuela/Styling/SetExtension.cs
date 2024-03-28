@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using Manuela.Theming;
 
 namespace Manuela.Styling;
@@ -8,7 +7,7 @@ public class SetExtension : IMarkupExtension<ManuelaSettersDictionary>, INotifyP
 {
     public ManuelaSettersDictionary Setters { get; } = [];
 
-    public Brush CustomBackground { set { Setters[ManuelaProperty.Background] = value; OnPropertyChanged(); } }
+    public Brush CustomBackground { set => Setters[ManuelaProperty.Background] = value; }
     public UIBrush Background { set => Setters[ManuelaProperty.Background] = value; }
 
     public Thickness Margin { set => Setters[ManuelaProperty.Margin] = value; }
@@ -63,10 +62,5 @@ public class SetExtension : IMarkupExtension<ManuelaSettersDictionary>, INotifyP
     object IMarkupExtension.ProvideValue(IServiceProvider serviceProvider)
     {
         return ProvideValue(serviceProvider);
-    }
-
-    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

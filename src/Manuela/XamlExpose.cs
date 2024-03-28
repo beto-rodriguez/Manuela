@@ -1,10 +1,11 @@
-﻿// should we create a custom ns schema for this?
+﻿// Note #ABOUT-XAML-NS
+// should we create a custom ns schema for this?
 // https://learn.microsoft.com/en-us/dotnet/maui/xaml/namespaces/custom-namespace-schemas?view=net-maui-8.0
 // the problem is:
 // https://learn.microsoft.com/en-us/dotnet/maui/xaml/namespaces/custom-namespace-schemas?view=net-maui-8.0#consume-a-custom-namespace-schema
 // is that really necessary?
 
-// as a workaround we do it the old way... expose everything in this n
+// as a workaround we do it the old way... expose everything in this namespace
 
 namespace Manuela;
 
@@ -12,7 +13,13 @@ public class AppPage : Controls.AppPage { }
 public class AppBody : Controls.AppBody { }
 
 public class SetExtension : Styling.SetExtension { }
-public class StylesCollection : Styling.StylesCollection { }
+public class StylesCollection : Styling.StylesCollection
+{
+    public StylesCollection()
+    { }
+
+    public StylesCollection(List<Styling.ConditionalStyles.ConditionalStyle> list) : base(list) { }
+}
 
 public class TransitionsCollection : Transitions.TransitionsCollection { }
 public class Transition : Transitions.Transition { }
@@ -95,9 +102,16 @@ public class Has
 
     public static void OnStyleCollectionChanged(BindableObject bindable, object? oldValue, object? newValue)
     {
-        if (newValue is null || bindable is not VisualElement ve) return;
+        if (bindable is not VisualElement ve) return;
+
+        if (oldValue is not null and StylesCollection oldStylesCollection)
+        {
+            oldStylesCollection.Dispose();
+            foreach (var oldStyle in oldStylesCollection) oldStyle.Dispose();
+        }
 
         var styleCollection = (StylesCollection?)newValue ?? [];
+        styleCollection.Initialize(ve);
 
         foreach (var style in styleCollection)
         {

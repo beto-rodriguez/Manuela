@@ -1,18 +1,23 @@
-﻿using Manuela.Expressions;
+﻿using System.ComponentModel;
 
 namespace Manuela.Styling.ConditionalStyles;
 
 public class Pressed : ConditionalStyle
 {
+    private VisualElement? _element;
+    private PropertyChangedEventHandler? _propertyChangedEventHandler;
+
     public Pressed()
     {
         Condition = new(visualElement => (bool)visualElement.GetValue(Has.IsPressedStateProperty))
         {
             Triggers = v =>
             {
+                _element = v;
+
                 if (v is Button button)
                 {
-                    button.PropertyChanged += (sender, e) =>
+                    _propertyChangedEventHandler = (sender, e) =>
                     {
                         if (e.PropertyName is null or not (nameof(Button.IsPressed)))
                             return;
@@ -20,11 +25,14 @@ public class Pressed : ConditionalStyle
                         v.SetValue(Has.IsPressedStateProperty, button.IsPressed);
                     };
 
+                    button.PropertyChanged += _propertyChangedEventHandler;
+
                     return [new(v, ["IsPressed"])];
                 }
 
                 if (v is ImageButton imageButton)
-                    imageButton.PropertyChanged += (sender, e) =>
+                {
+                    _propertyChangedEventHandler += (sender, e) =>
                     {
                         if (e.PropertyName is null or not (nameof(ImageButton.IsPressed)))
                             return;
@@ -32,12 +40,25 @@ public class Pressed : ConditionalStyle
                         v.SetValue(Has.IsPressedStateProperty, imageButton.IsPressed);
                     };
 
+                    imageButton.PropertyChanged += _propertyChangedEventHandler;
+                }
+
                 return GetViewTriggers()(v);
             }
         };
     }
 
-    private Func<VisualElement, ConditionUpdateTrigger[]> GetViewTriggers()
+    public override void Dispose()
+    {
+        if (_element is not null)
+            _element.PropertyChanged -= _propertyChangedEventHandler;
+
+        _element = null;
+
+        base.Dispose();
+    }
+
+    private Func<VisualElement, Expressions.Trigger[]> GetViewTriggers()
     {
         return v =>
         {

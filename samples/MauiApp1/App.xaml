@@ -21,7 +21,6 @@
     </Application.Resources>
     <Application.MainPage>
         <m:AppPage>
-
             <AbsoluteLayout>
 
                 <!-- side menu -->
@@ -30,14 +29,16 @@
                     ZIndex="1"
                     AbsoluteLayout.LayoutBounds="0,0,300,1"
                     AbsoluteLayout.LayoutFlags="HeightProportional">
+
                     <m:Has.Transitions>
                         <m:TransitionsCollection>
                             <m:Transition Property="TranslateX"/>
                         </m:TransitionsCollection>
                     </m:Has.Transitions>
+
                     <m:Has.Styles>
                         <m:StylesCollection>
-                            <m:Normal Setters="{m:Set Background=Tertiary, BorderThickness=0}"/>
+                            <m:Normal Setters="{m:Set Background=Primary, BorderThickness=0}"/>
                             <m:OnXsScreen Setters="{x:StaticResource MenuClosedStyle}"/>
                             <m:OnLargeScreen Setters="{x:StaticResource MenuOpenedStyle}"/>
                         </m:StylesCollection>
@@ -49,14 +50,16 @@
                     x:Name="Body"
                     AbsoluteLayout.LayoutBounds="0,0,1,1"
                     AbsoluteLayout.LayoutFlags="WidthProportional,HeightProportional">
+
                     <m:Has.Transitions>
                         <m:TransitionsCollection>
                             <m:Transition Property="Padding"/>
                         </m:TransitionsCollection>
                     </m:Has.Transitions>
+
                     <m:Has.Styles>
                         <m:StylesCollection>
-                            <m:Normal Setters="{m:Set Background=Primary, BorderThickness=0}"/>
+                            <m:Normal Setters="{m:Set Background='Gray,Swatch200', BorderThickness=0}"/>
                             <m:OnXsScreen Setters="{x:StaticResource BodyExpandedStyle}"/>
                             <m:OnLargeScreen Setters="{x:StaticResource BodyContractedStyle}"/>
                         </m:StylesCollection>
@@ -67,6 +70,7 @@
                         <m:AppBody/>
                     </VerticalStackLayout>
                 </Border>
+
             </AbsoluteLayout>
         </m:AppPage>
     </Application.MainPage>

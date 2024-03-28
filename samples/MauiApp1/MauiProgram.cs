@@ -9,10 +9,10 @@ public static class MauiProgram
         var builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
-            .UseManuelaRouting([
-                new Route<MainView>(),
-                new Route<SecondView>()
-            ])
+            //.UseManuelaRouting([
+            //    new Route<MainView>(),
+            //    new Route<SecondView>()
+            //])
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

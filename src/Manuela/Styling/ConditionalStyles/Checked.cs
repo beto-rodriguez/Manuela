@@ -1,16 +1,23 @@
-﻿namespace Manuela.Styling.ConditionalStyles;
+﻿using System.ComponentModel;
+
+namespace Manuela.Styling.ConditionalStyles;
 
 public class Checked : ConditionalStyle
 {
+    private VisualElement? _element;
+    private PropertyChangedEventHandler? _propertyChangedEventHandler;
+
     public Checked()
     {
         Condition = new(ConditionDefinition)
         {
             Triggers = v =>
             {
+                _element = v;
+
                 if (v is CheckBox checkBox)
                 {
-                    checkBox.PropertyChanged += (sender, e) =>
+                    _propertyChangedEventHandler += (sender, e) =>
                     {
                         if (e.PropertyName is null or not (nameof(CheckBox.IsChecked)))
                             return;
@@ -18,18 +25,22 @@ public class Checked : ConditionalStyle
                         v.SetValue(Has.IsCheckedStateProperty, checkBox.IsChecked);
                     };
 
+                    checkBox.PropertyChanged += _propertyChangedEventHandler;
+
                     return [new(v, [nameof(CheckBox.IsChecked)])];
                 }
 
                 if (v is RadioButton radioButton)
                 {
-                    radioButton.PropertyChanged += (sender, e) =>
+                    _propertyChangedEventHandler = (sender, e) =>
                     {
                         if (e.PropertyName is null or not (nameof(RadioButton.IsChecked)))
                             return;
 
                         v.SetValue(Has.IsCheckedStateProperty, radioButton.IsChecked);
                     };
+
+                    radioButton.PropertyChanged += _propertyChangedEventHandler;
 
                     return [new(v, [nameof(RadioButton.IsChecked)])];
                 }
@@ -41,6 +52,16 @@ public class Checked : ConditionalStyle
 
             }
         };
+    }
+
+    public override void Dispose()
+    {
+        if (_element is not null)
+            _element.PropertyChanged -= _propertyChangedEventHandler;
+
+        _element = null;
+
+        base.Dispose();
     }
 
     protected virtual bool ConditionDefinition(VisualElement visualElement)

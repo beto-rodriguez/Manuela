@@ -8,11 +8,19 @@ public class ConditionalStyle
 {
     private ManuelaSettersDictionary? _setters;
     private XamlCondition? _condition;
+    private Expressions.Trigger[] _triggers = [];
 
     public ManuelaSettersDictionary? Setters
     {
         get => _setters;
-        set { _setters = value; ReApply(); }
+        set
+        {
+            if (_setters is not null)
+                foreach (var visualElement in InitializedElements)
+                    ClearValues(visualElement, _setters.Keys);
+
+            _setters = value; ReApply();
+        }
     }
 
     public XamlCondition? Condition
@@ -32,13 +40,25 @@ public class ConditionalStyle
         if (Application.Current is not null)
             Application.Current.RequestedThemeChanged += OnThemeChanged;
 
-        if (Condition?.Triggers is null)
+        if (_condition?.Triggers is null)
             throw new Exception(
                 "Manuela was not able to find the Expression triggers. " +
                 "Ensure the InitializeTriggers() method is called.");
 
-        foreach (var trigger in Condition?.Triggers(visual) ?? [])
-            trigger.Notifier.PropertyChanged += (sender, e) =>
+        // the "Condition?.Triggers(visual)" expression initializes and returns the "triggers"
+        // a "trigger" is an object that has at least 2 things:
+        //   1. An INotifyPropertyChanged object.
+        //   2. A HashSet containing the property names in the INPC object that fire an update
+        // finally we attach a handler to each INPC and listen for changes in the target properties.
+
+        _triggers = _condition?.Triggers(visual) ?? [];
+
+        foreach (var trigger in _triggers)
+        {
+            // save a reference to the handler, this handler has a capture on the "visual" reference.
+            // this way we should be able to unsubscribe from the PropertyChanged event when the style is disposed.
+
+            trigger.NotifierHandler = (sender, e) =>
             {
                 if (e.PropertyName is null || !trigger.Properties.Contains(e.PropertyName))
                     return;
@@ -47,8 +67,28 @@ public class ConditionalStyle
                 Apply(visual);
             };
 
+            trigger.Notifier.PropertyChanged += trigger.NotifierHandler;
+        }
+
         _ = InitializedElements.Add(visual);
         Apply(visual);
+    }
+
+    public virtual void Dispose()
+    {
+        foreach (var visualElement in InitializedElements)
+            ClearValues(visualElement);
+
+        if (Application.Current is not null)
+            Application.Current.RequestedThemeChanged -= OnThemeChanged;
+
+        foreach (var trigger in _triggers)
+        {
+            trigger.Notifier.PropertyChanged -= trigger.NotifierHandler;
+        }
+
+        _triggers = [];
+        InitializedElements.Clear();
     }
 
     public void Apply(VisualElement? visual)
@@ -115,11 +155,16 @@ public class ConditionalStyle
             visual.SetValue(bindableProperty, value);
         }
 
-#if DEBUG
-        Trace.WriteLine($"Applied {property} to {value}");
-#endif
-
         return true;
+    }
+
+    public void ClearValues(VisualElement visualElement, Dictionary<ManuelaProperty, object?>.KeyCollection? keys = null)
+    {
+        keys ??= Setters?.Keys;
+        if (keys is null) return;
+
+        foreach (var key in keys)
+            visualElement.ClearValue(ManuelaThings.GetBindableProperty(visualElement, key));
     }
 
     protected void ReApply()
