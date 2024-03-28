@@ -138,16 +138,13 @@ public class ConditionalStyle
 
         value = ManuelaThings.TryConvert(visual, property, value);
 
-        if (
-            value is not null &&
-            transitions is not null &&
-            transitions.TryGetValue(property, out var transition, out var isFirst) &&
-            !isFirst
+        if (                                                                                // do not animate if:
+            value is not null &&                                                            // target value is null
+            transitions is not null &&                                                      // there are no transitions
+            transitions.TryGetValue(property, out var transition, out var isFirst) &&       // the property does not have a transition
+            !isFirst                                                                        // is the first time the property is being set
             )
         {
-            // animate if a transition is defined
-            // also ignore nulls... how do we animate nulls?
-            // .. also skip first time, as we are setting the value for the first time.
             var animation = ManuelaThings.GetAnimation(visual, bindableProperty, value);
             animation.Commit(visual, $"{property} animation", easing: transition.Easing);
         }

@@ -46,10 +46,29 @@
 
                     <VerticalStackLayout>
                         <Border StrokeThickness="0" Padding="0, 20">
-                            <Image Source="manuela_text_light.png" MaximumHeightRequest="50"/>
+                            <Image
+                                Source="{AppThemeBinding Light='manuela_text_light.png', Dark='manuela_text_dark.png'}"
+                                MaximumHeightRequest="50"/>
                         </Border>
                     </VerticalStackLayout>
-                    
+
+                </Border>
+
+                <!-- menu shadow on < lg devices -->
+                <Border
+                    x:Name="Shadow"
+                    ZIndex="9"
+                    AbsoluteLayout.LayoutBounds="0,0,1,1"
+                    AbsoluteLayout.LayoutFlags="WidthProportional,HeightProportional"
+                    IsVisible="False">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="ToggleMenu"/>
+                    </Border.GestureRecognizers>
+                    <m:Has.Styles>
+                        <m:StylesCollection>
+                            <m:Normal Setters="{m:Set Background='Gray,Swatch950,Opacity30'}"/>
+                        </m:StylesCollection>
+                    </m:Has.Styles>
                 </Border>
 
                 <!-- body -->
@@ -74,31 +93,35 @@
 
                     <VerticalStackLayout>
                         <VerticalStackLayout>
-                            <HorizontalStackLayout Padding="20" Spacing="20">
-                                <Image Source="hamburger_dark.png" HeightRequest="15">
-                                    <Image.GestureRecognizers>
-                                        <TapGestureRecognizer Tapped="ToggleMenu"/>
-                                    </Image.GestureRecognizers>
+                            <Border
+                                Padding="20"
+                                VerticalOptions="Start"
+                                HorizontalOptions="Start"
+                                StrokeThickness="0">
+                                <Border.GestureRecognizers>
+                                    <PointerGestureRecognizer PointerReleased="OnPointerReleased" />
+                                </Border.GestureRecognizers>
+                                <Image
+                                    Source="{AppThemeBinding Light='hamburger_dark.png', Dark='hamburger_light.png'}"
+                                    HeightRequest="15">
                                 </Image>
-                            </HorizontalStackLayout>
+                                <m:Has.Transitions>
+                                    <m:TransitionsCollection>
+                                        <m:Transition Property="Scale"/>
+                                    </m:TransitionsCollection>
+                                </m:Has.Transitions>
+                                <m:Has.Styles>
+                                    <m:StylesCollection>
+                                        <m:Normal Setters="{m:Set Background='Primary,Opacity0', Scale=1}"/>
+                                        <m:Pressed Setters="{m:Set Scale=0.7}"/>
+                                    </m:StylesCollection>
+                                </m:Has.Styles>
+                            </Border>
                         </VerticalStackLayout>
-                        
+
                         <m:AppBody/>
 
                     </VerticalStackLayout>
-                </Border>
-
-                <!-- shadow -->
-                <Border
-                    x:Name="Shadow"
-                    ZIndex="9"
-                    AbsoluteLayout.LayoutBounds="0,0,1,1"
-                    AbsoluteLayout.LayoutFlags="WidthProportional,HeightProportional"
-                    BackgroundColor="#90303030"
-                    IsVisible="False">
-                    <Border.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="ToggleMenu"/>
-                    </Border.GestureRecognizers>
                 </Border>
 
             </AbsoluteLayout>

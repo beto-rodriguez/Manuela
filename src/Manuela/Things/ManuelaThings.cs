@@ -306,7 +306,7 @@ public static class ManuelaThings
 
         // otherwise, convert the source to a brush
         var uiBrush = (UIBrush)source;
-        var intBrush = (int)uiBrush;
+        var intFlags = (int)uiBrush;
 
         var theme = Application.Current?.RequestedTheme;
         if (theme is null or AppTheme.Unspecified) theme = AppTheme.Light;
@@ -315,17 +315,19 @@ public static class ManuelaThings
             ? Theme.Current.LightColors
             : Theme.Current.DarkColors;
 
-        if ((intBrush & UICC.Gradient) > 0)
+        var baseColor = GetBaseColor(intFlags);
+
+        if ((intFlags & UICC.Gradient) > 0)
         {
             int sw1 = UICC.Sw400, sw2 = UICC.Sw600;
 
-            if ((intBrush & UICC.GradientSmall) > 0)
+            if ((intFlags & UICC.GradientSmall) > 0)
             {
                 sw1 = UICC.Sw500;
                 sw2 = UICC.Sw600;
             }
 
-            if ((intBrush & UICC.GradientLarge) > 0)
+            if ((intFlags & UICC.GradientLarge) > 0)
             {
                 sw1 = UICC.Sw300;
                 sw2 = UICC.Sw700;
@@ -334,30 +336,30 @@ public static class ManuelaThings
             Point start = new(0.5, 0);
             Point end = new(0.5, 1);
 
-            if ((intBrush & UICC.GradientX) > 0)
+            if ((intFlags & UICC.GradientX) > 0)
             {
                 start = new(0, 0.5);
                 end = new(1, 0.5);
             }
 
-            if ((intBrush & UICC.GradientY) > 0)
+            if ((intFlags & UICC.GradientY) > 0)
             {
                 start = new(0.5, 0);
                 end = new(0.5, 1);
             }
 
-            var baseColor = (int)UIBrush.Primary;
-            if ((uiBrush & UIBrush.Secondary) > 0) baseColor = (int)UIBrush.Secondary;
-            if ((uiBrush & UIBrush.Tertiary) > 0) baseColor = (int)UIBrush.Tertiary;
-            if ((uiBrush & UIBrush.Gray) > 0) baseColor = (int)UIBrush.Gray;
-
             var c1 = colors.Colors[(UIBrush)(baseColor | sw1)];
             var c2 = colors.Colors[(UIBrush)(baseColor | sw2)];
+
+            c1 = SetColorOpacity(c1, intFlags);
+            c2 = SetColorOpacity(c2, intFlags);
 
             return new LinearGradientBrush([new(c1, 0), new(c2, 1)], start, end);
         }
 
-        return new SolidColorBrush(colors.Colors[uiBrush]);
+        var swatch = GetSwatch(intFlags);
+
+        return new SolidColorBrush(SetColorOpacity(colors.Colors[(UIBrush)(baseColor | swatch)], intFlags));
     }
 
     private static object? ColorConverter(BindableObject bindable, object? source)
@@ -369,6 +371,7 @@ public static class ManuelaThings
 
         // otherwise, convert the source to a brush
         var uiColor = (UIColor)source;
+        var intFlags = (int)uiColor;
 
         var theme = Application.Current?.RequestedTheme;
         if (theme is null or AppTheme.Unspecified) theme = AppTheme.Light;
@@ -377,7 +380,13 @@ public static class ManuelaThings
             ? Theme.Current.LightColors
             : Theme.Current.DarkColors;
 
-        return colors.Colors[(UIBrush)uiColor];
+        var baseColor = GetBaseColor(intFlags);
+        var sw = GetSwatch(intFlags);
+
+        var c = colors.Colors[(UIBrush)(baseColor | sw)];
+        c = SetColorOpacity(c, intFlags);
+
+        return c;
     }
 
     private static object? BorderColorConverter(BindableObject bindable, object? source)
@@ -406,6 +415,55 @@ public static class ManuelaThings
             : Theme.Current.ShadowDark;
 
         return shadows[uiSize];
+    }
+
+    private static int GetBaseColor(int intFlags)
+    {
+        var baseColor = UICC.Primary;
+
+        if ((intFlags & UICC.Secondary) > 0) baseColor = UICC.Secondary;
+        if ((intFlags & UICC.Tertiary) > 0) baseColor = UICC.Tertiary;
+        if ((intFlags & UICC.Gray) > 0) baseColor = UICC.Gray;
+
+        return baseColor;
+    }
+
+    private static int GetSwatch(int intFlags)
+    {
+        var swatch = 0;
+
+        if ((intFlags & UICC.Sw50) > 0) swatch = UICC.Sw50;
+        if ((intFlags & UICC.Sw100) > 0) swatch = UICC.Sw100;
+        if ((intFlags & UICC.Sw200) > 0) swatch = UICC.Sw200;
+        if ((intFlags & UICC.Sw300) > 0) swatch = UICC.Sw300;
+        if ((intFlags & UICC.Sw400) > 0) swatch = UICC.Sw400;
+        if ((intFlags & UICC.Sw500) > 0) swatch = UICC.Sw500;
+        if ((intFlags & UICC.Sw600) > 0) swatch = UICC.Sw600;
+        if ((intFlags & UICC.Sw700) > 0) swatch = UICC.Sw700;
+        if ((intFlags & UICC.Sw800) > 0) swatch = UICC.Sw800;
+        if ((intFlags & UICC.Sw900) > 0) swatch = UICC.Sw900;
+        if ((intFlags & UICC.Sw950) > 0) swatch = UICC.Sw950;
+
+        return swatch;
+    }
+
+    private static Color SetColorOpacity(Color color, int flags)
+    {
+        var opacity = 1f;
+
+        if ((flags & UICC.Opacity0) > 0) opacity = 0f;
+        if ((flags & UICC.Opacity10) > 0) opacity = 0.1f;
+        if ((flags & UICC.Opacity20) > 0) opacity = 0.2f;
+        if ((flags & UICC.Opacity30) > 0) opacity = 0.3f;
+        if ((flags & UICC.Opacity40) > 0) opacity = 0.4f;
+        if ((flags & UICC.Opacity50) > 0) opacity = 0.5f;
+        if ((flags & UICC.Opacity60) > 0) opacity = 0.6f;
+        if ((flags & UICC.Opacity70) > 0) opacity = 0.7f;
+        if ((flags & UICC.Opacity80) > 0) opacity = 0.8f;
+        if ((flags & UICC.Opacity90) > 0) opacity = 0.9f;
+        if ((flags & UICC.Opacity100) > 0) opacity = 1f;
+
+        return color.MultiplyAlpha(opacity);
     }
 
     public static void SetPointerPassthroughRegion(Region[] regions, Window[]? windows = null)

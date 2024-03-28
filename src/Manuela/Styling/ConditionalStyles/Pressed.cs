@@ -77,6 +77,12 @@ public class Pressed : ConditionalStyle
                 bindable.SetValue(Has.IsPressedStateProperty, true);
             };
 
+            pointerRecognizer.PointerExited += (sender, e) =>
+            {
+                if (sender is null || sender is not BindableObject bindable) return;
+                bindable.SetValue(Has.IsPressedStateProperty, false);
+            };
+
             pointerRecognizer.PointerReleased += (sender, e) =>
             {
                 if (sender is null || sender is not BindableObject bindable) return;
