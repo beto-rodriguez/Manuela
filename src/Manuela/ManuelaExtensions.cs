@@ -1,10 +1,11 @@
-﻿using Microsoft.Maui.Handlers;
+﻿using Manuela.AppRouting;
+using Microsoft.Maui.Handlers;
 
-namespace Manuela.AppRouting;
+namespace Manuela;
 
-public static class ManuelaRoutingExtensions
+public static class ManuelaExtensions
 {
-    public static MauiAppBuilder UseManuelaRouting(
+    public static MauiAppBuilder UseManuela(
         this MauiAppBuilder builder,
         Route[]? routes = null,
         bool addBorderlessPicker = true)
@@ -14,7 +15,7 @@ public static class ManuelaRoutingExtensions
 
         foreach (var route in routes)
         {
-            Routing.Routes.Add(route.Name, route);
+            AppRouting.Routing.Routes.Add(route.Name, route);
 
             if (route.IsSingleton)
                 _ = serviceCollection.AddSingleton(route.ViewType);
@@ -22,9 +23,16 @@ public static class ManuelaRoutingExtensions
                 _ = serviceCollection.AddTransient(route.ViewType);
         }
 
-        Routing.ServiceCollection = serviceCollection;
+        AppRouting.Routing.ServiceCollection = serviceCollection;
+
+#if WINDOWS
+        // MauiAppTitleBarTemplate is an obstacle for the SetPointerPassthroughRegion method.
+        static object GetTemplate() => Microsoft.UI.Xaml.Markup.XamlReader.Load(@"<DataTemplate xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation"" xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""><StackPanel Height=""0"" /></DataTemplate>");
+        MauiWinUIApplication.Current.Resources.Add("MauiAppTitleBarTemplate", GetTemplate());
+#endif
 
         if (addBorderlessPicker)
+        {
             PickerHandler.Mapper.AppendToMapping("borderless", (handler, picker) =>
             {
 #if ANDROID
@@ -40,6 +48,7 @@ public static class ManuelaRoutingExtensions
                 handler.PlatformView.Style = null;
 #endif
             });
+        }
 
         return builder;
     }

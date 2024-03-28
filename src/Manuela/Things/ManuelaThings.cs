@@ -1,6 +1,7 @@
-﻿using Manuela.Theming;
+﻿using Manuela.Styling;
+using Manuela.Theming;
 
-namespace Manuela.Styling;
+namespace Manuela.Things;
 
 public static class ManuelaThings
 {
@@ -400,5 +401,23 @@ public static class ManuelaThings
             : Theme.Current.ShadowDark;
 
         return shadows[uiSize];
+    }
+
+    public static void SetPointerPassthroughRegion(Region[] regions, Window[]? windows = null)
+    {
+#if WINDOWS
+        windows ??= Application.Current?.Windows.ToArray() ?? [];
+
+        foreach (var window in windows)
+        {
+            if (window.Handler.PlatformView is not Microsoft.UI.Xaml.Window w) continue;
+
+            var nonClientInputSrc = Microsoft.UI.Input.InputNonClientPointerSource.GetForWindowId(w.AppWindow.Id);
+
+            nonClientInputSrc.SetRegionRects(
+                Microsoft.UI.Input.NonClientRegionKind.Passthrough,
+                regions.Select(x => x.ToRectInt32()).ToArray());
+        }
+#endif
     }
 }

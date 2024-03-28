@@ -38,11 +38,16 @@
 
                     <m:Has.Styles>
                         <m:StylesCollection>
-                            <m:Normal Setters="{m:Set Background='Gray,Swatch50', BorderThickness=0}"/>
+                            <m:Normal Setters="{m:Set Background='Gray,Swatch200', BorderThickness=0}"/>
                             <m:OnXsScreen Setters="{x:StaticResource MenuClosedStyle}"/>
                             <m:OnLargeScreen Setters="{x:StaticResource MenuOpenedStyle}"/>
                         </m:StylesCollection>
                     </m:Has.Styles>
+
+                    <VerticalStackLayout>
+                        <Button Text="Toggle" Clicked="Button_Clicked"/>
+                    </VerticalStackLayout>
+                    
                 </Border>
 
                 <!-- body -->
@@ -66,7 +71,7 @@
                     </m:Has.Styles>
 
                     <VerticalStackLayout Padding="50">
-                        <Button Text="Toggle" Clicked="Button_Clicked"></Button>
+                        <Button Text="Toggle" Clicked="Button_Clicked"/>
                         <m:AppBody/>
                     </VerticalStackLayout>
                 </Border>

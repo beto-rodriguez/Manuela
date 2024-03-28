@@ -3,7 +3,7 @@ using Manuela.Styling;
 
 namespace Manuela.Transitions;
 
-// should be a dictionary? but it seems that Xaml parses is not keeping the keys (or i don't know how...)
+// should be a dictionary? but it seems that Xaml parser is not doing it right (or i don't know how to declare it...)
 public class TransitionsCollection : List<Transition>
 {
     private readonly HashSet<ManuelaProperty> _animatedProperties = [];
