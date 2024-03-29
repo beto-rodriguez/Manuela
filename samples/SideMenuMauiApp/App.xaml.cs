@@ -1,6 +1,7 @@
 ﻿using Manuela.Things;
 using Manuela.Styling;
 using Manuela.Styling.ConditionalStyles.Screen;
+using System.Diagnostics;
 
 namespace SideMenuMauiApp;
 
@@ -54,6 +55,11 @@ public partial class App : Application
     }
 
     private void OnPointerReleased(object sender, PointerEventArgs e)
+    {
+        ToggleMenu(sender, new(null));
+    }
+
+    private void OnTogglerTapped(object sender, TappedEventArgs e)
     {
         ToggleMenu(sender, new(null));
     }

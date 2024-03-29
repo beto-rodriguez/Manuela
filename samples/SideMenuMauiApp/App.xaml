@@ -30,7 +30,7 @@
                             <Setter.Value>
                                 <m:StylesCollection>
                                     <m:Normal Setters="{m:Set Background='Gray,Swatch200'}"/>
-                                    <m:Pressed Setters="{m:Set Background='Gray,Swatch300'}"/>
+                                    <!--<m:Pressed Setters="{m:Set Background='Gray,Swatch300'}"/>-->
                                 </m:StylesCollection>
                             </Setter.Value>
                         </Setter>
@@ -149,26 +149,26 @@
                                 StrokeThickness="0"
                                 VerticalOptions="Start"
                                 HorizontalOptions="Start">
-                                
+
                                 <Border.GestureRecognizers>
-                                    <PointerGestureRecognizer PointerReleased="OnPointerReleased" />
+                                    <TapGestureRecognizer Tapped="OnTogglerTapped" />
                                 </Border.GestureRecognizers>
                                 
                                 <Image
                                     Source="{AppThemeBinding Light='hamburger_dark.png', Dark='hamburger_light.png'}"
                                     HeightRequest="15">
                                 </Image>
-                                
+
                                 <m:Has.Transitions>
                                     <m:TransitionsCollection>
-                                        <m:Transition Property="Scale"/>
+                                        <m:Transition Property="Scale" Duration="100"/>
                                     </m:TransitionsCollection>
                                 </m:Has.Transitions>
 
                                 <m:Has.Styles>
                                     <m:StylesCollection>
                                         <m:Normal Setters="{m:Set Background='Primary,Opacity0', Scale=1}"/>
-                                        <m:Pressed Setters="{m:Set Scale=0.7}"/>
+                                        <m:Pressed Setters="{m:Set Scale=0.8}"/>
                                     </m:StylesCollection>
                                 </m:Has.Styles>
                             </Border>

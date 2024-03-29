@@ -6,6 +6,7 @@ public class Pressed : ConditionalStyle
 {
     private VisualElement? _element;
     private PropertyChangedEventHandler? _propertyChangedEventHandler;
+    private Behaviors.Behavior? _behavior;
 
     public Pressed()
     {
@@ -14,6 +15,9 @@ public class Pressed : ConditionalStyle
             Triggers = v =>
             {
                 _element = v;
+
+                // we could just use the GetViewTriggers???
+                // probably yes... but lets use the Maui things for now
 
                 if (v is Button button)
                 {
@@ -50,6 +54,8 @@ public class Pressed : ConditionalStyle
 
     public override void Dispose()
     {
+        _behavior?.Dispose();
+
         if (_element is not null)
             _element.PropertyChanged -= _propertyChangedEventHandler;
 
@@ -69,27 +75,10 @@ public class Pressed : ConditionalStyle
                     $"The type does not inherit from {nameof(View)}");
 #endif
 
-            var pointerRecognizer = new PointerGestureRecognizer();
+            _behavior = new Behaviors.Behavior(v);
 
-            pointerRecognizer.PointerPressed += (sender, e) =>
-            {
-                if (sender is null || sender is not BindableObject bindable) return;
-                bindable.SetValue(Has.IsPressedStateProperty, true);
-            };
-
-            pointerRecognizer.PointerExited += (sender, e) =>
-            {
-                if (sender is null || sender is not BindableObject bindable) return;
-                bindable.SetValue(Has.IsPressedStateProperty, false);
-            };
-
-            pointerRecognizer.PointerReleased += (sender, e) =>
-            {
-                if (sender is null || sender is not BindableObject bindable) return;
-                bindable.SetValue(Has.IsPressedStateProperty, false);
-            };
-
-            view.GestureRecognizers.Add(pointerRecognizer);
+            _behavior.Down += () => v.SetValue(Has.IsPressedStateProperty, true);
+            _behavior.Up += () => v.SetValue(Has.IsPressedStateProperty, false);
 
             return [new(v, ["IsPressedState"])];
         };
