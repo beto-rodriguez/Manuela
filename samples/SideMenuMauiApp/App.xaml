@@ -2,6 +2,7 @@
 <Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:m="clr-namespace:Manuela;assembly=Manuela"
+             xmlns:appViews="clr-namespace:SideMenuMauiApp.Views"
              x:Class="SideMenuMauiApp.App">
 
     <Application.Resources>
@@ -14,6 +15,30 @@
                     <m:Set x:Key="MenuOpenedStyle" TranslateX="0"/>
                     <m:Set x:Key="BodyExpandedStyle" Padding="0"/>
                     <m:Set x:Key="BodyContractedStyle" Padding="300,0,0,0"/>
+
+                    <Style x:Key="SideMenuItem" TargetType="Border">
+                        <Setter Property="StrokeThickness" Value="0"/>
+                        <Setter Property="Padding" Value="30, 16"/>
+                        <Setter Property="m:Has.Transitions">
+                            <Setter.Value>
+                                <m:TransitionsCollection>
+                                    <m:Transition Property="Background" />
+                                </m:TransitionsCollection>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="m:Has.Styles">
+                            <Setter.Value>
+                                <m:StylesCollection>
+                                    <m:Normal Setters="{m:Set Background='Gray,Swatch200'}"/>
+                                    <m:Pressed Setters="{m:Set Background='Gray,Swatch300'}"/>
+                                </m:StylesCollection>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+
+                    <Style x:Key="SideMenuLabel" TargetType="Label">
+                        <Setter Property="FontSize" Value="16"/>
+                    </Style>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
@@ -44,13 +69,38 @@
                         </m:StylesCollection>
                     </m:Has.Styles>
 
-                    <VerticalStackLayout>
-                        <Border StrokeThickness="0" Padding="0, 20">
+                    <Grid RowDefinitions="Auto,*">
+                        <Border Grid.Row="0" StrokeThickness="0" Padding="0, 20, 0, 40">
                             <Image
-                            Source="{AppThemeBinding Light='manuela_text_light.png', Dark='manuela_text_dark.png'}"
-                            MaximumHeightRequest="50"/>
+                                Source="{AppThemeBinding Light='manuela_text_light.png', Dark='manuela_text_dark.png'}"
+                                MaximumHeightRequest="50"/>
                         </Border>
-                    </VerticalStackLayout>
+
+                        <ScrollView Grid.Row="1">
+                            <VerticalStackLayout>
+
+                                <!--
+                                The Router.Link property, defines the route where the app navigates to when the item is clicked.
+                                In this case, the app navigates to the MainView route.
+
+                                The MainView route must be defined in the MauiProgram.cs file.
+                                -->
+                                
+                                <Border
+                                    m:Router.Link="MainView"
+                                    Style="{x:StaticResource SideMenuItem}">
+                                    <Label Text="MainView" Style="{x:StaticResource SideMenuLabel}"/>
+                                </Border>
+
+                                <Border
+                                    m:Router.Link="AnotherView"
+                                    Style="{x:StaticResource SideMenuItem}">
+                                    <Label Text="AnotherView" Style="{x:StaticResource SideMenuLabel}"/>
+                                </Border>
+
+                            </VerticalStackLayout>
+                        </ScrollView>
+                    </Grid>
                 </Border>
 
                 <!-- menu shadow on < lg devices -->
@@ -124,7 +174,13 @@
                             </Border>
                         </VerticalStackLayout>
 
-                        <m:AppBody/>
+                        <!-- The app body is the element that changes depending on the app route -->
+                        <m:AppBody>
+
+                            <!-- we can specify the view where the app starts, in this case, the MainView -->
+                            <appViews:MainView/>
+
+                        </m:AppBody>
 
                     </VerticalStackLayout>
                 </Border>

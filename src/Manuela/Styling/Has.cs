@@ -13,6 +13,9 @@ public class Has
     public static BindableProperty StylesProperty = BindableProperty.CreateAttached(
         "Styles", typeof(StylesCollection), typeof(Has), null, propertyChanged: OnStyleCollectionChanged);
 
+    public static BindableProperty TransitionsProperty = BindableProperty.CreateAttached(
+        "Transitions", typeof(TransitionsCollection), typeof(Has), null, propertyChanged: OnTransitionsCollectionChanged);
+
     public static BindableProperty ScreenBreakPointProperty = BindableProperty.CreateAttached(
         "ScreenBreakPoint", typeof(Breakpoint), typeof(Has), Breakpoint.Xs);
 
@@ -27,9 +30,6 @@ public class Has
 
     public static BindableProperty IsValidStateProperty = BindableProperty.CreateAttached(
         "IsValidState", typeof(bool), typeof(Has), true);
-
-    public static BindableProperty TransitionsProperty = BindableProperty.CreateAttached(
-        "Transitions", typeof(TransitionsCollection), typeof(Has), null);
 #pragma warning restore CA2211 // Non-constant fields should not be visible
 
     public static StylesCollection GetStyles(BindableObject view)
@@ -73,6 +73,14 @@ public class Has
             // on data templates it seems that the loaded event is not fired...
             // possible workaround is to use SizeChanged:
             // ve.SizeChanged += (_, _) => style.Initialize(ve);
+        }
+    }
+
+    public static void OnTransitionsCollectionChanged(BindableObject bindable, object? oldValue, object? newValue)
+    {
+        if (oldValue is not null and TransitionsCollection oldCollection)
+        {
+            oldCollection.Dispose();
         }
     }
 }

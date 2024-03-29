@@ -14,7 +14,12 @@ public class Router
             if (bindable is Button button)
             {
                 button.Clicked += (_, _) => AppRouting.Routing.GoTo(route);
+                return;
+            }
 
+            if (bindable is ImageButton imgButton)
+            {
+                imgButton.Clicked += (_, _) => AppRouting.Routing.GoTo(route);
                 return;
             }
 

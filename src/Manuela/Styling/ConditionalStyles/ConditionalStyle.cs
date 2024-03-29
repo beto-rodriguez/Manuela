@@ -138,11 +138,11 @@ public class ConditionalStyle
 
         value = ManuelaThings.TryConvert(visual, property, value);
 
-        if (                                                                                // do not animate if:
-            value is not null &&                                                            // target value is null
-            transitions is not null &&                                                      // there are no transitions
-            transitions.TryGetValue(property, out var transition, out var isFirst) &&       // the property does not have a transition
-            !isFirst                                                                        // is the first time the property is being set
+        if (                                                                                    // do not animate if:
+            value is not null &&                                                                // target value is null
+            transitions is not null &&                                                          // there are no transitions
+            transitions.TryGetValue(visual, property, out var transition, out var isFirst) &&   // the property does not have a transition
+            !isFirst                                                                            // is the first time the property is being set
             )
         {
             var animation = ManuelaThings.GetAnimation(visual, bindableProperty, value);

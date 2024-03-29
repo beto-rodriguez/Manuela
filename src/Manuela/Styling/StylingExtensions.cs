@@ -32,7 +32,7 @@ public static class StylingExtensions
         if (
             value is not null &&
             transitions is not null &&
-            transitions.TryGetValue(property, out var transition, out var isFirst) &&
+            transitions.TryGetValue(visualElement, property, out var transition, out var isFirst) &&
             !isFirst
             )
         {
