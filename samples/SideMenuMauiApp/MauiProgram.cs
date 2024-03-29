@@ -1,7 +1,7 @@
 ﻿using Manuela;
 using Microsoft.Extensions.Logging;
 
-namespace MauiApp1;
+namespace SideMenuMauiApp;
 public static class MauiProgram
 {
     public static MauiApp CreateMauiApp()
@@ -10,10 +10,6 @@ public static class MauiProgram
         builder
             .UseMauiApp<App>()
             .UseManuela()
-            //.UseManuela([
-            //    new Route<MainView>(),
-            //    new Route<SecondView>()
-            //])
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -21,7 +17,7 @@ public static class MauiProgram
             });
 
 #if DEBUG
-        builder.Logging.AddDebug();
+		builder.Logging.AddDebug();
 #endif
 
         return builder.Build();

@@ -2,9 +2,8 @@
 <Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:m="clr-namespace:Manuela;assembly=Manuela"
-             xmlns:local="clr-namespace:MauiApp1"
-             x:Class="MauiApp1.App"
-             x:DataType="local:App">
+             x:Class="SideMenuMauiApp.App">
+
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -19,6 +18,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
+
     <Application.MainPage>
         <m:AppPage>
             <AbsoluteLayout>
@@ -47,23 +47,24 @@
                     <VerticalStackLayout>
                         <Border StrokeThickness="0" Padding="0, 20">
                             <Image
-                                Source="{AppThemeBinding Light='manuela_text_light.png', Dark='manuela_text_dark.png'}"
-                                MaximumHeightRequest="50"/>
+                            Source="{AppThemeBinding Light='manuela_text_light.png', Dark='manuela_text_dark.png'}"
+                            MaximumHeightRequest="50"/>
                         </Border>
                     </VerticalStackLayout>
-
                 </Border>
 
                 <!-- menu shadow on < lg devices -->
                 <Border
                     x:Name="Shadow"
                     ZIndex="9"
+                    IsVisible="False"
                     AbsoluteLayout.LayoutBounds="0,0,1,1"
-                    AbsoluteLayout.LayoutFlags="WidthProportional,HeightProportional"
-                    IsVisible="False">
+                    AbsoluteLayout.LayoutFlags="WidthProportional,HeightProportional">
+
                     <Border.GestureRecognizers>
                         <TapGestureRecognizer Tapped="ToggleMenu"/>
                     </Border.GestureRecognizers>
+
                     <m:Has.Styles>
                         <m:StylesCollection>
                             <m:Normal Setters="{m:Set Background='Gray,Swatch950,Opacity30'}"/>
@@ -95,21 +96,25 @@
                         <VerticalStackLayout>
                             <Border
                                 Padding="20"
+                                StrokeThickness="0"
                                 VerticalOptions="Start"
-                                HorizontalOptions="Start"
-                                StrokeThickness="0">
+                                HorizontalOptions="Start">
+                                
                                 <Border.GestureRecognizers>
                                     <PointerGestureRecognizer PointerReleased="OnPointerReleased" />
                                 </Border.GestureRecognizers>
+                                
                                 <Image
                                     Source="{AppThemeBinding Light='hamburger_dark.png', Dark='hamburger_light.png'}"
                                     HeightRequest="15">
                                 </Image>
+                                
                                 <m:Has.Transitions>
                                     <m:TransitionsCollection>
                                         <m:Transition Property="Scale"/>
                                     </m:TransitionsCollection>
                                 </m:Has.Transitions>
+
                                 <m:Has.Styles>
                                     <m:StylesCollection>
                                         <m:Normal Setters="{m:Set Background='Primary,Opacity0', Scale=1}"/>

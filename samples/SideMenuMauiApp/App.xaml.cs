@@ -1,8 +1,8 @@
-﻿using Manuela.Styling;
+﻿using Manuela.Things;
+using Manuela.Styling;
 using Manuela.Styling.ConditionalStyles.Screen;
-using Manuela.Things;
 
-namespace MauiApp1;
+namespace SideMenuMauiApp;
 
 public partial class App : Application
 {
