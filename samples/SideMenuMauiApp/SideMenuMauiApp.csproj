@@ -62,7 +62,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\src\Manuela\Manuela.csproj" />
+	  <ProjectReference Include="..\..\src\Manuela\Manuela.csproj" />
 	</ItemGroup>
 
 </Project>
