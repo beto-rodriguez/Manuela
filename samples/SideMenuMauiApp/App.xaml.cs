@@ -1,12 +1,12 @@
 ﻿using Manuela.Things;
 using Manuela.Styling;
 using Manuela.Styling.ConditionalStyles.Screen;
-using System.Diagnostics;
 
 namespace SideMenuMauiApp;
 
 public partial class App : Application
 {
+    private bool _isMenuInitialized;
     public bool _isMenuOpen = true;
 
     public App()
@@ -24,6 +24,16 @@ public partial class App : Application
 
     private void ToggleMenu(object sender, TappedEventArgs e)
     {
+        if (!_isMenuInitialized)
+        {
+            // on large screens the menu is open by default, on smaller screens it is closed
+            _isMenuOpen = Body.GetScreenBreakpoint() >= Breakpoint.Lg;
+            _isMenuInitialized = true;
+
+            // The GetScreenBreakpoint works only after the window is initialized
+            // that is why this is not in the constructor
+        }
+
         _isMenuOpen = !_isMenuOpen;
 
         if (
@@ -54,16 +64,6 @@ public partial class App : Application
         UpdatePointerPassthroughRegion();
     }
 
-    private void OnPointerReleased(object sender, PointerEventArgs e)
-    {
-        ToggleMenu(sender, new(null));
-    }
-
-    private void OnTogglerTapped(object sender, TappedEventArgs e)
-    {
-        ToggleMenu(sender, new(null));
-    }
-
     private void UpdatePointerPassthroughRegion()
     {
         // declares a zone where the pointer events will pass through the title bar on windows
@@ -72,5 +72,10 @@ public partial class App : Application
         var width = (_isMenuOpen || Body.Window.Width >= (int)Breakpoint.Lg) ? 360 : 60;
 
         ManuelaThings.SetPointerPassthroughRegion([new(0, 0, width, 32)]);
+    }
+
+    private void OnMenuItemTapped(object sender)
+    {
+        var a = 1;
     }
 }

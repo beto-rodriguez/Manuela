@@ -11,12 +11,10 @@ public class Hovered : ConditionalStyle
         {
             Triggers = v =>
             {
-#if DEBUG
                 if (v is not View view)
                     throw new Exception(
                         $"{nameof(Hovered)} trigger is not supported in elements of type {v.GetType()}. " +
                         $"The type does not inherit from {nameof(View)}");
-#endif
 
                 _element = view;
 

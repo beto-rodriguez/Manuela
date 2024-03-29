@@ -1,8 +1,8 @@
 ﻿namespace Manuela.Styling.ConditionalStyles;
 
-public class Normal : ConditionalStyle
+public class Default : ConditionalStyle
 {
-    public Normal()
+    public Default()
     {
         Condition = new(visualElement => true)
         {

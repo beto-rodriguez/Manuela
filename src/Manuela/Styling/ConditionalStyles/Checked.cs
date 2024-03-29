@@ -45,11 +45,8 @@ public class Checked : ConditionalStyle
                     return [new(v, [nameof(RadioButton.IsChecked)])];
                 }
 
-#if DEBUG
                 throw new Exception(
                     $"{nameof(Checked)} trigger is not supported in elements of type {v.GetType()}.");
-#endif
-
             }
         };
     }

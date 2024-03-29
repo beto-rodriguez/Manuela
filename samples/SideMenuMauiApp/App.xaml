@@ -15,30 +15,13 @@
                     <m:Set x:Key="MenuOpenedStyle" TranslateX="0"/>
                     <m:Set x:Key="BodyExpandedStyle" Padding="0"/>
                     <m:Set x:Key="BodyContractedStyle" Padding="300,0,0,0"/>
-
-                    <Style x:Key="SideMenuItem" TargetType="Border">
-                        <Setter Property="StrokeThickness" Value="0"/>
-                        <Setter Property="Padding" Value="30, 16"/>
-                        <Setter Property="m:Has.Transitions">
-                            <Setter.Value>
-                                <m:TransitionsCollection>
-                                    <m:Transition Property="Background" />
-                                </m:TransitionsCollection>
-                            </Setter.Value>
-                        </Setter>
-                        <Setter Property="m:Has.Styles">
-                            <Setter.Value>
-                                <m:StylesCollection>
-                                    <m:Normal Setters="{m:Set Background='Gray,Swatch200'}"/>
-                                    <!--<m:Pressed Setters="{m:Set Background='Gray,Swatch300'}"/>-->
-                                </m:StylesCollection>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-
-                    <Style x:Key="SideMenuLabel" TargetType="Label">
-                        <Setter Property="FontSize" Value="16"/>
-                    </Style>
+                    <m:StylesCollection x:Key="MenuItemStyles" >
+                        <m:Default Setters="{m:Set Background='Gray,Swatch200', Padding='20, 10'}"/>
+                        <m:Pressed Setters="{m:Set Background='Gray,Swatch300'}"/>
+                    </m:StylesCollection>
+                    <m:TransitionsCollection x:Key="MenuItemTransitions">
+                        <m:Transition Property="Background" Duration="500"/>
+                    </m:TransitionsCollection>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
@@ -53,7 +36,8 @@
                     x:Name="SideMenu"
                     ZIndex="10"
                     AbsoluteLayout.LayoutBounds="0,0,300,1"
-                    AbsoluteLayout.LayoutFlags="HeightProportional">
+                    AbsoluteLayout.LayoutFlags="HeightProportional"
+                    m:Has.DefaultStyle="{m:Set Background='Gray,Swatch200', BorderThickness=0, Shadow=Md}">
 
                     <m:Has.Transitions>
                         <m:TransitionsCollection>
@@ -63,7 +47,6 @@
 
                     <m:Has.Styles>
                         <m:StylesCollection>
-                            <m:Normal Setters="{m:Set Background='Gray,Swatch200', BorderThickness=0}"/>
                             <m:OnXsScreen Setters="{x:StaticResource MenuClosedStyle}"/>
                             <m:OnLargeScreen Setters="{x:StaticResource MenuOpenedStyle}"/>
                         </m:StylesCollection>
@@ -85,17 +68,40 @@
 
                                 The MainView route must be defined in the MauiProgram.cs file.
                                 -->
-                                
-                                <Border
-                                    m:Router.Link="MainView"
-                                    Style="{x:StaticResource SideMenuItem}">
-                                    <Label Text="MainView" Style="{x:StaticResource SideMenuLabel}"/>
-                                </Border>
 
+                                <HorizontalStackLayout
+                                    Spacing="15"
+                                    m:Router.Link="MainView"
+                                    m:Has.Transitions="{x:StaticResource MenuItemTransitions}"
+                                    m:Has.Styles="{x:StaticResource MenuItemStyles}">
+
+                                    <Image Source="home.png" MaximumHeightRequest="30"/>
+                                    <Label Text="Home" VerticalOptions="Center"/>
+
+                                    <HorizontalStackLayout.GestureRecognizers>
+                                        <m:ManuelaTappedGesture Tapped="OnMenuItemTapped"/>
+                                    </HorizontalStackLayout.GestureRecognizers>
+                                </HorizontalStackLayout>
+
+                                <HorizontalStackLayout
+                                    Spacing="15"
+                                    m:Router.Link="MainView"
+                                    m:Has.Transitions="{x:StaticResource MenuItemTransitions}"
+                                    m:Has.Styles="{x:StaticResource MenuItemStyles}">
+
+                                    <Image Source="home.png" MaximumHeightRequest="30"/>
+                                    <Label Text="Home" VerticalOptions="Center"/>
+
+                                    <HorizontalStackLayout.GestureRecognizers>
+                                        <m:ManuelaTappedGesture Tapped="OnMenuItemTapped"/>
+                                    </HorizontalStackLayout.GestureRecognizers>
+                                </HorizontalStackLayout>
+
+                                <Button
+                                    m:Router.Link="MainView">
+                                </Button>
                                 <Border
-                                    m:Router.Link="AnotherView"
-                                    Style="{x:StaticResource SideMenuItem}">
-                                    <Label Text="AnotherView" Style="{x:StaticResource SideMenuLabel}"/>
+                                    m:Router.Link="AnotherView">
                                 </Border>
 
                             </VerticalStackLayout>
@@ -109,24 +115,21 @@
                     ZIndex="9"
                     IsVisible="False"
                     AbsoluteLayout.LayoutBounds="0,0,1,1"
-                    AbsoluteLayout.LayoutFlags="WidthProportional,HeightProportional">
+                    AbsoluteLayout.LayoutFlags="WidthProportional,HeightProportional"
+                    m:Has.DefaultStyle="{m:Set Background='Gray,Swatch950,Opacity30'}">
 
                     <Border.GestureRecognizers>
                         <TapGestureRecognizer Tapped="ToggleMenu"/>
                     </Border.GestureRecognizers>
 
-                    <m:Has.Styles>
-                        <m:StylesCollection>
-                            <m:Normal Setters="{m:Set Background='Gray,Swatch950,Opacity30'}"/>
-                        </m:StylesCollection>
-                    </m:Has.Styles>
                 </Border>
 
                 <!-- body -->
                 <Border
                     x:Name="Body"
                     AbsoluteLayout.LayoutBounds="0,0,1,1"
-                    AbsoluteLayout.LayoutFlags="WidthProportional,HeightProportional">
+                    AbsoluteLayout.LayoutFlags="WidthProportional,HeightProportional"
+                    m:Has.DefaultStyle="{m:Set Background='Gray,Swatch100', BorderThickness=0}">
 
                     <m:Has.Transitions>
                         <m:TransitionsCollection>
@@ -136,7 +139,6 @@
 
                     <m:Has.Styles>
                         <m:StylesCollection>
-                            <m:Normal Setters="{m:Set Background='Gray,Swatch100', BorderThickness=0}"/>
                             <m:OnXsScreen Setters="{x:StaticResource BodyExpandedStyle}"/>
                             <m:OnLargeScreen Setters="{x:StaticResource BodyContractedStyle}"/>
                         </m:StylesCollection>
@@ -148,10 +150,11 @@
                                 Padding="20"
                                 StrokeThickness="0"
                                 VerticalOptions="Start"
-                                HorizontalOptions="Start">
+                                HorizontalOptions="Start"
+                                m:Has.DefaultStyle="{m:Set Scale=1, Background='Gray,Opacity0'}">
 
                                 <Border.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="OnTogglerTapped" />
+                                    <TapGestureRecognizer Tapped="ToggleMenu" />
                                 </Border.GestureRecognizers>
                                 
                                 <Image
@@ -167,7 +170,6 @@
 
                                 <m:Has.Styles>
                                     <m:StylesCollection>
-                                        <m:Normal Setters="{m:Set Background='Primary,Opacity0', Scale=1}"/>
                                         <m:Pressed Setters="{m:Set Scale=0.8}"/>
                                     </m:StylesCollection>
                                 </m:Has.Styles>

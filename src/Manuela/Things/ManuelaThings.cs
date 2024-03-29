@@ -289,9 +289,7 @@ public static class ManuelaThings
         if (s_transitions.TryGetValue(property.ReturnType, out var animationBuilder))
             return animationBuilder(bindable, property, targetValue);
 
-#if DEBUG
         throw new NotImplementedException($"Transition for {property.ReturnType} is not supported.");
-#endif
     }
 
     private static object? BrushConverter(BindableObject bindable, object? source)

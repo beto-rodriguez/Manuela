@@ -146,7 +146,7 @@ public class ConditionalStyle
             )
         {
             var animation = ManuelaThings.GetAnimation(visual, bindableProperty, value);
-            animation.Commit(visual, $"{property} animation", easing: transition.Easing);
+            animation.Commit(visual, $"{property} animation", easing: transition.Easing, length: transition.Duration);
         }
         else
         {

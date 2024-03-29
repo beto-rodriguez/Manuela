@@ -17,30 +17,14 @@ public partial class Behavior
 
     public Behavior(VisualElement visual)
     {
-        _visual = visual;
-
-#if ANDROID
-        var contentViewGroup = (Microsoft.Maui.Platform.ContentViewGroup?)visual.Handler?.PlatformView
-            ?? throw new Exception("Unable to cast to ContentViewGroup");
-
-        contentViewGroup.Touch += OnAndroidTouched;
-#endif
-
-#if MACCATALYST || IOS
-        var contentView = (Microsoft.Maui.Platform.ContentView?)visual.Handler?.PlatformView
-            ?? throw new Exception("Unable to cast to ContentView");
-
-        contentView.UserInteractionEnabled = true;
-        contentView.AddGestureRecognizer(GetMacCatalystLongPress(contentView));
-#endif
-
-#if WINDOWS
-        var contentPanel = (Microsoft.UI.Xaml.UIElement?)visual.Handler?.PlatformView
-            ?? throw new Exception("Unable to cast to ContentPanel");
-
-        contentPanel.PointerPressed += OnWindowsPointerPressed;
-        contentPanel.PointerReleased += OnWindowsPointerReleased;
-#endif
+        if (visual.Handler is null)
+        {
+            visual.HandlerChanged += (_, _) => Initialize(visual);
+        }
+        else
+        {
+            Initialize(visual);
+        }
     }
 
     /// <summary>
@@ -91,5 +75,33 @@ public partial class Behavior
 #endif
 
         _visual = null;
+    }
+
+    private void Initialize(VisualElement visual)
+    {
+        _visual = visual;
+
+#if ANDROID
+        var contentViewGroup = (Microsoft.Maui.Platform.ContentViewGroup?)visual.Handler?.PlatformView
+            ?? throw new Exception("Unable to cast to ContentViewGroup");
+
+        contentViewGroup.Touch += OnAndroidTouched;
+#endif
+
+#if MACCATALYST || IOS
+        var contentView = (Microsoft.Maui.Platform.ContentView?)visual.Handler?.PlatformView
+            ?? throw new Exception("Unable to cast to ContentView");
+
+        contentView.UserInteractionEnabled = true;
+        contentView.AddGestureRecognizer(GetMacCatalystLongPress(contentView));
+#endif
+
+#if WINDOWS
+        var contentPanel = (Microsoft.UI.Xaml.UIElement?)visual.Handler?.PlatformView
+            ?? throw new Exception("Unable to cast to ContentPanel");
+
+        contentPanel.PointerPressed += OnWindowsPointerPressed;
+        contentPanel.PointerReleased += OnWindowsPointerReleased;
+#endif
     }
 }

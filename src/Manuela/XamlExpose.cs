@@ -18,11 +18,12 @@ public class StylesCollection : Styling.StylesCollection { }
 public class TransitionsCollection : Transitions.TransitionsCollection { }
 public class Transition : Transitions.Transition { }
 
+
 public class Checked : Styling.ConditionalStyles.Checked { }
+public class Default : Styling.ConditionalStyles.Default { }
 public class Disabled : Styling.ConditionalStyles.Disabled { }
 public class Focused : Styling.ConditionalStyles.Focused { }
 public class Hovered : Styling.ConditionalStyles.Hovered { }
-public class Normal : Styling.ConditionalStyles.Normal { }
 public class Pressed : Styling.ConditionalStyles.Pressed { }
 public class Selected : Styling.ConditionalStyles.Selected { }
 public class Unchecked : Styling.ConditionalStyles.Unchecked { }
@@ -46,3 +47,5 @@ public class OnMacOS : Styling.ConditionalStyles.Platform.OnPlatformMacOS { }
 public class OnTizen : Styling.ConditionalStyles.Platform.OnPlatformTizen { }
 public class OnWatchOS : Styling.ConditionalStyles.Platform.OnPlatformWatchOS { }
 public class OnWindows : Styling.ConditionalStyles.Platform.OnPlatformWindows { }
+
+public class ManuelaTappedGesture : Behaviors.ManuelaTappedGesture { }

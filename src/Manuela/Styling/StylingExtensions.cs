@@ -40,7 +40,7 @@ public static class StylingExtensions
             // also ignore nulls... how do we animate nulls?
             // .. also skip first time, as we are setting the value for the first time.
             var animation = ManuelaThings.GetAnimation(visualElement, bindableProperty, value);
-            animation.Commit(visualElement, $"{property} animation", easing: transition.Easing);
+            animation.Commit(visualElement, $"{property} animation", easing: transition.Easing, length: transition.Duration);
         }
         else
         {
