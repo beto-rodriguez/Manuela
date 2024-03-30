@@ -59,7 +59,7 @@
                                 Source="{AppThemeBinding Light='manuela_text_light.png', Dark='manuela_text_dark.png'}"
                                 Margin="20, 0, 0, 0"
                                 HorizontalOptions="Start"
-                                MaximumHeightRequest="50"/>
+                                MaximumHeightRequest="30"/>
                         </Border>
 
                         <ScrollView Grid.Row="1">
