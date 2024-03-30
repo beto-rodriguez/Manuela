@@ -2,6 +2,7 @@
 <Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:m="clr-namespace:Manuela;assembly=Manuela"
+             xmlns:layout="clr-namespace:SideMenuMauiApp.Layout"
              xmlns:appViews="clr-namespace:SideMenuMauiApp.Views"
              x:Class="SideMenuMauiApp.App">
 
@@ -62,6 +63,13 @@
                         <ScrollView Grid.Row="1">
                             <VerticalStackLayout>
 
+                                <BindableLayout.ItemsSource>
+                                    <x:Array Type="{x:Type layout:MenuItem}" >
+                                        <layout:MenuItem DisplayName="Main" Route="MainView" Icon="home.png"/>
+                                        <layout:MenuItem DisplayName="Another" Route="AnotherView" Icon="settings.png"/>
+                                    </x:Array>
+                                </BindableLayout.ItemsSource>
+
                                 <!--
                                 The Router.Link property, defines the route where the app navigates to when the item is clicked.
                                 In this case, the app navigates to the MainView route.
@@ -69,40 +77,23 @@
                                 The MainView route must be defined in the MauiProgram.cs file.
                                 -->
 
-                                <HorizontalStackLayout
-                                    Spacing="15"
-                                    m:Router.Link="MainView"
-                                    m:Has.Transitions="{x:StaticResource MenuItemTransitions}"
-                                    m:Has.Styles="{x:StaticResource MenuItemStyles}">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <HorizontalStackLayout
+                                             Spacing="15"
+                                             m:Router.Link="{Binding Route}"
+                                             m:Has.Transitions="{x:StaticResource MenuItemTransitions}"
+                                             m:Has.Styles="{x:StaticResource MenuItemStyles}">
 
-                                    <Image Source="home.png" MaximumHeightRequest="30"/>
-                                    <Label Text="Home" VerticalOptions="Center"/>
+                                            <Image Source="{Binding Icon}" MaximumHeightRequest="30"/>
+                                            <Label Text="{Binding DisplayName}" VerticalOptions="Center"/>
 
-                                    <HorizontalStackLayout.GestureRecognizers>
-                                        <m:ManuelaTappedGesture Tapped="OnMenuItemTapped"/>
-                                    </HorizontalStackLayout.GestureRecognizers>
-                                </HorizontalStackLayout>
-
-                                <HorizontalStackLayout
-                                    Spacing="15"
-                                    m:Router.Link="MainView"
-                                    m:Has.Transitions="{x:StaticResource MenuItemTransitions}"
-                                    m:Has.Styles="{x:StaticResource MenuItemStyles}">
-
-                                    <Image Source="home.png" MaximumHeightRequest="30"/>
-                                    <Label Text="Home" VerticalOptions="Center"/>
-
-                                    <HorizontalStackLayout.GestureRecognizers>
-                                        <m:ManuelaTappedGesture Tapped="OnMenuItemTapped"/>
-                                    </HorizontalStackLayout.GestureRecognizers>
-                                </HorizontalStackLayout>
-
-                                <Button
-                                    m:Router.Link="MainView">
-                                </Button>
-                                <Border
-                                    m:Router.Link="AnotherView">
-                                </Border>
+                                            <HorizontalStackLayout.GestureRecognizers>
+                                                <m:ManuelaTappedGesture Tapped="OnMenuItemTapped"/>
+                                            </HorizontalStackLayout.GestureRecognizers>
+                                        </HorizontalStackLayout>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
 
                             </VerticalStackLayout>
                         </ScrollView>

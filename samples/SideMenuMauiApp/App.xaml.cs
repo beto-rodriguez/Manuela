@@ -76,6 +76,6 @@ public partial class App : Application
 
     private void OnMenuItemTapped(object sender)
     {
-        var a = 1;
+
     }
 }
