@@ -1,8 +1,8 @@
 ﻿namespace Manuela.Styling.ConditionalStyles.Platform;
 
-public class OnPlatformMacOS : OnPlatform
+public class OnMacOS : OnPlatform
 {
-    public OnPlatformMacOS()
+    public OnMacOS()
         : base(DevicePlatform.macOS)
     {
 

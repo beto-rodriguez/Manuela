@@ -1,7 +1,11 @@
-﻿using System.ComponentModel;
+﻿// The namespace not matching the folder is intentional, see #ABOUT-XAML-NS for more info.
+// DO NOT MOVE THE NS.
+
+using System.ComponentModel;
+using Manuela.Styling;
 using Manuela.Theming;
 
-namespace Manuela.Styling;
+namespace Manuela;
 
 public class SetExtension : IMarkupExtension<ManuelaSettersDictionary>, INotifyPropertyChanged
 {

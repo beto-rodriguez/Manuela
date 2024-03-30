@@ -1,6 +1,9 @@
-﻿using Manuela.Styling;
+﻿// The namespace not matching the folder is intentional, see #ABOUT-XAML-NS for more info.
+// DO NOT MOVE THE NS.
 
-namespace Manuela.Transitions;
+using Manuela.Styling;
+
+namespace Manuela;
 
 public class Transition
 {

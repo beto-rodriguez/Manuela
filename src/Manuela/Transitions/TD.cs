@@ -3,4 +3,5 @@
 
 namespace Manuela;
 
-public class AppBody : ContentView { }
+// just a shorter alias name...
+public class TD : TransitionDefinitionExtension { }

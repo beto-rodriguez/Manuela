@@ -1,8 +1,8 @@
 ﻿namespace Manuela.Styling.ConditionalStyles.Screen;
 
-public class OnLargeScreen : OnScreenSize
+public class OnLg : OnScreenSize
 {
-    public OnLargeScreen()
+    public OnLg()
         : base(Breakpoint.Lg)
     {
 

@@ -1,8 +1,8 @@
 ﻿namespace Manuela.Styling.ConditionalStyles.Platform;
 
-public class OnPlatformWindows : OnPlatform
+public class OnWindows : OnPlatform
 {
-    public OnPlatformWindows()
+    public OnWindows()
         : base(DevicePlatform.WinUI)
     {
 

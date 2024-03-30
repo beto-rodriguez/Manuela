@@ -2,12 +2,20 @@
 
 public class OnScreenSize : ConditionalStyle
 {
+    private static readonly Dictionary<OperatorKind, Func<Breakpoint, Breakpoint, bool>> s_comparers = new()
+    {
+        { OperatorKind.Equals, (p1, p2) => p1 == p2 },
+        { OperatorKind.GreaterThanOrEquals, (p1, p2) => p1 >= p2 },
+        { OperatorKind.GreaterThan, (p1, p2) => p1 > p2 },
+        { OperatorKind.LessThanOrEquals, (p1, p2) => p1 <= p2 },
+        { OperatorKind.LessThan, (p1, p2) => p1 < p2 }
+    };
     private VisualElement? _element;
     private EventHandler? _windowHandler;
 
     public OnScreenSize(Breakpoint targetBreakpoint)
     {
-        Condition = new(visualElement => (Breakpoint)visualElement.GetValue(Has.ScreenBreakPointProperty) >= targetBreakpoint)
+        Condition = new(visualElement => Compare(visualElement, targetBreakpoint))
         {
             Triggers = v =>
             {
@@ -39,6 +47,8 @@ public class OnScreenSize : ConditionalStyle
         };
     }
 
+    public OperatorKind Operator { get; set; } = OperatorKind.GreaterThanOrEquals;
+
     public override void Dispose()
     {
         if (_element is not null)
@@ -47,6 +57,14 @@ public class OnScreenSize : ConditionalStyle
         _element = null;
 
         base.Dispose();
+    }
+
+    protected bool Compare(VisualElement visualElement, Breakpoint breakpoint)
+    {
+        var comparer = s_comparers[Operator];
+        var visualElementBreakpoint = (Breakpoint)visualElement.GetValue(Has.ScreenBreakPointProperty);
+
+        return comparer(visualElementBreakpoint, breakpoint);
     }
 
     private static Breakpoint GetBreakpoint(VisualElement visualElement)
@@ -62,5 +80,14 @@ public class OnScreenSize : ConditionalStyle
         if (w > (int)Breakpoint.Xxl) maxBreakpoint = Breakpoint.Xxl;
 
         return maxBreakpoint;
+    }
+
+    public enum OperatorKind
+    {
+        Equals,
+        GreaterThanOrEquals,
+        GreaterThan,
+        LessThanOrEquals,
+        LessThan
     }
 }

@@ -1,8 +1,8 @@
 ﻿namespace Manuela.Styling.ConditionalStyles.Platform;
 
-public class OnPlatformIOS : OnPlatform
+public class OnIOS : OnPlatform
 {
-    public OnPlatformIOS()
+    public OnIOS()
         : base(DevicePlatform.iOS)
     {
 

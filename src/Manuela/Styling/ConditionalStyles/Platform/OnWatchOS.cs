@@ -1,8 +1,8 @@
 ﻿namespace Manuela.Styling.ConditionalStyles.Platform;
 
-public class OnPlatformWatchOS : OnPlatform
+public class OnWatchOS : OnPlatform
 {
-    public OnPlatformWatchOS()
+    public OnWatchOS()
     : base(DevicePlatform.watchOS)
     {
 

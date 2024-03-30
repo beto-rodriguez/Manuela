@@ -33,6 +33,6 @@ public static class Routing
 
         Navigating?.Invoke(previousRoute);
 
-        Controls.AppPage.Current.Body = view;
+        AppPage.Current.Body = view;
     }
 }

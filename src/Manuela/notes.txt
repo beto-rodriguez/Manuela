@@ -1,0 +1,6 @@
+﻿Note #ABOUT-XAML-NS
+should we create a custom ns schema for this?
+https://learn.microsoft.com/en-us/dotnet/maui/xaml/namespaces/custom-namespace-schemas?view=net-maui-8.0
+the problem is:
+https://learn.microsoft.com/en-us/dotnet/maui/xaml/namespaces/custom-namespace-schemas?view=net-maui-8.0#consume-a-custom-namespace-schema
+is that really necessary?

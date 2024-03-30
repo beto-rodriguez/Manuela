@@ -1,7 +1,10 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿// The namespace not matching the folder is intentional, see #ABOUT-XAML-NS for more info.
+// DO NOT MOVE THE NS.
+
+using System.Diagnostics.CodeAnalysis;
 using Manuela.Styling;
 
-namespace Manuela.Transitions;
+namespace Manuela;
 
 // should be a dictionary? but it seems that Xaml parser is not doing it right (or i don't know how to declare it...)
 public class TransitionsCollection : List<Transition>

@@ -1,8 +1,8 @@
 ﻿namespace Manuela.Styling.ConditionalStyles.Platform;
 
-public class OnPlatformAndroid : OnPlatform
+public class OnAndroid : OnPlatform
 {
-    public OnPlatformAndroid()
+    public OnAndroid()
         : base(DevicePlatform.Android)
     {
 

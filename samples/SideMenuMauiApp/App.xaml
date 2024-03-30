@@ -31,20 +31,11 @@
                     ZIndex="10"
                     AbsoluteLayout.LayoutBounds="0,0,300,1"
                     AbsoluteLayout.LayoutFlags="HeightProportional"
-                    m:Has.DefaultStyle="{m:Set Background='Gray,Swatch200', BorderThickness=0}">
-
-                    <m:Has.Transitions>
-                        <m:TransitionsCollection>
-                            <m:Transition Property="TranslateX"/>
-                        </m:TransitionsCollection>
-                    </m:Has.Transitions>
-
-                    <m:Has.Styles>
-                        <m:StylesCollection>
-                            <m:OnXsScreen Setters="{x:StaticResource MenuClosedStyle}"/>
-                            <m:OnLargeScreen Setters="{x:StaticResource MenuOpenedStyle}"/>
-                        </m:StylesCollection>
-                    </m:Has.Styles>
+                    m:Has.Transitions="{m:Transitions TranslateX}"
+                    m:Has.States="{m:States
+                        Default={m:Set Background='Gray,Swatch200', BorderThickness=0},
+                        OnSm=   {x:StaticResource MenuClosedStyle},
+                        OnLg=   {x:StaticResource MenuOpenedStyle}}">
 
                     <Grid RowDefinitions="Auto,*">
                         <Border Grid.Row="0" StrokeThickness="0" Padding="0, 20">
@@ -94,15 +85,10 @@
                                 <AbsoluteLayout Grid.Column="0">
                                     <BoxView
                                         x:Name="SelectedIndicator"
-                                        m:Has.DefaultStyle="{m:Set Background='Primary,Opacity10', Height=50, Width=300}">
-                                        <m:Has.Transitions>
-                                            <m:TransitionsCollection>
-                                                <m:Transition
-                                                    Property="AbsoluteLayoutBounds"
-                                                    Easing="{x:Static Easing.SpringOut}"
-                                                    Duration="600" />
-                                            </m:TransitionsCollection>
-                                        </m:Has.Transitions>
+                                        m:Has.Transitions="{m:Transitions
+                                            AbsoluteLayoutBounds={m:TD Easing={x:Static Easing.SpringOut}, Duration=600}}"
+                                        m:Has.States="{m:States
+                                            Default={m:Set Background='Primary,Opacity10', Height=50, Width=300}}">
                                     </BoxView>
                                 </AbsoluteLayout>
                             </Grid>
@@ -117,7 +103,7 @@
                     IsVisible="False"
                     AbsoluteLayout.LayoutBounds="0,0,1,1"
                     AbsoluteLayout.LayoutFlags="WidthProportional,HeightProportional"
-                    m:Has.DefaultStyle="{m:Set Background='Gray,Swatch950,Opacity30'}">
+                    m:Has.States="{m:States Default={m:Set Background='Gray,Swatch950,Opacity30'}}">
 
                     <Border.GestureRecognizers>
                         <TapGestureRecognizer Tapped="ToggleMenu"/>
@@ -130,20 +116,11 @@
                     x:Name="Body"
                     AbsoluteLayout.LayoutBounds="0,0,1,1"
                     AbsoluteLayout.LayoutFlags="WidthProportional,HeightProportional"
-                    m:Has.DefaultStyle="{m:Set Background='Gray,Swatch100', BorderThickness=0}">
-
-                    <m:Has.Transitions>
-                        <m:TransitionsCollection>
-                            <m:Transition Property="Padding"/>
-                        </m:TransitionsCollection>
-                    </m:Has.Transitions>
-
-                    <m:Has.Styles>
-                        <m:StylesCollection>
-                            <m:OnXsScreen Setters="{x:StaticResource BodyExpandedStyle}"/>
-                            <m:OnLargeScreen Setters="{x:StaticResource BodyContractedStyle}"/>
-                        </m:StylesCollection>
-                    </m:Has.Styles>
+                    m:Has.Transitions="{m:Transitions Padding}"
+                    m:Has.States="{m:States
+                        Default=    {m:Set Background='Gray,Swatch100', BorderThickness=0},
+                        OnSm=       {x:StaticResource BodyExpandedStyle},
+                        OnLg=       {x:StaticResource BodyContractedStyle}}">
 
                     <VerticalStackLayout>
                         <VerticalStackLayout>
@@ -152,7 +129,10 @@
                                 StrokeThickness="0"
                                 VerticalOptions="Start"
                                 HorizontalOptions="Start"
-                                m:Has.DefaultStyle="{m:Set Scale=1, Background='Gray,Opacity0'}">
+                                m:Has.Transitions="{m:Transitions Scale}"
+                                m:Has.States="{m:States
+                                    Default={m:Set Scale=1, Background='Gray,Opacity0'},
+                                    Pressed={m:Set Scale=0.8}}">
 
                                 <Border.GestureRecognizers>
                                     <TapGestureRecognizer Tapped="ToggleMenu" />
@@ -162,18 +142,6 @@
                                     Source="{AppThemeBinding Light='hamburger_dark.png', Dark='hamburger_light.png'}"
                                     HeightRequest="15">
                                 </Image>
-
-                                <m:Has.Transitions>
-                                    <m:TransitionsCollection>
-                                        <m:Transition Property="Scale" Duration="100"/>
-                                    </m:TransitionsCollection>
-                                </m:Has.Transitions>
-
-                                <m:Has.Styles>
-                                    <m:StylesCollection>
-                                        <m:Pressed Setters="{m:Set Scale=0.8}"/>
-                                    </m:StylesCollection>
-                                </m:Has.Styles>
                             </Border>
                         </VerticalStackLayout>
 

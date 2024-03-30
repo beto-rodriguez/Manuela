@@ -1,8 +1,8 @@
 ﻿namespace Manuela.Styling.ConditionalStyles.Platform;
 
-public class OnPlatformTizen : OnPlatform
+public class OnTizen : OnPlatform
 {
-    public OnPlatformTizen()
+    public OnTizen()
         : base(DevicePlatform.Tizen)
     {
 

@@ -1,8 +1,12 @@
-﻿using System.Collections.ObjectModel;
+﻿// The namespace not matching the folder is intentional, see #ABOUT-XAML-NS for more info.
+// DO NOT MOVE THE NS.
+
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using Manuela.Styling;
 using Manuela.Styling.ConditionalStyles;
 
-namespace Manuela.Styling;
+namespace Manuela;
 
 public class StylesCollection : ObservableCollection<ConditionalStyle>
 {
@@ -67,7 +71,7 @@ public class StylesCollection : ObservableCollection<ConditionalStyle>
                 }
                 break;
             case NotifyCollectionChangedAction.Reset:
-                _visualElement.SetValue(Has.StylesProperty, new StylesCollection([.. this]));
+                _visualElement.SetValue(Has.StatesProperty, new StylesCollection([.. this]));
                 break;
             // we can safely ignore.
             case NotifyCollectionChangedAction.Replace:

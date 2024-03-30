@@ -1,6 +1,10 @@
-﻿using System.Runtime.CompilerServices;
+﻿// The namespace not matching the folder is intentional, see #ABOUT-XAML-NS for more info.
+// DO NOT MOVE THE NS.
 
-namespace Manuela.Controls;
+
+using System.Runtime.CompilerServices;
+
+namespace Manuela;
 
 public class AppPage : ContentPage
 {

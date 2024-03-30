@@ -99,7 +99,7 @@ public class ConditionalStyle
         var keys = Setters?.Keys;
         if (keys is null) return;
 
-        var allStyles = (StylesCollection?)visual.GetValue(Has.StylesProperty);
+        var allStyles = (StylesCollection?)visual.GetValue(Has.StatesProperty);
         var transitions = (TransitionsCollection?)visual.GetValue(Has.TransitionsProperty);
 
         foreach (var property in keys)
