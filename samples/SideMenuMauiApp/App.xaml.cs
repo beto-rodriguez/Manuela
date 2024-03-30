@@ -1,6 +1,7 @@
 ﻿using Manuela.Things;
 using Manuela.Styling;
 using Manuela.Styling.ConditionalStyles.Screen;
+using SideMenuMauiApp.Layout;
 
 namespace SideMenuMauiApp;
 
@@ -74,8 +75,19 @@ public partial class App : Application
         ManuelaThings.SetPointerPassthroughRegion([new(0, 0, width, 32)]);
     }
 
-    private void OnMenuItemTapped(object sender)
+    private void OnMenuItemTapped(object sender, TappedEventArgs e)
     {
+        var clickedVisual = (HorizontalStackLayout)sender;
+        var clickedMenuItem = (MenuItemModel)clickedVisual.BindingContext;
+        var menuItemsSource = (MenuItemModel[])MenuItemsContainer.GetValue(BindableLayout.ItemsSourceProperty);
 
+        var clickedIndex = Array.IndexOf(menuItemsSource, clickedMenuItem);
+
+        // all the items must have the same height for this to work.
+        var itemsHeight = clickedVisual.Height;
+
+        SelectedIndicator.SetManuelaProperty(
+            ManuelaProperty.AbsoluteLayoutBounds,
+            new Rect(0, itemsHeight * clickedIndex, AbsoluteLayout.AutoSize, AbsoluteLayout.AutoSize));
     }
 }

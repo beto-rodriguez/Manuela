@@ -55,6 +55,7 @@ public class SetExtension : IMarkupExtension<ManuelaSettersDictionary>, INotifyP
     public double MinHeight { set => Setters[ManuelaProperty.MinHeight] = value; }
     public bool Visible { set => Setters[ManuelaProperty.Visible] = value; }
     public Style Style { set => Setters[ManuelaProperty.Style] = value; }
+    public Rect AbsoluteLayoutBounds { set => Setters[ManuelaProperty.AbsoluteLayoutBounds] = value; }
 
     public event PropertyChangedEventHandler? PropertyChanged;
 

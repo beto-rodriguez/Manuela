@@ -38,5 +38,6 @@ public enum ManuelaProperty
     MinWidth,
     MinHeight,
     Visible,
-    Style
+    Style,
+    AbsoluteLayoutBounds,
 }

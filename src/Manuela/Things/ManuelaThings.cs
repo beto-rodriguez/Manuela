@@ -156,7 +156,8 @@ public static class ManuelaThings
         { ManuelaProperty.MinWidth, bindable => VisualElement.MinimumWidthRequestProperty },
         { ManuelaProperty.MinHeight, bindable => VisualElement.MinimumHeightRequestProperty },
         { ManuelaProperty.Visible, bindable => VisualElement.IsVisibleProperty },
-        { ManuelaProperty.Style, bindable => VisualElement.StyleProperty }
+        { ManuelaProperty.Style, bindable => VisualElement.StyleProperty },
+        { ManuelaProperty.AbsoluteLayoutBounds, bindable => AbsoluteLayout.LayoutBoundsProperty }
     };
     private static readonly Dictionary<ManuelaProperty, Func<BindableObject, object?, object?>> s_converters = new()
     {
@@ -188,6 +189,8 @@ public static class ManuelaThings
                 {
                     var s = startBrush.Color;
                     var e = endBrush.Color;
+
+                    s ??= e;
 
                     return new(t =>
                         startBrush.Color = Color.FromRgba(
@@ -241,6 +244,23 @@ public static class ManuelaThings
                             start.Top + t * (end.Top - start.Top),
                             start.Right + t * (end.Right - start.Right),
                             start.Bottom + t * (end.Bottom - start.Bottom))),
+                        0,
+                        1);
+            }
+        },
+        { typeof(Rect), (bindable, property, targetValue) =>
+            {
+                var start = (Rect)bindable.GetValue(property);
+                var end = (Rect)targetValue;
+
+                return new(t =>
+                    bindable.SetValue(
+                        property,
+                        new Rect(
+                            start.X + t * (end.X - start.X),
+                            start.Y + t * (end.Y - start.Y),
+                            start.Width + t * (end.Width - start.Width),
+                            start.Height + t * (end.Height - start.Height))),
                         0,
                         1);
             }
