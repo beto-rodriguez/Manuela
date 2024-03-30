@@ -82,7 +82,7 @@ public partial class Behavior
         _visual = visual;
 
 #if ANDROID
-        var contentViewGroup = (Microsoft.Maui.Platform.ContentViewGroup?)visual.Handler?.PlatformView
+        var contentViewGroup = (Android.Views.View?)visual.Handler?.PlatformView
             ?? throw new Exception("Unable to cast to ContentViewGroup");
 
         contentViewGroup.Touch += OnAndroidTouched;

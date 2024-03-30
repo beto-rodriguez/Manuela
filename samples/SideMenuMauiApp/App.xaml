@@ -16,13 +16,6 @@
                     <m:Set x:Key="MenuOpenedStyle" TranslateX="0"/>
                     <m:Set x:Key="BodyExpandedStyle" Padding="0"/>
                     <m:Set x:Key="BodyContractedStyle" Padding="300,0,0,0"/>
-                    <m:StylesCollection x:Key="MenuItemStyles" >
-                        <m:Default Setters="{m:Set Background='Gray,Swatch200', Padding='20, 10', Height=50}"/>
-                        <m:Pressed Setters="{m:Set Background='Gray,Swatch300'}"/>
-                    </m:StylesCollection>
-                    <m:TransitionsCollection x:Key="MenuItemTransitions">
-                        <m:Transition Property="Background" Duration="500"/>
-                    </m:TransitionsCollection>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
@@ -54,7 +47,7 @@
                     </m:Has.Styles>
 
                     <Grid RowDefinitions="Auto,*">
-                        <Border Grid.Row="0" StrokeThickness="0" Padding="0, 20, 0, 30">
+                        <Border Grid.Row="0" StrokeThickness="0" Padding="0, 20">
                             <Image
                                 Source="{AppThemeBinding Light='manuela_text_light.png', Dark='manuela_text_dark.png'}"
                                 Margin="20, 0, 0, 0"
@@ -62,7 +55,7 @@
                                 MaximumHeightRequest="30"/>
                         </Border>
 
-                        <ScrollView Grid.Row="1">
+                        <ScrollView Grid.Row="1" Padding="0, 10, 0, 0">
                             <Grid ColumnDefinitions="10, *">
                                 <VerticalStackLayout x:Name="MenuItemsContainer" Grid.Column="1">
                                     <BindableLayout.ItemsSource>
@@ -82,12 +75,12 @@
                                     <BindableLayout.ItemTemplate>
                                         <DataTemplate>
                                             <HorizontalStackLayout
-                                                 Spacing="15"
-                                                 m:Router.Link="{Binding Route}"
-                                                 m:Has.Transitions="{x:StaticResource MenuItemTransitions}"
-                                                 m:Has.Styles="{x:StaticResource MenuItemStyles}">
+                                                Spacing="15"
+                                                Padding="20, 10"
+                                                HeightRequest="50"
+                                                m:Router.Link="{Binding Route}">
 
-                                                <Image Source="{Binding Icon}" MaximumHeightRequest="30"/>
+                                                <Image Source="{Binding Icon}" MaximumHeightRequest="25"/>
                                                 <Label Text="{Binding DisplayName}" VerticalOptions="Center"/>
 
                                                 <HorizontalStackLayout.GestureRecognizers>
@@ -101,7 +94,7 @@
                                 <AbsoluteLayout Grid.Column="0">
                                     <BoxView
                                         x:Name="SelectedIndicator"
-                                        m:Has.DefaultStyle="{m:Set Background=Primary, Height=50, Width=6}">
+                                        m:Has.DefaultStyle="{m:Set Background='Primary,Opacity10', Height=50, Width=300}">
                                         <m:Has.Transitions>
                                             <m:TransitionsCollection>
                                                 <m:Transition
@@ -164,7 +157,7 @@
                                 <Border.GestureRecognizers>
                                     <TapGestureRecognizer Tapped="ToggleMenu" />
                                 </Border.GestureRecognizers>
-                                
+
                                 <Image
                                     Source="{AppThemeBinding Light='hamburger_dark.png', Dark='hamburger_light.png'}"
                                     HeightRequest="15">

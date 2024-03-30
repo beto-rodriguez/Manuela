@@ -89,5 +89,9 @@ public partial class App : Application
         SelectedIndicator.SetManuelaProperty(
             ManuelaProperty.AbsoluteLayoutBounds,
             new Rect(0, itemsHeight * clickedIndex, AbsoluteLayout.AutoSize, AbsoluteLayout.AutoSize));
+
+        // finally close the menu on < lg screens
+        if (Body.GetScreenBreakpoint() < Breakpoint.Lg)
+            ToggleMenu(sender, e);
     }
 }
