@@ -47,8 +47,17 @@
                         </Border>
 
                         <ScrollView Grid.Row="1" Padding="0, 10, 0, 0">
-                            <Grid ColumnDefinitions="10, *">
-                                <VerticalStackLayout x:Name="MenuItemsContainer" Grid.Column="1">
+                            <Grid>
+                                <AbsoluteLayout>
+                                    <BoxView
+                                        x:Name="SelectedIndicator"
+                                        m:Has.Transitions="{m:Transitions
+                                            AbsoluteLayoutBounds={m:TD Easing={x:Static Easing.SpringOut}, Duration=600}}"
+                                        m:Has.States="{m:States
+                                            Default={m:Set Background='Primary,Opacity10', Height=50, Width=300}}">
+                                    </BoxView>
+                                </AbsoluteLayout>
+                                <VerticalStackLayout x:Name="MenuItemsContainer">
                                     <BindableLayout.ItemsSource>
                                         <x:Array Type="{x:Type layout:MenuItemModel}" >
                                             <layout:MenuItemModel DisplayName="Main" Route="MainView" Icon="home.png"/>
@@ -69,7 +78,8 @@
                                                 Spacing="15"
                                                 Padding="20, 10"
                                                 HeightRequest="50"
-                                                m:Router.Link="{Binding Route}">
+                                                m:Router.Link="{Binding Route}"
+                                                m:Has.States="{m:States Hovered={m:Set Background='Gray,Swatch400,Opacity10'}}">
 
                                                 <Image Source="{Binding Icon}" MaximumHeightRequest="25"/>
                                                 <Label Text="{Binding DisplayName}" VerticalOptions="Center"/>
@@ -81,16 +91,6 @@
                                         </DataTemplate>
                                     </BindableLayout.ItemTemplate>
                                 </VerticalStackLayout>
-
-                                <AbsoluteLayout Grid.Column="0">
-                                    <BoxView
-                                        x:Name="SelectedIndicator"
-                                        m:Has.Transitions="{m:Transitions
-                                            AbsoluteLayoutBounds={m:TD Easing={x:Static Easing.SpringOut}, Duration=600}}"
-                                        m:Has.States="{m:States
-                                            Default={m:Set Background='Primary,Opacity10', Height=50, Width=300}}">
-                                    </BoxView>
-                                </AbsoluteLayout>
                             </Grid>
                         </ScrollView>
                     </Grid>
