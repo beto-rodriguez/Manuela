@@ -2,6 +2,7 @@
 using Manuela.Styling;
 using Manuela.Styling.ConditionalStyles.Screen;
 using SideMenuMauiApp.Layout;
+using MauiIcons.Core;
 
 namespace SideMenuMauiApp;
 
@@ -13,6 +14,9 @@ public partial class App : Application
     public App()
     {
         InitializeComponent();
+
+        // Temporary Workaround for url styled namespace in xaml
+        _ = new MauiIcon();
     }
 
     protected override void OnStart()

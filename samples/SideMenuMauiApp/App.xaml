@@ -2,6 +2,7 @@
 <Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:m="clr-namespace:Manuela;assembly=Manuela"
+             xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons"
              xmlns:layout="clr-namespace:SideMenuMauiApp.Layout"
              xmlns:appViews="clr-namespace:SideMenuMauiApp.Views"
              x:Class="SideMenuMauiApp.App">
@@ -40,7 +41,7 @@
                     <Grid RowDefinitions="Auto,*">
                         <Border Grid.Row="0" StrokeThickness="0" Padding="0, 20">
                             <Image
-                                Source="{AppThemeBinding Light='manuela_text_light.png', Dark='manuela_text_dark.png'}"
+                                Source="manuela.png"
                                 Margin="20, 0, 0, 0"
                                 HorizontalOptions="Start"
                                 MaximumHeightRequest="30"/>
@@ -60,8 +61,9 @@
                                 <VerticalStackLayout x:Name="MenuItemsContainer">
                                     <BindableLayout.ItemsSource>
                                         <x:Array Type="{x:Type layout:MenuItemModel}" >
-                                            <layout:MenuItemModel DisplayName="Main" Route="MainView" Icon="home.png"/>
-                                            <layout:MenuItemModel DisplayName="Another" Route="AnotherView" Icon="settings.png"/>
+                                            <layout:MenuItemModel DisplayName="Main" Route="MainView" Icon="CircleDot"/>
+                                            <layout:MenuItemModel DisplayName="Another" Route="AnotherView" Icon="Bookmark"/>
+                                            <layout:MenuItemModel DisplayName="Settings" Route="Settings" Icon="Compass"/>
                                         </x:Array>
                                     </BindableLayout.ItemsSource>
 
@@ -81,7 +83,7 @@
                                                 m:Router.Link="{Binding Route}"
                                                 m:Has.States="{m:States Hovered={m:Set Background='Gray,Swatch400,Opacity10'}}">
 
-                                                <Image Source="{Binding Icon}" MaximumHeightRequest="25"/>
+                                                <mi:MauiIcon Icon="{Binding Icon}" IconSize="20" VerticalOptions="Center"/>
                                                 <Label Text="{Binding DisplayName}" VerticalOptions="Center"/>
 
                                                 <HorizontalStackLayout.GestureRecognizers>
