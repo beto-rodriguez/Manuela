@@ -38,7 +38,7 @@
                     ZIndex="10"
                     AbsoluteLayout.LayoutBounds="0,0,300,1"
                     AbsoluteLayout.LayoutFlags="HeightProportional"
-                    m:Has.DefaultStyle="{m:Set Background='Gray,Swatch200', BorderThickness=0, Shadow=Md}">
+                    m:Has.DefaultStyle="{m:Set Background='Gray,Swatch200', BorderThickness=0}">
 
                     <m:Has.Transitions>
                         <m:TransitionsCollection>
