@@ -1,4 +1,6 @@
-﻿namespace Manuela.Styling.ConditionalStyles;
+﻿using Manuela.Styling.ConditionalStyles;
+
+namespace Manuela;
 
 public class Focused : ConditionalStyle
 {

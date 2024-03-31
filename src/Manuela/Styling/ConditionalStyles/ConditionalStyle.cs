@@ -23,7 +23,7 @@ public class ConditionalStyle
         }
     }
 
-    public XamlCondition? Condition
+    protected internal XamlCondition? Condition
     {
         get => _condition;
         set { _condition = value; ReApply(); }

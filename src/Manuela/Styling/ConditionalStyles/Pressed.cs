@@ -1,6 +1,10 @@
-﻿using System.ComponentModel;
+﻿// The namespace not matching the folder is intentional, see #ABOUT-XAML-NS for more info.
+// DO NOT MOVE THE NS.
 
-namespace Manuela.Styling.ConditionalStyles;
+using System.ComponentModel;
+using Manuela.Styling.ConditionalStyles;
+
+namespace Manuela;
 
 public class Pressed : ConditionalStyle
 {
