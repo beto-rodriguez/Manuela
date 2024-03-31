@@ -75,23 +75,6 @@ public class ConditionalStyle
         Apply(visual);
     }
 
-    public virtual void Dispose()
-    {
-        foreach (var visualElement in InitializedElements)
-            ClearValues(visualElement);
-
-        if (Application.Current is not null)
-            Application.Current.RequestedThemeChanged -= OnThemeChanged;
-
-        foreach (var trigger in _triggers)
-        {
-            trigger.Notifier.PropertyChanged -= trigger.NotifierHandler;
-        }
-
-        _triggers = [];
-        InitializedElements.Clear();
-    }
-
     public void Apply(VisualElement? visual)
     {
         if (visual is null || !InitializedElements.Contains(visual)) return;
@@ -163,6 +146,23 @@ public class ConditionalStyle
 
         foreach (var key in keys)
             visualElement.ClearValue(ManuelaThings.GetBindableProperty(visualElement, key));
+    }
+
+    public virtual void Dispose()
+    {
+        foreach (var visualElement in InitializedElements)
+            ClearValues(visualElement);
+
+        if (Application.Current is not null)
+            Application.Current.RequestedThemeChanged -= OnThemeChanged;
+
+        foreach (var trigger in _triggers)
+        {
+            trigger.Notifier.PropertyChanged -= trigger.NotifierHandler;
+        }
+
+        _triggers = [];
+        InitializedElements.Clear();
     }
 
     protected void ReApply()
