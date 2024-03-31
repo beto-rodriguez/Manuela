@@ -157,7 +157,8 @@ public static class ManuelaThings
         { ManuelaProperty.MinHeight, bindable => VisualElement.MinimumHeightRequestProperty },
         { ManuelaProperty.Visible, bindable => VisualElement.IsVisibleProperty },
         { ManuelaProperty.Style, bindable => VisualElement.StyleProperty },
-        { ManuelaProperty.AbsoluteLayoutBounds, bindable => AbsoluteLayout.LayoutBoundsProperty }
+        { ManuelaProperty.AbsoluteLayoutBounds, bindable => AbsoluteLayout.LayoutBoundsProperty },
+        { ManuelaProperty.AbsoluteLayoutFlags, bindable => AbsoluteLayout.LayoutFlagsProperty }
     };
     private static readonly Dictionary<ManuelaProperty, Func<BindableObject, object?, object?>> s_converters = new()
     {

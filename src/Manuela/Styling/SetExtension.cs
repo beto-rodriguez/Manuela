@@ -4,6 +4,7 @@
 using System.ComponentModel;
 using Manuela.Styling;
 using Manuela.Theming;
+using Microsoft.Maui.Layouts;
 
 namespace Manuela;
 
@@ -60,6 +61,7 @@ public class SetExtension : IMarkupExtension<ManuelaSettersDictionary>, INotifyP
     public bool Visible { set => Setters[ManuelaProperty.Visible] = value; }
     public Style Style { set => Setters[ManuelaProperty.Style] = value; }
     public Rect AbsoluteLayoutBounds { set => Setters[ManuelaProperty.AbsoluteLayoutBounds] = value; }
+    public AbsoluteLayoutFlags AbsoluteLayoutFlags { set => Setters[ManuelaProperty.AbsoluteLayoutFlags] = value; }
 
     public event PropertyChangedEventHandler? PropertyChanged;
 

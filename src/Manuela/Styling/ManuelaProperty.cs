@@ -40,4 +40,5 @@ public enum ManuelaProperty
     Visible,
     Style,
     AbsoluteLayoutBounds,
+    AbsoluteLayoutFlags
 }
