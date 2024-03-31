@@ -40,6 +40,12 @@ public class StatesExtension : IMarkupExtension<StylesCollection>
     public ManuelaSettersDictionary? OnXl { get; set; }
     public ManuelaSettersDictionary? OnXxl { get; set; }
 
+    public Breakpoint XsMaxBreakpoint { get; set; } = Breakpoint.Xxl;
+    public Breakpoint SmMaxBreakpoint { get; set; } = Breakpoint.Xxl;
+    public Breakpoint MdMaxBreakpoint { get; set; } = Breakpoint.Xxl;
+    public Breakpoint LgMaxBreakpoint { get; set; } = Breakpoint.Xxl;
+    public Breakpoint XlMaxBreakpoint { get; set; } = Breakpoint.Xxl;
+
     public StylesCollection ProvideValue(IServiceProvider serviceProvider)
     {
         var collection = new StylesCollection();
@@ -66,12 +72,27 @@ public class StatesExtension : IMarkupExtension<StylesCollection>
         if (OnWatchOS is not null) collection.Add(new OnWatchOS { Setters = OnWatchOS });
         if (OnWindows is not null) collection.Add(new OnWindows { Setters = OnWindows });
 
-        if (OnXs is not null) collection.Add(new OnXs { Setters = OnXs });
-        if (OnSm is not null) collection.Add(new OnSm { Setters = OnSm });
-        if (OnMd is not null) collection.Add(new OnMd { Setters = OnMd });
-        if (OnLg is not null) collection.Add(new OnLg { Setters = OnLg });
-        if (OnXl is not null) collection.Add(new OnXl { Setters = OnXl });
-        if (OnXxl is not null) collection.Add(new OnXxl { Setters = OnXxl });
+        var isResponsive =
+            OnXs is not null ||
+            OnSm is not null ||
+            OnMd is not null ||
+            OnLg is not null ||
+            OnXl is not null ||
+            OnXxl is not null;
+
+        if (isResponsive)
+        {
+            var screenCondition = new OnScreenSize();
+
+            if (OnXs is not null) { screenCondition.Xs = OnXs; screenCondition.XsMaxBreakpoint = XsMaxBreakpoint; }
+            if (OnSm is not null) { screenCondition.Sm = OnSm; screenCondition.SmMaxBreakpoint = SmMaxBreakpoint; }
+            if (OnMd is not null) { screenCondition.Md = OnMd; screenCondition.MdMaxBreakpoint = MdMaxBreakpoint; }
+            if (OnLg is not null) { screenCondition.Lg = OnLg; screenCondition.LgMaxBreakpoint = LgMaxBreakpoint; }
+            if (OnXl is not null) { screenCondition.Xl = OnXl; screenCondition.XlMaxBreakpoint = XlMaxBreakpoint; }
+            if (OnXxl is not null) screenCondition.Xxl = OnXxl;
+
+            collection.Add(screenCondition);
+        }
 
         return collection;
     }

@@ -13,7 +13,6 @@ public class ConditionalStyle
 
     public ManuelaSettersDictionary? Setters
     {
-        get => _setters;
         set
         {
             if (_setters is not null)
@@ -75,11 +74,16 @@ public class ConditionalStyle
         Apply(visual);
     }
 
+    public virtual ManuelaSettersDictionary? GetSetters()
+    {
+        return _setters;
+    }
+
     public void Apply(VisualElement? visual)
     {
         if (visual is null || !InitializedElements.Contains(visual)) return;
 
-        var keys = Setters?.Keys;
+        var keys = GetSetters()?.Keys;
         if (keys is null) return;
 
         var allStyles = (StylesCollection?)visual.GetValue(Has.StatesProperty);
@@ -116,7 +120,9 @@ public class ConditionalStyle
         BindableProperty bindableProperty,
         TransitionsCollection? transitions)
     {
-        if (Setters is null || !Setters.TryGetValue(property, out var value)) return false;
+        var setters = GetSetters();
+
+        if (setters is null || !setters.TryGetValue(property, out var value)) return false;
         if (!Condition?.Predicate(visual) ?? false) return false;
 
         value = ManuelaThings.TryConvert(visual, property, value);
@@ -141,7 +147,7 @@ public class ConditionalStyle
 
     public void ClearValues(VisualElement visualElement, Dictionary<ManuelaProperty, object?>.KeyCollection? keys = null)
     {
-        keys ??= Setters?.Keys;
+        keys ??= GetSetters()?.Keys;
         if (keys is null) return;
 
         foreach (var key in keys)

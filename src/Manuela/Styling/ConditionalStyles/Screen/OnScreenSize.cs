@@ -2,52 +2,76 @@
 
 public class OnScreenSize : ConditionalStyle
 {
-    private static readonly Dictionary<OperatorKind, Func<Breakpoint, Breakpoint, bool>> s_comparers = new()
-    {
-        { OperatorKind.Equals, (p1, p2) => p1 == p2 },
-        { OperatorKind.GreaterThanOrEquals, (p1, p2) => p1 >= p2 },
-        { OperatorKind.GreaterThan, (p1, p2) => p1 > p2 },
-        { OperatorKind.LessThanOrEquals, (p1, p2) => p1 <= p2 },
-        { OperatorKind.LessThan, (p1, p2) => p1 < p2 }
-    };
     private VisualElement? _element;
     private EventHandler? _windowHandler;
+    private static readonly Breakpoint[] s_breakpoints =
+        [Breakpoint.Xs, Breakpoint.Sm, Breakpoint.Md, Breakpoint.Lg, Breakpoint.Xl, Breakpoint.Xxl];
 
-    public OnScreenSize(Breakpoint targetBreakpoint)
+    public OnScreenSize()
     {
-        Condition = new(visualElement => Compare(visualElement, targetBreakpoint))
+        // true... becase every time the breakpoint changes, we will build a new set of setters (GetSetters()) and apply them.
+        Condition = new(visualElement => true)
         {
             Triggers = v =>
             {
                 _element = v;
 
-                // this is done multiple unnecessary times
-                // because the ScreenBreakPointProperty is evaluated on each breakpoint.
-                // is it worth to group all the breakpoints in a single evaluation?
-
-                // The good thing is that the update is done only once, because the ScreenBreakPointProperty
-                // is updated only once.
                 _windowHandler = (sender, args) =>
                 {
                     var current = (Breakpoint)v.GetValue(Has.ScreenBreakPointProperty);
-                    var breakpoint = GetBreakpoint(v);
+                    var breakpoint = GetBreakpoint();
 
                     if (current == breakpoint) return;
-
                     v.SetValue(Has.ScreenBreakPointProperty, breakpoint);
                 };
 
                 v.Window.SizeChanged += _windowHandler;
 
                 // initial value.
-                v.SetValue(Has.ScreenBreakPointProperty, GetBreakpoint(v));
+                v.SetValue(Has.ScreenBreakPointProperty, GetBreakpoint());
 
                 return [new(v, [Has.ScreenBreakPointProperty.PropertyName])];
             }
         };
     }
 
-    public OperatorKind Operator { get; set; } = OperatorKind.GreaterThanOrEquals;
+    private readonly Dictionary<Breakpoint, ManuelaSettersDictionary?> _setters = [];
+    private readonly Dictionary<Breakpoint, Breakpoint> _maxBreakpoint = [];
+
+    public ManuelaSettersDictionary? Xs { get => _setters[Breakpoint.Xs]; set => _setters[Breakpoint.Xs] = value; }
+    public ManuelaSettersDictionary? Sm { get => _setters[Breakpoint.Sm]; set => _setters[Breakpoint.Sm] = value; }
+    public ManuelaSettersDictionary? Md { get => _setters[Breakpoint.Md]; set => _setters[Breakpoint.Md] = value; }
+    public ManuelaSettersDictionary? Lg { get => _setters[Breakpoint.Lg]; set => _setters[Breakpoint.Lg] = value; }
+    public ManuelaSettersDictionary? Xl { get => _setters[Breakpoint.Xl]; set => _setters[Breakpoint.Xl] = value; }
+    public ManuelaSettersDictionary? Xxl { get => _setters[Breakpoint.Xxl]; set => _setters[Breakpoint.Xxl] = value; }
+
+    public Breakpoint XsMaxBreakpoint { get => _maxBreakpoint[Breakpoint.Xs]; set => _maxBreakpoint[Breakpoint.Xs] = value; }
+    public Breakpoint SmMaxBreakpoint { get => _maxBreakpoint[Breakpoint.Sm]; set => _maxBreakpoint[Breakpoint.Sm] = value; }
+    public Breakpoint MdMaxBreakpoint { get => _maxBreakpoint[Breakpoint.Md]; set => _maxBreakpoint[Breakpoint.Md] = value; }
+    public Breakpoint LgMaxBreakpoint { get => _maxBreakpoint[Breakpoint.Lg]; set => _maxBreakpoint[Breakpoint.Lg] = value; }
+    public Breakpoint XlMaxBreakpoint { get => _maxBreakpoint[Breakpoint.Xl]; set => _maxBreakpoint[Breakpoint.Xl] = value; }
+
+    public override ManuelaSettersDictionary? GetSetters()
+    {
+        var currentBp = GetBreakpoint();
+
+        var mergedSetters = new ManuelaSettersDictionary();
+
+        foreach (var bp in s_breakpoints)
+        {
+            if (!_maxBreakpoint.TryGetValue(bp, out var maxBp)) _maxBreakpoint[bp] = Breakpoint.Xxl;
+
+            var isValid = currentBp >= bp && currentBp <= maxBp;
+            if (!isValid) continue;
+
+            if (!_setters.TryGetValue(bp, out var bpSetters) || bpSetters is null) continue;
+
+            foreach (var setter in bpSetters)
+                mergedSetters[setter.Key] = setter.Value;
+        }
+
+        return mergedSetters;
+    }
 
     public override void Dispose()
     {
@@ -59,18 +83,11 @@ public class OnScreenSize : ConditionalStyle
         base.Dispose();
     }
 
-    protected bool Compare(VisualElement visualElement, Breakpoint breakpoint)
+    private Breakpoint GetBreakpoint()
     {
-        var comparer = s_comparers[Operator];
-        var visualElementBreakpoint = (Breakpoint)visualElement.GetValue(Has.ScreenBreakPointProperty);
+        if (_element is null) return Breakpoint.Xs;
 
-        return comparer(visualElementBreakpoint, breakpoint);
-    }
-
-    private static Breakpoint GetBreakpoint(VisualElement visualElement)
-    {
-        var w = visualElement.Window.Width;
-
+        var w = _element.Window.Width;
         var maxBreakpoint = Breakpoint.Xs;
 
         if (w > (int)Breakpoint.Sm) maxBreakpoint = Breakpoint.Sm;
@@ -80,14 +97,5 @@ public class OnScreenSize : ConditionalStyle
         if (w > (int)Breakpoint.Xxl) maxBreakpoint = Breakpoint.Xxl;
 
         return maxBreakpoint;
-    }
-
-    public enum OperatorKind
-    {
-        Equals,
-        GreaterThanOrEquals,
-        GreaterThan,
-        LessThanOrEquals,
-        LessThan
     }
 }
