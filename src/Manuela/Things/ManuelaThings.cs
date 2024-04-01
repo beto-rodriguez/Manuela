@@ -5,169 +5,211 @@ namespace Manuela.Things;
 
 public static class ManuelaThings
 {
-    private static readonly Dictionary<ManuelaProperty, Func<BindableObject, BindableProperty?>> s_propertiesMap = new()
+    private static readonly Dictionary<ManuelaProperty, List<IBindablePropertySource>> s_propertiesMap = new()
     {
-        { ManuelaProperty.Background, bindable =>
-            {
-                if (bindable is CheckBox) return CheckBox.ColorProperty;
-                return VisualElement.BackgroundProperty;
-            }
-        },
-        { ManuelaProperty.Margin, bindable => View.MarginProperty },
-        { ManuelaProperty.Padding, bindable =>
-            {
-                if (bindable is Border) return Border.PaddingProperty;
-                if (bindable is Button) return Button.PaddingProperty;
-                if (bindable is Microsoft.Maui.Controls.Compatibility.Layout) return Microsoft.Maui.Controls.Compatibility.Layout.PaddingProperty;
-                if (bindable is ImageButton) return ImageButton.PaddingProperty;
-                if (bindable is Label) return Label.PaddingProperty;
-                if (bindable is Layout) return Layout.PaddingProperty;
-                if (bindable is Page) return Page.PaddingProperty;
-                return null;
-            }
-        },
-        { ManuelaProperty.BorderColor, bindable =>
-            {
-                if (bindable is Border) return Border.StrokeProperty;
-                if (bindable is Button) return Button.BorderColorProperty;
-                if (bindable is Frame) return Frame.BorderColorProperty;
-                return null;
-            }
-        },
-        { ManuelaProperty.BorderThickness, bindable =>
-            {
-                if (bindable is Border) return Border.StrokeThicknessProperty;
-                if (bindable is Button) return Button.BorderWidthProperty;
-                return null;
-            }
-        },
-        { ManuelaProperty.BorderRadius, bindable =>
-            {
-                if (bindable is Border) return Border.StrokeShapeProperty;
-                if (bindable is Button) return Button.CornerRadiusProperty;
-                if (bindable is Frame) return Frame.CornerRadiusProperty;
-                return null;
-            }
-        },
-        { ManuelaProperty.Shadow, bindable => VisualElement.ShadowProperty },
-        { ManuelaProperty.TextSize, bindable =>
-            {
-                if (bindable is Button) return Button.FontSizeProperty;
-                if (bindable is DatePicker) return DatePicker.FontSizeProperty;
-                if (bindable is Editor) return Editor.FontSizeProperty;
-                if (bindable is Entry) return Entry.FontSizeProperty;
-                if (bindable is SearchBar) return SearchBar.FontSizeProperty;
-                if (bindable is Label) return Label.FontSizeProperty;
-                if (bindable is Picker) return Picker.FontSizeProperty;
-                if (bindable is RadioButton) return RadioButton.FontSizeProperty;
-                if (bindable is SearchHandler) return SearchHandler.FontSizeProperty;
-                if (bindable is Span) return Span.FontSizeProperty;
-                if (bindable is TimePicker) return TimePicker.FontSizeProperty;
-                //if (bindable is TextInput) return TextInput.FontSizeProperty;
-                //if (bindable is TextAreaInput) return TextAreaInput.FontSizeProperty;
-                //if (bindable is DatePickerInput) return DatePickerInput.FontSizeProperty;
-                //if (bindable is PickerInput) return PickerInput.FontSizeProperty;
-                return null;
-            }
-        },
-        { ManuelaProperty.LineHeight, bindable =>
-            {
-                if (bindable is Label) return Label.LineHeightProperty;
-                if (bindable is Span) return Span.LineHeightProperty;
-                return null;
-            }
-        },
-        { ManuelaProperty.FontAttributes, bindable =>
-            {
-                if (bindable is Button) return Button.FontAttributesProperty;
-                if (bindable is DatePicker) return DatePicker.FontAttributesProperty;
-                if (bindable is Editor) return Editor.FontAttributesProperty;
-                if (bindable is Entry) return Entry.FontAttributesProperty;
-                if (bindable is SearchBar) return SearchBar.FontAttributesProperty;
-                if (bindable is Label) return Label.FontAttributesProperty;
-                if (bindable is Picker) return Picker.FontAttributesProperty;
-                if (bindable is RadioButton) return RadioButton.FontAttributesProperty;
-                if (bindable is SearchHandler) return SearchHandler.FontAttributesProperty;
-                if (bindable is Span) return Span.FontAttributesProperty;
-                if (bindable is TimePicker) return TimePicker.FontAttributesProperty;
-                //if (bindable is TextInput) return TextInput.FontAttributesProperty;
-                //if (bindable is TextAreaInput) return TextAreaInput.FontAttributesProperty;
-                //if (bindable is DatePickerInput) return DatePickerInput.FontAttributesProperty;
-                //if (bindable is PickerInput) return PickerInput.FontAttributesProperty;
-                return null;
-            }
-        },
-        { ManuelaProperty.VerticalTextAlign, bindable =>
-            {
-                if (bindable is Label) return Label.VerticalTextAlignmentProperty;
-                return null;
-            }
-        },
-        { ManuelaProperty.HorizontalTextAlign, bindable =>
-            {
-                if (bindable is Label) return Label.HorizontalTextAlignmentProperty;
-                return null;
-            }
-        },
-        { ManuelaProperty.TextColor, bindable =>
-            {
-                if (bindable is Button) return Button.TextColorProperty;
-                if (bindable is DatePicker) return DatePicker.TextColorProperty;
-                if (bindable is Editor) return Editor.TextColorProperty;
-                if (bindable is Entry) return Entry.TextColorProperty;
-                if (bindable is SearchBar) return SearchBar.TextColorProperty;
-                if (bindable is Label) return Label.TextColorProperty;
-                if (bindable is Picker) return Picker.TextColorProperty;
-                if (bindable is SearchHandler) return SearchHandler.TextColorProperty;
-                if (bindable is Span) return Span.TextColorProperty;
-                if (bindable is RadioButton) return RadioButton.TextColorProperty;
-                if (bindable is TimePicker) return TimePicker.TextColorProperty;
-                //if (bindable is TextInput) return TextInput.TextColorProperty;
-                //if (bindable is TextAreaInput) return TextAreaInput.TextColorProperty;
-                //if (bindable is DatePickerInput) return DatePickerInput.TextColorProperty;
-                //if (bindable is PickerInput) return PickerInput.TextColorProperty;
-                return null;
-            }
-        },
-        { ManuelaProperty.TextDecoration, bindable =>
-            {
-                if (bindable is Label) return Label.TextDecorationsProperty;
-                if (bindable is Span) return Span.TextDecorationsProperty;
-                return null;
-            }
-        },
-        { ManuelaProperty.VerticalOptions, bindable => View.VerticalOptionsProperty },
-        { ManuelaProperty.HorizontalOptions, bindable => View.HorizontalOptionsProperty },
-        { ManuelaProperty.Opacity, bindable => VisualElement.OpacityProperty },
-        { ManuelaProperty.Width, bindable => VisualElement.WidthRequestProperty },
-        { ManuelaProperty.Height, bindable => VisualElement.HeightRequestProperty },
-        { ManuelaProperty.XAnchor, bindable => VisualElement.AnchorXProperty },
-        { ManuelaProperty.YAnchor, bindable => VisualElement.AnchorYProperty },
-        { ManuelaProperty.TranslateX, bindable => VisualElement.TranslationXProperty },
-        { ManuelaProperty.TranslateY, bindable => VisualElement.TranslationYProperty },
-        { ManuelaProperty.Rotation, bindable => VisualElement.RotationProperty },
-        { ManuelaProperty.RotationX, bindable => VisualElement.RotationXProperty },
-        { ManuelaProperty.RotationY, bindable => VisualElement.RotationYProperty },
-        { ManuelaProperty.Scale, bindable => VisualElement.ScaleProperty },
-        { ManuelaProperty.ScaleX, bindable => VisualElement.ScaleXProperty },
-        { ManuelaProperty.ScaleY, bindable => VisualElement.ScaleYProperty },
-        { ManuelaProperty.MaxWidth, bindable => VisualElement.MaximumWidthRequestProperty },
-        { ManuelaProperty.MaxHeight, bindable => VisualElement.MaximumHeightRequestProperty },
-        { ManuelaProperty.MinWidth, bindable => VisualElement.MinimumWidthRequestProperty },
-        { ManuelaProperty.MinHeight, bindable => VisualElement.MinimumHeightRequestProperty },
-        { ManuelaProperty.Visible, bindable => VisualElement.IsVisibleProperty },
-        { ManuelaProperty.Style, bindable => VisualElement.StyleProperty },
-        { ManuelaProperty.AbsoluteLayoutBounds, bindable => AbsoluteLayout.LayoutBoundsProperty },
-        { ManuelaProperty.AbsoluteLayoutFlags, bindable => AbsoluteLayout.LayoutFlagsProperty },
-        { ManuelaProperty.ImageSource, bindable =>
-            {
-                if (bindable is ImageButton) return ImageButton.SourceProperty;
-                if (bindable is Image) return Image.SourceProperty;
-                return null;
-            }
-        },
-        { ManuelaProperty.StackOrientation, bindable => StackLayout.OrientationProperty }
+        [ManuelaProperty.Background] =
+            [
+                new PropertySource<CheckBox>(CheckBox.ColorProperty),
+                new PropertySource<VisualElement>(VisualElement.BackgroundProperty)
+            ],
+        [ManuelaProperty.Margin] =
+            [
+                new PropertySource<View>(View.MarginProperty)
+            ],
+        [ManuelaProperty.Padding] =
+            [
+                new PropertySource<Border>(Border.PaddingProperty),
+                new PropertySource<Button>(Button.PaddingProperty),
+                new PropertySource<Microsoft.Maui.Controls.Compatibility.Layout>(Microsoft.Maui.Controls.Compatibility.Layout.PaddingProperty),
+                new PropertySource<ImageButton>(ImageButton.PaddingProperty),
+                new PropertySource<Label>(Label.PaddingProperty),
+                new PropertySource<Layout>(Layout.PaddingProperty),
+                new PropertySource<Page>(Page.PaddingProperty)
+            ],
+        [ManuelaProperty.BorderColor] =
+            [
+                new PropertySource<Border>(Border.StrokeProperty),
+                new PropertySource<Button>(Button.BorderColorProperty),
+                new PropertySource<Frame>(Frame.BorderColorProperty)
+            ],
+        [ManuelaProperty.BorderThickness] =
+            [
+                new PropertySource<Border>(Border.StrokeThicknessProperty),
+                new PropertySource<Button>(Button.BorderWidthProperty)
+            ],
+        [ManuelaProperty.BorderRadius] =
+            [
+                new PropertySource<Border>(Border.StrokeShapeProperty),
+                new PropertySource<Button>(Button.CornerRadiusProperty),
+                new PropertySource<Frame>(Frame.CornerRadiusProperty)
+            ],
+        [ManuelaProperty.Shadow] =
+            [
+                new PropertySource<VisualElement>(VisualElement.ShadowProperty)
+            ],
+        [ManuelaProperty.TextSize] =
+            [
+                new PropertySource<Button>(Button.FontSizeProperty),
+                new PropertySource<DatePicker>(DatePicker.FontSizeProperty),
+                new PropertySource<Editor>(Editor.FontSizeProperty),
+                new PropertySource<Entry>(Entry.FontSizeProperty),
+                new PropertySource<SearchBar>(SearchBar.FontSizeProperty),
+                new PropertySource<Label>(Label.FontSizeProperty),
+                new PropertySource<Picker>(Picker.FontSizeProperty),
+                new PropertySource<RadioButton>(RadioButton.FontSizeProperty),
+                new PropertySource<SearchHandler>(SearchHandler.FontSizeProperty),
+                new PropertySource<Span>(Span.FontSizeProperty),
+                new PropertySource<TimePicker>(TimePicker.FontSizeProperty)
+            ],
+        [ManuelaProperty.LineHeight] =
+            [
+                new PropertySource<Label>(Label.LineHeightProperty),
+                new PropertySource<Span>(Span.LineHeightProperty)
+            ],
+        [ManuelaProperty.FontAttributes] =
+            [
+                new PropertySource<Button>(Button.FontAttributesProperty),
+                new PropertySource<DatePicker>(DatePicker.FontAttributesProperty),
+                new PropertySource<Editor>(Editor.FontAttributesProperty),
+                new PropertySource<Entry>(Entry.FontAttributesProperty),
+                new PropertySource<SearchBar>(SearchBar.FontAttributesProperty),
+                new PropertySource<Label>(Label.FontAttributesProperty),
+                new PropertySource<Picker>(Picker.FontAttributesProperty),
+                new PropertySource<RadioButton>(RadioButton.FontAttributesProperty),
+                new PropertySource<SearchHandler>(SearchHandler.FontAttributesProperty),
+                new PropertySource<Span>(Span.FontAttributesProperty),
+                new PropertySource<TimePicker>(TimePicker.FontAttributesProperty)
+            ],
+        [ManuelaProperty.VerticalTextAlign] =
+            [
+                new PropertySource<Label>(Label.VerticalTextAlignmentProperty)
+            ],
+        [ManuelaProperty.HorizontalTextAlign] =
+            [
+                new PropertySource<Label>(Label.HorizontalTextAlignmentProperty)
+            ],
+        [ManuelaProperty.TextColor] =
+            [
+                new PropertySource<Button>(Button.TextColorProperty),
+                new PropertySource<DatePicker>(DatePicker.TextColorProperty),
+                new PropertySource<Editor>(Editor.TextColorProperty),
+                new PropertySource<Entry>(Entry.TextColorProperty),
+                new PropertySource<SearchBar>(SearchBar.TextColorProperty),
+                new PropertySource<Label>(Label.TextColorProperty),
+                new PropertySource<Picker>(Picker.TextColorProperty),
+                new PropertySource<SearchHandler>(SearchHandler.TextColorProperty),
+                new PropertySource<Span>(Span.TextColorProperty),
+                new PropertySource<RadioButton>(RadioButton.TextColorProperty),
+                new PropertySource<TimePicker>(TimePicker.TextColorProperty)
+            ],
+        [ManuelaProperty.TextDecoration] =
+            [
+                new PropertySource<Label>(Label.TextDecorationsProperty),
+                new PropertySource<Span>(Span.TextDecorationsProperty)
+            ],
+        [ManuelaProperty.VerticalOptions] =
+            [
+                new PropertySource<View>(View.VerticalOptionsProperty)
+            ],
+        [ManuelaProperty.HorizontalOptions] =
+            [
+                new PropertySource<View>(View.HorizontalOptionsProperty)
+            ],
+        [ManuelaProperty.Opacity] =
+            [
+                new PropertySource<VisualElement>(VisualElement.OpacityProperty)
+            ],
+        [ManuelaProperty.Width] =
+            [
+                new PropertySource<VisualElement>(VisualElement.WidthRequestProperty)
+            ],
+        [ManuelaProperty.Height] =
+            [
+                new PropertySource<VisualElement>(VisualElement.HeightRequestProperty)
+            ],
+        [ManuelaProperty.XAnchor] =
+            [
+                new PropertySource<VisualElement>(VisualElement.AnchorXProperty)
+            ],
+        [ManuelaProperty.YAnchor] =
+            [
+                new PropertySource<VisualElement>(VisualElement.AnchorYProperty)
+            ],
+        [ManuelaProperty.TranslateX] =
+            [
+                new PropertySource<VisualElement>(VisualElement.TranslationXProperty)
+            ],
+        [ManuelaProperty.TranslateY] =
+            [
+                new PropertySource<VisualElement>(VisualElement.TranslationYProperty)
+            ],
+        [ManuelaProperty.Rotation] =
+            [
+                new PropertySource<VisualElement>(VisualElement.RotationProperty)
+            ],
+        [ManuelaProperty.RotationX] =
+            [
+                new PropertySource<VisualElement>(VisualElement.RotationXProperty)
+            ],
+        [ManuelaProperty.RotationY] =
+            [
+                new PropertySource<VisualElement>(VisualElement.RotationYProperty)
+            ],
+        [ManuelaProperty.Scale] =
+            [
+                new PropertySource<VisualElement>(VisualElement.ScaleProperty)
+            ],
+        [ManuelaProperty.ScaleX] =
+            [
+                new PropertySource<VisualElement>(VisualElement.ScaleXProperty)
+            ],
+        [ManuelaProperty.ScaleY] =
+            [
+                new PropertySource<VisualElement>(VisualElement.ScaleYProperty)
+            ],
+        [ManuelaProperty.MaxWidth] =
+            [
+                new PropertySource<VisualElement>(VisualElement.MaximumWidthRequestProperty)
+            ],
+        [ManuelaProperty.MaxHeight] =
+            [
+                new PropertySource<VisualElement>(VisualElement.MaximumHeightRequestProperty)
+            ],
+        [ManuelaProperty.MinWidth] =
+            [
+                new PropertySource<VisualElement>(VisualElement.MinimumWidthRequestProperty)
+            ],
+        [ManuelaProperty.MinHeight] =
+            [
+                new PropertySource<VisualElement>(VisualElement.MinimumHeightRequestProperty)
+            ],
+        [ManuelaProperty.Visible] =
+            [
+                new PropertySource<VisualElement>(VisualElement.IsVisibleProperty)
+            ],
+        [ManuelaProperty.Style] =
+            [
+                new PropertySource<VisualElement>(VisualElement.StyleProperty)
+            ],
+        [ManuelaProperty.AbsoluteLayoutBounds] =
+            [
+                new PropertySource<VisualElement>(AbsoluteLayout.LayoutBoundsProperty)
+            ],
+        [ManuelaProperty.AbsoluteLayoutFlags] =
+            [
+                new PropertySource<VisualElement>(AbsoluteLayout.LayoutFlagsProperty)
+            ],
+        [ManuelaProperty.ImageSource] =
+            [
+                new PropertySource<ImageButton>(ImageButton.SourceProperty),
+                new PropertySource<Image>(Image.SourceProperty)
+            ],
+        [ManuelaProperty.StackOrientation] =
+            [
+                new PropertySource<StackLayout>(StackLayout.OrientationProperty)
+            ],
     };
+
     private static readonly Dictionary<ManuelaProperty, Func<BindableObject, object?, object?>> s_converters = new()
     {
         { ManuelaProperty.Background, BrushConverter },
@@ -300,8 +342,16 @@ public static class ManuelaThings
     {
         if (bindable is null) return null;
 
-        if (s_propertiesMap.TryGetValue(property, out var getter))
-            return getter(bindable);
+        if (s_propertiesMap.TryGetValue(property, out var propertySources))
+        {
+            foreach (var propertySource in propertySources)
+            {
+                var bindableProperty = propertySource.Get(bindable);
+                if (bindableProperty == null) continue;
+
+                return bindableProperty;
+            }
+        }
 
         return null;
     }
@@ -527,5 +577,10 @@ public static class ManuelaThings
                 regions.Select(x => x.ToRectInt32()).ToArray());
         }
 #endif
+    }
+
+    public static void RegisterType<T>(ManuelaProperty property, BindableProperty bindableProperty)
+    {
+        s_propertiesMap[property].Add(new PropertySource<T>(bindableProperty));
     }
 }
