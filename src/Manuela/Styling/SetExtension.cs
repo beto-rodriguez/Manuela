@@ -63,6 +63,7 @@ public class SetExtension : IMarkupExtension<ManuelaSettersDictionary>, INotifyP
     public Rect AbsoluteLayoutBounds { set => Setters[ManuelaProperty.AbsoluteLayoutBounds] = value; }
     public AbsoluteLayoutFlags AbsoluteLayoutFlags { set => Setters[ManuelaProperty.AbsoluteLayoutFlags] = value; }
     public string ImageSource { set => Setters[ManuelaProperty.ImageSource] = value; }
+    public StackOrientation StackOrientation { set => Setters[ManuelaProperty.StackOrientation] = value; }
 
     public event PropertyChangedEventHandler? PropertyChanged;
 

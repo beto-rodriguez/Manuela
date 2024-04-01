@@ -10,6 +10,11 @@ public static class StylingExtensions
         return (Breakpoint)visualElement.GetValue(Has.ScreenBreakPointProperty);
     }
 
+    public static void SetCustomState(this VisualElement visualElement, string? state)
+    {
+        visualElement.SetValue(Has.CustomStateProperty, state);
+    }
+
     public static void SetManuelaStyle(this VisualElement visualElement, object setters)
     {
         SetManuelaStyle(visualElement, (ManuelaSettersDictionary)setters);

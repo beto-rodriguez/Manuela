@@ -28,6 +28,9 @@ public class Has
 
     public static BindableProperty IsValidStateProperty = BindableProperty.CreateAttached(
         "IsValidState", typeof(bool), typeof(Has), true);
+
+    public static BindableProperty CustomStateProperty = BindableProperty.CreateAttached(
+        "CustomState", typeof(string), typeof(Has), null);
 #pragma warning restore CA2211 // Non-constant fields should not be visible
 
     public static StylesCollection GetStates(BindableObject view) => (StylesCollection)view.GetValue(StatesProperty);

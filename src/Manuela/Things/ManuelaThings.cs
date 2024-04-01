@@ -165,7 +165,8 @@ public static class ManuelaThings
                 if (bindable is Image) return Image.SourceProperty;
                 return null;
             }
-        }
+        },
+        { ManuelaProperty.StackOrientation, bindable => StackLayout.OrientationProperty }
     };
     private static readonly Dictionary<ManuelaProperty, Func<BindableObject, object?, object?>> s_converters = new()
     {

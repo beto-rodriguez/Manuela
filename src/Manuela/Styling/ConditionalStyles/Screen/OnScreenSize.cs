@@ -1,4 +1,11 @@
-﻿namespace Manuela.Styling.ConditionalStyles.Screen;
+﻿// The namespace not matching the folder is intentional, see #ABOUT-XAML-NS for more info.
+// DO NOT MOVE THE NS.
+
+using Manuela.Styling;
+using Manuela.Styling.ConditionalStyles;
+using Manuela.Styling.ConditionalStyles.Screen;
+
+namespace Manuela;
 
 public class OnScreenSize : ConditionalStyle
 {
