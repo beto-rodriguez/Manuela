@@ -158,14 +158,22 @@ public static class ManuelaThings
         { ManuelaProperty.Visible, bindable => VisualElement.IsVisibleProperty },
         { ManuelaProperty.Style, bindable => VisualElement.StyleProperty },
         { ManuelaProperty.AbsoluteLayoutBounds, bindable => AbsoluteLayout.LayoutBoundsProperty },
-        { ManuelaProperty.AbsoluteLayoutFlags, bindable => AbsoluteLayout.LayoutFlagsProperty }
+        { ManuelaProperty.AbsoluteLayoutFlags, bindable => AbsoluteLayout.LayoutFlagsProperty },
+        { ManuelaProperty.ImageSource, bindable =>
+            {
+                if (bindable is ImageButton) return ImageButton.SourceProperty;
+                if (bindable is Image) return Image.SourceProperty;
+                return null;
+            }
+        }
     };
     private static readonly Dictionary<ManuelaProperty, Func<BindableObject, object?, object?>> s_converters = new()
     {
         { ManuelaProperty.Background, BrushConverter },
         { ManuelaProperty.BorderColor, BorderColorConverter },
         { ManuelaProperty.Shadow, ShadowConverter },
-        { ManuelaProperty.TextColor, ColorConverter }
+        { ManuelaProperty.TextColor, ColorConverter },
+        { ManuelaProperty.ImageSource, ImageSourceConverter }
     };
     private static readonly Dictionary<Type, Func<BindableObject, BindableProperty, object, Animation>> s_transitions = new()
     {
@@ -434,6 +442,23 @@ public static class ManuelaThings
             : Theme.Current.ShadowDark;
 
         return shadows[uiSize];
+    }
+
+    private static object? ImageSourceConverter(BindableObject bindable, object? source)
+    {
+        if (source is null) return null;
+
+        var strValue = source?.ToString();
+
+        if (strValue is null)
+        {
+            throw new InvalidOperationException(
+                string.Format("Cannot convert \"{0}\" into {1}", strValue, typeof(ImageSource)));
+        }
+
+        return Uri.TryCreate(strValue, UriKind.Absolute, out var uri) && uri.Scheme != "file"
+            ? ImageSource.FromUri(uri)
+            : ImageSource.FromFile(strValue);
     }
 
     private static int GetBaseColor(int intFlags)
