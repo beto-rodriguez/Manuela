@@ -65,16 +65,4 @@
     <ProjectReference Include="..\..\src\Manuela\Manuela.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <MauiXaml Update="Views\AnotherView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </MauiXaml>
-    <MauiXaml Update="Views\MainView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </MauiXaml>
-    <MauiXaml Update="Views\Settings.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </MauiXaml>
-  </ItemGroup>
-
 </Project>
