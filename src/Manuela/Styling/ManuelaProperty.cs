@@ -43,4 +43,5 @@ public enum ManuelaProperty
     AbsoluteLayoutFlags,
     ImageSource,
     StackOrientation,
+    StackSpacing,
 }

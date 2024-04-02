@@ -41,7 +41,8 @@ public static class ManuelaThings
             [
                 new PropertySource<Border>(Border.StrokeShapeProperty),
                 new PropertySource<Button>(Button.CornerRadiusProperty),
-                new PropertySource<Frame>(Frame.CornerRadiusProperty)
+                new PropertySource<Frame>(Frame.CornerRadiusProperty),
+                new PropertySource<BoxView>(BoxView.CornerRadiusProperty)
             ],
         [ManuelaProperty.Shadow] =
             [
@@ -208,6 +209,10 @@ public static class ManuelaThings
             [
                 new PropertySource<StackLayout>(StackLayout.OrientationProperty)
             ],
+        [ManuelaProperty.StackSpacing] =
+            [
+                new PropertySource<StackBase>(StackBase.SpacingProperty)
+            ]
     };
 
     private static readonly Dictionary<ManuelaProperty, Func<BindableObject, object?, object?>> s_converters = new()

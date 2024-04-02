@@ -7,7 +7,7 @@ public static class StylingExtensions
 {
     public static Breakpoint GetScreenBreakpoint(this VisualElement visualElement)
     {
-        return (Breakpoint)visualElement.GetValue(Has.ScreenBreakPointProperty);
+        return OnScreenSize.GetBreakpoint(visualElement);
     }
 
     public static void SetCustomState(this VisualElement visualElement, string? state)
@@ -26,7 +26,7 @@ public static class StylingExtensions
             SetManuelaProperty(visualElement, setter.Key, setter.Value);
     }
 
-    public static void SetManuelaProperty(this VisualElement visualElement, ManuelaProperty property, object? value)
+    public static void SetManuelaProperty(this VisualElement visualElement, ManuelaProperty property, object? value, bool animated = true)
     {
         var transitions = (TransitionsCollection?)visualElement.GetValue(Has.TransitionsProperty);
 
@@ -35,6 +35,7 @@ public static class StylingExtensions
                 $"Manuela was not able to resolve the {property} property o the {visualElement.GetType()} type.");
 
         if (
+            animated &&
             value is not null &&
             transitions is not null &&
             transitions.TryGetValue(visualElement, property, out var transition, out var isFirst) &&

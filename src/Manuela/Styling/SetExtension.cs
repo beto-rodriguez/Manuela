@@ -64,6 +64,7 @@ public class SetExtension : IMarkupExtension<ManuelaSettersDictionary>, INotifyP
     public AbsoluteLayoutFlags AbsoluteLayoutFlags { set => Setters[ManuelaProperty.AbsoluteLayoutFlags] = value; }
     public string ImageSource { set => Setters[ManuelaProperty.ImageSource] = value; }
     public StackOrientation StackOrientation { set => Setters[ManuelaProperty.StackOrientation] = value; }
+    public double StackSpacing { set => Setters[ManuelaProperty.StackSpacing] = value; }
 
     public event PropertyChangedEventHandler? PropertyChanged;
 

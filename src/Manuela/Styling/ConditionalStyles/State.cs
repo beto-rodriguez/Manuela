@@ -5,15 +5,15 @@ using Manuela.Styling.ConditionalStyles;
 
 namespace Manuela;
 
-public class CustomState : ConditionalStyle
+public class State : ConditionalStyle
 {
-    public CustomState()
+    public State()
     {
-        Condition = new(visualElement => State == (string?)visualElement.GetValue(Has.CustomStateProperty))
+        Condition = new(visualElement => Name == (string?)visualElement.GetValue(Has.CustomStateProperty))
         {
             Triggers = v => [new(v, [Has.CustomStateProperty.PropertyName])]
         };
     }
 
-    public string? State { get; set; }
+    public string? Name { get; set; }
 }

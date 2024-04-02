@@ -92,9 +92,14 @@ public class OnScreenSize : ConditionalStyle
 
     private Breakpoint GetBreakpoint()
     {
-        if (_element is null) return Breakpoint.Xs;
+        return GetBreakpoint(_element);
+    }
 
-        var w = _element.Window.Width;
+    public static Breakpoint GetBreakpoint(VisualElement? element)
+    {
+        if (element is null) return Breakpoint.Xs;
+
+        var w = element.Window.Width;
         var maxBreakpoint = Breakpoint.Xs;
 
         if (w > (int)Breakpoint.Sm) maxBreakpoint = Breakpoint.Sm;
