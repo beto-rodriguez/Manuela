@@ -66,7 +66,7 @@ public class OnScreenSize : ConditionalStyle
 
         foreach (var bp in s_breakpoints)
         {
-            if (!_maxBreakpoint.TryGetValue(bp, out var maxBp)) _maxBreakpoint[bp] = Breakpoint.Xxl;
+            if (!_maxBreakpoint.TryGetValue(bp, out var maxBp)) maxBp = Breakpoint.Xxl;
 
             var isValid = currentBp >= bp && currentBp <= maxBp;
             if (!isValid) continue;
