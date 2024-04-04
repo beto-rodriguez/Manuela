@@ -56,18 +56,28 @@ public partial class AppMenu : ContentView
 
         if (MenuStackLayout.GetScreenBreakpoint() >= Breakpoint.Md)
         {
+            Indicator.TranslationX = 0;
+            Indicator.HeightRequest = clickedVisual.Height;
+            Indicator.WidthRequest = 6;
             Indicator.SetManuelaProperty(
-                ManuelaProperty.AbsoluteLayoutBounds,
-                new Rect(10, clickedIndex * clickedVisual.Height + 5, 40, 40),
-                animated);
+                ManuelaProperty.TranslateY,
+                clickedIndex * clickedVisual.Height, animated);
         }
         else
         {
-            var w = Window.Width * 0.5 - clickedVisual.Width * MenuStackLayout.Children.Count * 0.5;
+            var w = Window.Width - MenuStackLayout.Width;
+#if WINDOWS
+            //  for a reason on windows it seems wrong by about 10px
+            // maybe window.width is not the right value to use
+            w -= 10;
+#endif
+
+            Indicator.TranslationY = 0;
+            Indicator.WidthRequest = clickedVisual.Width;
+            Indicator.HeightRequest = 6;
             Indicator.SetManuelaProperty(
-                ManuelaProperty.AbsoluteLayoutBounds,
-                new Rect(w + clickedIndex * clickedVisual.Width + 8, 2, 40, 40),
-                animated);
+                ManuelaProperty.TranslateX,
+                clickedIndex * clickedVisual.Width + w * 0.5, animated);
         }
     }
 }

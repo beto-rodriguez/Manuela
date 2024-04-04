@@ -11,7 +11,7 @@
         Default={m:Set Background='Gray,Swatch100'},
         OnXs=   {m:Set
                     AbsoluteLayoutFlags=    'WidthProportional,YProportional',
-                    AbsoluteLayoutBounds=   '0, 1,   1, 70'},
+                    AbsoluteLayoutBounds=   '0, 1,   1, 60'},
         OnMd=   {m:Set
                     AbsoluteLayoutFlags=    HeightProportional,
                     AbsoluteLayoutBounds=   '0, 0,  60,  1'},
@@ -40,12 +40,20 @@
 
         <ScrollView Grid.Row="1">
             <Grid>
-                <AbsoluteLayout>
-                    <BoxView
-                        x:Name="Indicator"
-                        m:Has.Transitions="{m:Transitions AbsoluteLayoutBounds={m:TransitionDefinition Easing={x:Static Easing.SpringOut}}}"
-                        m:Has.States="{m:States Default={m:Set Background=Primary, BorderRadius=20}}"/>
-                </AbsoluteLayout>
+                <Border
+                    x:Name="Indicator"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Start"
+                    StrokeThickness="0"
+                    m:Has.Transitions="{m:Transitions
+                        TranslateY={m:TransitionDefinition Easing={x:Static Easing.SpringOut}, Duration=600},
+                        TranslateX={m:TransitionDefinition Easing={x:Static Easing.SpringOut}, Duration=600}}"
+                    m:Has.States="{m:States Default={m:Set Background=Primary}}">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="3" />
+                    </Border.StrokeShape>
+                </Border>
+
                 <StackLayout
                     x:Name="MenuStackLayout"
                     m:Has.States="{m:States
@@ -57,6 +65,8 @@
                             <layout:MenuItemModel DisplayName="Main" Route="Main" Icon="Home"/>
                             <layout:MenuItemModel DisplayName="Hello" Route="Hello" Icon="Handshake"/>
                             <layout:MenuItemModel DisplayName="Counter" Route="Counter" Icon="AddCircle"/>
+                            <layout:MenuItemModel DisplayName="Hello" Route="Hello" Icon="Handshake"/>
+                            <layout:MenuItemModel DisplayName="Counter" Route="Counter" Icon="AddCircle"/>
                         </x:Array>
                     </BindableLayout.ItemsSource>
 
@@ -65,8 +75,8 @@
                             <StackLayout
                                 m:Has.States="{m:States
                                     Hovered={m:Set Background='Gray,Swatch400,Opacity10'},
-                                    OnXs={m:Set Width=70, Padding='5,10',     Height=70,   StackSpacing=5,     StackOrientation=Vertical},
-                                    OnMd={m:Set Width=60, Padding='17.5,10',  Height=50,   StackSpacing=20,    StackOrientation=Horizontal},
+                                    OnXs={m:Set Width=70, Padding='5,12,0,10',  Height=60,   StackSpacing=5,     StackOrientation=Vertical},
+                                    OnMd={m:Set Width=60, Padding='17.5,10',    Height=50,   StackSpacing=20,    StackOrientation=Horizontal},
                                     OnXl={m:Set Width=280}}">
 
                                 <mi:MauiIcon
@@ -77,7 +87,7 @@
                                     <m:Has.States>
                                         <m:StylesCollection>
                                             <m:Default Setters="{m:Set TextColor='Gray,Swatch900', Opacity=0.75}" />
-                                            <m:State Name="active" Setters="{m:Set TextColor='Gray,Swatch100', Opacity=1}"/>
+                                            <m:State Name="active" Setters="{m:Set TextColor=Primary, Opacity=1}"/>
                                         </m:StylesCollection>
                                     </m:Has.States>
                                 </mi:MauiIcon>
@@ -90,7 +100,7 @@
                                         <m:StylesCollection>
                                             <m:Default Setters="{m:Set TextColor='Gray,Swatch900'}" />
                                             <m:State Name="active" Setters="{m:Set TextColor=Primary}"/>
-                                            <m:OnScreenSize Xs="{m:Set Scale=0.7}" Md="{m:Set Scale=1}"/>
+                                            <m:OnScreenSize Xs="{m:Set TextSize=10}" Md="{m:Set TextSize=15}"/>
                                         </m:StylesCollection>
                                     </m:Has.States>
                                 </Label>
