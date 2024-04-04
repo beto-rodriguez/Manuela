@@ -46,8 +46,8 @@
                     VerticalOptions="Start"
                     StrokeThickness="0"
                     m:Has.Transitions="{m:Transitions
-                        TranslateY={m:TransitionDefinition Easing={x:Static Easing.SpringOut}, Duration=600},
-                        TranslateX={m:TransitionDefinition Easing={x:Static Easing.SpringOut}, Duration=600}}"
+                        TranslateY={m:TransitionDefinition Easing={x:Static Easing.SpringOut}, Duration=300},
+                        TranslateX={m:TransitionDefinition Easing={x:Static Easing.SpringOut}, Duration=300}}"
                     m:Has.States="{m:States Default={m:Set Background=Primary}}">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="3" />
