@@ -9,7 +9,7 @@
     RowDefinitions="Auto,*"
     ZIndex="10"
     m:Has.States="{m:States
-        Default={m:Set Background='Gray,Swatch100'},
+        Default={m:Set Background='Gray,Swatch200'},
         OnXs=   {m:Set
                     AbsoluteLayoutFlags=    'WidthProportional,YProportional',
                     AbsoluteLayoutBounds=   '0, 1,   1, 60'},
@@ -63,17 +63,24 @@
 
                 <BindableLayout.ItemsSource>
                     <x:Array Type="{x:Type layout:MenuItemModel}" >
-                        <layout:MenuItemModel DisplayName="Main" Route="Main" Icon="Home"/>
-                        <layout:MenuItemModel DisplayName="Hello" Route="Hello" Icon="Handshake"/>
-                        <layout:MenuItemModel DisplayName="Counter" Route="Counter" Icon="AddCircle"/>
-                        <layout:MenuItemModel DisplayName="Hello" Route="Hello" Icon="Handshake"/>
-                        <layout:MenuItemModel DisplayName="Counter" Route="Counter" Icon="AddCircle"/>
+                        <layout:MenuItemModel DisplayName="Main" Route="MainView" Icon="Home"/>
+                        <layout:MenuItemModel DisplayName="Another" Route="AnotherView" Icon="Bookmark"/>
+                        <layout:MenuItemModel DisplayName="Settings" Route="Settings" Icon="Settings"/>
                     </x:Array>
                 </BindableLayout.ItemsSource>
 
                 <BindableLayout.ItemTemplate>
-                    <DataTemplate>
+
+                    <!--
+                        The Router.Link property, defines the route where the app navigates to when the item is clicked.
+                        In this case, the app navigates to the MainView route.
+
+                        The MainView route must be defined in the MauiProgram.cs file.
+                    -->
+
+                    <DataTemplate x:DataType="{x:Type layout:MenuItemModel}">
                         <StackLayout
+                            m:Router.Link="{Binding Route}"
                             m:Has.States="{m:States
                                 Hovered={m:Set Background='Gray,Swatch400,Opacity10'},
                                 OnXs={m:Set Width=70, Padding='5,12,0,10',  Height=60,   StackSpacing=5,     StackOrientation=Vertical},

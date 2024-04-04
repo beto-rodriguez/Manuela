@@ -1,4 +1,4 @@
-namespace SideMenuMauiApp.Views;
+namespace ManuelaApp.Views;
 
 public partial class Settings : ContentView
 {

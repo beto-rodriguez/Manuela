@@ -1,6 +1,4 @@
-﻿using MauiIcons.Core;
-
-namespace ManuelaApp;
+﻿namespace ManuelaApp;
 
 public partial class App : Application
 {
@@ -8,7 +6,6 @@ public partial class App : Application
     {
         InitializeComponent();
 
-        // Temporary Workaround for url styled namespace in xaml
-        _ = new MauiIcon();
+        MainPage = new AppLayout();
     }
 }

@@ -1,5 +1,8 @@
-﻿using Manuela.Styling;
+﻿using Manuela;
+using Manuela.AppRouting;
+using Manuela.Styling;
 using Manuela.Things;
+using ManuelaApp.Views;
 using MauiIcons.Core;
 using MauiIcons.Material.Rounded;
 using Microsoft.Extensions.Logging;
@@ -12,6 +15,11 @@ public static class MauiProgram
         var builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
+            .UseManuela([
+                new Route<MainView>(),
+                new Route<AnotherView>(),
+                new Route<Settings>()
+            ])
             .UseMaterialRoundedMauiIcons()
             .ConfigureFonts(fonts =>
             {

@@ -14,17 +14,4 @@
         </ResourceDictionary>
     </Application.Resources>
 
-    <Application.MainPage>
-        <m:AppPage>
-            <AbsoluteLayout>
-
-                <!-- AppMenu source it at the ./Layout folder -->
-                <layout:AppMenu/>
-
-                <m:AppBody/>
-
-            </AbsoluteLayout>
-        </m:AppPage>
-    </Application.MainPage>
-
 </Application>

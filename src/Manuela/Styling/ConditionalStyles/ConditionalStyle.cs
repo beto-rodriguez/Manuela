@@ -151,7 +151,12 @@ public class ConditionalStyle
         if (keys is null) return;
 
         foreach (var key in keys)
-            visualElement.ClearValue(ManuelaThings.GetBindableProperty(visualElement, key));
+        {
+            var bindableProperty = ManuelaThings.GetBindableProperty(visualElement, key);
+            if (bindableProperty is null) continue;
+
+            visualElement.SetValue(bindableProperty, bindableProperty.DefaultValue);
+        }
     }
 
     public virtual void Dispose()
