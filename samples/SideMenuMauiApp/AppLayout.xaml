@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<m:AppPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:m="clr-namespace:Manuela;assembly=Manuela"
+    xmlns:layout="clr-namespace:SideMenuMauiApp.Layout"
+    xmlns:appViews="clr-namespace:SideMenuMauiApp.Views"
+    x:Class="SideMenuMauiApp.AppLayout">
+
+    <AbsoluteLayout>
+
+        <!-- side menu -->
+        <layout:AppMenu
+            x:Name="SideMenu"
+            ItemTapped="AppMenuItemTapped" />
+
+        <!-- menu shadow on < lg devices -->
+        <layout:Shadow
+            x:Name="ShadowElement"
+            Tapped="ToggleMenu"/>
+
+        <!-- body -->
+        <Border
+            x:Name="BodyElement"
+            AbsoluteLayout.LayoutBounds="0,0,1,1"
+            AbsoluteLayout.LayoutFlags="WidthProportional,HeightProportional"
+            m:Has.Transitions="{m:Transitions Padding}"
+            m:Has.States="{m:States
+                Default=    {m:Set Background='Gray,Swatch100', BorderThickness=0},
+                OnSm=       {x:StaticResource BodyExpandedStyle},
+                OnLg=       {x:StaticResource BodyContractedStyle}}">
+
+            <VerticalStackLayout>
+                <layout:HamburgerButton Tapped="ToggleMenu" />
+
+                <!-- The app body is the element that changes depending on the app route -->
+                <m:AppBody>
+
+                    <!-- we can specify the view where the app starts, in this case, the MainView -->
+                    <appViews:MainView/>
+
+                </m:AppBody>
+
+            </VerticalStackLayout>
+        </Border>
+
+    </AbsoluteLayout>
+</m:AppPage>
