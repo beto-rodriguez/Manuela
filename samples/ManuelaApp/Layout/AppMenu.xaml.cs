@@ -4,7 +4,7 @@ using MauiIcons.Core;
 
 namespace ManuelaApp.Layout;
 
-public partial class AppMenu : ContentView
+public partial class AppMenu : Grid
 {
     private MauiIcon? _activeIcon;
     private Label? _activeLabel;

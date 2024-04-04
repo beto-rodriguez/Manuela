@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentView
+<Grid
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:m="clr-namespace:Manuela;assembly=Manuela"
     xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons"
     xmlns:layout="clr-namespace:ManuelaApp.Layout"
     x:Class="ManuelaApp.Layout.AppMenu"
+    RowDefinitions="Auto,*"
     ZIndex="10"
     m:Has.States="{m:States
         Default={m:Set Background='Gray,Swatch100'},
@@ -19,100 +20,99 @@
                     AbsoluteLayoutFlags=    HeightProportional,
                     AbsoluteLayoutBounds=   '0, 0, 280,  1'}}">
 
-    <Grid RowDefinitions="Auto,*">
-        <Border
-            Grid.Row="0"
-            StrokeThickness="0"
+
+    <Border
+        Grid.Row="0"
+        StrokeThickness="0"
+        m:Has.States="{m:States
+            OnXs={m:Set Visible=False},
+            OnMd={m:Set Visible=True,   Padding='5,10'},
+            OnXl={m:Set                 Padding=17.5}}">
+
+        <!-- app icon -->
+        <Image
+            HorizontalOptions="Start"
+            MaximumHeightRequest="40"
             m:Has.States="{m:States
-                OnXs={m:Set Visible=False},
-                OnMd={m:Set Visible=True,   Padding='5,10'},
-                OnXl={m:Set                 Padding=17.5}}">
+                OnXs={m:Set ImageSource='m.png'},
+                OnXl={m:Set ImageSource='manuela.png'}}"/>
 
-            <!-- app icon -->
-            <Image
+    </Border>
+
+    <ScrollView Grid.Row="1">
+        <Grid>
+            <Border
+                x:Name="Indicator"
                 HorizontalOptions="Start"
-                MaximumHeightRequest="40"
+                VerticalOptions="Start"
+                StrokeThickness="0"
+                m:Has.Transitions="{m:Transitions
+                    TranslateY={m:TransitionDefinition Easing={x:Static Easing.SpringOut}, Duration=300},
+                    TranslateX={m:TransitionDefinition Easing={x:Static Easing.SpringOut}, Duration=300}}"
+                m:Has.States="{m:States Default={m:Set Background=Primary}}">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="3" />
+                </Border.StrokeShape>
+            </Border>
+
+            <StackLayout
+                x:Name="MenuStackLayout"
                 m:Has.States="{m:States
-                    OnXs={m:Set ImageSource='m.png'},
-                    OnXl={m:Set ImageSource='manuela.png'}}"/>
-            
-        </Border>
+                    OnXs={m:Set StackOrientation=Horizontal,    HorizontalOptions=Center},
+                    OnMd={m:Set StackOrientation=Vertical,      HorizontalOptions=Start}}">
 
-        <ScrollView Grid.Row="1">
-            <Grid>
-                <Border
-                    x:Name="Indicator"
-                    HorizontalOptions="Start"
-                    VerticalOptions="Start"
-                    StrokeThickness="0"
-                    m:Has.Transitions="{m:Transitions
-                        TranslateY={m:TransitionDefinition Easing={x:Static Easing.SpringOut}, Duration=300},
-                        TranslateX={m:TransitionDefinition Easing={x:Static Easing.SpringOut}, Duration=300}}"
-                    m:Has.States="{m:States Default={m:Set Background=Primary}}">
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="3" />
-                    </Border.StrokeShape>
-                </Border>
+                <BindableLayout.ItemsSource>
+                    <x:Array Type="{x:Type layout:MenuItemModel}" >
+                        <layout:MenuItemModel DisplayName="Main" Route="Main" Icon="Home"/>
+                        <layout:MenuItemModel DisplayName="Hello" Route="Hello" Icon="Handshake"/>
+                        <layout:MenuItemModel DisplayName="Counter" Route="Counter" Icon="AddCircle"/>
+                        <layout:MenuItemModel DisplayName="Hello" Route="Hello" Icon="Handshake"/>
+                        <layout:MenuItemModel DisplayName="Counter" Route="Counter" Icon="AddCircle"/>
+                    </x:Array>
+                </BindableLayout.ItemsSource>
 
-                <StackLayout
-                    x:Name="MenuStackLayout"
-                    m:Has.States="{m:States
-                        OnXs={m:Set StackOrientation=Horizontal,    HorizontalOptions=Center},
-                        OnMd={m:Set StackOrientation=Vertical,      HorizontalOptions=Start}}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout
+                            m:Has.States="{m:States
+                                Hovered={m:Set Background='Gray,Swatch400,Opacity10'},
+                                OnXs={m:Set Width=70, Padding='5,12,0,10',  Height=60,   StackSpacing=5,     StackOrientation=Vertical},
+                                OnMd={m:Set Width=60, Padding='17.5,10',    Height=50,   StackSpacing=20,    StackOrientation=Horizontal},
+                                OnXl={m:Set Width=280}}">
 
-                    <BindableLayout.ItemsSource>
-                        <x:Array Type="{x:Type layout:MenuItemModel}" >
-                            <layout:MenuItemModel DisplayName="Main" Route="Main" Icon="Home"/>
-                            <layout:MenuItemModel DisplayName="Hello" Route="Hello" Icon="Handshake"/>
-                            <layout:MenuItemModel DisplayName="Counter" Route="Counter" Icon="AddCircle"/>
-                            <layout:MenuItemModel DisplayName="Hello" Route="Hello" Icon="Handshake"/>
-                            <layout:MenuItemModel DisplayName="Counter" Route="Counter" Icon="AddCircle"/>
-                        </x:Array>
-                    </BindableLayout.ItemsSource>
+                            <mi:MauiIcon
+                                Icon="{Binding Icon}"
+                                IconSize="25"
+                                VerticalOptions="Center"
+                                HorizontalOptions="Center">
+                                <m:Has.States>
+                                    <m:StylesCollection>
+                                        <m:Default Setters="{m:Set TextColor='Gray,Swatch900', Opacity=0.75}" />
+                                        <m:State Name="active" Setters="{m:Set TextColor=Primary, Opacity=1}"/>
+                                    </m:StylesCollection>
+                                </m:Has.States>
+                            </mi:MauiIcon>
 
-                    <BindableLayout.ItemTemplate>
-                        <DataTemplate>
-                            <StackLayout
-                                m:Has.States="{m:States
-                                    Hovered={m:Set Background='Gray,Swatch400,Opacity10'},
-                                    OnXs={m:Set Width=70, Padding='5,12,0,10',  Height=60,   StackSpacing=5,     StackOrientation=Vertical},
-                                    OnMd={m:Set Width=60, Padding='17.5,10',    Height=50,   StackSpacing=20,    StackOrientation=Horizontal},
-                                    OnXl={m:Set Width=280}}">
+                            <Label
+                                Text="{Binding DisplayName}"
+                                VerticalOptions="Center"
+                                HorizontalOptions="Center">
+                                <m:Has.States>
+                                    <m:StylesCollection>
+                                        <m:Default Setters="{m:Set TextColor='Gray,Swatch900'}" />
+                                        <m:State Name="active" Setters="{m:Set TextColor=Primary}"/>
+                                        <m:OnScreenSize Xs="{m:Set TextSize=10}" Md="{m:Set TextSize=15}"/>
+                                    </m:StylesCollection>
+                                </m:Has.States>
+                            </Label>
 
-                                <mi:MauiIcon
-                                    Icon="{Binding Icon}"
-                                    IconSize="25"
-                                    VerticalOptions="Center"
-                                    HorizontalOptions="Center">
-                                    <m:Has.States>
-                                        <m:StylesCollection>
-                                            <m:Default Setters="{m:Set TextColor='Gray,Swatch900', Opacity=0.75}" />
-                                            <m:State Name="active" Setters="{m:Set TextColor=Primary, Opacity=1}"/>
-                                        </m:StylesCollection>
-                                    </m:Has.States>
-                                </mi:MauiIcon>
-
-                                <Label
-                                    Text="{Binding DisplayName}"
-                                    VerticalOptions="Center"
-                                    HorizontalOptions="Center">
-                                    <m:Has.States>
-                                        <m:StylesCollection>
-                                            <m:Default Setters="{m:Set TextColor='Gray,Swatch900'}" />
-                                            <m:State Name="active" Setters="{m:Set TextColor=Primary}"/>
-                                            <m:OnScreenSize Xs="{m:Set TextSize=10}" Md="{m:Set TextSize=15}"/>
-                                        </m:StylesCollection>
-                                    </m:Has.States>
-                                </Label>
-
-                                <StackLayout.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
-                                </StackLayout.GestureRecognizers>
-                            </StackLayout>
-                        </DataTemplate>
-                    </BindableLayout.ItemTemplate>
-                </StackLayout>
-            </Grid>
-        </ScrollView>
-    </Grid>
-</ContentView>
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                            </StackLayout.GestureRecognizers>
+                        </StackLayout>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+        </Grid>
+    </ScrollView>
+</Grid>
