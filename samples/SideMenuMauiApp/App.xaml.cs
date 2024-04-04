@@ -82,10 +82,7 @@ public partial class App : Application
     private void OnMenuItemTapped(object sender, TappedEventArgs e)
     {
         var clickedVisual = (HorizontalStackLayout)sender;
-        var clickedMenuItem = (MenuItemModel)clickedVisual.BindingContext;
-        var menuItemsSource = (MenuItemModel[])MenuItemsContainer.GetValue(BindableLayout.ItemsSourceProperty);
-
-        var clickedIndex = Array.IndexOf(menuItemsSource, clickedMenuItem);
+        var clickedIndex = MenuItemsContainer.Children.IndexOf(clickedVisual);
 
         // all the items must have the same height for this to work.
         var itemsHeight = clickedVisual.Height;

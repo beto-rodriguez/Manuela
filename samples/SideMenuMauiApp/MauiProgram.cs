@@ -1,6 +1,6 @@
 ﻿using Manuela;
 using Manuela.AppRouting;
-using MauiIcons.FontAwesome;
+using MauiIcons.Material.Rounded;
 using Microsoft.Extensions.Logging;
 using SideMenuMauiApp.Views;
 
@@ -17,7 +17,7 @@ public static class MauiProgram
                 new Route<AnotherView>(),
                 new Route<Settings>()
             ])
-            .UseFontAwesomeMauiIcons()
+            .UseMaterialRoundedMauiIcons()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

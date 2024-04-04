@@ -61,9 +61,9 @@
                                 <VerticalStackLayout x:Name="MenuItemsContainer">
                                     <BindableLayout.ItemsSource>
                                         <x:Array Type="{x:Type layout:MenuItemModel}" >
-                                            <layout:MenuItemModel DisplayName="Main" Route="MainView" Icon="CircleDot"/>
+                                            <layout:MenuItemModel DisplayName="Main" Route="MainView" Icon="Home"/>
                                             <layout:MenuItemModel DisplayName="Another" Route="AnotherView" Icon="Bookmark"/>
-                                            <layout:MenuItemModel DisplayName="Settings" Route="Settings" Icon="Compass"/>
+                                            <layout:MenuItemModel DisplayName="Settings" Route="Settings" Icon="Settings"/>
                                         </x:Array>
                                     </BindableLayout.ItemsSource>
 
