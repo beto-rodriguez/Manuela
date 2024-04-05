@@ -15,15 +15,15 @@ public static class StylingExtensions
         visualElement.SetValue(Has.CustomStateProperty, state);
     }
 
-    public static void SetManuelaStyle(this VisualElement visualElement, object setters)
+    public static void SetManuelaStyle(this VisualElement visualElement, object setters, bool animated = true)
     {
         SetManuelaStyle(visualElement, (ManuelaSettersDictionary)setters);
     }
 
-    public static void SetManuelaStyle(this VisualElement visualElement, ManuelaSettersDictionary setters)
+    public static void SetManuelaStyle(this VisualElement visualElement, ManuelaSettersDictionary setters, bool animated = true)
     {
         foreach (var setter in setters)
-            SetManuelaProperty(visualElement, setter.Key, setter.Value);
+            SetManuelaProperty(visualElement, setter.Key, setter.Value, animated);
     }
 
     public static void SetManuelaProperty(this VisualElement visualElement, ManuelaProperty property, object? value, bool animated = true)

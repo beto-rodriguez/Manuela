@@ -27,23 +27,8 @@ public class ManuelaWindow
 #endif
     }
 
-    /// <summary>
-    /// Sets the window colors for the status bar and navigation bar.
-    /// </summary>
-    /// <param name="topColor">The status bar color, null to get the color from the theme.</param>
-    /// <param name="bottomColor">The navigation bar color, null to get the color from the theme.</param>
-    public static void SetWindowColors(Color? topColor = null, Color? bottomColor = null)
+    public static void SetWindowColors(Color topColor, Color bottomColor)
     {
-        var theme = Application.Current?.RequestedTheme;
-        if (theme is null or AppTheme.Unspecified) theme = AppTheme.Light;
-
-        var colorSet = theme == AppTheme.Light
-            ? Theme.Current.LightColors
-            : Theme.Current.DarkColors;
-
-        topColor ??= colorSet.Colors[UIBrush.Gray | UIBrush.Swatch100];
-        bottomColor ??= colorSet.Colors[UIBrush.Gray | UIBrush.Swatch200];
-
 #if ANDROID
         if (!OperatingSystem.IsAndroidVersionAtLeast(23)) return;
 

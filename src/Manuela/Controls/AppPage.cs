@@ -3,8 +3,6 @@
 
 
 using System.Runtime.CompilerServices;
-using Manuela.Theming;
-using Manuela.WindowStyle;
 
 namespace Manuela;
 
@@ -35,9 +33,7 @@ public class AppPage : ContentPage
     }
 
     protected virtual void OnAppLoaded(object? sender, EventArgs e)
-    {
-        ManuelaWindow.SetWindowColors();
-    }
+    { }
 
     protected override void OnPropertyChanged([CallerMemberName] string? propertyName = null)
     {

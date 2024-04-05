@@ -1,6 +1,7 @@
 using Manuela;
 using Manuela.Styling;
 using Manuela.Styling.ConditionalStyles.Screen;
+using Manuela.Theming;
 using Manuela.WindowStyle;
 using MauiIcons.Core;
 
@@ -8,8 +9,8 @@ namespace SideMenuMauiApp;
 
 public partial class AppLayout : AppPage
 {
-    private bool _isMenuInitialized;
-    public bool _isMenuOpen = true;
+    private bool _isAnimated = false;
+    private bool _isMenuOpen = true;
 
     public AppLayout()
     {
@@ -25,18 +26,35 @@ public partial class AppLayout : AppPage
         };
     }
 
+    protected override void OnAppLoaded(object? sender, EventArgs e)
+    {
+        // the app starts open, but on < lg screens it will be closed
+        var isSmall = BodyElement.GetScreenBreakpoint() < Breakpoint.Lg;
+        if (isSmall) ToggleMenu();
+        _isAnimated = true;
+
+        SetStatusAndNavigationBarColors();
+
+        if (Application.Current is not null)
+            Application.Current.RequestedThemeChanged += (_, _) => SetStatusAndNavigationBarColors();
+    }
+
+    private static void SetStatusAndNavigationBarColors()
+    {
+        var theme = Application.Current?.RequestedTheme;
+        if (theme is null or AppTheme.Unspecified) theme = AppTheme.Light;
+
+        var colorSet = theme == AppTheme.Light
+            ? Theme.Current.LightColors
+            : Theme.Current.DarkColors;
+
+        var color = colorSet.Colors[UIBrush.Gray | UIBrush.Swatch100];
+
+        ManuelaWindow.SetWindowColors(color, color);
+    }
+
     private void ToggleMenu()
     {
-        if (!_isMenuInitialized)
-        {
-            // on large screens the menu is open by default, on smaller screens it is closed
-            _isMenuOpen = BodyElement.GetScreenBreakpoint() >= Breakpoint.Lg;
-            _isMenuInitialized = true;
-
-            // The GetScreenBreakpoint works only after the window is initialized
-            // that is why this is not in the constructor
-        }
-
         _isMenuOpen = !_isMenuOpen;
 
         var resources = Application.Current!.Resources;
@@ -51,7 +69,7 @@ public partial class AppLayout : AppPage
             throw new Exception("Unable to find menu resources");
         }
 
-        SideMenu.SetManuelaStyle(_isMenuOpen ? menuOpened : menuClosed);
+        SideMenu.SetManuelaStyle(_isMenuOpen ? menuOpened : menuClosed, _isAnimated);
 
         // any visual that was a ScreenStyle, can be used to get the current breakpoint.
         // in this case we use the Body, but it also could be the SideMenu.
@@ -60,7 +78,7 @@ public partial class AppLayout : AppPage
         if (currentBreakpoint >= Breakpoint.Lg)
         {
             // do not contract the body when the app is on < large screens
-            BodyElement.SetManuelaStyle(_isMenuOpen ? bodyContracted : bodyExpanded);
+            BodyElement.SetManuelaStyle(_isMenuOpen ? bodyContracted : bodyExpanded, _isAnimated);
         }
 
         ShadowElement.IsVisible = currentBreakpoint < Breakpoint.Lg && _isMenuOpen;
