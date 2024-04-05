@@ -1,4 +1,4 @@
-﻿namespace Manuela.Things;
+﻿namespace Manuela.WindowStyle;
 
 public struct Region(int _X, int _Y, int _Width, int _Height)
 {

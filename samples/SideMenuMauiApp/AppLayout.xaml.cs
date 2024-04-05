@@ -1,7 +1,7 @@
 using Manuela;
 using Manuela.Styling;
 using Manuela.Styling.ConditionalStyles.Screen;
-using Manuela.Things;
+using Manuela.WindowStyle;
 using MauiIcons.Core;
 
 namespace SideMenuMauiApp;
@@ -82,7 +82,6 @@ public partial class AppLayout : AppPage
         // in this case 360x32px (300 the side menu width + 60 the hamburger menu x 32 the windows title bar height)
 
         var width = (_isMenuOpen || BodyElement.Window.Width >= (int)Breakpoint.Lg) ? 360 : 60;
-
-        ManuelaThings.SetPointerPassthroughRegion([new(0, 0, width, 32)]);
+        ManuelaWindow.SetPointerPassthroughRegion([new(0, 0, width, 32)]);
     }
 }
