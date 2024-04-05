@@ -8,7 +8,7 @@ public partial class AppMenu : Grid
 {
     private MauiIcon? _activeIcon;
     private Label? _activeLabel;
-    private int _activeIndex;
+    private StackLayout? _activeVisual;
 
     public AppMenu()
     {
@@ -48,9 +48,17 @@ public partial class AppMenu : Grid
 
     private void UpdateIndicator(StackLayout? clickedVisual, bool animated)
     {
-        clickedVisual ??= (StackLayout)MenuStackLayout.Children[_activeIndex];
+        clickedVisual ??= _activeVisual;
+        if (clickedVisual is null) return;
 
-        var clickedIndex = _activeIndex = MenuStackLayout.Children.IndexOf(clickedVisual);
+        var clickedIndex = MenuStackLayout.Children.IndexOf(clickedVisual);
+        if (clickedIndex == -1)
+        {
+            clickedIndex =
+                MenuDesktopStackLayout.Children.IndexOf(clickedVisual) + MenuStackLayout.Children.Count;
+        }
+
+        _activeVisual = clickedVisual;
 
         // sets and animates the indicator based on the transition defined in XAML
 
