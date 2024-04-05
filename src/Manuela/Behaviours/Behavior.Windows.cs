@@ -25,6 +25,16 @@ public partial class Behavior
         uiElement.ReleasePointerCapture(e.Pointer);
         InvokeUp();
     }
+
+    private void OnWindowsPointerEntered(object sender, PointerRoutedEventArgs e)
+    {
+        InvokeEnter();
+    }
+
+    private void OnWindowsPointerExited(object sender, PointerRoutedEventArgs e)
+    {
+        InvokeExit();
+    }
 }
 
 #endif

@@ -24,10 +24,6 @@ public partial class Behavior
             case MotionEventActions.Down:
                 InvokeDown();
                 break;
-            case MotionEventActions.Move:
-            case MotionEventActions.HoverMove:
-                // ignored here.
-                break;
             case MotionEventActions.ButtonRelease:
             case MotionEventActions.Pointer1Up:
             case MotionEventActions.Pointer2Up:
@@ -37,7 +33,13 @@ public partial class Behavior
                 InvokeUp();
                 break;
             case MotionEventActions.HoverEnter:
+                InvokeEnter();
+                break;
             case MotionEventActions.HoverExit:
+                InvokeExit();
+                break;
+            case MotionEventActions.Move:
+            case MotionEventActions.HoverMove:
             case MotionEventActions.Mask:
             case MotionEventActions.Outside:
             case MotionEventActions.PointerIdMask:

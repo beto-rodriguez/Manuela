@@ -8,7 +8,7 @@ namespace Manuela;
 public class Hovered : ConditionalStyle
 {
     private View? _element;
-    private PointerGestureRecognizer? _pointerRecognizer;
+    private Behaviors.Behavior? _behavior;
 
     public Hovered()
     {
@@ -23,21 +23,9 @@ public class Hovered : ConditionalStyle
 
                 _element = view;
 
-                _pointerRecognizer = new PointerGestureRecognizer();
-
-                _pointerRecognizer.PointerEntered += (sender, e) =>
-                {
-                    if (sender is null || sender is not BindableObject bindable) return;
-                    bindable.SetValue(Has.IsHoverStateProperty, true);
-                };
-
-                _pointerRecognizer.PointerExited += (sender, e) =>
-                {
-                    if (sender is null || sender is not BindableObject bindable) return;
-                    bindable.SetValue(Has.IsHoverStateProperty, false);
-                };
-
-                view.GestureRecognizers.Add(_pointerRecognizer);
+                _behavior = new Behaviors.Behavior(v);
+                _behavior.Enter += () => v.SetValue(Has.IsHoverStateProperty, true);
+                _behavior.Exit += () => v.SetValue(Has.IsHoverStateProperty, false);
 
                 return [new(v, ["IsHoverState"])];
             }
@@ -46,11 +34,8 @@ public class Hovered : ConditionalStyle
 
     public override void Dispose()
     {
-        if (_element is not null)
-            _ = _element.GestureRecognizers.Remove(_pointerRecognizer);
-
+        _behavior?.Dispose();
         _element = null;
-
         base.Dispose();
     }
 }

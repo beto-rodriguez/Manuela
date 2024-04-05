@@ -40,6 +40,37 @@ public partial class Behavior
             ShouldRecognizeSimultaneously = (g1, g2) => true
         };
     }
+
+#if MACCATALYST
+    private UIHoverGestureRecognizer? _hoverRecognizer;
+
+    /// <summary>
+    /// Builds a mac catalyst gesture recognizer.
+    /// </summary>
+    /// <param name="view">the view.</param>
+    /// <returns>the recognizer.</returns>
+    protected UIHoverGestureRecognizer GetMacCatalystHover(UIView view)
+    {
+        return _hoverRecognizer = new UIHoverGestureRecognizer((UIHoverGestureRecognizer e) =>
+        {
+            switch (e.State)
+            {
+                case UIGestureRecognizerState.Ended:
+                    InvokeExit();
+                    break;
+                case UIGestureRecognizerState.Began:
+                    InvokeEnter();
+                    break;
+                case UIGestureRecognizerState.Changed:
+                case UIGestureRecognizerState.Cancelled:
+                case UIGestureRecognizerState.Failed:
+                case UIGestureRecognizerState.Possible:
+                default:
+                    break;
+            }
+        });
+    }
+#endif
 }
 
 #endif
