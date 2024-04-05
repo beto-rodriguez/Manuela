@@ -2,10 +2,7 @@
 
 // a custom behavior that provides platform-specific events.
 // this class is necessary to prevent a possible Maui issue where mixing TapGestures and PointerGestures
-// causes strange issues.
-
-// this is an alternative to the TapGesture/PointerGesture recognizers...
-// this class provides the following events:
+// causes strange issues (like invoking gestures twice).
 
 //  -Down:          called when the pointer/tap goes Down.
 //  -Up:            called when the pointer/tap goes Up.
