@@ -17,7 +17,6 @@
 
     <ScrollView>
         <VerticalStackLayout>
-
             <Label
                 Text="Colors"
                 Style="{StaticResource Headline}"/>
@@ -215,6 +214,31 @@
                     <Label Text="100%"/>
                 </VerticalStackLayout>
             </HorizontalStackLayout>
+
+            <Label
+                Text="Color types"
+                Style="{StaticResource Headline}"/>
+
+            <Label Text="Somethimes Brushes are not supported, for example when setting the text color of a label."/>
+            <Label Text="In those cases, you can use the Color extenstion, it has the same support as Brushes (but gradients)."/>
+
+            <Label
+                Text="Hello!"
+                Style="{StaticResource SubHeadline}"
+                TextColor="{m:Color UIColor=Primary}" />
+            <Label
+                Text="Hello!"
+                Style="{StaticResource SubHeadline}"
+                TextColor="{m:Color UIColor=Secondary}" />
+            <Label
+                Text="Hello!"
+                Style="{StaticResource SubHeadline}"
+                TextColor="{m:Color UIColor=Tertiary}" />
+            <Label
+                Text="Hello!"
+                Style="{StaticResource SubHeadline}"
+                TextColor="{m:Color UIColor=Gray}" />
+
         </VerticalStackLayout>
     </ScrollView>
     
