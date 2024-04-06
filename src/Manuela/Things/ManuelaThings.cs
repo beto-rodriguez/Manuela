@@ -504,8 +504,8 @@ public static class ManuelaThings
         if (theme is null or AppTheme.Unspecified) theme = AppTheme.Light;
 
         var shadows = theme == AppTheme.Light
-            ? Theme.Current.ShadowLight
-            : Theme.Current.ShadowDark;
+            ? Theme.Current.LightShadows
+            : Theme.Current.DarkShadows;
 
         return shadows[uiSize];
     }

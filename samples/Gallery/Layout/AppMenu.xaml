@@ -117,8 +117,8 @@
 
                 <BindableLayout.ItemsSource>
                     <x:Array Type="{x:Type layout:MenuItemModel}" >
-                        <layout:MenuItemModel DisplayName="Brushes and Colors"  Route="Brushes"    Icon="Brush"/>
-                        <layout:MenuItemModel DisplayName="Another"             Route="AnotherView" Icon="Bookmark"/>
+                        <layout:MenuItemModel DisplayName="Brushes and Colors"  Route="Brushes"     Icon="Brush"/>
+                        <layout:MenuItemModel DisplayName="Shadows"             Route="Shadows"     Icon="BrightnessHigh"/>
                         <layout:MenuItemModel DisplayName="Settings"            Route="Settings"    Icon="Settings"/>
                     </x:Array>
                 </BindableLayout.ItemsSource>

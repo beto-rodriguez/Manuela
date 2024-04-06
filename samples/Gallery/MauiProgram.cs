@@ -17,7 +17,7 @@ public static class MauiProgram
             .UseMauiApp<App>()
             .UseManuela([
                 new Route<Brushes>(),
-                new Route<AnotherView>(),
+                new Route<Shadows>(),
                 new Route<Settings>()
             ])
             .UseMaterialRoundedMauiIcons()

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:m="clr-namespace:Manuela;assembly=Manuela"
+    x:Class="Gallery.Views.Shadows">
+
+    <ContentView.Resources>
+        <Style TargetType="BoxView">
+            <Setter Property="WidthRequest" Value="80"/>
+            <Setter Property="HeightRequest" Value="80"/>
+            <Setter Property="Margin" Value="50"/>
+            <Setter Property="Background" Value="{m:Brush UIBrush='Gray,Swatch50'}"/>
+        </Style>
+    </ContentView.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="0, 0, 0, 50">
+
+            <Label
+                Text="Sizing"
+                Style="{StaticResource SubHeadline}"/>
+
+            <HorizontalStackLayout>
+                <VerticalStackLayout>
+                    <BoxView Shadow="{m:Shadow Size=None}"/>
+                    <BoxView Shadow="{m:Shadow Size=Xs}"/>
+                    <BoxView Shadow="{m:Shadow Size=Sm}"/>
+                    <BoxView Shadow="{m:Shadow Size=Md}"/>
+                    <BoxView Shadow="{m:Shadow Size=Lg}"/>
+                    <BoxView Shadow="{m:Shadow Size=Xl}"/>
+                    <BoxView Shadow="{m:Shadow Size=Huge}"/>
+                    <BoxView Shadow="{m:Shadow Size=Enormous}"/>
+                    <BoxView Shadow="{m:Shadow Size=Giant}"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout>
+                    <VerticalStackLayout.Resources>
+                        <Style TargetType="Label">
+                            <Setter Property="HeightRequest" Value="80"/>
+                            <Setter Property="WidthRequest" Value="80"/>
+                            <Setter Property="Margin" Value="0, 50"/>
+                            <Setter Property="VerticalTextAlignment" Value="Center"/>
+                        </Style>
+                    </VerticalStackLayout.Resources>
+
+                    <Label Text="None"/>
+                    <Label Text="Xs"/>
+                    <Label Text="Sm"/>
+                    <Label Text="Md"/>
+                    <Label Text="Lg"/>
+                    <Label Text="Xl"/>
+                    <Label Text="Huge"/>
+                    <Label Text="Enormous"/>
+                    <Label Text="Giant"/>
+                </VerticalStackLayout>
+            </HorizontalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentView>

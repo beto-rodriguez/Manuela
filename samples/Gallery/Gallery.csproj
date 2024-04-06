@@ -74,8 +74,8 @@
 	  <Compile Update="Layout\AppMenu.xaml.cs">
 	    <DependentUpon>AppMenu.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Views\AnotherView.xaml.cs">
-	    <DependentUpon>%(Filename)</DependentUpon>
+	  <Compile Update="Views\Shadows.xaml.cs">
+	    <DependentUpon>Shadows.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Views\Brushes.xaml.cs">
 	    <DependentUpon>Brushes.xaml</DependentUpon>
@@ -92,7 +92,7 @@
 	  <MauiXaml Update="Layout\AppMenu.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\AnotherView.xaml">
+	  <MauiXaml Update="Views\Shadows.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Brushes.xaml">

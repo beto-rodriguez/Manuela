@@ -1,8 +1,8 @@
 namespace Gallery.Views;
 
-public partial class AnotherView : ContentView
+public partial class Shadows : ContentView
 {
-    public AnotherView()
+    public Shadows()
     {
         InitializeComponent();
     }

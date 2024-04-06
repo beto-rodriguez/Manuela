@@ -225,17 +225,21 @@
             <Label
                 Text="Hello!"
                 Style="{StaticResource SubHeadline}"
+                HorizontalOptions="Start"
                 TextColor="{m:Color UIColor=Primary}" />
             <Label
                 Text="Hello!"
+                HorizontalOptions="Start"
                 Style="{StaticResource SubHeadline}"
                 TextColor="{m:Color UIColor=Secondary}" />
             <Label
                 Text="Hello!"
+                HorizontalOptions="Start"
                 Style="{StaticResource SubHeadline}"
                 TextColor="{m:Color UIColor=Tertiary}" />
             <Label
                 Text="Hello!"
+                HorizontalOptions="Start"
                 Style="{StaticResource SubHeadline}"
                 TextColor="{m:Color UIColor=Gray}" />
 

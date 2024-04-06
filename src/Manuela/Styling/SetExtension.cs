@@ -12,29 +12,21 @@ public class SetExtension : IMarkupExtension<ManuelaSettersDictionary>, INotifyP
 {
     public ManuelaSettersDictionary Setters { get; } = [];
 
-    public Brush CustomBackground { set => Setters[ManuelaProperty.Background] = value; }
     public UIBrush Background { set => Setters[ManuelaProperty.Background] = value; }
+    public UIBrush BorderColor { set => Setters[ManuelaProperty.BorderColor] = value; }
+    public UISize Shadow { set => Setters[ManuelaProperty.Shadow] = value; }
 
     public Thickness Margin { set => Setters[ManuelaProperty.Margin] = value; }
     public Thickness Padding { set { Setters[ManuelaProperty.Padding] = value; } }
-
-    public Brush CustomBorderBrush { set => Setters[ManuelaProperty.BorderColor] = value; }
-    public Color CustomBorderColor { set => Setters[ManuelaProperty.BorderColor] = value; }
-    public UIBrush BorderColor { set => Setters[ManuelaProperty.BorderColor] = value; }
-
     public double BorderThickness { set => Setters[ManuelaProperty.BorderThickness] = value; }
-
     public int BorderRadius { set => Setters[ManuelaProperty.BorderRadius] = value; }
-
-    public Shadow CustomShadow { set => Setters[ManuelaProperty.Shadow] = value; }
-    public UISize Shadow { set => Setters[ManuelaProperty.Shadow] = value; }
 
     public double TextSize { set => Setters[ManuelaProperty.TextSize] = value; }
     public double LineHeight { set => Setters[ManuelaProperty.LineHeight] = value; }
     public FontAttributes FontAttributes { set => Setters[ManuelaProperty.FontAttributes] = value; }
     public TextAlignment VerticalTextAlign { set => Setters[ManuelaProperty.VerticalTextAlign] = value; }
     public TextAlignment HorizontalTextAlign { set => Setters[ManuelaProperty.HorizontalTextAlign] = value; }
-    public Color CustomTextColor { set => Setters[ManuelaProperty.TextColor] = value; }
+
     public UIColor TextColor { set => Setters[ManuelaProperty.TextColor] = value; }
     public TextDecorations TextDecoration { set => Setters[ManuelaProperty.TextDecoration] = value; }
 
