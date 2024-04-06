@@ -8,7 +8,8 @@ public enum UISize
     Md,
     Lg,
     Xl,
+    Xxl,
     Huge,
-    Enormous,
-    Giant
+    Giant,
+    Titanic
 }

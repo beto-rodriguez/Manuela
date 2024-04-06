@@ -1,8 +1,8 @@
 namespace Gallery.Views;
 
-public partial class Settings : ContentView
+public partial class Spacing : ContentView
 {
-    public Settings()
+    public Spacing()
     {
         InitializeComponent();
     }

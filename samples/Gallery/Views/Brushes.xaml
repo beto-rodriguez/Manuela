@@ -38,7 +38,7 @@
             <Label Text="Each color has 11 swatches: 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950."/>
             <Label Text="Where 50 is the closest to the background color and 950 is the closest to the foreground color."/>
             <Label Text="This means that 950 is the color with the most contrast no matter the if the theme is dark or light."/>
-            <Label Text="Also 50 is the color with the less contrast no matter the if the theme is dark or light."/>
+            <Label Text="Also 50 is the color with the less contrast no matter the if the theme."/>
 
             <HorizontalStackLayout>
                 <VerticalStackLayout>
@@ -219,7 +219,7 @@
                 Text="Color types"
                 Style="{StaticResource Headline}"/>
 
-            <Label Text="Somethimes Brushes are not supported, for example when setting the text color of a label."/>
+            <Label Text="Somethimes Brushes are not supported, for example the Label TextColor property is of type Color."/>
             <Label Text="In those cases, you can use the Color extenstion, it has the same support as Brushes (but gradients)."/>
 
             <Label

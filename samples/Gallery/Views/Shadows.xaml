@@ -19,7 +19,7 @@
 
             <Label
                 Text="Sizing"
-                Style="{StaticResource SubHeadline}"/>
+                Style="{StaticResource Headline}"/>
 
             <HorizontalStackLayout>
                 <VerticalStackLayout>
@@ -30,8 +30,8 @@
                     <BoxView Shadow="{m:Shadow Size=Lg}"/>
                     <BoxView Shadow="{m:Shadow Size=Xl}"/>
                     <BoxView Shadow="{m:Shadow Size=Huge}"/>
-                    <BoxView Shadow="{m:Shadow Size=Enormous}"/>
                     <BoxView Shadow="{m:Shadow Size=Giant}"/>
+                    <BoxView Shadow="{m:Shadow Size=Titanic}"/>
                 </VerticalStackLayout>
 
                 <VerticalStackLayout>
@@ -51,8 +51,8 @@
                     <Label Text="Lg"/>
                     <Label Text="Xl"/>
                     <Label Text="Huge"/>
-                    <Label Text="Enormous"/>
                     <Label Text="Giant"/>
+                    <Label Text="Titanic"/>
                 </VerticalStackLayout>
             </HorizontalStackLayout>
 

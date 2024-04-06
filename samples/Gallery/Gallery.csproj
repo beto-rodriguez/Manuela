@@ -80,8 +80,8 @@
 	  <Compile Update="Views\Brushes.xaml.cs">
 	    <DependentUpon>Brushes.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Views\Settings.xaml.cs">
-	    <DependentUpon>%(Filename)</DependentUpon>
+	  <Compile Update="Views\Spacing.xaml.cs">
+	    <DependentUpon>Spacing.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
@@ -98,7 +98,7 @@
 	  <MauiXaml Update="Views\Brushes.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\Settings.xaml">
+	  <MauiXaml Update="Views\Spacing.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

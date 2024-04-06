@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:m="clr-namespace:Manuela;assembly=Manuela"
+    x:Class="Gallery.Views.Spacing">
+
+    <ContentView.Resources>
+        <Style TargetType="HorizontalStackLayout">
+            <Setter Property="Background" Value="{m:Brush UIBrush='Gray,Swatch300'}"/>
+            <Setter Property="Margin" Value="0, 10"/>
+        </Style>
+        <Style TargetType="BoxView">
+            <Setter Property="WidthRequest" Value="50"/>
+            <Setter Property="HeightRequest" Value="50"/>
+            <Setter Property="Color" Value="#a855f7"/>
+            <Setter Property="CornerRadius" Value="10"/>
+        </Style>
+    </ContentView.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout>
+
+            <Label
+                Text="Spacing"
+                Style="{StaticResource Headline}"/>
+
+            <Label Text="The spacing extension works for properties of type Thickness (Padding and Marging)."/>
+            <Label Text="There are 9 different sizes, None, Xs, Sm, Md, Lg, Xl, Xxl, Huge, Giant and Titatanic."/>
+
+            <HorizontalStackLayout>
+                <BoxView Margin="{m:Spacing Size=None}" />
+                <BoxView Margin="{m:Spacing Size=None}" />
+                <BoxView Margin="{m:Spacing Size=None}" />
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout>
+                <BoxView Margin="{m:Spacing Size=Xs}" />
+                <BoxView Margin="{m:Spacing Size=Xs}" />
+                <BoxView Margin="{m:Spacing Size=Xs}" />
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout>
+                <BoxView Margin="{m:Spacing Size=Sm}" />
+                <BoxView Margin="{m:Spacing Size=Sm}" />
+                <BoxView Margin="{m:Spacing Size=Sm}" />
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout>
+                <BoxView Margin="{m:Spacing Size=Md}" />
+                <BoxView Margin="{m:Spacing Size=Md}" />
+                <BoxView Margin="{m:Spacing Size=Md}" />
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout>
+                <BoxView Margin="{m:Spacing Size=Lg}" />
+                <BoxView Margin="{m:Spacing Size=Lg}" />
+                <BoxView Margin="{m:Spacing Size=Lg}" />
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout>
+                <BoxView Margin="{m:Spacing Size=Xl}" />
+                <BoxView Margin="{m:Spacing Size=Xl}" />
+                <BoxView Margin="{m:Spacing Size=Xl}" />
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout>
+                <BoxView Margin="{m:Spacing Size=Xxl}" />
+                <BoxView Margin="{m:Spacing Size=Xxl}" />
+                <BoxView Margin="{m:Spacing Size=Xxl}" />
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout>
+                <BoxView Margin="{m:Spacing Size=Huge}" />
+                <BoxView Margin="{m:Spacing Size=Huge}" />
+                <BoxView Margin="{m:Spacing Size=Huge}" />
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout>
+                <BoxView Margin="{m:Spacing Size=Giant}" />
+                <BoxView Margin="{m:Spacing Size=Giant}" />
+                <BoxView Margin="{m:Spacing Size=Giant}" />
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout>
+                <BoxView Margin="{m:Spacing Size=Titanic}" />
+                <BoxView Margin="{m:Spacing Size=Titanic}" />
+                <BoxView Margin="{m:Spacing Size=Titanic}" />
+            </HorizontalStackLayout>
+
+
+            <Label
+                Text="Horizontal"
+                Style="{StaticResource Headline}"/>
+
+            <HorizontalStackLayout>
+                <BoxView Margin="{m:Spacing Horizontal=Huge}" />
+                <BoxView Margin="{m:Spacing Horizontal=Huge}" />
+                <BoxView Margin="{m:Spacing Horizontal=Huge}" />
+            </HorizontalStackLayout>
+
+            <Label
+                Text="Vertical"
+                Style="{StaticResource Headline}"/>
+
+            <HorizontalStackLayout>
+                <BoxView Margin="{m:Spacing Vertical=Huge}" />
+                <BoxView Margin="{m:Spacing Vertical=Huge}" />
+                <BoxView Margin="{m:Spacing Vertical=Huge}" />
+            </HorizontalStackLayout>
+
+            <Label
+                 Text="Left, Top, Right and Bottom"
+                 Style="{StaticResource Headline}"/>
+
+            <HorizontalStackLayout>
+                <BoxView Margin="{m:Spacing Left=Md}" />
+                <BoxView Margin="{m:Spacing Top=Md}" />
+                <BoxView Margin="{m:Spacing Right=Md}" />
+                <BoxView Margin="{m:Spacing Bottom=Md}" />
+            </HorizontalStackLayout>
+            
+            <Label
+                Text="Mixed Spacing"
+                Style="{StaticResource Headline}"/>
+
+            <Label
+                Text="You can mix properties, the spacing is applied from the less specific to the most specific property."/>
+            <Label
+                Text="The Size (uniform) is applied first, then the Vertical and Horizontal sizes, finally the Left, Top, Right and Bottom."/>
+            <Label
+                Text="This means that you can for example set all the properties to large but the top could be overriden to None."/>
+
+            <HorizontalStackLayout>
+                <BoxView Margin="{m:Spacing Size=Lg, Top=None}" />
+                <BoxView Margin="{m:Spacing Size=Lg, Top=None}" />
+                <BoxView Margin="{m:Spacing Size=Lg, Top=None}" />
+            </HorizontalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentView>

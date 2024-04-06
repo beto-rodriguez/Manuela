@@ -119,7 +119,7 @@
                     <x:Array Type="{x:Type layout:MenuItemModel}" >
                         <layout:MenuItemModel DisplayName="Brushes and Colors"  Route="Brushes"     Icon="Brush"/>
                         <layout:MenuItemModel DisplayName="Shadows"             Route="Shadows"     Icon="BrightnessHigh"/>
-                        <layout:MenuItemModel DisplayName="Settings"            Route="Settings"    Icon="Settings"/>
+                        <layout:MenuItemModel DisplayName="Spacing"             Route="Spacing"     Icon="SpaceBar"/>
                     </x:Array>
                 </BindableLayout.ItemsSource>
                 
