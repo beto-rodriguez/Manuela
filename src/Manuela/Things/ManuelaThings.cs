@@ -1,6 +1,5 @@
 ﻿using Manuela.Styling;
 using Manuela.Theming;
-using Manuela.WindowStyle;
 
 namespace Manuela.Things;
 
@@ -215,7 +214,6 @@ public static class ManuelaThings
                 new PropertySource<StackBase>(StackBase.SpacingProperty)
             ]
     };
-
     private static readonly Dictionary<ManuelaProperty, Func<BindableObject, object?, object?>> s_converters = new()
     {
         { ManuelaProperty.Background, BrushConverter },
@@ -378,6 +376,67 @@ public static class ManuelaThings
         throw new NotImplementedException($"Transition for {property.ReturnType} is not supported.");
     }
 
+    internal static Brush ConvertToBrush(int intFlags, ColorSet colors)
+    {
+        var baseColor = GetBaseColor(intFlags);
+
+        if ((intFlags & UICC.Gradient) > 0)
+        {
+            int sw1 = UICC.Sw300, sw2 = UICC.Sw700;
+
+            if ((intFlags & UICC.GradientSmall) > 0)
+            {
+                sw1 = UICC.Sw400;
+                sw2 = UICC.Sw600;
+            }
+
+            if ((intFlags & UICC.GradientLarge) > 0)
+            {
+                sw1 = UICC.Sw200;
+                sw2 = UICC.Sw800;
+            }
+
+            Point start = new(0.5, 0);
+            Point end = new(0.5, 1);
+
+            if ((intFlags & UICC.GradientX) > 0)
+            {
+                start = new(0, 0.5);
+                end = new(1, 0.5);
+            }
+
+            if ((intFlags & UICC.GradientY) > 0)
+            {
+                start = new(0.5, 0);
+                end = new(0.5, 1);
+            }
+
+            var c1 = colors.Colors[(UIBrush)(baseColor | sw1)];
+            var c2 = colors.Colors[(UIBrush)(baseColor | sw2)];
+
+            if ((intFlags & UICC.GradientInvert) > 0) (c2, c1) = (c1, c2);
+
+            c1 = SetColorOpacity(c1, intFlags);
+            c2 = SetColorOpacity(c2, intFlags);
+
+            return new LinearGradientBrush([new(c1, 0), new(c2, 1)], start, end);
+        }
+
+        var swatch = GetSwatch(intFlags);
+        var c = colors.Colors[(UIBrush)(baseColor | swatch)];
+        c = SetColorOpacity(c, intFlags);
+
+        return new SolidColorBrush(c);
+    }
+
+    internal static Color ConvertToColor(int intFlags, ColorSet colors)
+    {
+        var baseColor = GetBaseColor(intFlags);
+        var swatch = GetSwatch(intFlags);
+
+        return colors.Colors[(UIBrush)(baseColor | swatch)];
+    }
+
     private static object? BrushConverter(BindableObject bindable, object? source)
     {
         if (source is null) return null;
@@ -399,51 +458,7 @@ public static class ManuelaThings
             ? Theme.Current.LightColors
             : Theme.Current.DarkColors;
 
-        var baseColor = GetBaseColor(intFlags);
-
-        if ((intFlags & UICC.Gradient) > 0)
-        {
-            int sw1 = UICC.Sw400, sw2 = UICC.Sw600;
-
-            if ((intFlags & UICC.GradientSmall) > 0)
-            {
-                sw1 = UICC.Sw500;
-                sw2 = UICC.Sw600;
-            }
-
-            if ((intFlags & UICC.GradientLarge) > 0)
-            {
-                sw1 = UICC.Sw300;
-                sw2 = UICC.Sw700;
-            }
-
-            Point start = new(0.5, 0);
-            Point end = new(0.5, 1);
-
-            if ((intFlags & UICC.GradientX) > 0)
-            {
-                start = new(0, 0.5);
-                end = new(1, 0.5);
-            }
-
-            if ((intFlags & UICC.GradientY) > 0)
-            {
-                start = new(0.5, 0);
-                end = new(0.5, 1);
-            }
-
-            var c1 = colors.Colors[(UIBrush)(baseColor | sw1)];
-            var c2 = colors.Colors[(UIBrush)(baseColor | sw2)];
-
-            c1 = SetColorOpacity(c1, intFlags);
-            c2 = SetColorOpacity(c2, intFlags);
-
-            return new LinearGradientBrush([new(c1, 0), new(c2, 1)], start, end);
-        }
-
-        var swatch = GetSwatch(intFlags);
-
-        return new SolidColorBrush(SetColorOpacity(colors.Colors[(UIBrush)(baseColor | swatch)], intFlags));
+        return ConvertToBrush(intFlags, colors);
     }
 
     private static object? ColorConverter(BindableObject bindable, object? source)
@@ -464,13 +479,7 @@ public static class ManuelaThings
             ? Theme.Current.LightColors
             : Theme.Current.DarkColors;
 
-        var baseColor = GetBaseColor(intFlags);
-        var sw = GetSwatch(intFlags);
-
-        var c = colors.Colors[(UIBrush)(baseColor | sw)];
-        c = SetColorOpacity(c, intFlags);
-
-        return c;
+        return SetColorOpacity(ConvertToColor(intFlags, colors), intFlags);
     }
 
     private static object? BorderColorConverter(BindableObject bindable, object? source)
@@ -552,17 +561,15 @@ public static class ManuelaThings
     {
         var opacity = 1f;
 
-        if ((flags & UICC.Opacity0) > 0) opacity = 0f;
+        if ((flags & UICC.Opacity05) > 0) opacity = 0.05f;
         if ((flags & UICC.Opacity10) > 0) opacity = 0.1f;
         if ((flags & UICC.Opacity20) > 0) opacity = 0.2f;
-        if ((flags & UICC.Opacity30) > 0) opacity = 0.3f;
-        if ((flags & UICC.Opacity40) > 0) opacity = 0.4f;
+        if ((flags & UICC.Opacity35) > 0) opacity = 0.35f;
         if ((flags & UICC.Opacity50) > 0) opacity = 0.5f;
-        if ((flags & UICC.Opacity60) > 0) opacity = 0.6f;
-        if ((flags & UICC.Opacity70) > 0) opacity = 0.7f;
+        if ((flags & UICC.Opacity65) > 0) opacity = 0.65f;
         if ((flags & UICC.Opacity80) > 0) opacity = 0.8f;
         if ((flags & UICC.Opacity90) > 0) opacity = 0.9f;
-        if ((flags & UICC.Opacity100) > 0) opacity = 1f;
+        if ((flags & UICC.Opacity95) > 0) opacity = 0.95f;
 
         return color.MultiplyAlpha(opacity);
     }

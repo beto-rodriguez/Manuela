@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:m="clr-namespace:Manuela;assembly=Manuela"
+    x:Class="Gallery.Views.Brushes">
+
+    <ContentView.Resources>
+        <Style TargetType="BoxView">
+            <Setter Property="WidthRequest" Value="80"/>
+            <Setter Property="MinimumHeightRequest" Value="50"/>
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="Margin" Value="0, 0, 0, 10"/>
+        </Style>
+    </ContentView.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout>
+
+            <Label
+                Text="Colors"
+                Style="{StaticResource Headline}"/>
+
+            <Label
+                Text="There are 4 default colors, Primary, Secondary, Tertiary and gray."/>
+
+            <HorizontalStackLayout>
+                <BoxView Background="{m:Brush UIBrush=Primary}" />
+                <BoxView Background="{m:Brush UIBrush=Secondary}" />
+                <BoxView Background="{m:Brush UIBrush=Tertiary}" />
+                <BoxView Background="{m:Brush UIBrush=Gray}" />
+            </HorizontalStackLayout>
+
+            <Label
+                Text="Swatches"
+                Style="{StaticResource Headline}"/>
+
+            <Label Text="Each color has 11 swatches: 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950."/>
+            <Label Text="Where 50 is the closest to the background color and 950 is the closest to the foreground color."/>
+            <Label Text="This means that 950 is the color with the most contrast no matter the if the theme is dark or light."/>
+            <Label Text="Also 50 is the color with the less contrast no matter the if the theme is dark or light."/>
+
+            <HorizontalStackLayout>
+                <VerticalStackLayout>
+                    <BoxView Background="{m:Brush UIBrush='Primary,Swatch50'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Primary,Swatch100'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Primary,Swatch200'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Primary,Swatch300'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Primary,Swatch400'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Primary,Swatch500'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Primary,Swatch600'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Primary,Swatch700'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Primary,Swatch800'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Primary,Swatch900'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Primary,Swatch950'}"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout>
+                    <BoxView Background="{m:Brush UIBrush='Secondary,Swatch50'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Secondary,Swatch100'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Secondary,Swatch200'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Secondary,Swatch300'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Secondary,Swatch400'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Secondary,Swatch500'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Secondary,Swatch600'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Secondary,Swatch700'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Secondary,Swatch800'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Secondary,Swatch900'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Secondary,Swatch950'}"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout>
+                    <BoxView Background="{m:Brush UIBrush='Tertiary,Swatch50'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Tertiary,Swatch100'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Tertiary,Swatch200'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Tertiary,Swatch300'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Tertiary,Swatch400'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Tertiary,Swatch500'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Tertiary,Swatch600'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Tertiary,Swatch700'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Tertiary,Swatch800'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Tertiary,Swatch900'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Tertiary,Swatch950'}"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout>
+                    <BoxView Background="{m:Brush UIBrush='Gray,Swatch50'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Gray,Swatch100'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Gray,Swatch200'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Gray,Swatch300'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Gray,Swatch400'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Gray,Swatch500'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Gray,Swatch600'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Gray,Swatch700'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Gray,Swatch800'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Gray,Swatch900'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Gray,Swatch950'}"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout>
+                    <VerticalStackLayout.Resources>
+                        <Style TargetType="Label">
+                            <Setter Property="HeightRequest" Value="50"/>
+                            <Setter Property="WidthRequest" Value="50"/>
+                            <Setter Property="Margin" Value="15, 0"/>
+                            <Setter Property="VerticalTextAlignment" Value="Center"/>
+                        </Style>
+                    </VerticalStackLayout.Resources>
+
+                    <Label Text="50"/>
+                    <Label Text="100"/>
+                    <Label Text="200"/>
+                    <Label Text="300"/>
+                    <Label Text="400"/>
+                    <Label Text="500"/>
+                    <Label Text="600"/>
+                    <Label Text="700"/>
+                    <Label Text="800"/>
+                    <Label Text="900"/>
+                    <Label Text="950"/>
+                </VerticalStackLayout>
+            </HorizontalStackLayout>
+
+            <Label
+                Text="Gradients"
+                Style="{StaticResource Headline}"/>
+
+            <Label Text="You can build gradients for each color:"/>
+
+            <HorizontalStackLayout HeightRequest="100">
+                <BoxView Background="{m:Brush UIBrush='Primary,Gradient'}"/>
+                <BoxView Background="{m:Brush UIBrush='Secondary,Gradient'}" />
+                <BoxView Background="{m:Brush UIBrush='Tertiary,Gradient'}" />
+                <BoxView Background="{m:Brush UIBrush='Gray,Gradient,Gradient'}" />
+            </HorizontalStackLayout>
+
+            <Label Text="Also specify the size (GradientLg or GradientSm)" Margin="0,10"/>
+
+            <HorizontalStackLayout HeightRequest="100">
+                <BoxView Background="{m:Brush UIBrush='Primary,Gradient,GradientLg'}" />
+                <BoxView Background="{m:Brush UIBrush='Secondary,Gradient,GradientLg'}" />
+                <BoxView Background="{m:Brush UIBrush='Tertiary,Gradient,GradientLg'}" />
+                <BoxView Background="{m:Brush UIBrush='Gray,Gradient,Gradient,GradientLg'}" />
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout HeightRequest="100" Margin="0, 5, 0, 0">
+                <BoxView Background="{m:Brush UIBrush='Primary,Gradient,GradientSm'}" />
+                <BoxView Background="{m:Brush UIBrush='Secondary,Gradient,GradientSm'}" />
+                <BoxView Background="{m:Brush UIBrush='Tertiary,Gradient,GradientSm'}" />
+                <BoxView Background="{m:Brush UIBrush='Gray,Gradient,Gradient,GradientSm'}" />
+            </HorizontalStackLayout>
+
+            <Label Text="And the direction (GradientX, GradientY, GradientInvert)" Margin="0, 10"/>
+
+            <HorizontalStackLayout HeightRequest="100">
+                <BoxView Background="{m:Brush UIBrush='Primary,Gradient,GradientLg,GradientX'}" />
+                <BoxView Background="{m:Brush UIBrush='Primary,Gradient,GradientLg,GradientX,GradientInvert'}" />
+                <BoxView Background="{m:Brush UIBrush='Primary,Gradient,GradientLg,GradientY'}" />
+                <BoxView Background="{m:Brush UIBrush='Primary,Gradient,GradientLg,GradientY,GradientInvert'}" />
+            </HorizontalStackLayout>
+
+            <Label
+                Text="Opacity"
+                Style="{StaticResource Headline}"/>
+
+            <Label Text="You can also specify the opacity and even mix it with the swatch."/>
+
+            <HorizontalStackLayout>
+                <VerticalStackLayout>
+                    <BoxView Background="{m:Brush UIBrush='Primary,Opacity05'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Primary,Opacity10'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Primary,Opacity20'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Primary,Opacity35'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Primary,Opacity50'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Primary,Opacity65'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Primary,Opacity80'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Primary,Opacity90'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Primary,Opacity95'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Primary'}"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout>
+                    <BoxView Background="{m:Brush UIBrush='Primary,Opacity05,Swatch900'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Primary,Opacity10,Swatch900'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Primary,Opacity20,Swatch900'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Primary,Opacity35,Swatch900'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Primary,Opacity50,Swatch900'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Primary,Opacity65,Swatch900'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Primary,Opacity80,Swatch900'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Primary,Opacity90,Swatch900'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Primary,Opacity95,Swatch900'}"/>
+                    <BoxView Background="{m:Brush UIBrush='Primary,Swatch900'}"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout>
+                    <VerticalStackLayout.Resources>
+                        <Style TargetType="Label">
+                            <Setter Property="HeightRequest" Value="50"/>
+                            <Setter Property="WidthRequest" Value="50"/>
+                            <Setter Property="Margin" Value="15, 0"/>
+                            <Setter Property="VerticalTextAlignment" Value="Center"/>
+                        </Style>
+                    </VerticalStackLayout.Resources>
+
+                    <Label Text="5%"/>
+                    <Label Text="10%"/>
+                    <Label Text="20%"/>
+                    <Label Text="35%"/>
+                    <Label Text="50%"/>
+                    <Label Text="65%"/>
+                    <Label Text="80%"/>
+                    <Label Text="90%"/>
+                    <Label Text="95%"/>
+                    <Label Text="100%"/>
+                </VerticalStackLayout>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+    
+</ContentView>

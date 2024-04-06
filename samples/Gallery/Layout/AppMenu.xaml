@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Grid
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:m="clr-namespace:Manuela;assembly=Manuela"
+    xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons"
+    xmlns:layout="clr-namespace:Gallery.Layout"
+    x:Class="Gallery.Layout.AppMenu"
+    RowDefinitions="Auto,*"
+    ZIndex="10"
+    m:Has.States="{m:States
+        Default={m:Set Background='Gray,Swatch200'},
+        OnXs=   {m:Set
+                    AbsoluteLayoutFlags=    'WidthProportional,YProportional',
+                    AbsoluteLayoutBounds=   '0, 1,   1, 60'},
+        OnMd=   {m:Set
+                    AbsoluteLayoutFlags=    HeightProportional,
+                    AbsoluteLayoutBounds=   '0, 0,  60,  1'},
+        OnXl=   {m:Set
+                    AbsoluteLayoutFlags=    HeightProportional,
+                    AbsoluteLayoutBounds=   '0, 0, 280,  1'}}">
+
+    <Grid.Resources>
+
+        <!--
+            The Router.Link property, defines the route where the app navigates to when the item is clicked.
+            In this case, the app navigates to the MainView route.
+
+            The MainView route must be defined in the MauiProgram.cs file.
+        -->
+
+        <DataTemplate x:Key="MenuItemTemplate" x:DataType="{x:Type layout:MenuItemModel}">
+            <StackLayout
+                m:Router.Link="{Binding Route}"
+                m:Has.States="{m:States
+                    Hovered={m:Set Background='Gray,Swatch400,Opacity10'},
+                    OnXs={m:Set Width=70, Padding='5,12,0,10',  Height=60,   StackSpacing=5,     StackOrientation=Vertical},
+                    OnMd={m:Set Width=60, Padding='17.5,10',    Height=50,   StackSpacing=20,    StackOrientation=Horizontal},
+                    OnXl={m:Set Width=280}}">
+
+                <mi:MauiIcon
+                    Icon="{Binding Icon}"
+                    IconSize="25"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center">
+
+                    <m:Has.States>
+                        <m:StylesCollection>
+                            <m:Default Setters="{m:Set TextColor='Gray,Swatch900', Opacity=0.75}" />
+                            <m:State Name="active" Setters="{m:Set TextColor=Primary, Opacity=1}"/>
+                        </m:StylesCollection>
+                    </m:Has.States>
+                </mi:MauiIcon>
+
+                <Label
+                    Text="{Binding DisplayName}"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center">
+
+                    <m:Has.States>
+                        <m:StylesCollection>
+                            <m:Default Setters="{m:Set TextColor='Gray,Swatch900'}" />
+                            <m:State Name="active" Setters="{m:Set TextColor=Primary}"/>
+                            <m:OnScreenSize Xs="{m:Set TextSize=10}" Md="{m:Set TextSize=15}"/>
+                        </m:StylesCollection>
+                    </m:Has.States>
+                </Label>
+
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+        </DataTemplate>
+    </Grid.Resources>
+
+    <Border
+        Grid.Row="0"
+        StrokeThickness="0"
+        m:Has.States="{m:States
+            OnXs={m:Set Visible=False},
+            OnMd={m:Set Visible=True,   Padding='5,10'},
+            OnXl={m:Set                 Padding=17.5}}">
+
+        <!-- app icon -->
+        <Image
+            HorizontalOptions="Start"
+            MaximumHeightRequest="40"
+            m:Has.States="{m:States
+                OnXs={m:Set ImageSource='m.png'},
+                OnXl={m:Set ImageSource='manuela.png'}}"/>
+
+    </Border>
+
+    <ScrollView Grid.Row="1">
+        <Grid RowDefinitions="Auto,Auto">
+            <Border
+                x:Name="Indicator"
+                HorizontalOptions="Start"
+                VerticalOptions="Start"
+                StrokeThickness="0"
+                m:Has.Transitions="{m:Transitions
+                    TranslateY={m:TransitionDefinition Easing={x:Static Easing.SpringOut}, Duration=300},
+                    TranslateX={m:TransitionDefinition Easing={x:Static Easing.SpringOut}, Duration=300}}"
+                m:Has.States="{m:States Default={m:Set Background=Primary}}">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="3" />
+                </Border.StrokeShape>
+            </Border>
+
+            <!-- Menu visible always -->
+            <StackLayout
+                x:Name="MenuStackLayout"
+                BindableLayout.ItemTemplate="{StaticResource MenuItemTemplate}"
+                m:Has.States="{m:States
+                    OnXs={m:Set StackOrientation=Horizontal,    HorizontalOptions=Center},
+                    OnMd={m:Set StackOrientation=Vertical,      HorizontalOptions=Start}}">
+
+                <BindableLayout.ItemsSource>
+                    <x:Array Type="{x:Type layout:MenuItemModel}" >
+                        <layout:MenuItemModel DisplayName="Brushes"         Route="Brushes"    Icon="Brush"/>
+                        <layout:MenuItemModel DisplayName="Another"         Route="AnotherView" Icon="Bookmark"/>
+                        <layout:MenuItemModel DisplayName="Settings"        Route="Settings"    Icon="Settings"/>
+                    </x:Array>
+                </BindableLayout.ItemsSource>
+                
+            </StackLayout>
+
+            <!-- These options are only visible when the side bar is open (on Xl devices). -->
+            <VerticalStackLayout
+                x:Name="MenuDesktopStackLayout"
+                Grid.Row="1"
+                BindableLayout.ItemTemplate="{StaticResource MenuItemTemplate}"
+                m:Has.States="{m:States
+                    OnXs={m:Set Visible=False},
+                    OnXl={m:Set Visible=True}}">
+
+                <BindableLayout.ItemsSource>
+                    <x:Array Type="{x:Type layout:MenuItemModel}" >
+                        <layout:MenuItemModel DisplayName="desktop option 1" Route="MainView"   Icon="Sensors"/>
+                        <layout:MenuItemModel DisplayName="desktop option 2" Route="MainView"   Icon="TransferWithinAStation"/>
+                        <layout:MenuItemModel DisplayName="desktop option 3" Route="MainView"   Icon="Mediation"/>
+                    </x:Array>
+                </BindableLayout.ItemsSource>
+
+            </VerticalStackLayout>
+        </Grid>
+    </ScrollView>
+</Grid>

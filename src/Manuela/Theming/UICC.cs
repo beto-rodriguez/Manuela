@@ -19,22 +19,21 @@ internal static class UICC // UIColorConstants
     public const int Sw900 = 1 << 13;
     public const int Sw950 = 1 << 14;
 
-    public const int Opacity0 = 1 << 15;
-    public const int Opacity10 = 1 << 16;
-    public const int Opacity20 = 1 << 17;
-    public const int Opacity30 = 1 << 18;
-    public const int Opacity40 = 1 << 19;
-    public const int Opacity50 = 1 << 20;
-    public const int Opacity60 = 1 << 21;
-    public const int Opacity70 = 1 << 22;
-    public const int Opacity80 = 1 << 23;
-    public const int Opacity90 = 1 << 24;
-    public const int Opacity100 = 1 << 25;
+    public const int Gradient = 1 << 15;
+    public const int GradientSmall = 1 << 16;
+    public const int GradientLarge = 1 << 17;
 
-    public const int Gradient = 1 << 26;
-    public const int GradientSmall = 1 << 27;
-    public const int GradientLarge = 1 << 28;
+    public const int GradientX = 1 << 18;
+    public const int GradientY = 1 << 19;
+    public const int GradientInvert = 1 << 20;
 
-    public const int GradientX = 1 << 29;
-    public const int GradientY = 1 << 30;
+    public const int Opacity05 = 1 << 21;
+    public const int Opacity10 = 1 << 22;
+    public const int Opacity20 = 1 << 23;
+    public const int Opacity35 = 1 << 24;
+    public const int Opacity50 = 1 << 25;
+    public const int Opacity65 = 1 << 26;
+    public const int Opacity80 = 1 << 27;
+    public const int Opacity90 = 1 << 28;
+    public const int Opacity95 = 1 << 29;
 }

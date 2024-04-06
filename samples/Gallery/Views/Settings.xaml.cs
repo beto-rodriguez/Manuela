@@ -1,0 +1,9 @@
+namespace Gallery.Views;
+
+public partial class Settings : ContentView
+{
+    public Settings()
+    {
+        InitializeComponent();
+    }
+}

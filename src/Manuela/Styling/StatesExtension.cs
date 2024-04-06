@@ -2,9 +2,6 @@
 // DO NOT MOVE THE NS.
 
 using Manuela.Styling;
-using Manuela.Styling.ConditionalStyles;
-using Manuela.Styling.ConditionalStyles.Device;
-using Manuela.Styling.ConditionalStyles.Platform;
 using Manuela.Styling.ConditionalStyles.Screen;
 
 namespace Manuela;
