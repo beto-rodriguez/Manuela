@@ -5,9 +5,13 @@ public class Theme
     public Theme(
         UISizeDictionary<double>? spacing = null,
         UISizeDictionary<double>? sizes = null,
+        UISizeDictionary<double>? borders = null,
+        UISizeDictionary<double>? radius = null,
+        UISizeDictionary<double>? textSize = null,
+        UISizeDictionary<double>? lineHeight = null
         AppThemeBindingDictionary<Shadow>? shadows = null)
     {
-        Spacing = spacing ?? new()
+        Space = spacing ?? new()
         {
             [UISize.None] = 0,
             [UISize.Xs] = 2,
@@ -21,7 +25,7 @@ public class Theme
             [UISize.Titanic] = 128
         };
 
-        Sizes = sizes ?? new()
+        Size = sizes ?? new()
         {
             [UISize.None] = 0,
             [UISize.Xs] = 4,
@@ -35,6 +39,62 @@ public class Theme
             [UISize.Titanic] = 512
         };
 
+        Border = borders ?? new()
+        {
+            [UISize.None] = 0,
+            [UISize.Xs] = 1,
+            [UISize.Sm] = 2,
+            [UISize.Md] = 4,
+            [UISize.Lg] = 6,
+            [UISize.Xl] = 8,
+            [UISize.Xxl] = 10,
+            [UISize.Huge] = 14,
+            [UISize.Giant] = 16,
+            [UISize.Titanic] = 20
+        };
+
+        Radius = radius ?? new()
+        {
+            [UISize.None] = 0,
+            [UISize.Xs] = 1,
+            [UISize.Sm] = 2,
+            [UISize.Md] = 4,
+            [UISize.Lg] = 8,
+            [UISize.Xl] = 12,
+            [UISize.Xxl] = 16,
+            [UISize.Huge] = 24,
+            [UISize.Giant] = 32,
+            [UISize.Titanic] = 9999 // <- propably not working on IOS
+        };
+
+        TextSize = textSize ?? new()
+        {
+            [UISize.None] = 0,
+            [UISize.Xs] = 10,
+            [UISize.Sm] = 12,
+            [UISize.Md] = 14,
+            [UISize.Lg] = 16,
+            [UISize.Xl] = 20,
+            [UISize.Xxl] = 24,
+            [UISize.Huge] = 32,
+            [UISize.Giant] = 48,
+            [UISize.Titanic] = 64
+        };
+
+        LineHeight = lineHeight ?? new()
+        {
+            [UISize.None] = 1,
+            [UISize.Xs] = 1.15,
+            [UISize.Sm] = 1.25,
+            [UISize.Md] = 1.375,
+            [UISize.Lg] = 1.5,
+            [UISize.Xl] = 1.625,
+            [UISize.Xxl] = 1.75,
+            [UISize.Huge] = 1.85,
+            [UISize.Giant] = 2,
+            [UISize.Titanic] = 2.5
+        };
+
         Shadows = shadows ?? new()
         {
             [UISize.None] = new( // sad workaround, because AppThemeBinding does not support nulls.
@@ -45,7 +105,7 @@ public class Theme
                 new() { Brush = new SolidColorBrush(Colors.Black), Offset = new(2, 2), Radius = 4, Opacity = 0.9f }),
             [UISize.Sm] = new(
                 new() { Brush = new SolidColorBrush(Colors.Black), Offset = new(3, 3), Radius = 6, Opacity = 0.15f },
-                               new() { Brush = new SolidColorBrush(Colors.Black), Offset = new(3, 3), Radius = 6, Opacity = 0.9f }),
+                new() { Brush = new SolidColorBrush(Colors.Black), Offset = new(3, 3), Radius = 6, Opacity = 0.9f }),
             [UISize.Md] = new(
                 new() { Brush = new SolidColorBrush(Colors.Black), Offset = new(3, 3), Radius = 10, Opacity = 0.20f },
                 new() { Brush = new SolidColorBrush(Colors.Black), Offset = new(3, 3), Radius = 10, Opacity = 0.9f }),
@@ -71,10 +131,26 @@ public class Theme
 
         PropertyMap = new()
         {
-            ["Margin"] = Spacing,
-            ["Padding"] = Spacing,
+            ["Margin"] = Space,
+            ["Padding"] = Space,
+            ["StrokeThickness"] = Border,
+            ["BorderThickness"] = Border,
+            ["BorderWidth"] = Border,
+            ["StrokeShape"] = Radius,
+            ["CornerRadius"] = Radius,
+            ["BorderRadius"] = Radius,
+            ["FontSize"] = TextSize,
             ["Shadow"] = Shadows,
-            ["Width"] = Sizes,
+            ["TextSize"] = TextSize,
+            ["LineHeight"] = LineHeight,
+            ["Opacity"] = Opacity,
+            ["Width"] = Size,
+            ["Height"] = Size,
+            ["MaxWidth"] = Size,
+            ["MaxHeight"] = Size,
+            ["MinWidth"] = Size,
+            ["MinHeight"] = Size,
+            ["Spacing"] = Space
         };
     }
 
@@ -85,22 +161,22 @@ public class Theme
             ColorPalletes.Blue,
             ColorPalletes.Orange,
             ColorPalletes.Pink,
-            ColorPalletes.Slate),
-        background: Color.FromRgba("#fafafa"),
-        backgroundContrast: Color.FromArgb("#18181b"));
+            ColorPalletes.Slate));
 
     public ColorSet DarkColors { get; set; } = new(
         colors: ColorPalletes.BuildDictionary(
             ColorPalletes.Blue.Reverse().ToArray(),
             ColorPalletes.Orange.Reverse().ToArray(),
             ColorPalletes.Pink.Reverse().ToArray(),
-            ColorPalletes.Slate.Reverse().ToArray()),
-        background: Color.FromRgba("#18181b"),
-        backgroundContrast: Color.FromArgb("#fafafa"));
+            ColorPalletes.Slate.Reverse().ToArray()));
 
     public Dictionary<string, ISizeSource> PropertyMap { get; }
-    public UISizeDictionary<double> Spacing { get; }
-    public UISizeDictionary<double> Sizes { get; }
+    public UISizeDictionary<double> Space { get; }
+    public UISizeDictionary<double> Size { get; }
+    public UISizeDictionary<double> Border { get; }
+    public UISizeDictionary<double> Radius { get; }
+    public UISizeDictionary<double> TextSize { get; }
+    public UISizeDictionary<double> LineHeight { get; }
     public AppThemeBindingDictionary<Shadow> Shadows { get; }
 
     public ThemeParams Params { get; set; } = new();

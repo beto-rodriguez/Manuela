@@ -33,15 +33,15 @@ public class SpacingExtension : IMarkupExtension<Thickness>
 
         // Applies the properties from the less specific to the most specific.
 
-        if (Size is not null) t.Left = t.Top = t.Right = t.Bottom = Theme.Current.Spacing[Size.Value];
+        if (Size is not null) t.Left = t.Top = t.Right = t.Bottom = Theme.Current.Space[Size.Value];
 
-        if (Vertical is not null) t.Top = t.Bottom = Theme.Current.Spacing[Vertical.Value];
-        if (Horizontal is not null) t.Left = t.Right = Theme.Current.Spacing[Horizontal.Value];
+        if (Vertical is not null) t.Top = t.Bottom = Theme.Current.Space[Vertical.Value];
+        if (Horizontal is not null) t.Left = t.Right = Theme.Current.Space[Horizontal.Value];
 
-        if (Left is not null) t.Left = Theme.Current.Spacing[Left.Value];
-        if (Top is not null) t.Top = Theme.Current.Spacing[Top.Value];
-        if (Right is not null) t.Right = Theme.Current.Spacing[Right.Value];
-        if (Bottom is not null) t.Bottom = Theme.Current.Spacing[Bottom.Value];
+        if (Left is not null) t.Left = Theme.Current.Space[Left.Value];
+        if (Top is not null) t.Top = Theme.Current.Space[Top.Value];
+        if (Right is not null) t.Right = Theme.Current.Space[Right.Value];
+        if (Bottom is not null) t.Bottom = Theme.Current.Space[Bottom.Value];
 
         return t;
     }
