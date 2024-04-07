@@ -6,7 +6,7 @@ public class Theme
         UISizeDictionary<double>? spacing = null,
         UISizeDictionary<double>? sizes = null,
         UISizeDictionary<double>? borders = null,
-        UISizeDictionary<double>? radius = null,
+        UISizeDictionary<int>? radius = null,
         UISizeDictionary<double>? textSize = null,
         UISizeDictionary<double>? lineHeight = null,
         AppThemeBindingDictionary<Shadow>? shadows = null)
@@ -149,6 +149,12 @@ public class Theme
             ["MaxHeight"] = Size,
             ["MinWidth"] = Size,
             ["MinHeight"] = Size,
+            ["WidthRequest"] = Size,
+            ["HeightRequest"] = Size,
+            ["MaximumWidthRequest"] = Size,
+            ["MaximumHeightRequest"] = Size,
+            ["MinimumWidthRequest"] = Size,
+            ["MinimumHeightRequest"] = Size,
             ["Spacing"] = Space
         };
     }
@@ -173,7 +179,7 @@ public class Theme
     public UISizeDictionary<double> Space { get; }
     public UISizeDictionary<double> Size { get; }
     public UISizeDictionary<double> Border { get; }
-    public UISizeDictionary<double> Radius { get; }
+    public UISizeDictionary<int> Radius { get; } // int because Button.CornerRadius is int
     public UISizeDictionary<double> TextSize { get; }
     public UISizeDictionary<double> LineHeight { get; }
     public AppThemeBindingDictionary<Shadow> Shadows { get; }

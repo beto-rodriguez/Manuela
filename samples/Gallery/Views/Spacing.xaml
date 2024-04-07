@@ -20,73 +20,12 @@
 
     <ScrollView>
         <VerticalStackLayout>
-
             <Label
                 Text="Spacing"
                 Style="{StaticResource Headline}"/>
 
-            <Label Text="The spacing extension works for properties of type Thickness (Padding and Marging)."/>
-            <Label Text="There are 9 different sizes, None, Xs, Sm, Md, Lg, Xl, Xxl, Huge, Giant and Titatanic."/>
-
-            <HorizontalStackLayout>
-                <BoxView Margin="{m:Size None}" />
-                <BoxView Margin="{m:Size None}" />
-                <BoxView Margin="{m:Size None}" />
-            </HorizontalStackLayout>
-
-            <HorizontalStackLayout>
-                <BoxView Margin="{m:Size Xs}" />
-                <BoxView Margin="{m:Size Xs}" />
-                <BoxView Margin="{m:Size Xs}" />
-            </HorizontalStackLayout>
-
-            <HorizontalStackLayout>
-                <BoxView Margin="{m:Size Sm}" />
-                <BoxView Margin="{m:Size Sm}" />
-                <BoxView Margin="{m:Size Sm}" />
-            </HorizontalStackLayout>
-
-            <HorizontalStackLayout>
-                <BoxView Margin="{m:Size Md}" />
-                <BoxView Margin="{m:Size Md}" />
-                <BoxView Margin="{m:Size Md}" />
-            </HorizontalStackLayout>
-
-            <HorizontalStackLayout>
-                <BoxView Margin="{m:Size Lg}" />
-                <BoxView Margin="{m:Size Lg}" />
-                <BoxView Margin="{m:Size Lg}" />
-            </HorizontalStackLayout>
-
-            <HorizontalStackLayout>
-                <BoxView Margin="{m:Size Xl}" />
-                <BoxView Margin="{m:Size Xl}" />
-                <BoxView Margin="{m:Size Xl}" />
-            </HorizontalStackLayout>
-
-            <HorizontalStackLayout>
-                <BoxView Margin="{m:Size Xxl}" />
-                <BoxView Margin="{m:Size Xxl}" />
-                <BoxView Margin="{m:Size Xxl}" />
-            </HorizontalStackLayout>
-
-            <HorizontalStackLayout>
-                <BoxView Margin="{m:Size Huge}" />
-                <BoxView Margin="{m:Size Huge}" />
-                <BoxView Margin="{m:Size Huge}" />
-            </HorizontalStackLayout>
-
-            <HorizontalStackLayout>
-                <BoxView Margin="{m:Size Giant}" />
-                <BoxView Margin="{m:Size Giant}" />
-                <BoxView Margin="{m:Size Giant}" />
-            </HorizontalStackLayout>
-
-            <HorizontalStackLayout>
-                <BoxView Margin="{m:Size Titanic}" />
-                <BoxView Margin="{m:Size Titanic}" />
-                <BoxView Margin="{m:Size Titanic}" />
-            </HorizontalStackLayout>
+            <Label
+                Text="Some times the Size extension is not enough (See sizing tab), when you need to specify more about Paddings and margins, you can use the Spacing extension."/>
 
             <Label
                 Text="Horizontal"
@@ -128,12 +67,12 @@
             <Label
                 Text="The Size (uniform) is applied first, then the Vertical and Horizontal sizes, finally the Left, Top, Right and Bottom."/>
             <Label
-                Text="This means that you can for example set all the properties to large but the top could be overriden to None."/>
+                Text="This means that you can for example set all the properties to large but override the top to None."/>
 
             <HorizontalStackLayout>
-                <BoxView Margin="{m:Spacing Size=Lg, Top=None}" />
-                <BoxView Margin="{m:Spacing Size=Lg, Top=None}" />
-                <BoxView Margin="{m:Spacing Size=Lg, Top=None}" />
+                <BoxView Margin="{m:Spacing Size=Xl, Top=None}" />
+                <BoxView Margin="{m:Spacing Size=Xl, Top=None}" />
+                <BoxView Margin="{m:Spacing Size=Xl, Top=None}" />
             </HorizontalStackLayout>
 
         </VerticalStackLayout>

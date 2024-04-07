@@ -22,6 +22,13 @@
 
     <Grid.Resources>
 
+        <x:Array x:Key="MenuData" Type="{x:Type layout:MenuItemModel}" >
+            <layout:MenuItemModel DisplayName="Brushes and Colors"  Route="Brushes"     Icon="Brush"/>
+            <layout:MenuItemModel DisplayName="Sizing"              Route="Sizing"      Icon="DensityLarge"/>
+            <layout:MenuItemModel DisplayName="Spacing"             Route="Spacing"     Icon="SpaceBar"/>
+            <layout:MenuItemModel DisplayName="Shadows"             Route="Shadows"     Icon="BrightnessHigh"/>
+        </x:Array>
+
         <!--
             The Router.Link property, defines the route where the app navigates to when the item is clicked.
             In this case, the app navigates to the MainView route.
@@ -110,39 +117,12 @@
             <!-- Menu visible always -->
             <StackLayout
                 x:Name="MenuStackLayout"
+                BindableLayout.ItemsSource="{StaticResource MenuData}"
                 BindableLayout.ItemTemplate="{StaticResource MenuItemTemplate}"
                 m:Has.States="{m:States
                     OnXs={m:Set StackOrientation=Horizontal,    HorizontalOptions=Center},
                     OnMd={m:Set StackOrientation=Vertical,      HorizontalOptions=Start}}">
-
-                <BindableLayout.ItemsSource>
-                    <x:Array Type="{x:Type layout:MenuItemModel}" >
-                        <layout:MenuItemModel DisplayName="Brushes and Colors"  Route="Brushes"     Icon="Brush"/>
-                        <layout:MenuItemModel DisplayName="Shadows"             Route="Shadows"     Icon="BrightnessHigh"/>
-                        <layout:MenuItemModel DisplayName="Spacing"             Route="Spacing"     Icon="SpaceBar"/>
-                    </x:Array>
-                </BindableLayout.ItemsSource>
-                
             </StackLayout>
-
-            <!-- These options are only visible when the side bar is open (on Xl devices). -->
-            <VerticalStackLayout
-                x:Name="MenuDesktopStackLayout"
-                Grid.Row="1"
-                BindableLayout.ItemTemplate="{StaticResource MenuItemTemplate}"
-                m:Has.States="{m:States
-                    OnXs={m:Set Visible=False},
-                    OnXl={m:Set Visible=True}}">
-
-                <BindableLayout.ItemsSource>
-                    <x:Array Type="{x:Type layout:MenuItemModel}" >
-                        <layout:MenuItemModel DisplayName="desktop option 1" Route="MainView"   Icon="Sensors"/>
-                        <layout:MenuItemModel DisplayName="desktop option 2" Route="MainView"   Icon="TransferWithinAStation"/>
-                        <layout:MenuItemModel DisplayName="desktop option 3" Route="MainView"   Icon="Mediation"/>
-                    </x:Array>
-                </BindableLayout.ItemsSource>
-
-            </VerticalStackLayout>
         </Grid>
     </ScrollView>
 </Grid>

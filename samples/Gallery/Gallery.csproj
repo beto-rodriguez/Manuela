@@ -98,6 +98,9 @@
 	  <MauiXaml Update="Views\Brushes.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\Sizing.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\Spacing.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

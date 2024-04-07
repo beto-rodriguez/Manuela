@@ -51,12 +51,6 @@ public partial class AppMenu : Grid
         if (clickedVisual is null) return;
 
         var clickedIndex = MenuStackLayout.Children.IndexOf(clickedVisual);
-        if (clickedIndex == -1)
-        {
-            clickedIndex =
-                MenuDesktopStackLayout.Children.IndexOf(clickedVisual) + MenuStackLayout.Children.Count;
-        }
-
         _activeVisual = clickedVisual;
 
         // sets and animates the indicator based on the transition defined in XAML

@@ -18,7 +18,8 @@ public static class MauiProgram
             .UseManuela([
                 new Route<Brushes>(),
                 new Route<Shadows>(),
-                new Route<Spacing>()
+                new Route<Spacing>(),
+                new Route<Sizing>(),
             ])
             .UseMaterialRoundedMauiIcons()
             .ConfigureFonts(fonts =>
