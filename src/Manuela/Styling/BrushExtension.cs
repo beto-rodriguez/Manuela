@@ -6,7 +6,7 @@ using Manuela.Things;
 
 namespace Manuela;
 
-[ContentProperty(nameof(UIBrush))]
+[ContentProperty(nameof(Key))]
 public class BrushExtension : IMarkupExtension<BindingBase>
 {
     public BrushExtension()
@@ -14,14 +14,14 @@ public class BrushExtension : IMarkupExtension<BindingBase>
 
     public BrushExtension(UIBrush brush)
     {
-        UIBrush = brush;
+        Key = brush;
     }
 
-    public UIBrush UIBrush { get; set; }
+    public UIBrush Key { get; set; }
 
     public BindingBase ProvideValue(IServiceProvider serviceProvider)
     {
-        var flags = (int)UIBrush;
+        var flags = (int)Key;
 
         IMarkupExtension<BindingBase> binding = new AppThemeBindingExtension
         {

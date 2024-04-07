@@ -503,11 +503,9 @@ public static class ManuelaThings
         var theme = Application.Current?.RequestedTheme;
         if (theme is null or AppTheme.Unspecified) theme = AppTheme.Light;
 
-        var shadows = theme == AppTheme.Light
-            ? Theme.Current.LightShadows
-            : Theme.Current.DarkShadows;
+        var s = Theme.Current.Shadows[uiSize];
 
-        return shadows[uiSize];
+        return theme == AppTheme.Light ? s.Light : s.Dark;
     }
 
     private static object? ImageSourceConverter(BindableObject bindable, object? source)

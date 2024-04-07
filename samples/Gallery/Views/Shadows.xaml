@@ -10,7 +10,7 @@
             <Setter Property="WidthRequest" Value="80"/>
             <Setter Property="HeightRequest" Value="80"/>
             <Setter Property="Margin" Value="50"/>
-            <Setter Property="Background" Value="{m:Brush UIBrush='Gray,Swatch50'}"/>
+            <Setter Property="Background" Value="{m:Brush Key='Gray,Swatch50'}"/>
         </Style>
     </ContentView.Resources>
 
@@ -23,15 +23,15 @@
 
             <HorizontalStackLayout>
                 <VerticalStackLayout>
-                    <BoxView Shadow="{m:Shadow Size=None}"/>
-                    <BoxView Shadow="{m:Shadow Size=Xs}"/>
-                    <BoxView Shadow="{m:Shadow Size=Sm}"/>
-                    <BoxView Shadow="{m:Shadow Size=Md}"/>
-                    <BoxView Shadow="{m:Shadow Size=Lg}"/>
-                    <BoxView Shadow="{m:Shadow Size=Xl}"/>
-                    <BoxView Shadow="{m:Shadow Size=Huge}"/>
-                    <BoxView Shadow="{m:Shadow Size=Giant}"/>
-                    <BoxView Shadow="{m:Shadow Size=Titanic}"/>
+                    <BoxView Shadow="{m:Size None}"/>
+                    <BoxView Shadow="{m:Size Xs}"/>
+                    <BoxView Shadow="{m:Size Sm}"/>
+                    <BoxView Shadow="{m:Size Md}"/>
+                    <BoxView Shadow="{m:Size Lg}"/>
+                    <BoxView Shadow="{m:Size Xl}"/>
+                    <BoxView Shadow="{m:Size Huge}"/>
+                    <BoxView Shadow="{m:Size Giant}"/>
+                    <BoxView Shadow="{m:Size Titanic}"/>
                 </VerticalStackLayout>
 
                 <VerticalStackLayout>

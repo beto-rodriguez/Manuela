@@ -14,14 +14,14 @@ public class ColorExtension : IMarkupExtension<BindingBase>
 
     public ColorExtension(UIColor color)
     {
-        UIColor = color;
+        Key = color;
     }
 
-    public UIColor UIColor { get; set; }
+    public UIColor Key { get; set; }
 
     public BindingBase ProvideValue(IServiceProvider serviceProvider)
     {
-        var flags = (int)UIColor;
+        var flags = (int)Key;
 
         IMarkupExtension<BindingBase> binding = new AppThemeBindingExtension
         {

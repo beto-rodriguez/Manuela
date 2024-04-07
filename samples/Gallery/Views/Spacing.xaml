@@ -7,7 +7,7 @@
 
     <ContentView.Resources>
         <Style TargetType="HorizontalStackLayout">
-            <Setter Property="Background" Value="{m:Brush UIBrush='Gray,Swatch300'}"/>
+            <Setter Property="Background" Value="{m:Brush Key='Gray,Swatch300'}"/>
             <Setter Property="Margin" Value="0, 10"/>
         </Style>
         <Style TargetType="BoxView">
@@ -29,65 +29,64 @@
             <Label Text="There are 9 different sizes, None, Xs, Sm, Md, Lg, Xl, Xxl, Huge, Giant and Titatanic."/>
 
             <HorizontalStackLayout>
-                <BoxView Margin="{m:Spacing Size=None}" />
-                <BoxView Margin="{m:Spacing Size=None}" />
-                <BoxView Margin="{m:Spacing Size=None}" />
+                <BoxView Margin="{m:Size None}" />
+                <BoxView Margin="{m:Size None}" />
+                <BoxView Margin="{m:Size None}" />
             </HorizontalStackLayout>
 
             <HorizontalStackLayout>
-                <BoxView Margin="{m:Spacing Size=Xs}" />
-                <BoxView Margin="{m:Spacing Size=Xs}" />
-                <BoxView Margin="{m:Spacing Size=Xs}" />
+                <BoxView Margin="{m:Size Xs}" />
+                <BoxView Margin="{m:Size Xs}" />
+                <BoxView Margin="{m:Size Xs}" />
             </HorizontalStackLayout>
 
             <HorizontalStackLayout>
-                <BoxView Margin="{m:Spacing Size=Sm}" />
-                <BoxView Margin="{m:Spacing Size=Sm}" />
-                <BoxView Margin="{m:Spacing Size=Sm}" />
+                <BoxView Margin="{m:Size Sm}" />
+                <BoxView Margin="{m:Size Sm}" />
+                <BoxView Margin="{m:Size Sm}" />
             </HorizontalStackLayout>
 
             <HorizontalStackLayout>
-                <BoxView Margin="{m:Spacing Size=Md}" />
-                <BoxView Margin="{m:Spacing Size=Md}" />
-                <BoxView Margin="{m:Spacing Size=Md}" />
+                <BoxView Margin="{m:Size Md}" />
+                <BoxView Margin="{m:Size Md}" />
+                <BoxView Margin="{m:Size Md}" />
             </HorizontalStackLayout>
 
             <HorizontalStackLayout>
-                <BoxView Margin="{m:Spacing Size=Lg}" />
-                <BoxView Margin="{m:Spacing Size=Lg}" />
-                <BoxView Margin="{m:Spacing Size=Lg}" />
+                <BoxView Margin="{m:Size Lg}" />
+                <BoxView Margin="{m:Size Lg}" />
+                <BoxView Margin="{m:Size Lg}" />
             </HorizontalStackLayout>
 
             <HorizontalStackLayout>
-                <BoxView Margin="{m:Spacing Size=Xl}" />
-                <BoxView Margin="{m:Spacing Size=Xl}" />
-                <BoxView Margin="{m:Spacing Size=Xl}" />
+                <BoxView Margin="{m:Size Xl}" />
+                <BoxView Margin="{m:Size Xl}" />
+                <BoxView Margin="{m:Size Xl}" />
             </HorizontalStackLayout>
 
             <HorizontalStackLayout>
-                <BoxView Margin="{m:Spacing Size=Xxl}" />
-                <BoxView Margin="{m:Spacing Size=Xxl}" />
-                <BoxView Margin="{m:Spacing Size=Xxl}" />
+                <BoxView Margin="{m:Size Xxl}" />
+                <BoxView Margin="{m:Size Xxl}" />
+                <BoxView Margin="{m:Size Xxl}" />
             </HorizontalStackLayout>
 
             <HorizontalStackLayout>
-                <BoxView Margin="{m:Spacing Size=Huge}" />
-                <BoxView Margin="{m:Spacing Size=Huge}" />
-                <BoxView Margin="{m:Spacing Size=Huge}" />
+                <BoxView Margin="{m:Size Huge}" />
+                <BoxView Margin="{m:Size Huge}" />
+                <BoxView Margin="{m:Size Huge}" />
             </HorizontalStackLayout>
 
             <HorizontalStackLayout>
-                <BoxView Margin="{m:Spacing Size=Giant}" />
-                <BoxView Margin="{m:Spacing Size=Giant}" />
-                <BoxView Margin="{m:Spacing Size=Giant}" />
+                <BoxView Margin="{m:Size Giant}" />
+                <BoxView Margin="{m:Size Giant}" />
+                <BoxView Margin="{m:Size Giant}" />
             </HorizontalStackLayout>
 
             <HorizontalStackLayout>
-                <BoxView Margin="{m:Spacing Size=Titanic}" />
-                <BoxView Margin="{m:Spacing Size=Titanic}" />
-                <BoxView Margin="{m:Spacing Size=Titanic}" />
+                <BoxView Margin="{m:Size Titanic}" />
+                <BoxView Margin="{m:Size Titanic}" />
+                <BoxView Margin="{m:Size Titanic}" />
             </HorizontalStackLayout>
-
 
             <Label
                 Text="Horizontal"
@@ -114,10 +113,10 @@
                  Style="{StaticResource Headline}"/>
 
             <HorizontalStackLayout>
-                <BoxView Margin="{m:Spacing Left=Md}" />
-                <BoxView Margin="{m:Spacing Top=Md}" />
-                <BoxView Margin="{m:Spacing Right=Md}" />
-                <BoxView Margin="{m:Spacing Bottom=Md}" />
+                <BoxView Margin="{m:Spacing Right=Huge}" />
+                <BoxView Margin="{m:Spacing Top=Huge}" />
+                <BoxView Margin="{m:Spacing Bottom=Huge}" />
+                <BoxView Margin="{m:Spacing Left=Huge}" />
             </HorizontalStackLayout>
             
             <Label
