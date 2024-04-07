@@ -8,7 +8,7 @@ public class Theme
         UISizeDictionary<double>? borders = null,
         UISizeDictionary<double>? radius = null,
         UISizeDictionary<double>? textSize = null,
-        UISizeDictionary<double>? lineHeight = null
+        UISizeDictionary<double>? lineHeight = null,
         AppThemeBindingDictionary<Shadow>? shadows = null)
     {
         Space = spacing ?? new()
@@ -143,7 +143,6 @@ public class Theme
             ["Shadow"] = Shadows,
             ["TextSize"] = TextSize,
             ["LineHeight"] = LineHeight,
-            ["Opacity"] = Opacity,
             ["Width"] = Size,
             ["Height"] = Size,
             ["MaxWidth"] = Size,
