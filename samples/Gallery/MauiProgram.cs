@@ -17,7 +17,6 @@ public static class MauiProgram
             .UseMauiApp<App>()
             .UseManuela([
                 new Route<Brushes>(),
-                new Route<Shadows>(),
                 new Route<Spacing>(),
                 new Route<Sizing>(),
             ])
