@@ -1,4 +1,6 @@
-﻿namespace Manuela.Theming;
+﻿using Manuela.Theming.SizeProviders;
+
+namespace Manuela.Theming;
 
 public class Theme
 {
@@ -6,7 +8,7 @@ public class Theme
         UISizeDictionary<double>? spacing = null,
         UISizeDictionary<double>? sizes = null,
         UISizeDictionary<double>? borders = null,
-        UISizeDictionary<int>? radius = null,
+        CornerRadiusSizeSource? radius = null,
         UISizeDictionary<double>? textSize = null,
         UISizeDictionary<double>? lineHeight = null,
         AppThemeBindingDictionary<Shadow>? shadows = null)
@@ -129,10 +131,15 @@ public class Theme
                 new() { Brush = new SolidColorBrush(Colors.Black), Offset = new(12, 15), Radius = 65, Opacity = 1f })
         };
 
+        var thicknessSpacing = new UISizeDictionary<Thickness>();
+        foreach (var pair in Space)
+            thicknessSpacing[pair.Key] = new(pair.Value);
+
         PropertyMap = new()
         {
-            ["Margin"] = Space,
-            ["Padding"] = Space,
+            ["Margin"] = thicknessSpacing,
+            ["Padding"] = thicknessSpacing,
+            ["Spacing"] = Space, // the stacklayout spacing
             ["StrokeThickness"] = Border,
             ["BorderThickness"] = Border,
             ["BorderWidth"] = Border,
@@ -155,7 +162,6 @@ public class Theme
             ["MaximumHeightRequest"] = Size,
             ["MinimumWidthRequest"] = Size,
             ["MinimumHeightRequest"] = Size,
-            ["Spacing"] = Space
         };
     }
 
@@ -179,7 +185,7 @@ public class Theme
     public UISizeDictionary<double> Space { get; }
     public UISizeDictionary<double> Size { get; }
     public UISizeDictionary<double> Border { get; }
-    public UISizeDictionary<int> Radius { get; } // int because Button.CornerRadius is int
+    public CornerRadiusSizeSource Radius { get; } // int because Button.CornerRadius is int
     public UISizeDictionary<double> TextSize { get; }
     public UISizeDictionary<double> LineHeight { get; }
     public AppThemeBindingDictionary<Shadow> Shadows { get; }

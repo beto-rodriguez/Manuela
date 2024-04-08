@@ -33,6 +33,6 @@ public class SizeExtension : IMarkupExtension
         if (!Theme.Current.PropertyMap.TryGetValue(name, out var sizeSource))
             throw new Exception($"Property {name} is not supported by the {nameof(SizeExtension)}");
 
-        return sizeSource.Get(Key, serviceProvider);
+        return sizeSource.Get(Key, valueProvider.TargetObject, serviceProvider);
     }
 }

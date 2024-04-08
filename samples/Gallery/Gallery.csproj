@@ -70,34 +70,4 @@
 	  <ProjectReference Include="..\..\src\Manuela\Manuela.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Compile Update="Layout\AppMenu.xaml.cs">
-	    <DependentUpon>AppMenu.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\Brushes.xaml.cs">
-	    <DependentUpon>Brushes.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\Spacing.xaml.cs">
-	    <DependentUpon>Spacing.xaml</DependentUpon>
-	  </Compile>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <MauiXaml Update="AppLayout.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Layout\AppMenu.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Brushes.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Sizing.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Spacing.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	</ItemGroup>
-
 </Project>

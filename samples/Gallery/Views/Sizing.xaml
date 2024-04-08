@@ -81,7 +81,8 @@
                 Text="Border radius"
                 Style="{StaticResource SubHeadline}"/>
 
-            <HorizontalStackLayout Padding="{m:Size Lg}" Spacing="{m:Size Md}">
+            
+            <HorizontalStackLayout>
                 <Border>
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="{m:Size Xxl}"/>
@@ -90,7 +91,7 @@
                 </Border>
                 <Button CornerRadius="{m:Size Xxl}" Text="Click me"/>
             </HorizontalStackLayout>
-
+            
             <Label
                 Text="Shadow"
                 Style="{StaticResource SubHeadline}"/>

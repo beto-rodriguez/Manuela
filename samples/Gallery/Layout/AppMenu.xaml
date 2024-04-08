@@ -22,9 +22,10 @@
 
     <Grid.Resources>
 
-        <x:Array x:Key="MenuData" Type="{x:Type layout:MenuItemModel}" >
+        <x:Array x:Key="MenuData" Type="{x:Type layout:MenuItemModel}">
             <layout:MenuItemModel DisplayName="Brushes and Colors"  Route="Brushes"     Icon="Brush"/>
             <layout:MenuItemModel DisplayName="Sizing"              Route="Sizing"      Icon="DensityLarge"/>
+            <layout:MenuItemModel DisplayName="States"              Route="States"      Icon="RealEstateAgent"/>
             <layout:MenuItemModel DisplayName="Spacing"             Route="Spacing"     Icon="SpaceBar"/>
         </x:Array>
 
