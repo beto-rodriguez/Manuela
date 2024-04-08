@@ -6,7 +6,7 @@ using Manuela.Things;
 
 namespace Manuela;
 
-[ContentProperty(nameof(UIBrush))]
+[ContentProperty(nameof(Key))]
 public class ColorExtension : IMarkupExtension<BindingBase>
 {
     public ColorExtension()

@@ -12,12 +12,11 @@
         <layout:AppMenu/>
 
         <Border
+            Background="{m:Brush 'Gray,Swatch100'}"
+            StrokeThickness="0"
+            AbsoluteLayout.LayoutFlags="SizeProportional"
+            AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
             m:Has.States="{m:States
-                Default={m:Set
-                    Background='Gray,Swatch100',
-                    BorderThickness=0,
-                    AbsoluteLayoutFlags=SizeProportional,
-                    AbsoluteLayoutBounds='0, 0, 1, 1'},
                 OnXs={m:Set Padding='10, 10, 10, 70'},
                 OnMd={m:Set Padding='80, 37, 20, 20'},
                 OnXl={m:Set Padding='300, 37, 20, 20'}}">

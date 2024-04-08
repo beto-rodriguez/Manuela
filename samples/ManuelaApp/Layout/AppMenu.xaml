@@ -8,8 +8,8 @@
     x:Class="ManuelaApp.Layout.AppMenu"
     RowDefinitions="Auto,*"
     ZIndex="10"
+    Background="{m:Brush 'Gray,Swatch200'}"
     m:Has.States="{m:States
-        Default={m:Set Background='Gray,Swatch200'},
         OnXs=   {m:Set
                     AbsoluteLayoutFlags=    'WidthProportional,YProportional',
                     AbsoluteLayoutBounds=   '0, 1,   1, 60'},
@@ -41,12 +41,13 @@
                 <mi:MauiIcon
                     Icon="{Binding Icon}"
                     IconSize="25"
+                    IconColor="{m:Color 'Gray,Swatch900'}"
                     VerticalOptions="Center"
                     HorizontalOptions="Center">
 
                     <m:Has.States>
                         <m:StylesCollection>
-                            <m:Default Setters="{m:Set TextColor='Gray,Swatch900', Opacity=0.75}" />
+                            <m:Default Setters="{m:Set Opacity=0.75}" />
                             <m:State Name="active" Setters="{m:Set TextColor=Primary, Opacity=1}"/>
                         </m:StylesCollection>
                     </m:Has.States>
@@ -54,13 +55,12 @@
 
                 <Label
                     Text="{Binding DisplayName}"
+                    TextColor="{m:Color 'Gray,Swatch900'}"
                     VerticalOptions="Center"
                     HorizontalOptions="Center">
 
                     <m:Has.States>
                         <m:StylesCollection>
-                            <m:Default Setters="{m:Set TextColor='Gray,Swatch900'}" />
-                            <m:State Name="active" Setters="{m:Set TextColor=Primary}"/>
                             <m:OnScreenSize Xs="{m:Set TextSize=10}" Md="{m:Set TextSize=15}"/>
                         </m:StylesCollection>
                     </m:Has.States>
@@ -98,10 +98,10 @@
                 HorizontalOptions="Start"
                 VerticalOptions="Start"
                 StrokeThickness="0"
+                Background="{m:Brush Primary}"
                 m:Has.Transitions="{m:Transitions
                     TranslateY={m:TransitionDefinition Easing={x:Static Easing.SpringOut}, Duration=300},
-                    TranslateX={m:TransitionDefinition Easing={x:Static Easing.SpringOut}, Duration=300}}"
-                m:Has.States="{m:States Default={m:Set Background=Primary}}">
+                    TranslateX={m:TransitionDefinition Easing={x:Static Easing.SpringOut}, Duration=300}}">
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="3" />
                 </Border.StrokeShape>
