@@ -9,7 +9,7 @@ public class Has
 {
 #pragma warning disable CA2211 // Non-constant fields should not be visible
     public static BindableProperty StatesProperty = BindableProperty.CreateAttached(
-        "States", typeof(StylesCollection), typeof(Has), null, propertyChanged: OnStyleCollectionChanged);
+        "States", typeof(StatesCollection), typeof(Has), null, propertyChanged: OnStyleCollectionChanged);
 
     public static BindableProperty TransitionsProperty = BindableProperty.CreateAttached(
         "Transitions", typeof(TransitionsCollection), typeof(Has), null, propertyChanged: OnTransitionsCollectionChanged);
@@ -33,8 +33,8 @@ public class Has
         "CustomState", typeof(string), typeof(Has), null);
 #pragma warning restore CA2211 // Non-constant fields should not be visible
 
-    public static StylesCollection GetStates(BindableObject view) => (StylesCollection)view.GetValue(StatesProperty);
-    public static void SetStates(BindableObject view, StylesCollection value) => view.SetValue(StatesProperty, value);
+    public static StatesCollection GetStates(BindableObject view) => (StatesCollection)view.GetValue(StatesProperty);
+    public static void SetStates(BindableObject view, StatesCollection value) => view.SetValue(StatesProperty, value);
 
     public static TransitionsCollection GetTransitions(BindableObject view) => (TransitionsCollection)view.GetValue(TransitionsProperty);
     public static void SetTransitions(BindableObject view, TransitionsCollection value) => view.SetValue(TransitionsProperty, value);
@@ -43,13 +43,13 @@ public class Has
     {
         if (bindable is not VisualElement ve) return;
 
-        if (oldValue is not null and StylesCollection oldStylesCollection)
+        if (oldValue is not null and StatesCollection oldStylesCollection)
         {
             oldStylesCollection.Dispose();
             foreach (var oldStyle in oldStylesCollection) oldStyle.Dispose();
         }
 
-        var styleCollection = (StylesCollection?)newValue ?? [];
+        var styleCollection = (StatesCollection?)newValue ?? [];
         styleCollection.Initialize(ve);
 
         foreach (var style in styleCollection)

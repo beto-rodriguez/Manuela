@@ -8,15 +8,15 @@ using Manuela.Styling.ConditionalStyles;
 
 namespace Manuela;
 
-public class StylesCollection : ObservableCollection<ConditionalStyle>
+public class StatesCollection : ObservableCollection<ConditionalStyle>
 {
     private bool _initialized;
     private VisualElement? _visualElement;
 
-    public StylesCollection()
+    public StatesCollection()
     { }
 
-    public StylesCollection(List<ConditionalStyle> list) : base(list) { }
+    public StatesCollection(List<ConditionalStyle> list) : base(list) { }
 
     public bool ApplyPropertyIfMet(
         VisualElement visual,
@@ -71,7 +71,7 @@ public class StylesCollection : ObservableCollection<ConditionalStyle>
                 }
                 break;
             case NotifyCollectionChangedAction.Reset:
-                _visualElement.SetValue(Has.StatesProperty, new StylesCollection([.. this]));
+                _visualElement.SetValue(Has.StatesProperty, new StatesCollection([.. this]));
                 break;
             // we can safely ignore.
             case NotifyCollectionChangedAction.Replace:

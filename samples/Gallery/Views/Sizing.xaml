@@ -81,7 +81,6 @@
                 Text="Border radius"
                 Style="{StaticResource SubHeadline}"/>
 
-            
             <HorizontalStackLayout>
                 <Border>
                     <Border.StrokeShape>

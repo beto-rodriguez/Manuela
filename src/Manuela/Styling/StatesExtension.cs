@@ -6,7 +6,7 @@ using Manuela.Styling.ConditionalStyles.Screen;
 
 namespace Manuela;
 
-public class StatesExtension : IMarkupExtension<StylesCollection>
+public class StatesExtension : IMarkupExtension<StatesCollection>
 {
     public ManuelaSettersDictionary? Checked { get; set; }
     public ManuelaSettersDictionary? Default { get; set; }
@@ -43,9 +43,9 @@ public class StatesExtension : IMarkupExtension<StylesCollection>
     public Breakpoint LgMaxBreakpoint { get; set; } = Breakpoint.Xxl;
     public Breakpoint XlMaxBreakpoint { get; set; } = Breakpoint.Xxl;
 
-    public StylesCollection ProvideValue(IServiceProvider serviceProvider)
+    public StatesCollection ProvideValue(IServiceProvider serviceProvider)
     {
-        var collection = new StylesCollection();
+        var collection = new StatesCollection();
 
         if (Checked is not null) collection.Add(new Checked { Setters = Checked });
         if (Default is not null) collection.Add(new Default { Setters = Default });

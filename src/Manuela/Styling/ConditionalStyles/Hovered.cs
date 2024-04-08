@@ -24,7 +24,8 @@ public class Hovered : ConditionalStyle
                 _element = view;
 
                 _behavior = new Behaviors.Behavior(v);
-                _behavior.Enter += () => v.SetValue(Has.IsHoverStateProperty, true);
+                _behavior.Enter += () =>
+                    v.SetValue(Has.IsHoverStateProperty, true);
                 _behavior.Exit += () => v.SetValue(Has.IsHoverStateProperty, false);
 
                 return [new(v, ["IsHoverState"])];

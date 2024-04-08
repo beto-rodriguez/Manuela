@@ -53,10 +53,10 @@
                     HorizontalOptions="Center">
 
                     <m:Has.States>
-                        <m:StylesCollection>
+                        <m:StatesCollection>
                             <m:Default Setters="{m:Set Opacity=0.75}" />
                             <m:State Name="active" Setters="{m:Set TextColor=Primary, Opacity=1}"/>
-                        </m:StylesCollection>
+                        </m:StatesCollection>
                     </m:Has.States>
                 </mi:MauiIcon>
 
@@ -67,10 +67,10 @@
                     HorizontalOptions="Center">
 
                     <m:Has.States>
-                        <m:StylesCollection>
+                        <m:StatesCollection>
                             <m:State Name="active" Setters="{m:Set TextColor=Primary}"/>
                             <m:OnScreenSize Xs="{m:Set TextSize=10}" Md="{m:Set TextSize=15}"/>
-                        </m:StylesCollection>
+                        </m:StatesCollection>
                     </m:Has.States>
                 </Label>
 
