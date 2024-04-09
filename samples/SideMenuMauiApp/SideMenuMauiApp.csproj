@@ -66,25 +66,4 @@
     <ProjectReference Include="..\..\src\Manuela\Manuela.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="AppLayout.xaml.cs">
-      <DependentUpon>AppLayout.xaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <MauiXaml Update="AppLayout.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </MauiXaml>
-    <MauiXaml Update="Layout\AppMenu.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </MauiXaml>
-    <MauiXaml Update="Layout\HamburgerButton.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </MauiXaml>
-    <MauiXaml Update="Layout\Shadow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </MauiXaml>
-  </ItemGroup>
-
 </Project>

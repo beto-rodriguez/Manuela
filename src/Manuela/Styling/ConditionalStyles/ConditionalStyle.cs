@@ -40,6 +40,9 @@ public class ConditionalStyle
         if (Application.Current is not null)
             Application.Current.RequestedThemeChanged += OnThemeChanged;
 
+        // used by source generators to initialize the triggers.
+        OnInitialized();
+
         if (_condition?.Triggers is null)
             throw new Exception(
                 "Manuela was not able to find the Expression triggers. " +
@@ -181,6 +184,8 @@ public class ConditionalStyle
         foreach (var visualElement in InitializedElements)
             Apply(visualElement);
     }
+
+    protected virtual void OnInitialized() { }
 
     private void OnThemeChanged(object? sender, AppThemeChangedEventArgs e)
     {

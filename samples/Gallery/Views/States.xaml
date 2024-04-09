@@ -2,6 +2,7 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:m="clr-namespace:Manuela;assembly=Manuela"
+             xmlns:local="clr-namespace:Gallery.Views"
              x:Class="Gallery.Views.States">
     <ScrollView>
         <VerticalStackLayout>
@@ -15,14 +16,11 @@
             <Label
                 Text="States simplify the syntax, this makes Xaml easier to read and maintain."/>
 
+            <!-- https://learn.microsoft.com/en-us/dotnet/maui/fundamentals/triggers?view=net-maui-8.0#property-triggers -->
             <Label
                 Margin="0, 20"
                 Text="Property triggers"
                 Style="{StaticResource SubHeadline}" />
-
-            <!--
-            https://learn.microsoft.com/en-us/dotnet/maui/fundamentals/triggers?view=net-maui-8.0#property-triggers
-            -->
 
             <Label
                 Text="There are multiple pre-defined property triggers, Disabled, Focused, Hovered, Pressed, Selected, Checked and UnChecked."/>
@@ -69,6 +67,7 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
+            <!-- https://learn.microsoft.com/en-us/dotnet/maui/fundamentals/triggers?view=net-maui-8.0#apply-a-trigger-using-a-style -->
             <Label
                 Margin="0, 20"
                 Text="States using a style"
@@ -76,25 +75,43 @@
 
             <VerticalStackLayout>
                 <VerticalStackLayout.Resources>
-                    <Style TargetType="Label">
-                        <!--<Setter Property="Background" Value="Red"/>-->
+                    <Style TargetType="Entry">
+                        <Setter Property="Background" Value="{m:Brush 'Primary,Swatch300'}"/>
                         <Setter Property="m:Has.States">
                             <Setter.Value>
                                 <m:StatesCollection>
-                                    <m:Hovered Setters="{m:Set Background=Secondary}" />
+                                    <m:Hovered Setters="{m:Set Background=Primary}" />
+                                    <m:Disabled Setters="{m:Set Background= 'Primary,Swatch100'}"/>
                                 </m:StatesCollection>
                             </Setter.Value>
                         </Setter>
                     </Style>
                 </VerticalStackLayout.Resources>
 
-                <Label Text="Hover me" />
-                <Label Text="Hover me" />
-                <Label Text="Hover me" />
+                <Entry Text="Hover me" />
+                <Entry Text="Hover me" IsEnabled="False" />
+                <Entry Text="Hover me" />
+                <Entry Text="Hover me" />
 
             </VerticalStackLayout>
 
-            
+            <!-- https://learn.microsoft.com/en-us/dotnet/maui/fundamentals/triggers?view=net-maui-8.0#data-triggers -->
+            <Label
+                Margin="0, 20"
+                Text="Data triggers / Custom triggers"
+                Style="{StaticResource SubHeadline}" />
+
+            <Entry x:Name="entry" Placeholder="Enter text" />
+            <Button
+                Text="Save">
+                <m:Has.States>
+                    <m:StatesCollection>
+                        <m:Default Setters="{m:Set Background=Primary}"/>
+                        <local:MyCustomState Setters="{m:Set Background=Secondary}" TargetEntry="{x:Reference entry}"/>
+                    </m:StatesCollection>
+                </m:Has.States>
+            </Button>
+
         </VerticalStackLayout>
     </ScrollView>
 </ContentView>
