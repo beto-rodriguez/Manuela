@@ -17,29 +17,7 @@ public class OnScreenSize : ConditionalStyle
     public OnScreenSize()
     {
         // true... becase every time the breakpoint changes, we will build a new set of setters (GetSetters()) and apply them.
-        Condition = new(visualElement => true)
-        {
-            Triggers = v =>
-            {
-                _element = v;
-
-                _windowHandler = (sender, args) =>
-                {
-                    var current = (Breakpoint)v.GetValue(Has.ScreenBreakPointProperty);
-                    var breakpoint = GetBreakpoint();
-
-                    if (current == breakpoint) return;
-                    v.SetValue(Has.ScreenBreakPointProperty, breakpoint);
-                };
-
-                v.Window.SizeChanged += _windowHandler;
-
-                // initial value.
-                v.SetValue(Has.ScreenBreakPointProperty, GetBreakpoint());
-
-                return [new(v, [Has.ScreenBreakPointProperty.PropertyName])];
-            }
-        };
+        Condition = new(visualElement => true);
     }
 
     private readonly Dictionary<Breakpoint, ManuelaSettersDictionary?> _setters = [];
@@ -88,6 +66,27 @@ public class OnScreenSize : ConditionalStyle
         _element = null;
 
         base.Dispose();
+    }
+
+    protected override void OnInitialized(VisualElement visualElement)
+    {
+        _element = visualElement;
+
+        _windowHandler = (sender, args) =>
+        {
+            var current = (Breakpoint)visualElement.GetValue(Has.ScreenBreakPointProperty);
+            var breakpoint = GetBreakpoint();
+
+            if (current == breakpoint) return;
+            visualElement.SetValue(Has.ScreenBreakPointProperty, breakpoint);
+        };
+
+        visualElement.Window.SizeChanged += _windowHandler;
+
+        // initial value.
+        visualElement.SetValue(Has.ScreenBreakPointProperty, GetBreakpoint());
+
+        Condition.Triggers = [new(visualElement, [Has.ScreenBreakPointProperty.PropertyName])];
     }
 
     private Breakpoint GetBreakpoint()

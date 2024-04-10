@@ -9,9 +9,11 @@ public class Default : ConditionalStyle
 {
     public Default()
     {
-        Condition = new(visualElement => true)
-        {
-            Triggers = v => [new(v, [])]
-        };
+        Condition = new(visualElement => true);
+    }
+
+    protected override void OnInitialized(VisualElement visualElement)
+    {
+        Condition.Triggers = [new(visualElement, [])];
     }
 }

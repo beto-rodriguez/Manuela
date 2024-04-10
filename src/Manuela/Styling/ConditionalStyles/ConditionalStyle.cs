@@ -9,7 +9,6 @@ public class ConditionalStyle
 {
     private ManuelaSettersDictionary? _setters;
     private XamlCondition? _condition;
-    private Expressions.Trigger[] _triggers = [];
 
     public ManuelaSettersDictionary? Setters
     {
@@ -23,9 +22,9 @@ public class ConditionalStyle
         }
     }
 
-    protected internal XamlCondition? Condition
+    protected internal XamlCondition Condition
     {
-        get => _condition;
+        get => _condition ?? throw new Exception("Manuela was not able to find the state condition.");
         set { _condition = value; ReApply(); }
     }
 
@@ -40,23 +39,14 @@ public class ConditionalStyle
         if (Application.Current is not null)
             Application.Current.RequestedThemeChanged += OnThemeChanged;
 
-        // used by source generators to initialize the triggers.
-        OnInitialized();
+        OnInitialized(visual);
 
-        if (_condition?.Triggers is null)
-            throw new Exception(
-                "Manuela was not able to find the Expression triggers. " +
-                "Ensure the InitializeTriggers() method is called.");
-
-        // the "Condition?.Triggers(visual)" expression initializes and returns the "triggers"
         // a "trigger" is an object that has at least 2 things:
         //   1. An INotifyPropertyChanged object.
         //   2. A HashSet containing the property names in the INPC object that fire an update
         // finally we attach a handler to each INPC and listen for changes in the target properties.
 
-        _triggers = _condition?.Triggers(visual) ?? [];
-
-        foreach (var trigger in _triggers)
+        foreach (var trigger in Condition.Triggers)
         {
             // null notifier are valid. the user has the freedom to pass a null intance.
             if (trigger.Notifier is null) continue;
@@ -173,13 +163,13 @@ public class ConditionalStyle
         if (Application.Current is not null)
             Application.Current.RequestedThemeChanged -= OnThemeChanged;
 
-        foreach (var trigger in _triggers)
+        foreach (var trigger in Condition.Triggers)
         {
             if (trigger.Notifier is null) continue;
             trigger.Notifier.PropertyChanged -= trigger.NotifierHandler;
         }
 
-        _triggers = [];
+        Condition = null!;
         InitializedElements.Clear();
     }
 
@@ -189,7 +179,7 @@ public class ConditionalStyle
             Apply(visualElement);
     }
 
-    protected virtual void OnInitialized() { }
+    protected virtual void OnInitialized(VisualElement visualElement) { }
 
     private void OnThemeChanged(object? sender, AppThemeChangedEventArgs e)
     {

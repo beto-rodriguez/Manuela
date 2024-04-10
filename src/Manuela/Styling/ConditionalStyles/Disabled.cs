@@ -9,9 +9,11 @@ public class Disabled : ConditionalStyle
 {
     public Disabled()
     {
-        Condition = new(visualElement => !visualElement.IsEnabled)
-        {
-            Triggers = v => [new(v, [nameof(VisualElement.IsEnabled)])]
-        };
+        Condition = new(visualElement => !visualElement.IsEnabled);
+    }
+
+    protected override void OnInitialized(VisualElement visualElement)
+    {
+        Condition.Triggers = [new(visualElement, [nameof(VisualElement.IsEnabled)])];
     }
 }

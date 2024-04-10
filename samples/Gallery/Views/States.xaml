@@ -2,7 +2,7 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:m="clr-namespace:Manuela;assembly=Manuela"
-             xmlns:local="clr-namespace:Gallery.Views"
+             xmlns:custom="clr-namespace:Gallery.Views.CustromTriggers"
              x:Class="Gallery.Views.States">
     <ScrollView>
         <VerticalStackLayout>
@@ -95,7 +95,6 @@
 
             </VerticalStackLayout>
 
-            <!-- https://learn.microsoft.com/en-us/dotnet/maui/fundamentals/triggers?view=net-maui-8.0#data-triggers -->
             <Label
                 Margin="0, 20"
                 Text="Data triggers / Custom triggers"
@@ -106,11 +105,30 @@
                 Text="Save">
                 <m:Has.States>
                     <m:StatesCollection>
-                        <m:Default Setters="{m:Set Background=Primary}"/>
-                        <local:MyCustomState Setters="{m:Set Background=Secondary}" TargetEntry="{x:Reference entry}"/>
+                        <custom:IsEmpty Entry="{x:Reference entry}" Setters="{m:Set IsEnabled=False}"/>
                     </m:StatesCollection>
                 </m:Has.States>
             </Button>
+            
+            <Label
+                Margin="0, 20"
+                Text="In the next trigger we evaluate if any entry child text is empty." />
+
+            <VerticalStackLayout x:Name="layout">
+                <Entry Placeholder="Enter mail" />
+                <Entry  Placeholder="Enter phone" />
+
+                <Button
+                    Text="Save">
+                    <m:Has.States>
+                        <m:StatesCollection>
+                            <custom:IsAnyChildEmpty
+                                Layout="{x:Reference layout}"
+                                Setters="{m:Set IsEnabled=False}"/>
+                        </m:StatesCollection>
+                    </m:Has.States>
+                </Button>
+            </VerticalStackLayout>
 
         </VerticalStackLayout>
     </ScrollView>

@@ -14,46 +14,7 @@ public class Pressed : ConditionalStyle
 
     public Pressed()
     {
-        Condition = new(visualElement => (bool)visualElement.GetValue(Has.IsPressedStateProperty))
-        {
-            Triggers = v =>
-            {
-                _element = v;
-
-                // we could just use the GetViewTriggers???
-                // probably yes... but lets use the Maui things for now
-
-                if (v is Button button)
-                {
-                    _propertyChangedEventHandler = (sender, e) =>
-                    {
-                        if (e.PropertyName is null or not (nameof(Button.IsPressed)))
-                            return;
-
-                        v.SetValue(Has.IsPressedStateProperty, button.IsPressed);
-                    };
-
-                    button.PropertyChanged += _propertyChangedEventHandler;
-
-                    return [new(v, ["IsPressed"])];
-                }
-
-                if (v is ImageButton imageButton)
-                {
-                    _propertyChangedEventHandler += (sender, e) =>
-                    {
-                        if (e.PropertyName is null or not (nameof(ImageButton.IsPressed)))
-                            return;
-
-                        v.SetValue(Has.IsPressedStateProperty, imageButton.IsPressed);
-                    };
-
-                    imageButton.PropertyChanged += _propertyChangedEventHandler;
-                }
-
-                return GetViewTriggers()(v);
-            }
-        };
+        Condition = new(visualElement => (bool)visualElement.GetValue(Has.IsPressedStateProperty));
     }
 
     public override void Dispose()
@@ -68,23 +29,52 @@ public class Pressed : ConditionalStyle
         base.Dispose();
     }
 
-    private Func<VisualElement, Expressions.Trigger[]> GetViewTriggers()
+    protected override void OnInitialized(VisualElement visualElement)
     {
-        return v =>
+        _element = visualElement;
+
+        // we could just use the GetViewTriggers???
+        // probably yes... but lets use the Maui things for now
+
+        if (visualElement is Button button)
+        {
+            _propertyChangedEventHandler = (sender, e) =>
+            {
+                if (e.PropertyName is null or not (nameof(Button.IsPressed)))
+                    return;
+
+                visualElement.SetValue(Has.IsPressedStateProperty, button.IsPressed);
+            };
+
+            button.PropertyChanged += _propertyChangedEventHandler;
+        }
+        else if (visualElement is ImageButton imageButton)
+        {
+            _propertyChangedEventHandler += (sender, e) =>
+            {
+                if (e.PropertyName is null or not (nameof(ImageButton.IsPressed)))
+                    return;
+
+                visualElement.SetValue(Has.IsPressedStateProperty, imageButton.IsPressed);
+            };
+
+            imageButton.PropertyChanged += _propertyChangedEventHandler;
+        }
+        else
         {
 #if DEBUG
-            if (v is not View view)
+            if (visualElement is not View view)
                 throw new Exception(
-                    $"{nameof(Pressed)} trigger is not supported in elements of type {v.GetType()}. " +
+                    $"{nameof(Pressed)} trigger is not supported in elements of type {visualElement.GetType()}. " +
                     $"The type does not inherit from {nameof(View)}");
 #endif
 
-            _behavior = new Behaviors.Behavior(v);
+            _behavior = new Behaviors.Behavior(visualElement);
 
-            _behavior.Down += () => v.SetValue(Has.IsPressedStateProperty, true);
-            _behavior.Up += () => v.SetValue(Has.IsPressedStateProperty, false);
+            _behavior.Down += () => visualElement.SetValue(Has.IsPressedStateProperty, true);
+            _behavior.Up += () => visualElement.SetValue(Has.IsPressedStateProperty, false);
+        }
 
-            return [new(v, ["IsPressedState"])];
-        };
+        Condition.Triggers = [new(visualElement, [Has.IsPressedStateProperty.PropertyName])];
     }
 }

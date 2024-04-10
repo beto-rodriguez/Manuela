@@ -9,11 +9,13 @@ public class State : ConditionalStyle
 {
     public State()
     {
-        Condition = new(visualElement => Name == (string?)visualElement.GetValue(Has.CustomStateProperty))
-        {
-            Triggers = v => [new(v, [Has.CustomStateProperty.PropertyName])]
-        };
+        Condition = new(visualElement => Name == (string?)visualElement.GetValue(Has.CustomStateProperty));
     }
 
     public string? Name { get; set; }
+
+    protected override void OnInitialized(VisualElement visualElement)
+    {
+        Condition.Triggers = [new(visualElement, [Has.CustomStateProperty.PropertyName])];
+    }
 }

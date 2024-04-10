@@ -13,46 +13,7 @@ public class Checked : ConditionalStyle
 
     public Checked()
     {
-        Condition = new(ConditionDefinition)
-        {
-            Triggers = v =>
-            {
-                _element = v;
-
-                if (v is CheckBox checkBox)
-                {
-                    _propertyChangedEventHandler += (sender, e) =>
-                    {
-                        if (e.PropertyName is null or not (nameof(CheckBox.IsChecked)))
-                            return;
-
-                        v.SetValue(Has.IsCheckedStateProperty, checkBox.IsChecked);
-                    };
-
-                    checkBox.PropertyChanged += _propertyChangedEventHandler;
-
-                    return [new(v, [nameof(CheckBox.IsChecked)])];
-                }
-
-                if (v is RadioButton radioButton)
-                {
-                    _propertyChangedEventHandler = (sender, e) =>
-                    {
-                        if (e.PropertyName is null or not (nameof(RadioButton.IsChecked)))
-                            return;
-
-                        v.SetValue(Has.IsCheckedStateProperty, radioButton.IsChecked);
-                    };
-
-                    radioButton.PropertyChanged += _propertyChangedEventHandler;
-
-                    return [new(v, [nameof(RadioButton.IsChecked)])];
-                }
-
-                throw new Exception(
-                    $"{nameof(Checked)} trigger is not supported in elements of type {v.GetType()}.");
-            }
-        };
+        Condition = new(ConditionDefinition);
     }
 
     public override void Dispose()
@@ -63,6 +24,39 @@ public class Checked : ConditionalStyle
         _element = null;
 
         base.Dispose();
+    }
+
+    protected override void OnInitialized(VisualElement visualElement)
+    {
+        _element = visualElement;
+
+        if (visualElement is CheckBox checkBox)
+        {
+            _propertyChangedEventHandler += (sender, e) =>
+            {
+                if (e.PropertyName is null or not (nameof(CheckBox.IsChecked)))
+                    return;
+
+                visualElement.SetValue(Has.IsCheckedStateProperty, checkBox.IsChecked);
+            };
+
+            checkBox.PropertyChanged += _propertyChangedEventHandler;
+        }
+
+        if (visualElement is RadioButton radioButton)
+        {
+            _propertyChangedEventHandler = (sender, e) =>
+            {
+                if (e.PropertyName is null or not (nameof(RadioButton.IsChecked)))
+                    return;
+
+                visualElement.SetValue(Has.IsCheckedStateProperty, radioButton.IsChecked);
+            };
+
+            radioButton.PropertyChanged += _propertyChangedEventHandler;
+        }
+
+        Condition.Triggers = [new(visualElement, [Has.IsCheckedStateProperty.PropertyName])];
     }
 
     protected virtual bool ConditionDefinition(VisualElement visualElement)

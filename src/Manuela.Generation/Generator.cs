@@ -86,7 +86,7 @@ public class Generator : IIncrementalGenerator
         {
             if (map is null) continue;
 
-            TriggerTemplate.Generate(context, map);
+            //TriggerTemplate.Generate(context, map);
         }
     }
 }

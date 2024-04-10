@@ -6,9 +6,11 @@ public class Focused : ConditionalStyle
 {
     public Focused()
     {
-        Condition = new(visualElement => visualElement.IsFocused)
-        {
-            Triggers = v => [new(v, [nameof(VisualElement.IsFocused)])]
-        };
+        Condition = new(visualElement => visualElement.IsFocused);
+    }
+
+    protected override void OnInitialized(VisualElement visualElement)
+    {
+        Condition.Triggers = [new(visualElement, [nameof(VisualElement.IsFocused)])];
     }
 }
