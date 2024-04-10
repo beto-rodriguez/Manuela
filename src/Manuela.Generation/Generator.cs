@@ -31,7 +31,7 @@ public class Generator : IIncrementalGenerator
             && ins.Identifier.Text == "XamlState";
     }
 
-    private static TriggersMap? GetSemanticTargetForGeneration(
+    private static TemplateParams GetSemanticTargetForGeneration(
         GeneratorSyntaxContext context, CancellationToken t)
     {
         s_npcSymbol ??= context.SemanticModel.Compilation
@@ -45,16 +45,10 @@ public class Generator : IIncrementalGenerator
             .FirstOrDefault(x => x is MethodDeclarationSyntax mds && mds.Identifier.Text == "IsActive");
 
         var conditionBody = condition?.Body ?? (SyntaxNode?)condition?.ExpressionBody;
+        var paramName = condition?.ParameterList.Parameters.FirstOrDefault()?.Identifier.Text;
 
-        if (condition is null || conditionBody is null || classSymbol is null) return null;
-
-        var paramName = condition.ParameterList.Parameters.FirstOrDefault()?.Identifier.Text
-            ?? "v";
-
-        var map = new TriggersMap(
-            paramName,
-            classSymbol.Name,
-            classSymbol.ContainingNamespace.ToDisplayString());
+        if (condition is null || conditionBody is null || classSymbol is null || paramName is null)
+            return TemplateParams.Empty;
 
         var referenceOperations = context.SemanticModel.GetOperation(conditionBody)
             .Descendants()
@@ -67,57 +61,64 @@ public class Generator : IIncrementalGenerator
                 return isContainedInNpc;
             });
 
+        var memberBindingExpression = new Dictionary<MemberBindingExpressionSyntax, MemberBindingExpressionSyntax>();
+        var memberAccessExpression = new Dictionary<MemberAccessExpressionSyntax, MemberAccessExpressionSyntax>();
+
         foreach (var referenceOperation in referenceOperations)
         {
-            var varName = referenceOperation.Instance?.Syntax.ToString() ?? "?";
+            var varName = referenceOperation.Member.Name.ToString() ?? "?";
 
-            // Create a new node with a different name
-            var newNode = SyntaxFactory.MemberAccessExpression(
-                SyntaxKind.SimpleMemberAccessExpression,
-                SyntaxFactory.IdentifierName(varName),
-                SyntaxFactory.IdentifierName($"new"));
+            if (referenceOperation.Syntax is MemberBindingExpressionSyntax mbxs)
+            {
+                // handles normal member access (Object.Property)
 
-            // Replace the old node with the new one
-            //root = root.ReplaceNode(oldNode.Syntax, newNode);
-            var newRoot = conditionBody.ReplaceNode(referenceOperation.Syntax, newNode);
-            var a = newRoot.ToString();
+                var newBindingExpression = SyntaxFactory.MemberBindingExpression(
+                    mbxs.OperatorToken,
+                    SyntaxFactory.IdentifierName(
+                        @$"Notify(""{mbxs.Name}"", triggers).{mbxs.Name}")); // <- too lazy to build the correct expression, is this enough?
 
-            var replacer = new ReplaceWithNotify(varName);
-            var newSyntax = replacer.Visit(referenceOperation.Instance?.Syntax);
+                memberBindingExpression.Add(mbxs, newBindingExpression);
+                continue;
+            }
+            else if (referenceOperation.Syntax is MemberAccessExpressionSyntax maxs)
+            {
+                // handles null propagation operator (Object?.Property)
 
-            map.AddProperty(newSyntax.ToString(), referenceOperation.Member.Name);
+                var newAccessExpression = SyntaxFactory.MemberAccessExpression(
+                    SyntaxKind.SimpleMemberAccessExpression,
+                    maxs.Expression,
+                    maxs.OperatorToken,
+                    SyntaxFactory.IdentifierName(
+                        @$"Notify(""{maxs.Name}"", triggers).{maxs.Name}")); // <- too lazy to build the correct expression, is this enough?
+
+                memberAccessExpression.Add(maxs, newAccessExpression);
+                continue;
+            }
+            else
+            {
+                // do we need more cases?
+                continue;
+            }
         }
 
-        return map;
+        var rewriter = new ReferenceRewriter(memberAccessExpression, memberBindingExpression);
+        var notifiersBody = rewriter.Visit(conditionBody);
+
+        return new(
+            classSymbol.ContainingNamespace.ToDisplayString(),
+            classSymbol.Name,
+            paramName,
+            notifiersBody.ToString());
     }
 
     private static void Execute(
        Compilation compilation,
-       ImmutableArray<TriggersMap?> notifiers,
+       ImmutableArray<TemplateParams> templateParamsCollection,
        SourceProductionContext context)
     {
-        if (notifiers.IsDefaultOrEmpty) return;
+        if (templateParamsCollection.IsDefaultOrEmpty) return;
 
-        foreach (var map in notifiers)
-        {
-            if (map is null) continue;
-
-            //TriggerTemplate.Generate(context, map);
-        }
-    }
-}
-
-public class ReplaceWithNotify(string originalName) : CSharpSyntaxRewriter
-{
-    private readonly string _originalName = originalName;
-
-    public override SyntaxNode? VisitIdentifierName(IdentifierNameSyntax node)
-    {
-        if (node.Identifier.ValueText == _originalName)
-        {
-            return node.WithIdentifier(SyntaxFactory.Identifier($"Notify({node.Identifier.ValueText}, \"Text\", triggers)"));
-        }
-
-        return base.VisitIdentifierName(node);
+        foreach (var templateParams in templateParamsCollection)
+            XamlStateTemplate.Generate(context, templateParams);
     }
 }

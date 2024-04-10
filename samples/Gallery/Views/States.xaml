@@ -100,6 +100,10 @@
                 Text="Data triggers / Custom triggers"
                 Style="{StaticResource SubHeadline}" />
 
+            <Label
+                Margin="0, 20"
+                Text="Disable the button when the entry text is empty." />
+
             <Entry x:Name="entry" Placeholder="Enter text" />
             <Button
                 Text="Save">
@@ -112,7 +116,7 @@
             
             <Label
                 Margin="0, 20"
-                Text="In the next trigger we evaluate if any entry child text is empty." />
+                Text="In the next trigger we evaluate if any entry child text is empty, if any is empty the button is disabled." />
 
             <VerticalStackLayout x:Name="layout">
                 <Entry Placeholder="Enter mail" />

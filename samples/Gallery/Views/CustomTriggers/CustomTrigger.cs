@@ -10,9 +10,4 @@ public partial class IsEmpty : XamlState
     {
         return Entry?.Text?.Length == 0;
     }
-
-    protected override void OnInitialized(VisualElement visual)
-    {
-        Condition = new Manuela.Expressions.XamlCondition(v => true);
-    }
 }
