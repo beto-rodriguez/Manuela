@@ -212,6 +212,10 @@ public static class ManuelaThings
         [ManuelaProperty.StackSpacing] =
             [
                 new PropertySource<StackBase>(StackBase.SpacingProperty)
+            ],
+        [ManuelaProperty.IsEnabled] =
+            [
+                new PropertySource<VisualElement>(VisualElement.IsEnabledProperty)
             ]
     };
     private static readonly Dictionary<ManuelaProperty, Func<BindableObject, object?, object?>> s_converters = new()

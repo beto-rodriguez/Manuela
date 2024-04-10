@@ -44,4 +44,5 @@ public enum ManuelaProperty
     ImageSource,
     StackOrientation,
     StackSpacing,
+    IsEnabled
 }

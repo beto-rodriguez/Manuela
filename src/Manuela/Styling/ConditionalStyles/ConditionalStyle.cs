@@ -58,6 +58,9 @@ public class ConditionalStyle
 
         foreach (var trigger in _triggers)
         {
+            // null notifier are valid. the user has the freedom to pass a null intance.
+            if (trigger.Notifier is null) continue;
+
             // save a reference to the handler, this handler has a capture on the "visual" reference.
             // this way we should be able to unsubscribe from the PropertyChanged event when the style is disposed.
 
@@ -172,6 +175,7 @@ public class ConditionalStyle
 
         foreach (var trigger in _triggers)
         {
+            if (trigger.Notifier is null) continue;
             trigger.Notifier.PropertyChanged -= trigger.NotifierHandler;
         }
 

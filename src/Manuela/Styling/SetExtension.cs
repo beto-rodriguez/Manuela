@@ -57,6 +57,7 @@ public class SetExtension : IMarkupExtension<ManuelaSettersDictionary>, INotifyP
     public string ImageSource { set => Setters[ManuelaProperty.ImageSource] = value; }
     public StackOrientation StackOrientation { set => Setters[ManuelaProperty.StackOrientation] = value; }
     public double StackSpacing { set => Setters[ManuelaProperty.StackSpacing] = value; }
+    public bool IsEnabled { set => Setters[ManuelaProperty.IsEnabled] = value; }
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
