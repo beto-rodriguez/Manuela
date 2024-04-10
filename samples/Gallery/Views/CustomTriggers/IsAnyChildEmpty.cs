@@ -14,41 +14,35 @@ public partial class IsAnyChildEmpty : XamlState
 
     protected override void OnInitialized(VisualElement visual)
     {
-        Condition = new Manuela.Expressions.XamlCondition(v => true);
+        Condition = new Manuela.Expressions.XamlCondition(IsActive);
+        var triggers = new Dictionary<INotifyPropertyChanged, Manuela.Expressions.Trigger>();
+        var evaluation = GetNotifiers(visual, triggers);
+        Condition.Triggers = [.. triggers.Values];
     }
 
-    //protected void OnInitialized2()
-    //{
-    //    Condition = new(IsActive)
-    //    {
-    //        Triggers = visualElement =>
-    //        {
-    //            var hashSet = new HashSet<Trigger>();
+    protected void OnInitialized2()
+    {
+        Condition = new(IsActive);
+    }
 
-    //            var dummyCondition = TriggersCondition(visualElement, hashSet);
+    private bool GetNotifiers(
+        VisualElement visualElement,
+        Dictionary<INotifyPropertyChanged, Manuela.Expressions.Trigger> triggers)
+    {
+        return Layout.Children.OfType<Entry>().Any(x => Notify(x, "Text", triggers).Text?.Length == 0);
+    }
 
-    //            return
-    //            [
-    //                new(Layout                        , ["Children"]),
-    //                new(x                             , ["Text"])
-    //            ];
-    //        }
-    //    };
-    //}
+    private static T Notify<T>(
+        T notifier,
+        string propertyName,
+        Dictionary<INotifyPropertyChanged, Manuela.Expressions.Trigger> triggers)
+            where T : INotifyPropertyChanged
+    {
+        if (!triggers.TryGetValue(notifier, out var trigger))
+            triggers.Add(notifier, trigger = new(notifier, [propertyName]));
 
-    //private bool TriggersCondition(VisualElement visualElement, Dictionary<INotifyPropertyChanged, Trigger> hashSet)
-    //{
-    //    return Layout.Children.OfType<Entry>().Any(x => IsNotifier(x, hashSet).Text?.Length == 0);
-    //}
+        _ = trigger.Properties.Add(propertyName);
 
-    //private static T IsNotifier<T>(
-    //    T notifier,
-    //    HashSet<Trigger> hashSet)
-    //        where T : INotifyPropertyChanged
-    //{
-    //    if (hashSet.Contains(notifier)) return;
-
-    //    _ = hashSet.Add(notifier);
-    //    return notifier;
-    //}
+        return notifier;
+    }
 }

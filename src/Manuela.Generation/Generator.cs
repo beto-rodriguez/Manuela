@@ -1,4 +1,5 @@
 ﻿using System.Collections.Immutable;
+using System.Xml.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -57,19 +58,34 @@ public class Generator : IIncrementalGenerator
 
         var referenceOperations = context.SemanticModel.GetOperation(conditionBody)
             .Descendants()
-            .OfType<IMemberReferenceOperation>();
+            .OfType<IMemberReferenceOperation>()
+            .Where(referenceOperation =>
+            {
+                var isContainedInNpc = referenceOperation.Member.ContainingType?.AllInterfaces
+                    .Any(x => SymbolEqualityComparer.Default.Equals(x, s_npcSymbol)) ?? false;
+
+                return isContainedInNpc;
+            });
 
         foreach (var referenceOperation in referenceOperations)
         {
-            var isContainedInNpc = referenceOperation.Member.ContainingType?.AllInterfaces
-                .Any(x => SymbolEqualityComparer.Default.Equals(x, s_npcSymbol)) ?? false;
-
-            var isTrigger = isContainedInNpc && referenceOperation.Member.Kind == SymbolKind.Property;
-
-            if (!isContainedInNpc || referenceOperation.Member.Kind != SymbolKind.Property) continue;
-
             var varName = referenceOperation.Instance?.Syntax.ToString() ?? "?";
-            map.AddProperty(varName, referenceOperation.Member.Name);
+
+            // Create a new node with a different name
+            var newNode = SyntaxFactory.MemberAccessExpression(
+                SyntaxKind.SimpleMemberAccessExpression,
+                SyntaxFactory.IdentifierName(varName),
+                SyntaxFactory.IdentifierName($"new"));
+
+            // Replace the old node with the new one
+            //root = root.ReplaceNode(oldNode.Syntax, newNode);
+            var newRoot = conditionBody.ReplaceNode(referenceOperation.Syntax, newNode);
+            var a = newRoot.ToString();
+
+            var replacer = new ReplaceWithNotify(varName);
+            var newSyntax = replacer.Visit(referenceOperation.Instance?.Syntax);
+
+            map.AddProperty(newSyntax.ToString(), referenceOperation.Member.Name);
         }
 
         return map;
@@ -88,5 +104,20 @@ public class Generator : IIncrementalGenerator
 
             //TriggerTemplate.Generate(context, map);
         }
+    }
+}
+
+public class ReplaceWithNotify(string originalName) : CSharpSyntaxRewriter
+{
+    private readonly string _originalName = originalName;
+
+    public override SyntaxNode? VisitIdentifierName(IdentifierNameSyntax node)
+    {
+        if (node.Identifier.ValueText == _originalName)
+        {
+            return node.WithIdentifier(SyntaxFactory.Identifier($"Notify({node.Identifier.ValueText}, \"Text\", triggers)"));
+        }
+
+        return base.VisitIdentifierName(node);
     }
 }

@@ -18,26 +18,23 @@ public partial class {map.ContainingTypeName}
 {{
     protected override void OnInitialized()
     {{
-        Condition = new(IsActive)
-        {{
-            Triggers = {map.VisualElementParameterName} =>
-            {{
-                 var t = new HashSet<System.ComponentModel.INotifyPropertyChanged>();
-
-                //var dummyCondition = IsActive({map.VisualElementParameterName});
-
-
-                return {AsTriggers(map)}
-            }}
-        }};
+        Condition = new Manuela.Expressions.XamlCondition(IsActive);
+        var triggers = new Dictionary<INotifyPropertyChanged, Manuela.Expressions.Trigger>();
+        var evaluation = GetNotifiers(visual, triggers);
+        Condition.Triggers = [.. triggers.Values];
     }}
 
-    private static T IsNotifier<T>(
+    private static T Notify<T>(
         T notifier,
-        HashSet<INotifyPropertyChanged> hashSet)
+        string propertyName,
+        Dictionary<INotifyPropertyChanged, Manuela.Expressions.Trigger> triggers)
             where T : INotifyPropertyChanged
     {{
-        _ = hashSet.Add(notifier);
+        if (!triggers.TryGetValue(notifier, out var trigger))
+            triggers.Add(notifier, trigger = new(notifier, [propertyName]));
+
+        _ = trigger.Properties.Add(propertyName);
+
         return notifier;
     }}
 }}
