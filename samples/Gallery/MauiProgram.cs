@@ -20,6 +20,7 @@ public static class MauiProgram
                 new Route<States>(),
                 new Route<Sizing>(),
                 new Route<Spacing>(),
+                new Route<Transitions>()
             ])
             .UseMaterialRoundedMauiIcons()
             .ConfigureFonts(fonts =>

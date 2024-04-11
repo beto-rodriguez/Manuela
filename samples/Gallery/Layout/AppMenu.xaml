@@ -26,6 +26,7 @@
             <layout:MenuItemModel DisplayName="Brushes and Colors"  Route="Brushes"     Icon="Brush"/>
             <layout:MenuItemModel DisplayName="Sizing"              Route="Sizing"      Icon="DensityLarge"/>
             <layout:MenuItemModel DisplayName="States"              Route="States"      Icon="RealEstateAgent"/>
+            <layout:MenuItemModel DisplayName="Transitions"         Route="Transitions" Icon="FastForward"/>
             <layout:MenuItemModel DisplayName="Spacing"             Route="Spacing"     Icon="SpaceBar"/>
         </x:Array>
 

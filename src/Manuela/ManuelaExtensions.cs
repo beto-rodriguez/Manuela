@@ -15,7 +15,7 @@ public static class ManuelaExtensions
 
         foreach (var route in routes)
         {
-            AppRouting.Routing.Routes.Add(route.Name, route);
+            AppRouting.Routing.Routes.Add(route.RouteName, route);
 
             if (route.IsSingleton)
                 _ = serviceCollection.AddSingleton(route.ViewType);

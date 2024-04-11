@@ -63,7 +63,6 @@ public class TransitionsExtension : IMarkupExtension<TransitionsCollection>
             }
         }
 
-
         var collection = new TransitionsCollection();
 
         foreach (var item in _properties.Values)
