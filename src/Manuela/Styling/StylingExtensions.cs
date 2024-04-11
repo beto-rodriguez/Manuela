@@ -5,14 +5,19 @@ namespace Manuela.Styling;
 
 public static class StylingExtensions
 {
-    public static Breakpoint GetScreenBreakpoint(this VisualElement visualElement)
+    public static string GetCustomState(this VisualElement visualElement)
     {
-        return OnScreenSize.GetBreakpoint(visualElement);
+        return (string)visualElement.GetValue(Has.CustomStateProperty);
     }
 
     public static void SetCustomState(this VisualElement visualElement, string? state)
     {
         visualElement.SetValue(Has.CustomStateProperty, state);
+    }
+
+    public static Breakpoint GetScreenBreakpoint(this VisualElement visualElement)
+    {
+        return OnScreenSize.GetBreakpoint(visualElement);
     }
 
     public static void SetManuelaStyle(this VisualElement visualElement, object setters, bool animated = true)

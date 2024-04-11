@@ -1,6 +1,11 @@
 ﻿using Manuela.Styling.ConditionalStyles;
 
-namespace Gallery.Views.CustromTriggers;
+namespace Gallery.Views.CustomStates;
+
+// custom states are experimental.
+// Objects that inherit from XamlState will use Manuela's source generator.
+// it generates the necessary code to make the trigger work.
+// source generatos could fail if the "IsActive" method is too complex.
 
 public partial class IsAnyChildEmpty : XamlState
 {
