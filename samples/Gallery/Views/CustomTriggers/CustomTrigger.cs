@@ -8,6 +8,6 @@ public partial class IsEmpty : XamlState
 
     public override bool IsActive(VisualElement visualElement)
     {
-        return Entry?.Text?.Length == 0;
+        return string.IsNullOrEmpty(Entry?.Text);
     }
 }

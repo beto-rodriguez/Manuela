@@ -17,4 +17,15 @@ public static class GeneratorExtensions
 
         return notifier;
     }
+
+    public static IEnumerable<T> Listen<T, U>(this IEnumerable<T> source, Func<T, U> predicate)
+    {
+        // a dummy iteration to trigger the predicate.
+        foreach (var item in source)
+        {
+            _ = predicate(item);
+        }
+
+        return source;
+    }
 }
