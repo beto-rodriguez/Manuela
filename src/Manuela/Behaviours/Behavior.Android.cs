@@ -11,8 +11,7 @@ public partial class Behavior
 {
     private void OnAndroidTouched(object? sender, Android.Views.View.TouchEventArgs e)
     {
-        var viewGroup = (ViewGroup?)sender;
-        if (e.Event is null || viewGroup is null) return;
+        if (e.Event is null) return;
 
 #pragma warning disable CA1416
         switch (e.Event.ActionMasked)
