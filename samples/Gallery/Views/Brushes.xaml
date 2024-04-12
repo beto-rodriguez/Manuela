@@ -8,7 +8,7 @@
     <ContentView.Resources>
         <Style TargetType="BoxView">
             <Setter Property="WidthRequest" Value="80"/>
-            <Setter Property="MinimumHeightRequest" Value="50"/>
+            <Setter Property="HeightRequest" Value="50"/>
         </Style>
         <Style TargetType="Label">
             <Setter Property="Margin" Value="0, 0, 0, 10"/>
@@ -25,10 +25,10 @@
                 Text="There are 4 default colors, Primary, Secondary, Tertiary and gray."/>
 
             <HorizontalStackLayout>
-                <BoxView Background="{m:Brush Key=Primary}" />
-                <BoxView Background="{m:Brush Key=Secondary}" />
-                <BoxView Background="{m:Brush Key=Tertiary}" />
-                <BoxView Background="{m:Brush Key=Gray}" />
+                <BoxView Background="{m:Brush Primary}" />
+                <BoxView Background="{m:Brush Secondary}" />
+                <BoxView Background="{m:Brush Tertiary}" />
+                <BoxView Background="{m:Brush Gray}" />
             </HorizontalStackLayout>
 
             <Label

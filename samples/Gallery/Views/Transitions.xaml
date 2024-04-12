@@ -12,6 +12,7 @@
             Text="Transitions made easy... Any property inside the m:Set{} extension is animatable."/>
 
         <Button
+            Margin="0, 50"
             Text="press me and hold"
             HorizontalOptions="Start"
             m:Has.Transitions="{m:Transitions 'Scale,Rotation'}"

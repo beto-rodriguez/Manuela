@@ -128,11 +128,11 @@
             <Label Text="There are also sizes for the WidthRequest, HeightRequest, MinWidthRequest and MinHeightRequest properties."/>
 
             <HorizontalStackLayout Spacing="{m:Size Xl}">
-                <BoxView MinimumWidthRequest="{m:Size Sm}" MinimumHeightRequest="{m:Size Sm}" />
-                <BoxView MinimumWidthRequest="{m:Size Md}" MinimumHeightRequest="{m:Size Md}" />
-                <BoxView MinimumWidthRequest="{m:Size Lg}" MinimumHeightRequest="{m:Size Lg}"/>
-                <BoxView MinimumWidthRequest="{m:Size Xl}" MinimumHeightRequest="{m:Size Xl}"/>
-                <BoxView MinimumWidthRequest="{m:Size Xxl}" MinimumHeightRequest="{m:Size Xxl}"/>
+                <BoxView WidthRequest="{m:Size Sm}" HeightRequest="{m:Size Sm}" />
+                <BoxView WidthRequest="{m:Size Md}" HeightRequest="{m:Size Md}" />
+                <BoxView WidthRequest="{m:Size Lg}" HeightRequest="{m:Size Lg}"/>
+                <BoxView WidthRequest="{m:Size Xl}" HeightRequest="{m:Size Xl}"/>
+                <BoxView WidthRequest="{m:Size Xxl}" HeightRequest="{m:Size Xxl}"/>
             </HorizontalStackLayout>
 
             <Label
