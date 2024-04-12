@@ -1,4 +1,4 @@
-﻿using Manuela.Styling.ConditionalStyles;
+﻿using Manuela.States;
 
 namespace Gallery.Views.CustomStates;
 

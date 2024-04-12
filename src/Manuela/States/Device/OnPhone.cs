@@ -1,14 +1,14 @@
 ﻿// The namespace not matching the folder is intentional, see #ABOUT-XAML-NS for more info.
 // DO NOT MOVE THE NS.
 
-using Manuela.Styling.ConditionalStyles.Platform;
+using Manuela.States.Device;
 
 namespace Manuela;
 
-public class OnWindows : OnPlatform
+public class OnPhone : OnIdiom
 {
-    public OnWindows()
-        : base(DevicePlatform.WinUI)
+    public OnPhone()
+        : base(DeviceIdiom.Phone)
     {
 
     }

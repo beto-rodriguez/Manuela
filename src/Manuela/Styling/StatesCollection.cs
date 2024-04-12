@@ -4,7 +4,7 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using Manuela.Styling;
-using Manuela.Styling.ConditionalStyles;
+using Manuela.States;
 
 namespace Manuela;
 

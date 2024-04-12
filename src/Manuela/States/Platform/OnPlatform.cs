@@ -1,5 +1,5 @@
 ﻿
-namespace Manuela.Styling.ConditionalStyles.Platform;
+namespace Manuela.States.Platform;
 
 public class OnPlatform : ConditionalStyle
 {

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Manuela.Styling.ConditionalStyles;
+namespace Manuela.States;
 
 public static class GeneratorExtensions
 {

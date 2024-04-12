@@ -1,9 +1,9 @@
-﻿using System.ComponentModel;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using Manuela.Expressions;
+using Manuela.Styling;
 using Manuela.Things;
 
-namespace Manuela.Styling.ConditionalStyles;
+namespace Manuela.States;
 
 [ContentProperty(nameof(Setters))]
 public class ConditionalStyle

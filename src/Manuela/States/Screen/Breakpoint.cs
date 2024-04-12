@@ -1,4 +1,4 @@
-﻿namespace Manuela.Styling.ConditionalStyles.Screen;
+﻿namespace Manuela.States.Screen;
 
 public enum Breakpoint
 {

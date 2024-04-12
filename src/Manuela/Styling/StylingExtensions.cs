@@ -1,4 +1,4 @@
-﻿using Manuela.Styling.ConditionalStyles.Screen;
+﻿using Manuela.States.Screen;
 using Manuela.Things;
 
 namespace Manuela.Styling;

@@ -1,4 +1,4 @@
-﻿namespace Manuela.Styling.ConditionalStyles;
+﻿namespace Manuela.States;
 
 /// <summary>
 /// A class that represents a Manuela conditional style, objects that inherit from this class, will be target for code generation,

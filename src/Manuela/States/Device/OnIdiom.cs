@@ -1,5 +1,5 @@
 ﻿
-namespace Manuela.Styling.ConditionalStyles.Device;
+namespace Manuela.States.Device;
 
 public class OnIdiom : ConditionalStyle
 {

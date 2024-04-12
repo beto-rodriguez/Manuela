@@ -1,7 +1,7 @@
 ﻿// The namespace not matching the folder is intentional, see #ABOUT-XAML-NS for more info.
 // DO NOT MOVE THE NS.
 
-using Manuela.Styling.ConditionalStyles.Screen;
+using Manuela.States.Screen;
 
 namespace Manuela;
 

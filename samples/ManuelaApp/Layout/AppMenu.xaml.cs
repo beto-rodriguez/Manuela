@@ -1,5 +1,5 @@
 using Manuela.Styling;
-using Manuela.Styling.ConditionalStyles.Screen;
+using Manuela.States.Screen;
 using MauiIcons.Core;
 
 namespace ManuelaApp.Layout;

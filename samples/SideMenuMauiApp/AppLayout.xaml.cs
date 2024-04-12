@@ -1,6 +1,6 @@
 using Manuela;
 using Manuela.Styling;
-using Manuela.Styling.ConditionalStyles.Screen;
+using Manuela.States.Screen;
 using Manuela.Theming;
 using Manuela.WindowStyle;
 using MauiIcons.Core;

@@ -2,7 +2,7 @@
 // DO NOT MOVE THE NS.
 
 using System.ComponentModel;
-using Manuela.Styling.ConditionalStyles;
+using Manuela.States;
 
 namespace Manuela;
 

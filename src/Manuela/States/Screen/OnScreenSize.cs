@@ -2,8 +2,8 @@
 // DO NOT MOVE THE NS.
 
 using Manuela.Styling;
-using Manuela.Styling.ConditionalStyles;
-using Manuela.Styling.ConditionalStyles.Screen;
+using Manuela.States;
+using Manuela.States.Screen;
 
 namespace Manuela;
 
