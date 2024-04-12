@@ -17,7 +17,7 @@ public class Pressed : ConditionalStyle
         Condition = new(visualElement => (bool)visualElement.GetValue(Has.IsPressedStateProperty));
     }
 
-    public override void Dispose()
+    public override void Dispose(VisualElement visualElement)
     {
         _behavior?.Dispose();
 
@@ -26,7 +26,7 @@ public class Pressed : ConditionalStyle
 
         _element = null;
 
-        base.Dispose();
+        base.Dispose(visualElement);
     }
 
     protected override void OnInitialized(VisualElement visualElement)

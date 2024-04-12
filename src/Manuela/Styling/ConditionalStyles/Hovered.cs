@@ -15,11 +15,11 @@ public class Hovered : ConditionalStyle
         Condition = new(visualElement => (bool)visualElement.GetValue(Has.IsHoverStateProperty));
     }
 
-    public override void Dispose()
+    public override void Dispose(VisualElement visualElement)
     {
         _behavior?.Dispose();
         _element = null;
-        base.Dispose();
+        base.Dispose(visualElement);
     }
 
     protected override void OnInitialized(VisualElement visualElement)

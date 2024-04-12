@@ -16,14 +16,14 @@ public class Checked : ConditionalStyle
         Condition = new(ConditionDefinition);
     }
 
-    public override void Dispose()
+    public override void Dispose(VisualElement visualElement)
     {
         if (_element is not null)
             _element.PropertyChanged -= _propertyChangedEventHandler;
 
         _element = null;
 
-        base.Dispose();
+        base.Dispose(visualElement);
     }
 
     protected override void OnInitialized(VisualElement visualElement)

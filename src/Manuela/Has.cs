@@ -45,8 +45,11 @@ public class Has
 
         if (oldValue is not null and StatesCollection oldStylesCollection)
         {
+            foreach (var oldStyle in oldStylesCollection)
+                foreach (var visual in oldStyle.InitializedElements)
+                    oldStyle.Dispose(visual);
+
             oldStylesCollection.Dispose();
-            foreach (var oldStyle in oldStylesCollection) oldStyle.Dispose();
         }
 
         var styleCollection = (StatesCollection?)newValue ?? [];
@@ -57,9 +60,12 @@ public class Has
             if (ve.IsLoaded) style.Initialize(ve);
             else ve.Loaded += (_, _) => style.Initialize(ve);
 
-            // on data templates it seems that the loaded event is not fired...
-            // possible workaround is to use SizeChanged:
-            // ve.SizeChanged += (_, _) => style.Initialize(ve);
+            ve.Unloaded += (_, _) =>
+            {
+                style.Dispose(ve);
+                if (style.InitializedElements.Count == 0)
+                    styleCollection.Dispose();
+            };
         }
     }
 

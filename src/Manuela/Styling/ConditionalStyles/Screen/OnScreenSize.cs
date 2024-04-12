@@ -10,6 +10,7 @@ namespace Manuela;
 public class OnScreenSize : ConditionalStyle
 {
     private VisualElement? _element;
+    private Window? _window;
     private EventHandler? _windowHandler;
     private static readonly Breakpoint[] s_breakpoints =
         [Breakpoint.Xs, Breakpoint.Sm, Breakpoint.Md, Breakpoint.Lg, Breakpoint.Xl, Breakpoint.Xxl];
@@ -58,19 +59,21 @@ public class OnScreenSize : ConditionalStyle
         return mergedSetters;
     }
 
-    public override void Dispose()
+    public override void Dispose(VisualElement visualElement)
     {
-        if (_element is not null)
-            _element.Window.SizeChanged -= _windowHandler;
+        if (_window is not null)
+            _window.SizeChanged -= _windowHandler;
 
         _element = null;
+        _window = null;
 
-        base.Dispose();
+        base.Dispose(visualElement);
     }
 
     protected override void OnInitialized(VisualElement visualElement)
     {
         _element = visualElement;
+        _window = visualElement.Window;
 
         _windowHandler = (sender, args) =>
         {
@@ -81,7 +84,7 @@ public class OnScreenSize : ConditionalStyle
             visualElement.SetValue(Has.ScreenBreakPointProperty, breakpoint);
         };
 
-        visualElement.Window.SizeChanged += _windowHandler;
+        _window.SizeChanged += _windowHandler;
 
         // initial value.
         visualElement.SetValue(Has.ScreenBreakPointProperty, GetBreakpoint());
@@ -91,14 +94,14 @@ public class OnScreenSize : ConditionalStyle
 
     private Breakpoint GetBreakpoint()
     {
-        return GetBreakpoint(_element);
+        return GetBreakpoint(_element, _window);
     }
 
-    public static Breakpoint GetBreakpoint(VisualElement? element)
+    public static Breakpoint GetBreakpoint(VisualElement? element, Window? window)
     {
-        if (element is null) return Breakpoint.Xs;
+        if (element is null || window is null) return Breakpoint.Xs;
 
-        var w = element.Window.Width;
+        var w = window.Width;
         var maxBreakpoint = Breakpoint.Xs;
 
         if (w > (int)Breakpoint.Sm) maxBreakpoint = Breakpoint.Sm;

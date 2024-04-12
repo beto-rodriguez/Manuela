@@ -156,10 +156,12 @@ public class ConditionalStyle
         }
     }
 
-    public virtual void Dispose()
+    public virtual void Dispose(VisualElement visualElement)
     {
-        foreach (var visualElement in InitializedElements)
-            ClearValues(visualElement);
+        ClearValues(visualElement);
+        _ = InitializedElements.Remove(visualElement);
+
+        if (InitializedElements.Count > 0) return;
 
         if (Application.Current is not null)
             Application.Current.RequestedThemeChanged -= OnThemeChanged;
@@ -171,7 +173,6 @@ public class ConditionalStyle
         }
 
         Condition = null!;
-        InitializedElements.Clear();
     }
 
     protected void ReApply()

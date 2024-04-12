@@ -17,7 +17,7 @@ public static class StylingExtensions
 
     public static Breakpoint GetScreenBreakpoint(this VisualElement visualElement)
     {
-        return OnScreenSize.GetBreakpoint(visualElement);
+        return OnScreenSize.GetBreakpoint(visualElement, visualElement.Window);
     }
 
     public static void SetManuelaStyle(this VisualElement visualElement, object setters, bool animated = true)

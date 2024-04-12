@@ -67,7 +67,7 @@ public class StatesCollection : ObservableCollection<ConditionalStyle>
             case NotifyCollectionChangedAction.Remove:
                 foreach (var oldStyle in e.OldItems?.Cast<ConditionalStyle>() ?? empty)
                 {
-                    oldStyle.Dispose();
+                    oldStyle.Dispose(_visualElement);
                 }
                 break;
             case NotifyCollectionChangedAction.Reset:
