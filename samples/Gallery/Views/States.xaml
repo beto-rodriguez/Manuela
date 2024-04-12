@@ -78,7 +78,8 @@
                         <Setter Property="m:Has.States">
                             <Setter.Value>
                                 <m:StatesCollection>
-                                    <m:Hovered Setters="{m:Set Background=Primary}" />
+                                    <m:Hovered Setters="{m:Set Background='Primary,Swatch300'}" />
+                                    <m:Pressed Setters="{m:Set Background='Primary,Swatch600'}" />
                                     <m:Disabled Setters="{m:Set Background= 'Primary,Swatch100'}"/>
                                 </m:StatesCollection>
                             </Setter.Value>
@@ -86,10 +87,10 @@
                     </Style>
                 </VerticalStackLayout.Resources>
 
-                <Entry Text="Hover me" />
-                <Entry Text="Hover me" IsEnabled="False" />
-                <Entry Text="Hover me" />
-                <Entry Text="Hover me" />
+                <Entry Text="Press or hover me" />
+                <Entry Text="Press or hover me" IsEnabled="False" />
+                <Entry Text="Press or hover me" />
+                <Entry Text="Press or hover me" />
 
             </VerticalStackLayout>
 
@@ -159,21 +160,21 @@
             <Label
                 Margin="0, 20"
                 Text="Useful to share the UI between mutiple screen sizes, the menu on this app uses this feature, there are 4 sizes:" />
-            <Label Text="Xs &lt; 640 device-independent units" />
-            <Label Text="Xs &gt;= 640 device-independent units" />
-            <Label Text="Xs &gt;= 768 device-independent units" />
-            <Label Text="Xs &gt;= 1024 device-independent units" />
-            <Label Text="Xs &gt;= 1536 device-independent units" />
+            <Label Text="Xs &lt; 576 device-independent units" />
+            <Label Text="Sm &gt;= 576 device-independent units" />
+            <Label Text="Md &gt;= 768 device-independent units" />
+            <Label Text="Lg &gt;= 1024 device-independent units" />
+            <Label Text="Xl &gt;= 1536 device-independent units" />
 
             <Button
                 Margin="0, 10"
                 Text="This button changes background depending on the screen size"
                 m:Has.States="{m:States
-                    OnXs={m:Set Background='Primary,Swatch900'},
-                    OnSm={m:Set Background='Primary,Swatch700'},
-                    OnMd={m:Set Background='Primary,Swatch500'},
-                    OnXl={m:Set Background='Primary,Swatch300'},
-                    OnXxl={m:Set Background='Primary,Swatch200'}}">
+                    OnXs=   {m:Set Background=Primary},
+                    OnSm=   {m:Set Background=Secondary},
+                    OnMd=   {m:Set Background=Tertiary},
+                    OnXl=   {m:Set Background=Gray},
+                    OnXxl=  {m:Set Background=Gradient}}">
             </Button>
 
             <Label
@@ -187,14 +188,14 @@
 
             <Button
                 Margin="0, 10"
-                Text="This button changes background depending on the screen size"
+                Text="This button changes background depending on the OS"
                 m:Has.States="{m:States
-                    OnWindows={m:Set Background='Primary,Swatch500'},
-                    OnMacOS={m:Set Background='Primary,Swatch200'},
-                    OnAndroid={m:Set Background='Primary,Swatch900'},
-                    OniOS={m:Set Background='Primary,Swatch700'},
-                    OnWatchOS={m:Set Background='Primary,Swatch300'},
-                    OnTizen={m:Set Background='Primary,Swatch200'}}">
+                    OnWindows=  {m:Set Background=Primary},
+                    OnMacOS=    {m:Set Background=Secondary},
+                    OnAndroid=  {m:Set Background=Tertiary},
+                    OniOS=      {m:Set Background=Secondary},
+                    OnWatchOS=  {m:Set Background=Secondary},
+                    OnTizen=    {m:Set Background=Gray}}">
             </Button>
 
             <Label
@@ -210,11 +211,11 @@
                 Margin="0, 10"
                 Text="This button changes background depending on the screen size"
                 m:Has.States="{m:States
-                    OnDesktop={m:Set Background='Primary,Swatch900'},
-                    OnPhone={m:Set Background='Primary,Swatch700'},
-                    OnTablet={m:Set Background='Primary,Swatch500'},
-                    OnTV={m:Set Background='Primary,Swatch300'},
-                    OnWatch={m:Set Background='Primary,Swatch200'}}">
+                    OnDesktop=  {m:Set Background=Primary},
+                    OnPhone=    {m:Set Background=Secondary},
+                    OnTablet=   {m:Set Background=Tertiary},
+                    OnTV=       {m:Set Background=Gray},
+                    OnWatch=    {m:Set Background=Gradient}}">
             </Button>
 
         </VerticalStackLayout>
