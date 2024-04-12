@@ -397,7 +397,7 @@ public static class ManuelaThings
 
             if ((intFlags & UICC.GradientLarge) > 0)
             {
-                sw1 = UICC.Sw200;
+                sw1 = UICC.Sw100;
                 sw2 = UICC.Sw800;
             }
 
