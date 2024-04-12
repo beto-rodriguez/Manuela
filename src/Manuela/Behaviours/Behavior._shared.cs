@@ -143,10 +143,18 @@ public partial class Behavior
         var contentPanel = (Microsoft.UI.Xaml.UIElement?)_visual.Handler?.PlatformView
             ?? throw new Exception("Unable to cast to ContentPanel");
 
-        contentPanel.PointerPressed -= OnWindowsPointerPressed;
-        contentPanel.PointerReleased -= OnWindowsPointerReleased;
-        contentPanel.PointerEntered -= OnWindowsPointerEntered;
-        contentPanel.PointerExited -= OnWindowsPointerExited;
+        contentPanel.RemoveHandler(
+            Microsoft.UI.Xaml.UIElement.PointerPressedEvent,
+            new Microsoft.UI.Xaml.Input.PointerEventHandler(OnWindowsPointerPressed));
+        contentPanel.RemoveHandler(
+            Microsoft.UI.Xaml.UIElement.PointerReleasedEvent,
+            new Microsoft.UI.Xaml.Input.PointerEventHandler(OnWindowsPointerReleased));
+        contentPanel.RemoveHandler(
+            Microsoft.UI.Xaml.UIElement.PointerEnteredEvent,
+            new Microsoft.UI.Xaml.Input.PointerEventHandler(OnWindowsPointerEntered));
+        contentPanel.RemoveHandler(
+            Microsoft.UI.Xaml.UIElement.PointerExitedEvent,
+            new Microsoft.UI.Xaml.Input.PointerEventHandler(OnWindowsPointerExited));
 #endif
 
         _visual = null;
