@@ -30,7 +30,7 @@ public class ConditionalStyle
     }
 
     // initialization must be per visual.
-    // to avoid a possible issue when a resource is shared using x:StaticResource.
+    // to avoid a possible issue when the state is shared between mupltiple elements.
     public HashSet<VisualElement> InitializedElements { get; } = [];
 
     public void Initialize(VisualElement visual)
@@ -49,18 +49,18 @@ public class ConditionalStyle
 
         foreach (var trigger in Condition.Triggers)
         {
-            // null notifier are valid. the user has the freedom to pass a null intance.
+            // null notifiers are valid. the user has the freedom to pass a null intance.
             if (trigger.Notifier is null) continue;
 
             // save a reference to the handler, this handler has a capture on the "visual" reference.
-            // this way we should be able to unsubscribe from the PropertyChanged event when the style is disposed.
+            // this way we should be able to unsubscribe from the PropertyChanged event when the state is disposed.
 
             trigger.NotifierHandler = (sender, e) =>
             {
                 if (e.PropertyName is null || !trigger.Properties.Contains(e.PropertyName))
                     return;
 
-                // at this point we know that a property that was declared as a trigger has changed.
+                // at this point we know that the property that was declared as a trigger has changed.
                 Apply(visual);
             };
 

@@ -21,6 +21,9 @@ public static class GeneratorExtensions
     public static IEnumerable<T> Listen<T, U>(this IEnumerable<T> source, Func<T, U> predicate)
     {
         // a dummy iteration to trigger the predicate.
+        // this is only necesary once, when the state is initialized.
+        // we could improve this method by removing the foreach in the source generator.
+
         foreach (var item in source)
         {
             _ = predicate(item);

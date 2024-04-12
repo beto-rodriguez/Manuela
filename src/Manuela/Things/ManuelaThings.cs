@@ -258,6 +258,7 @@ public static class ManuelaThings
                             s.Green + t * (e.Green - s.Green),
                             s.Blue + t * (e.Blue - s.Blue),
                             s.Alpha + t * (e.Alpha - s.Alpha)));
+
                     // NOTE #1
                     // maybe better performance? set a new instance of?
                     //bindable.SetValue(

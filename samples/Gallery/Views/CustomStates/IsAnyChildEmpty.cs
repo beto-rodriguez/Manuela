@@ -3,9 +3,9 @@
 namespace Gallery.Views.CustomStates;
 
 // custom states are experimental.
-// Objects that inherit from XamlState will use Manuela's source generator.
+// objects that inherit from XamlState will use Manuela's source generator.
 // it generates the necessary code to make the trigger work.
-// source generatos could fail if the "IsActive" method is too complex.
+// source generator could fail if the "IsActive" method is too complex.
 
 public partial class IsAnyChildEmpty : XamlState
 {
@@ -15,7 +15,7 @@ public partial class IsAnyChildEmpty : XamlState
     {
         return Layout.Children
             .OfType<Entry>()
-            .Listen(x => x.Text) // ensures that the states is re-evaluated when any child text changes.
+            .Listen(x => x.Text) // ensures that the state is re-evaluated when any child Text changes.
             .Any(x => string.IsNullOrEmpty(x.Text));
     }
 }
