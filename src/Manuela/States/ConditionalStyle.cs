@@ -25,7 +25,7 @@ public class ConditionalStyle
 
     protected internal XamlCondition Condition
     {
-        get => _condition ?? throw new Exception("Manuela was not able to find the state condition.");
+        get => _condition ?? new(v => false); // "allow" nulls, a hack for hot reload.
         set { _condition = value; ReApply(); }
     }
 
