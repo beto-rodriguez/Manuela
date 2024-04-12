@@ -25,7 +25,7 @@ public class ConditionalStyle
 
     protected internal XamlCondition Condition
     {
-        get => _condition ?? new(v => false); // "allow" nulls, a hack for hot reload.
+        get => _condition ?? XamlCondition.Empty; // "allow" nulls, a hack for hot reload.
         set { _condition = value; ReApply(); }
     }
 
