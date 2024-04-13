@@ -80,16 +80,16 @@ public partial class Behavior
 #endif
 
 #if MACCATALYST || IOS
-        var contentView = (Microsoft.Maui.Platform.ContentView?)visual.Handler?.PlatformView
+        var uiView = (UIKit.UIView?)visual.Handler?.PlatformView
             ?? throw new Exception("Unable to cast to ContentView");
 
-        contentView.UserInteractionEnabled = true;
+        uiView.UserInteractionEnabled = true;
 
 #if MACCATALYST
-        contentView.AddGestureRecognizer(GetMacCatalystHover(contentView));
+        uiView.AddGestureRecognizer(GetMacCatalystHover(uiView));
 #endif
 
-        contentView.AddGestureRecognizer(GetMacCatalystLongPress(contentView));
+        uiView.AddGestureRecognizer(GetMacCatalystLongPress(uiView));
 #endif
 
 #if WINDOWS
@@ -127,16 +127,16 @@ public partial class Behavior
 #endif
 
 #if MACCATALYST || IOS
-        var contentView = (Microsoft.Maui.Platform.ContentView?)_visual.Handler?.PlatformView
+        var uiView = (UIKit.UIView?)_visual.Handler?.PlatformView
             ?? throw new Exception("Unable to cast to ContentView");
 
 #if MACCATALYST
         if (_hoverRecognizer is not null)
-            contentView.RemoveGestureRecognizer(_hoverRecognizer);
+            uiView.RemoveGestureRecognizer(_hoverRecognizer);
 #endif
 
         if (_longPressRecognizer is not null)
-            contentView.RemoveGestureRecognizer(_longPressRecognizer);
+            uiView.RemoveGestureRecognizer(_longPressRecognizer);
 #endif
 
 #if WINDOWS
