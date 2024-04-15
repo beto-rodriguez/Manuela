@@ -10,8 +10,8 @@
             <Setter Property="Margin" Value="0, 10"/>
         </Style>
         <Style TargetType="BoxView">
-            <Setter Property="MinimumWidthRequest" Value="50"/>
-            <Setter Property="MinimumHeightRequest" Value="50"/>
+            <Setter Property="WidthRequest" Value="50"/>
+            <Setter Property="HeightRequest" Value="50"/>
             <Setter Property="Color" Value="#a855f7"/>
             <Setter Property="CornerRadius" Value="10"/>
             <Setter Property="VerticalOptions" Value="Center"/>
@@ -29,6 +29,9 @@
         <Style TargetType="Button">
             <Setter Property="VerticalOptions" Value="Center"/>
             <Setter Property="BorderColor" Value="#000"/>
+            <Setter Property="BorderWidth" Value="1"/>
+            <Setter Property="Background" Value="#a855f7"/>
+            <Setter Property="TextColor" Value="#fff"/>
         </Style>
 
     </ContentView.Resources>
@@ -81,7 +84,7 @@
                 Text="Border radius"
                 Style="{StaticResource SubHeadline}"/>
 
-            <HorizontalStackLayout>
+            <HorizontalStackLayout Padding="{m:Size Lg}" Spacing="{m:Size Md}">
                 <Border>
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="{m:Size Xxl}"/>

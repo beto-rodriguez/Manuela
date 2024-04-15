@@ -18,7 +18,7 @@ public partial class AppMenu : Grid
         Loaded += (_, _) =>
         {
             TapGestureRecognizer_Tapped(MenuStackLayout.Children[0], null!);
-            Window.SizeChanged += (_, _) => UpdateIndicator(null, false);
+            Window.Page!.SizeChanged += (_, _) => UpdateIndicator(null, false);
         };
     }
 
