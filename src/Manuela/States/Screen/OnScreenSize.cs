@@ -84,7 +84,15 @@ public class OnScreenSize : ConditionalStyle
             visualElement.SetValue(Has.ScreenBreakPointProperty, breakpoint);
         };
 
-        _window.SizeChanged += _windowHandler;
+        // not working on macccatalyst
+        //_window.SizeChanged += _windowHandler;
+
+        // as a workaround... lets use the page size changed event
+
+        // the page does not change if using Manuela's routing.
+        // otherwise, we must attach the handler when the page changes.
+        if (_window.Page is not null)
+            _window.Page.SizeChanged += _windowHandler;
 
         // initial value.
         visualElement.SetValue(Has.ScreenBreakPointProperty, GetBreakpoint());
