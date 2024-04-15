@@ -43,8 +43,11 @@ public class AppPage : ContentPage
         GetAppBody();
 
 #if WINDOWS
-        // a hack to cover also the title bar (32px)
         Content.Margin = new(-1, -32, 0, -1);
+#endif
+
+#if MACCATALYST
+        Content.Margin = new(-1, -73, 0, -1);
 #endif
     }
 
