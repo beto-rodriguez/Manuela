@@ -61,8 +61,8 @@ public class OnScreenSize : ConditionalStyle
 
     public override void Dispose(VisualElement visualElement)
     {
-        if (_window is not null)
-            _window.SizeChanged -= _windowHandler;
+        if (_window is not null && _window.Page is not null)
+            _window.Page.SizeChanged -= _windowHandler;
 
         _element = null;
         _window = null;
