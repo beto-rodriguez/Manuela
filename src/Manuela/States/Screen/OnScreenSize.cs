@@ -109,7 +109,8 @@ public class OnScreenSize : ConditionalStyle
     {
         if (element is null || window is null) return Breakpoint.Xs;
 
-        var w = window.Width;
+        //var w = window.Width; // <- it is not updated properly on mac catalyst, the value seesm to be always the initial value.
+        var w = window.Page?.Width ?? 0;
         var maxBreakpoint = Breakpoint.Xs;
 
         if (w > (int)Breakpoint.Sm) maxBreakpoint = Breakpoint.Sm;
