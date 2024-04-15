@@ -139,17 +139,14 @@
                 Style="{StaticResource SubHeadline}" />
 
             <Button
-                Text="Click me to toggle the state">
+                Text="Click me to toggle the state"
+                Clicked="ToggleState">
 
                 <m:Has.States>
                     <m:StatesCollection>
                         <m:State Name="active" Setters="{m:Set Background=Secondary}"/>
                     </m:StatesCollection>
                 </m:Has.States>
-                
-                <Button.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="ToggleState" />
-                </Button.GestureRecognizers>
             </Button>
 
             <Label

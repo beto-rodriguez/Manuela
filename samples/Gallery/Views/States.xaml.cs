@@ -9,7 +9,7 @@ public partial class States : ContentView
         InitializeComponent();
     }
 
-    private void ToggleState(object sender, TappedEventArgs e)
+    private void ToggleState(object sender, EventArgs e)
     {
         var button = (Button)sender;
 
