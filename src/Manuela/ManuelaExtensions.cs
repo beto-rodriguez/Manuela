@@ -1,5 +1,10 @@
 ﻿using Manuela.AppRouting;
 using Microsoft.Maui.Handlers;
+using Microsoft.Maui.LifecycleEvents;
+
+#if MACCATALYST
+using UIKit;
+#endif
 
 namespace Manuela;
 
@@ -24,6 +29,25 @@ public static class ManuelaExtensions
         }
 
         AppRouting.Routing.ServiceCollection = serviceCollection;
+
+#if MACCATALYST
+        builder.ConfigureLifecycleEvents(lifecycle =>
+        {
+            lifecycle.AddiOS(ios =>
+            {
+                ios.FinishedLaunching((app, options) =>
+                {
+                    var titleBar = app.Delegate.GetWindow().WindowScene?.Titlebar;
+                    if (titleBar == null) return true;
+
+                    titleBar.TitleVisibility = UITitlebarTitleVisibility.Hidden;
+                    titleBar.Toolbar = null;
+
+                    return true;
+                });
+            });
+        });
+#endif
 
 #if WINDOWS
         // MauiAppTitleBarTemplate is an obstacle for the SetPointerPassthroughRegion method.
