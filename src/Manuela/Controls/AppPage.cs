@@ -57,7 +57,7 @@ public class AppPage : ContentPage
             var h = c.Height / d;
 
             Trace.WriteLine($"{c.Width}x{c.Height} / {d} = {w}x{h}");
-            Trace.WriteLine($"page: {Width}x{Height}, {Width / w:N2}x{Height / h:N2}");
+            Trace.WriteLine($"page: {Width}x{Height}, {Width / w:N8}x{Height / h:N8}");
 
 
             //// if full screen, remode the negative margin
