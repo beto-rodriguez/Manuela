@@ -59,6 +59,9 @@ public class AppPage : ContentPage
             var w = DeviceDisplay.Current.MainDisplayInfo.Width / d;
             var h = DeviceDisplay.Current.MainDisplayInfo.Height / d;
 
+            var ww = win.Width;
+            var wh = win.Height;
+
             // if full screen, remode the negative margin
             if (w == Width && h == Height)
                 Content.Margin = new(0);
