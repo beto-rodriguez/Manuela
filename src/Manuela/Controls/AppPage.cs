@@ -50,8 +50,14 @@ public class AppPage : ContentPage
         Content.Margin = new(-1, -73, 0, -1);
         SizeChanged += (s, e) =>
         {
-            var w = DeviceDisplay.Current.MainDisplayInfo.Width;
-            var h = DeviceDisplay.Current.MainDisplayInfo.Height;
+            var win = Window;
+            var x = win.X;
+            var y = win.Y;
+
+            var c = DeviceDisplay.Current.MainDisplayInfo;
+            var d = c.Density;
+            var w = DeviceDisplay.Current.MainDisplayInfo.Width / d;
+            var h = DeviceDisplay.Current.MainDisplayInfo.Height / d;
 
             // if full screen, remode the negative margin
             if (w == Width && h == Height)
