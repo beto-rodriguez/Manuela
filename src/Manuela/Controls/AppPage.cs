@@ -48,6 +48,17 @@ public class AppPage : ContentPage
 
 #if MACCATALYST
         Content.Margin = new(-1, -73, 0, -1);
+        SizeChanged += (s, e) =>
+        {
+            var w = DeviceDisplay.Current.MainDisplayInfo.Width;
+            var h = DeviceDisplay.Current.MainDisplayInfo.Height;
+
+            // if full screen, remode the negative margin
+            if (w == Width && h == Height)
+                Content.Margin = new(0);
+            else
+                Content.Margin = new(-1, -73, 0, -1);
+        };
 #endif
     }
 
