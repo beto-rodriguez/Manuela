@@ -5,6 +5,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:m="clr-namespace:Manuela;assembly=Manuela">
 
+    <!--
+        On Md screens, the menu is 60 device independent units wide.
+        but on Mac Catalyst, it is 90 device independent units wide, it is just to make it look better,
+        that width looks nice with the window actions buttons.
+    -->
+
     <m:Set
         x:Key="MdMenuSetters"
         AbsoluteLayoutFlags="HeightProportional"
@@ -19,14 +25,22 @@
         OnXs="{m:Set
             AbsoluteLayoutFlags=    'WidthProportional,YProportional',
             AbsoluteLayoutBounds=   '0, 1,   1, 60'}"
-        OnMd="{OnPlatform Default= {StaticResource MdMenuSetters}, MacCatalyst={StaticResource MdCatalystMenuSetters}}"        
+        OnMd="{OnPlatform Default= {StaticResource MdMenuSetters}, MacCatalyst={StaticResource MdCatalystMenuSetters}}"
         OnXl="{m:Set
             AbsoluteLayoutFlags=    HeightProportional,
             AbsoluteLayoutBounds=   '0, 0, 280,  1'}"/>
 
+    <m:Set
+        x:Key="MdAppBodySetters"
+        Padding="60, 0, 0, 0"/>
+
+    <m:Set
+        x:Key="MdCatalystAppBodySetters"
+        Padding="90, 0, 0, 0"/>
+
     <m:States x:Key="AppBodyStates"
         OnXs="{m:Set Padding='0, 0, 0, 60'}"
-        OnMd="{m:Set Padding='60, 0, 0, 0'}"
+        OnMd="{OnPlatform Default= {StaticResource MdAppBodySetters}, MacCatalyst={StaticResource MdCatalystAppBodySetters}}"
         OnXl="{m:Set Padding='280, 0, 0, 0'}"/>
 
 </ResourceDictionary>
