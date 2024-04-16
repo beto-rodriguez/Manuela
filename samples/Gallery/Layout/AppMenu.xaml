@@ -33,14 +33,15 @@
                 m:Router.Link="{Binding Route}"
                 m:Has.States="{m:States
                     Hovered={m:Set Background='Gray,Swatch400,Opacity10'},
-                    OnXs={m:Set Width=70, Padding='5,12,0,10',  Height=60,   StackSpacing=5,     StackOrientation=Vertical},
-                    OnMd={m:Set Width=60, Padding='17.5,10',    Height=50,   StackSpacing=20,    StackOrientation=Horizontal},
+                    OnXs={m:Set Width=70,                                       Padding='5,12,0,10',  Height=60,   StackSpacing=5,     StackOrientation=Vertical},
+                    OnMd={m:Set Width={OnPlatform Default=60, MacCatalyst=90},  Padding='17.5,10',    Height=50,   StackSpacing=20,    StackOrientation=Horizontal},
                     OnXl={m:Set Width=280}}">
 
                 <mi:MauiIcon
                     Icon="{Binding Icon}"
                     IconSize="25"
                     IconColor="{m:Color 'Gray,Swatch900'}"
+                    Padding="{OnPlatform Default='0', MacCatalyst='17.5,0'}"
                     VerticalOptions="Center"
                     HorizontalOptions="Center">
 
@@ -78,6 +79,7 @@
     <Border
         Grid.Row="0"
         StrokeThickness="0"
+        Margin="{OnPlatform Default=0, MacCatalyst='0,30,0,0'}"
         m:Has.States="{m:States
             OnXs={m:Set Visible=False},
             OnMd={m:Set Visible=True,   Padding='5,10'},
