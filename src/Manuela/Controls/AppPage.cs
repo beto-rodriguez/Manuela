@@ -2,6 +2,7 @@
 // DO NOT MOVE THE NS.
 
 
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 namespace Manuela;
@@ -50,23 +51,20 @@ public class AppPage : ContentPage
         Content.Margin = new(-1, -73, 0, -1);
         SizeChanged += (s, e) =>
         {
-            var win = Window;
-            var x = win.X;
-            var y = win.Y;
-
             var c = DeviceDisplay.Current.MainDisplayInfo;
             var d = c.Density;
-            var w = DeviceDisplay.Current.MainDisplayInfo.Width / d;
-            var h = DeviceDisplay.Current.MainDisplayInfo.Height / d;
+            var w = c.Width / d;
+            var h = c.Height / d;
 
-            var ww = win.Width;
-            var wh = win.Height;
+            Trace.WriteLine($"{c.Width}x{c.Height} / {d} = {w}x{h}");
+            Trace.WriteLine($"page: {Width}x{Height}, {Width / c.Width:N2}x{Height / c.Height:N2}");
 
-            // if full screen, remode the negative margin
-            if (w == Width && h == Height)
-                Content.Margin = new(0);
-            else
-                Content.Margin = new(-1, -73, 0, -1);
+
+            //// if full screen, remode the negative margin
+            //if (wi && h == Height)
+            //    Content.Margin = new(0);
+            //else
+            //    Content.Margin = new(-1, -73, 0, -1);
         };
 #endif
     }
