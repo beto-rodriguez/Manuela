@@ -71,10 +71,4 @@
       <ProjectReference Include="..\..\src\Manuela.Generation\Manuela.Generation.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <MauiXaml Update="Views\Transitions.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	</ItemGroup>
-
 </Project>

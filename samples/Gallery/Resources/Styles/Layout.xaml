@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:m="clr-namespace:Manuela;assembly=Manuela">
+
+    <m:Set
+        x:Key="MdMenuSetters"
+        AbsoluteLayoutFlags="HeightProportional"
+        AbsoluteLayoutBounds="0, 0, 60, 1"/>
+
+    <m:Set
+        x:Key="MdCatalystMenuSetters"
+        AbsoluteLayoutFlags="HeightProportional"
+        AbsoluteLayoutBounds="0, 0, 90, 1"/>
+
+    <m:States x:Key="MenuStates"
+        OnXs="{m:Set
+            AbsoluteLayoutFlags=    'WidthProportional,YProportional',
+            AbsoluteLayoutBounds=   '0, 1,   1, 60'}"
+        OnMd="{OnPlatform Default= {StaticResource MdMenuSetters}, MacCatalyst={StaticResource MdCatalystMenuSetters}}"        
+        OnXl="{m:Set
+            AbsoluteLayoutFlags=    HeightProportional,
+            AbsoluteLayoutBounds=   '0, 0, 280,  1'}"/>
+
+    <m:States x:Key="AppBodyStates"
+        OnXs="{m:Set Padding='0, 0, 0, 60'}"
+        OnMd="{m:Set Padding='60, 0, 0, 0'}"
+        OnXl="{m:Set Padding='280, 0, 0, 0'}"/>
+
+</ResourceDictionary>

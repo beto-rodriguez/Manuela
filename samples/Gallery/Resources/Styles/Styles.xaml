@@ -4,19 +4,6 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-    <Rect x:Key="DefaultMdRect">
-        <Rect.X>0</Rect.X>
-        <Rect.Y>0</Rect.Y>
-        <Rect.Width>60</Rect.Width>
-        <Rect.Height>1</Rect.Height>
-    </Rect>
-    <Rect x:Key="CatalystMdRect">
-        <Rect.X>0</Rect.X>
-        <Rect.Y>0</Rect.Y>
-        <Rect.Width>90</Rect.Width>
-        <Rect.Height>1</Rect.Height>
-    </Rect>
-
     <Style TargetType="ActivityIndicator">
         <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
     </Style>
@@ -201,7 +188,7 @@
         <Setter Property="FontSize" Value="32" />
         <Setter Property="HorizontalOptions" Value="Start" />
         <Setter Property="HorizontalTextAlignment" Value="Center" />
-        <Setter Property="Margin" Value="0, 20"/>
+        <Setter Property="Margin" Value="0, 0, 0, 20"/>
     </Style>
 
     <Style TargetType="Label" x:Key="SubHeadline">

@@ -9,18 +9,7 @@
     RowDefinitions="Auto,*"
     ZIndex="10"
     Background="{m:Brush 'Gray,Swatch200'}"
-    m:Has.States="{m:States
-        OnXs=   {m:Set
-                    AbsoluteLayoutFlags=    'WidthProportional,YProportional',
-                    AbsoluteLayoutBounds=   '0, 1,   1, 60'},
-        OnMd=   {m:Set
-                    AbsoluteLayoutFlags=    HeightProportional,
-                    AbsoluteLayoutBounds=   {OnPlatform
-                        Default=    {StaticResource DefaultMdRect},
-                        MacCatalyst={StaticResource CatalystMdRect}}},
-        OnXl=   {m:Set
-                    AbsoluteLayoutFlags=    HeightProportional,
-                    AbsoluteLayoutBounds=   '0, 0, 280,  1'}}">
+    m:Has.States="{x:StaticResource MenuStates}">
 
     <Grid.Resources>
 

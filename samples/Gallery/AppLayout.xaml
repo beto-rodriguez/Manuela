@@ -11,25 +11,20 @@
 
         <layout:AppMenu/>
 
-        <Border
+        <!--
+            The app body content changes depending on the app route
+        -->
+
+        <m:AppBody
             Background="{m:Brush 'Gray,Swatch100'}"
-            StrokeThickness="0"
             AbsoluteLayout.LayoutFlags="SizeProportional"
             AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
-            m:Has.States="{m:States
-                OnXs={m:Set Padding='10, 10, 10, 70'},
-                OnMd={m:Set Padding='80, 37, 20, 20'},
-                OnXl={m:Set Padding='300, 37, 20, 20'}}">
+            m:Has.States="{StaticResource AppBodyStates}">
 
-            <!-- The app body is the element that changes depending on the app route -->
-            <m:AppBody>
+            <!-- we can specify the view where the app starts, in this case, the MainView -->
+            <appViews:Brushes/>
 
-                <!-- we can specify the view where the app starts, in this case, the MainView -->
-                <appViews:Brushes/>
-
-            </m:AppBody>
-
-        </Border>
+        </m:AppBody>
 
     </AbsoluteLayout>
 
