@@ -4,6 +4,7 @@
 
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using Microsoft.Maui.Controls.Internals;
 
 namespace Manuela;
 
@@ -51,20 +52,19 @@ public class AppPage : ContentPage
         Content.Margin = new(-1, -73, 0, -1);
         SizeChanged += (s, e) =>
         {
-            var c = DeviceDisplay.Current.MainDisplayInfo;
-            var d = c.Density;
-            var w = c.Width / d;
-            var h = c.Height / d;
+            // scene.FullScreen is only available on 16.0 and later
+            // it means that full screen is not displayed properly on earlier versions
+            // unless we find a way to get the full screen status for those versions.
 
-            Trace.WriteLine($"{c.Width}x{c.Height} / {d} = {w}x{h}");
-            Trace.WriteLine($"page: {Width}x{Height}, {Width / w:N8}x{Height / h:N8}");
+            if (!OperatingSystem.IsMacCatalystVersionAtLeast(16)) return;
 
+            var window = (UIKit.UIWindow?)Window.Handler.PlatformView;
+            var scene = window?.WindowScene;
+            if (scene is null) return;
 
-            //// if full screen, remode the negative margin
-            //if (wi && h == Height)
-            //    Content.Margin = new(0);
-            //else
-            //    Content.Margin = new(-1, -73, 0, -1);
+            Content.Margin = scene.FullScreen
+                ? new(0)
+                : new(-1, -73, 0, -1);
         };
 #endif
     }
