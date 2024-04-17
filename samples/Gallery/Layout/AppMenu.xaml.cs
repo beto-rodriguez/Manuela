@@ -76,20 +76,25 @@ public partial class AppMenu : Grid
         var clickedIndex = MenuStackLayout.Children.IndexOf(clickedVisual);
         _activeVisual = clickedVisual;
 
+        var size = clickedVisual.Measure(double.PositiveInfinity, double.PositiveInfinity).Request;
+
         // sets and animates the indicator based on the transition defined in XAML
 
         if (MenuStackLayout.GetScreenBreakpoint() >= Breakpoint.Md)
         {
             Indicator.TranslationX = 0;
-            Indicator.HeightRequest = clickedVisual.Height;
+            Indicator.HeightRequest = size.Height;
             Indicator.WidthRequest = 6;
             Indicator.SetManuelaProperty(
                 ManuelaProperty.TranslateY,
-                clickedIndex * clickedVisual.Height, animated);
+                clickedIndex * size.Height, animated);
         }
         else
         {
-            var w = Window.Width - MenuStackLayout.Width;
+            var menuStackSizeRequest = MenuStackLayout
+                .Measure(double.PositiveInfinity, double.PositiveInfinity).Request;
+
+            var w = Window.Width - menuStackSizeRequest.Width;
 #if WINDOWS
             //  for a reason on windows it seems wrong by about 10px
             // maybe window.width is not the right value to use
@@ -97,11 +102,11 @@ public partial class AppMenu : Grid
 #endif
 
             Indicator.TranslationY = 0;
-            Indicator.WidthRequest = clickedVisual.Width;
+            Indicator.WidthRequest = size.Width;
             Indicator.HeightRequest = 6;
             Indicator.SetManuelaProperty(
                 ManuelaProperty.TranslateX,
-                clickedIndex * clickedVisual.Width + w * 0.5, animated);
+                clickedIndex * size.Width + w * 0.5, animated);
         }
     }
 }
