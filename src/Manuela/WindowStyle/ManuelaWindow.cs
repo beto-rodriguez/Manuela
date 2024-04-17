@@ -1,8 +1,6 @@
-﻿using Microsoft.Maui.Platform;
-using Manuela.Theming;
-
-#if ANDROID
+﻿#if ANDROID
 using AndroidX.Core.View;
+using Microsoft.Maui.Platform;
 #endif
 
 namespace Manuela.WindowStyle;
