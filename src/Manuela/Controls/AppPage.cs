@@ -1,7 +1,6 @@
 ﻿// The namespace not matching the folder is intentional, see #ABOUT-XAML-NS for more info.
 // DO NOT MOVE THE NS.
 
-
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using Microsoft.Maui.Controls.Internals;
@@ -49,7 +48,6 @@ public class AppPage : ContentPage
 #endif
 
 #if MACCATALYST
-        Content.Margin = new(-1, -73, 0, -1);
         SizeChanged += (s, e) =>
         {
             // scene.FullScreen is only available on 16.0 and later
@@ -62,9 +60,13 @@ public class AppPage : ContentPage
             var scene = window?.WindowScene;
             if (scene is null) return;
 
-            Content.Margin = scene.FullScreen
+            Thickness margin = scene.FullScreen
                 ? new(0)
                 : new(-1, -73, 0, -1);
+
+            if (Content.Margin == margin) return;
+
+            Content.Margin = margin;
         };
 #endif
     }

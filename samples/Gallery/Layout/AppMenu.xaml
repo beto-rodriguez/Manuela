@@ -72,14 +72,12 @@
                 </StackLayout.GestureRecognizers>
             </StackLayout>
         </DataTemplate>
-
-        
     </Grid.Resources>
 
     <Border
+        x:Name="AppIconBorder"
         Grid.Row="0"
         StrokeThickness="0"
-        Margin="{OnPlatform Default=0, MacCatalyst='0,30,0,0'}"
         m:Has.States="{m:States
             OnXs={m:Set Visible=False},
             OnMd={m:Set Visible=True,   Padding='5,10'},

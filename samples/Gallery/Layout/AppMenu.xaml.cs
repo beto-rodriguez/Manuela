@@ -19,6 +19,29 @@ public partial class AppMenu : Grid
             TapGestureRecognizer_Tapped(MenuStackLayout.Children[0], null!);
             Window.Page!.SizeChanged += (_, _) => UpdateIndicator(null, false);
         };
+
+#if MACCATALYST
+        SizeChanged += (s, e) =>
+        {
+            // scene.FullScreen is only available on 16.0 and later
+            // it means that full screen is not displayed properly on earlier versions
+            // unless we find a way to get the full screen status for those versions.
+
+            if (!OperatingSystem.IsMacCatalystVersionAtLeast(16)) return;
+
+            var window = (UIKit.UIWindow?)Window.Handler.PlatformView;
+            var scene = window?.WindowScene;
+            if (scene is null) return;
+
+            Thickness margin = scene.FullScreen
+                ? new(0)
+                : new(0, 30, 0, 0);
+
+            if (AppIconBorder.Margin == margin) return;
+
+            AppIconBorder.Margin = margin;
+        };
+#endif
     }
 
     private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
