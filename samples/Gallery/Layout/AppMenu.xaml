@@ -9,7 +9,7 @@
     RowDefinitions="Auto,*"
     ZIndex="10"
     Background="{m:Brush 'Gray,Swatch200'}"
-    m:Has.States="{x:StaticResource MenuStates}">
+    m:Has.States="{StaticResource MenuStates}">
 
     <Grid.Resources>
 
@@ -31,11 +31,7 @@
         <DataTemplate x:Key="MenuItemTemplate" x:DataType="{x:Type layout:MenuItemModel}">
             <StackLayout
                 m:Router.Link="{Binding Route}"
-                m:Has.States="{m:States
-                    Hovered={m:Set Background='Gray,Swatch400,Opacity10'},
-                    OnXs={m:Set Width=70,                                       Padding='5,12,0,10',  Height=60,   StackSpacing=5,     StackOrientation=Vertical},
-                    OnMd={m:Set Width={OnPlatform Default=60, MacCatalyst=90},  Padding='17.5,10',    Height=50,   StackSpacing=20,    StackOrientation=Horizontal},
-                    OnXl={m:Set Width=280}}">
+                m:Has.States="{StaticResource MenuItemStates}">
 
                 <mi:MauiIcon
                     Icon="{Binding Icon}"
@@ -78,12 +74,9 @@
         x:Name="AppIconBorder"
         Grid.Row="0"
         StrokeThickness="0"
-        m:Has.States="{m:States
-            OnXs={m:Set Visible=False},
-            OnMd={m:Set Visible=True,   Padding='5,10'},
-            OnXl={m:Set                 Padding=17.5}}">
+        m:Has.States="{StaticResource AppIconStates}">
 
-        <!-- app icon -->
+        <!--app icon--> 
         <Image
             HorizontalOptions="Start"
             MaximumHeightRequest="40"
@@ -109,14 +102,11 @@
                 </Border.StrokeShape>
             </Border>
 
-            <!-- Menu visible always -->
             <StackLayout
                 x:Name="MenuStackLayout"
                 BindableLayout.ItemsSource="{StaticResource MenuData}"
                 BindableLayout.ItemTemplate="{StaticResource MenuItemTemplate}"
-                m:Has.States="{m:States
-                    OnXs={m:Set StackOrientation=Horizontal,    HorizontalOptions=Center},
-                    OnMd={m:Set StackOrientation=Vertical,      HorizontalOptions=Start}}">
+                m:Has.States="{StaticResource MenuStackStates}">
             </StackLayout>
         </Grid>
     </ScrollView>

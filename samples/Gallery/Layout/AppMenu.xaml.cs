@@ -80,7 +80,7 @@ public partial class AppMenu : Grid
 
         // sets and animates the indicator based on the transition defined in XAML
 
-        if (MenuStackLayout.GetScreenBreakpoint() >= Breakpoint.Md)
+        if (MenuStackLayout.Orientation == StackOrientation.Vertical)
         {
             Indicator.TranslationX = 0;
             Indicator.HeightRequest = size.Height;

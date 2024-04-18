@@ -6,41 +6,200 @@
     xmlns:m="clr-namespace:Manuela;assembly=Manuela">
 
     <!--
-        On Md screens, the menu is 60 device independent units wide.
-        but on Mac Catalyst, it is 90 device independent units wide, it is just to make it look better,
-        that width looks nice with the window actions buttons.
+        define the property values for the different states in the app layout
+    -->
+
+    <!--
+        XS
+        The smallest screen size, the app menu is placed at the bottom of the screen.
     -->
 
     <m:Set
-        x:Key="MdMenuSetters"
+        x:Key="XsMenu"
+        AbsoluteLayoutFlags="WidthProportional,YProportional"
+        AbsoluteLayoutBounds="0, 1, 1, 60"/>
+
+    <m:Set
+        x:Key="XsAppBody"
+        Padding="0, 0, 0, 60"/>
+
+    <m:Set
+        x:Key="XsMenuItem"
+        Width="70"
+        Padding="5,12,0,10"
+        Height="60"
+        StackSpacing="5"
+        StackOrientation="Vertical"/>
+
+    <m:Set
+        x:Key="XsAppIcon"
+        Visible="False"/>
+
+    <m:Set
+        x:Key="XsMenuStack"
+        StackOrientation="Horizontal"
+        HorizontalOptions="Center"/>
+
+    <!--
+        MD
+        on medium screens, the app menu is placed on the left side
+        but with a reduced width that only shows the icons of each item in the menu.
+    -->
+
+    <m:Set
+        x:Key="MdMenu"
         AbsoluteLayoutFlags="HeightProportional"
         AbsoluteLayoutBounds="0, 0, 60, 1"/>
 
     <m:Set
-        x:Key="MdCatalystMenuSetters"
-        AbsoluteLayoutFlags="HeightProportional"
-        AbsoluteLayoutBounds="0, 0, 90, 1"/>
-
-    <m:States x:Key="MenuStates"
-        OnXs="{m:Set
-            AbsoluteLayoutFlags=    'WidthProportional,YProportional',
-            AbsoluteLayoutBounds=   '0, 1,   1, 60'}"
-        OnMd="{OnPlatform Default= {StaticResource MdMenuSetters}, MacCatalyst={StaticResource MdCatalystMenuSetters}}"
-        OnXl="{m:Set
-            AbsoluteLayoutFlags=    HeightProportional,
-            AbsoluteLayoutBounds=   '0, 0, 280,  1'}"/>
-
-    <m:Set
-        x:Key="MdAppBodySetters"
+        x:Key="MdAppBody"
         Padding="60, 0, 0, 0"/>
 
     <m:Set
-        x:Key="MdCatalystAppBodySetters"
-        Padding="90, 0, 0, 0"/>
+        x:Key="MdMenuItem"
+        Width="60"
+        Padding="17.5,10"
+        Height="50"
+        StackSpacing="20"
+        StackOrientation="Horizontal"/>
 
-    <m:States x:Key="AppBodyStates"
-        OnXs="{m:Set Padding='0, 0, 0, 60'}"
-        OnMd="{OnPlatform Default= {StaticResource MdAppBodySetters}, MacCatalyst={StaticResource MdCatalystAppBodySetters}}"
-        OnXl="{m:Set Padding='280, 0, 0, 0'}"/>
+    <m:Set
+        x:Key="MdAppIcon"
+        Visible="True"
+        Padding="5,10"/>
+
+    <m:Set
+        x:Key="MdMenuStack"
+        StackOrientation="Vertical"
+        HorizontalOptions="Start"/>
+
+    <!--
+        XL
+        on extra large screens, the app menu is placed on the left side,
+        and also the text of each item in the menu is shown.
+    -->
+
+    <m:Set
+        x:Key="XlMenu"
+        AbsoluteLayoutFlags="HeightProportional"
+        AbsoluteLayoutBounds="0, 0, 280, 1"/>
+
+    <m:Set
+        x:Key="XlAppBody"
+        Padding="280, 0, 0, 0"/>
+
+    <m:Set
+        x:Key="XlMenuItem"
+        Width="280"/>
+
+    <m:Set
+        x:Key="XlAppIcon"
+        Padding="17.5"/>
+
+    <!--<m:Set
+        x:Key="MdCatalystMenuSetters"
+        AbsoluteLayoutFlags="HeightProportional"
+        AbsoluteLayoutBounds="0, 0, 90, 1"/>-->
+
+    <!--<m:Set
+         x:Key="MdCatalystAppBodySetters"
+         Padding="90, 0, 0, 0"/>-->
+
+    <!--
+        DEFAULT STATES
+        By default, the app is styled based on the screen size
+    -->
+    
+    <m:States x:Key="MenuDefaultStates"
+        OnXs="{StaticResource XsMenu}"
+        OnMd="{StaticResource MdMenu}"
+        OnXl="{StaticResource XlMenu}"/>
+
+    <m:States x:Key="AppBodyDefaultStates"
+        OnXs="{StaticResource XsAppBody}"
+        OnMd="{StaticResource MdAppBody}"
+        OnXl="{StaticResource XlAppBody}"/>
+
+    <m:States x:Key="MenuItemDefaultStates"
+        Hovered="{m:Set Background='Gray,Swatch400,Opacity10'}"
+        OnXs="{StaticResource XsMenuItem}"
+        OnMd="{StaticResource MdMenuItem}"
+        OnXl="{StaticResource XlMenuItem}"/>
+
+    <m:States x:Key="AppIconDefaultStates"
+        OnXs="{StaticResource XsAppIcon}"
+        OnMd="{StaticResource MdAppIcon}"
+        OnXl="{StaticResource XlAppIcon}"/>
+
+    <m:States x:Key="MenuStackDefaultStates"
+        OnXs="{StaticResource XsMenuStack}"
+        OnMd="{StaticResource MdMenuStack}"/>
+
+    <!--
+        MOBILE STATES
+        On mobile devices, the app menu is always placed at the bottom of the screen.
+    -->
+
+    <m:States
+        x:Key="MenuMobileStates"
+        Default="{StaticResource XsMenu}"/>
+        
+    <m:States
+        x:Key="AppBodyMobileStates"
+        Default="{StaticResource XsAppBody}"/>
+        
+    <m:States
+        x:Key="MenuItemMobileStates"
+        Hovered="{m:Set Background='Gray,Swatch400,Opacity10'}"
+        Default="{StaticResource XsMenuItem}" />
+        
+    <m:States
+        x:Key="AppIconMobileStates"
+        Default="{StaticResource XsAppIcon}"/>
+        
+    <m:States
+        x:Key="MenuStackMobileStates"
+        Default="{StaticResource XsMenuStack}"/>
+
+    <!--
+        APP STATES
+        In this section, we pick the states defined above, these are the states
+        that are referenced in the app layout XAML.
+    -->
+    
+    <OnIdiom
+        x:TypeArguments="m:StatesCollection"
+        x:Key="MenuStates"
+        Default="{StaticResource MenuDefaultStates}"
+        Phone="{StaticResource MenuMobileStates}"
+        Tablet="{StaticResource MenuMobileStates}"/>
+
+    <OnIdiom
+        x:TypeArguments="m:StatesCollection"
+        x:Key="AppBodyStates"
+        Default="{StaticResource AppBodyDefaultStates}"
+        Phone="{StaticResource AppBodyMobileStates}"
+        Tablet="{StaticResource AppBodyMobileStates}"/>
+
+    <OnIdiom
+        x:TypeArguments="m:StatesCollection"
+        x:Key="MenuItemStates"
+        Default="{StaticResource MenuItemDefaultStates}"
+        Phone="{StaticResource MenuItemMobileStates}"
+        Tablet="{StaticResource MenuItemMobileStates}"/>
+
+    <OnIdiom
+        x:TypeArguments="m:StatesCollection"
+        x:Key="AppIconStates"
+        Default="{StaticResource AppIconDefaultStates}"
+        Phone="{StaticResource AppIconMobileStates}"
+        Tablet="{StaticResource AppIconMobileStates}"/>
+
+    <OnIdiom
+        x:TypeArguments="m:StatesCollection"
+        x:Key="MenuStackStates"
+        Default="{StaticResource MenuStackDefaultStates}"
+        Phone="{StaticResource MenuStackMobileStates}"
+        Tablet="{StaticResource MenuStackMobileStates}"/>
 
 </ResourceDictionary>
