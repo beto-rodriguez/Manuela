@@ -47,12 +47,12 @@
     -->
 
     <m:Set
-        x:Key="MdMenu"
+        x:Key="MdDefaultMenu"
         AbsoluteLayoutFlags="HeightProportional"
         AbsoluteLayoutBounds="0, 0, 60, 1"/>
 
     <m:Set
-        x:Key="MdAppBody"
+        x:Key="MdDefaultAppBody"
         Padding="60, 0, 0, 0"/>
 
     <m:Set
@@ -72,6 +72,17 @@
         x:Key="MdMenuStack"
         StackOrientation="Vertical"
         HorizontalOptions="Start"/>
+
+    <!-- exception on mac catalyst to align the side menu with the window action buttons -->
+
+    <m:Set
+        x:Key="MdCatalystMenu"
+        AbsoluteLayoutFlags="HeightProportional"
+        AbsoluteLayoutBounds="0, 0, 90, 1"/>
+
+    <m:Set
+        x:Key="MdCatalystAppBody"
+        Padding="90, 0, 0, 0"/>
 
     <!--
         XL
@@ -96,15 +107,6 @@
         x:Key="XlAppIcon"
         Padding="17.5"/>
 
-    <!--<m:Set
-        x:Key="MdCatalystMenuSetters"
-        AbsoluteLayoutFlags="HeightProportional"
-        AbsoluteLayoutBounds="0, 0, 90, 1"/>-->
-
-    <!--<m:Set
-         x:Key="MdCatalystAppBodySetters"
-         Padding="90, 0, 0, 0"/>-->
-
     <!--
         DEFAULT STATES
         By default, the app is styled based on the screen size
@@ -112,12 +114,12 @@
     
     <m:States x:Key="MenuDefaultStates"
         OnXs="{StaticResource XsMenu}"
-        OnMd="{StaticResource MdMenu}"
+        OnMd="{OnPlatform Default={StaticResource MdDefaultMenu}, MacCatalyst={StaticResource MdCatalystMenu}}"
         OnXl="{StaticResource XlMenu}"/>
 
     <m:States x:Key="AppBodyDefaultStates"
         OnXs="{StaticResource XsAppBody}"
-        OnMd="{StaticResource MdAppBody}"
+        OnMd="{OnPlatform Default={StaticResource MdDefaultAppBody}, MacCatalyst={StaticResource MdCatalystAppBody}}"
         OnXl="{StaticResource XlAppBody}"/>
 
     <m:States x:Key="MenuItemDefaultStates"
