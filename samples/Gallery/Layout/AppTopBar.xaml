@@ -12,7 +12,7 @@
     AbsoluteLayout.LayoutFlags="WidthProportional"
     AbsoluteLayout.LayoutBounds="0,0,1,45">
 
-    <Image Source="m.png" Margin="0, 8" />
+    <Image Source="m.png" Margin="0, 8" IsVisible="{OnPlatform Default=True, MacCatalyst=False}" />
 
     <HorizontalStackLayout
         Margin="{OnPlatform Default=0, WinUI='0,0,135,0'}"
