@@ -4,7 +4,7 @@ using Manuela.AppRouting;
 using Manuela.Styling;
 using Manuela.Things;
 using MauiIcons.Core;
-using MauiIcons.Material.Rounded;
+using MauiIcons.SegoeFluent;
 using Microsoft.Extensions.Logging;
 
 namespace Gallery;
@@ -22,7 +22,7 @@ public static class MauiProgram
                 new Route<Spacing>(),
                 new Route<Transitions>()
             ])
-            .UseMaterialRoundedMauiIcons()
+            .UseSegoeFluentMauiIcons()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

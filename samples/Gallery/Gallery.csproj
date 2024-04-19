@@ -60,7 +60,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="AathifMahir.Maui.MauiIcons.Material.Rounded" Version="2.1.5" />
+		<PackageReference Include="AathifMahir.Maui.MauiIcons.SegoeFluent" Version="2.1.5" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
@@ -69,6 +69,12 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\..\src\Manuela\Manuela.csproj" />
       <ProjectReference Include="..\..\src\Manuela.Generation\Manuela.Generation.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Layout\AppTopBar.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>

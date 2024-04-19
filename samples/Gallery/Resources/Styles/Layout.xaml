@@ -17,26 +17,24 @@
     <m:Set
         x:Key="XsMenu"
         AbsoluteLayoutFlags="WidthProportional,YProportional"
-        AbsoluteLayoutBounds="0, 1, 1, 60"/>
+        AbsoluteLayoutBounds="0, 1, 1, 60"
+        Padding="0,0,0,0"/>
 
     <m:Set
         x:Key="XsAppBody"
-        Padding="0, 0, 0, 60"/>
+        Padding="0, 45, 0, 60"/>
 
     <m:Set
         x:Key="XsMenuItem"
         Width="70"
-        Padding="5,12,0,10"
-        Height="60"
+        Padding="0, 8, 0, 0"
+        Height="52"
         StackSpacing="5"
         StackOrientation="Vertical"/>
 
     <m:Set
-        x:Key="XsAppIcon"
-        Visible="False"/>
-
-    <m:Set
         x:Key="XsMenuStack"
+        Padding="0,4"
         StackOrientation="Horizontal"
         HorizontalOptions="Center"/>
 
@@ -47,66 +45,28 @@
     -->
 
     <m:Set
-        x:Key="MdDefaultMenu"
+        x:Key="MdMenu"
         AbsoluteLayoutFlags="HeightProportional"
-        AbsoluteLayoutBounds="0, 0, 60, 1"/>
+        AbsoluteLayoutBounds="0, 0, 80, 1"
+        Padding="0,50,0,0"/>
 
     <m:Set
-        x:Key="MdDefaultAppBody"
-        Padding="60, 0, 0, 0"/>
+        x:Key="MdAppBody"
+        Padding="80, 45, 0, 0"/>
 
     <m:Set
         x:Key="MdMenuItem"
-        Width="60"
-        Padding="17.5,10"
-        Height="50"
-        StackSpacing="20"
-        StackOrientation="Horizontal"/>
-
-    <m:Set
-        x:Key="MdAppIcon"
-        Visible="True"
-        Padding="5,10"/>
+        Width="70"
+        Padding="0, 10, 0, 0"
+        Height="60"
+        StackOrientation="Vertical"/>
 
     <m:Set
         x:Key="MdMenuStack"
         StackOrientation="Vertical"
-        HorizontalOptions="Start"/>
-
-    <!-- exception on mac catalyst to align the side menu with the window action buttons -->
-
-    <m:Set
-        x:Key="MdCatalystMenu"
-        AbsoluteLayoutFlags="HeightProportional"
-        AbsoluteLayoutBounds="0, 0, 90, 1"/>
-
-    <m:Set
-        x:Key="MdCatalystAppBody"
-        Padding="90, 0, 0, 0"/>
-
-    <!--
-        XL
-        on extra large screens, the app menu is placed on the left side,
-        and also the text of each item in the menu is shown.
-    -->
-
-    <m:Set
-        x:Key="XlMenu"
-        AbsoluteLayoutFlags="HeightProportional"
-        AbsoluteLayoutBounds="0, 0, 280, 1"/>
-
-    <m:Set
-        x:Key="XlAppBody"
-        Padding="280, 0, 0, 0"/>
-
-    <m:Set
-        x:Key="XlMenuItem"
-        Width="280"/>
-
-    <m:Set
-        x:Key="XlAppIcon"
-        Padding="17.5"/>
-
+        HorizontalOptions="Start"
+        Padding="4,0,0,0"/>
+    
     <!--
         DEFAULT STATES
         By default, the app is styled based on the screen size
@@ -114,24 +74,16 @@
     
     <m:States x:Key="MenuDefaultStates"
         OnXs="{StaticResource XsMenu}"
-        OnMd="{OnPlatform Default={StaticResource MdDefaultMenu}, MacCatalyst={StaticResource MdCatalystMenu}}"
-        OnXl="{StaticResource XlMenu}"/>
+        OnMd="{StaticResource MdMenu}"/>
 
     <m:States x:Key="AppBodyDefaultStates"
         OnXs="{StaticResource XsAppBody}"
-        OnMd="{OnPlatform Default={StaticResource MdDefaultAppBody}, MacCatalyst={StaticResource MdCatalystAppBody}}"
-        OnXl="{StaticResource XlAppBody}"/>
+        OnMd="{StaticResource MdAppBody}"/>
 
     <m:States x:Key="MenuItemDefaultStates"
         Hovered="{m:Set Background='Gray,Swatch400,Opacity10'}"
         OnXs="{StaticResource XsMenuItem}"
-        OnMd="{StaticResource MdMenuItem}"
-        OnXl="{StaticResource XlMenuItem}"/>
-
-    <m:States x:Key="AppIconDefaultStates"
-        OnXs="{StaticResource XsAppIcon}"
-        OnMd="{StaticResource MdAppIcon}"
-        OnXl="{StaticResource XlAppIcon}"/>
+        OnMd="{StaticResource MdMenuItem}"/>
 
     <m:States x:Key="MenuStackDefaultStates"
         OnXs="{StaticResource XsMenuStack}"
@@ -154,11 +106,7 @@
         x:Key="MenuItemMobileStates"
         Hovered="{m:Set Background='Gray,Swatch400,Opacity10'}"
         Default="{StaticResource XsMenuItem}" />
-        
-    <m:States
-        x:Key="AppIconMobileStates"
-        Default="{StaticResource XsAppIcon}"/>
-        
+
     <m:States
         x:Key="MenuStackMobileStates"
         Default="{StaticResource XsMenuStack}"/>
@@ -189,13 +137,6 @@
         Default="{StaticResource MenuItemDefaultStates}"
         Phone="{StaticResource MenuItemMobileStates}"
         Tablet="{StaticResource MenuItemMobileStates}"/>
-
-    <OnIdiom
-        x:TypeArguments="m:StatesCollection"
-        x:Key="AppIconStates"
-        Default="{StaticResource AppIconDefaultStates}"
-        Phone="{StaticResource AppIconMobileStates}"
-        Tablet="{StaticResource AppIconMobileStates}"/>
 
     <OnIdiom
         x:TypeArguments="m:StatesCollection"

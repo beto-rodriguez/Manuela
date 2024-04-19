@@ -18,63 +18,62 @@
         </Style>
     </ContentView.Resources>
 
-    <ScrollView>
-        <VerticalStackLayout>
-            <Label
+
+    <VerticalStackLayout>
+        <Label
                 Text="Spacing"
                 Style="{StaticResource Headline}"/>
 
-            <Label
+        <Label
                 Text="Some times the Size extension is not enough (See sizing tab), when you need to specify more about Paddings and margins, you can use the Spacing extension."/>
 
-            <Label
+        <Label
                 Text="Horizontal"
                 Style="{StaticResource Headline}"/>
 
-            <HorizontalStackLayout>
-                <BoxView Margin="{m:Spacing Horizontal=Huge}" />
-                <BoxView Margin="{m:Spacing Horizontal=Huge}" />
-                <BoxView Margin="{m:Spacing Horizontal=Huge}" />
-            </HorizontalStackLayout>
+        <HorizontalStackLayout>
+            <BoxView Margin="{m:Spacing Horizontal=Huge}" />
+            <BoxView Margin="{m:Spacing Horizontal=Huge}" />
+            <BoxView Margin="{m:Spacing Horizontal=Huge}" />
+        </HorizontalStackLayout>
 
-            <Label
+        <Label
                 Text="Vertical"
                 Style="{StaticResource Headline}"/>
 
-            <HorizontalStackLayout>
-                <BoxView Margin="{m:Spacing Vertical=Huge}" />
-                <BoxView Margin="{m:Spacing Vertical=Huge}" />
-                <BoxView Margin="{m:Spacing Vertical=Huge}" />
-            </HorizontalStackLayout>
+        <HorizontalStackLayout>
+            <BoxView Margin="{m:Spacing Vertical=Huge}" />
+            <BoxView Margin="{m:Spacing Vertical=Huge}" />
+            <BoxView Margin="{m:Spacing Vertical=Huge}" />
+        </HorizontalStackLayout>
 
-            <Label
+        <Label
                  Text="Left, Top, Right and Bottom"
                  Style="{StaticResource Headline}"/>
 
-            <HorizontalStackLayout>
-                <BoxView Margin="{m:Spacing Right=Huge}" />
-                <BoxView Margin="{m:Spacing Top=Huge}" />
-                <BoxView Margin="{m:Spacing Bottom=Huge}" />
-                <BoxView Margin="{m:Spacing Left=Huge}" />
-            </HorizontalStackLayout>
-            
-            <Label
+        <HorizontalStackLayout>
+            <BoxView Margin="{m:Spacing Right=Huge}" />
+            <BoxView Margin="{m:Spacing Top=Huge}" />
+            <BoxView Margin="{m:Spacing Bottom=Huge}" />
+            <BoxView Margin="{m:Spacing Left=Huge}" />
+        </HorizontalStackLayout>
+
+        <Label
                 Text="Mixed Spacing"
                 Style="{StaticResource Headline}"/>
 
-            <Label
+        <Label
                 Text="You can mix properties, the spacing is applied from the less specific to the most specific property."/>
-            <Label
+        <Label
                 Text="The Size (uniform) is applied first, then the Vertical and Horizontal sizes, finally the Left, Top, Right and Bottom."/>
-            <Label
+        <Label
                 Text="This means that you can for example set all the properties to large but override the top to None."/>
 
-            <HorizontalStackLayout>
-                <BoxView Margin="{m:Spacing Size=Xl, Top=None}" />
-                <BoxView Margin="{m:Spacing Size=Xl, Top=None}" />
-                <BoxView Margin="{m:Spacing Size=Xl, Top=None}" />
-            </HorizontalStackLayout>
+        <HorizontalStackLayout>
+            <BoxView Margin="{m:Spacing Size=Xl, Top=None}" />
+            <BoxView Margin="{m:Spacing Size=Xl, Top=None}" />
+            <BoxView Margin="{m:Spacing Size=Xl, Top=None}" />
+        </HorizontalStackLayout>
 
-        </VerticalStackLayout>
-    </ScrollView>
+    </VerticalStackLayout>
 </ContentView>

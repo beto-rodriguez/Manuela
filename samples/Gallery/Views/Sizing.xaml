@@ -36,132 +36,130 @@
 
     </ContentView.Resources>
 
-    <ScrollView>
-        <VerticalStackLayout>
+    <VerticalStackLayout>
 
-            <Label
-                Text="Sizing"
-                Style="{StaticResource Headline}"/>
+        <Label
+            Text="Sizing"
+            Style="{StaticResource Headline}"/>
 
-            <Label Text="The Size extension provides 9 different sizes, None, Xs, Sm, Md, Lg, Xl, Xxl, Huge, Giant and Titatanic."/>
-            <Label Text="You can use it to quickly set margins, paddings, borders, border radius, shadows, text sizes, line heights, and the dimension of visual element."/>
+        <Label Text="The Size extension provides 9 different sizes, None, Xs, Sm, Md, Lg, Xl, Xxl, Huge, Giant and Titatanic."/>
+        <Label Text="You can use it to quickly set margins, paddings, borders, border radius, shadows, text sizes, line heights, and the dimension of visual element."/>
 
-            <Label
-                Text="Margin"
-                Margin="{m:Spacing Top=Xl}"
+        <Label
+            Text="Margin"
+            Margin="{m:Spacing Top=Xl}"
+            Style="{StaticResource SubHeadline}"/>
+
+        <HorizontalStackLayout>
+            <BoxView Margin="{m:Size Xxl}" />
+            <Label Margin="{m:Size Xxl}" Text="Hi!" VerticalOptions="Center"/>
+            <Button Margin="{m:Size Xxl}" Text="Click me" VerticalOptions="Center"/>
+        </HorizontalStackLayout>
+
+        <Label
+            Text="Padding"
+            Style="{StaticResource SubHeadline}"/>
+
+        <HorizontalStackLayout Padding="{m:Size Lg}">
+            <Border Padding="{m:Size Xxl}" >
+                <Label Text="Hello there!" VerticalOptions="Center"/>
+            </Border>
+            <Label Padding="{m:Size Xxl}" Text="Hi!" VerticalOptions="Center"/>
+            <Button Padding="{m:Size Xxl}" Text="Click me"/>
+        </HorizontalStackLayout>
+
+        <Label
+            Text="Border thickness"
+            Style="{StaticResource SubHeadline}"/>
+
+        <HorizontalStackLayout Padding="{m:Size Lg}" Spacing="{m:Size Md}">
+            <Border StrokeThickness="{m:Size Xl}">
+                <Label TextColor="#fff" Text="Hello there!"/>
+            </Border>
+            <Button BorderWidth="{m:Size Xxl}" Text="Click me"/>
+        </HorizontalStackLayout>
+
+        <Label
+            Text="Border radius"
+            Style="{StaticResource SubHeadline}"/>
+
+        <HorizontalStackLayout Padding="{m:Size Lg}" Spacing="{m:Size Md}">
+            <Border>
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="{m:Size Xxl}"/>
+                </Border.StrokeShape>
+                <Label TextColor="#fff" Text="Hello there!"/>
+            </Border>
+            <Button CornerRadius="{m:Size Xxl}" Text="Click me"/>
+        </HorizontalStackLayout>
+
+        <Label
+            Text="Shadow"
+            Style="{StaticResource SubHeadline}"/>
+
+        <HorizontalStackLayout Padding="{m:Size Xxl}" Spacing="{m:Size Huge}" Background="{m:Brush 'Gray,Swatch50'}">
+            <BoxView Shadow="{m:Size Xl}"/>
+            <Button Shadow="{m:Size Xl}" Text="Click me"/>
+        </HorizontalStackLayout>
+
+        <Label
+            Text="Font size"
+            Style="{StaticResource SubHeadline}"/>
+
+        <HorizontalStackLayout Padding="{m:Size Lg}" Spacing="{m:Size Huge}">
+            <Label Text="Hello" FontSize="{m:Size Xs}"/>
+            <Label Text="Hello" FontSize="{m:Size Xl}"/>
+            <Label Text="Hello" FontSize="{m:Size Huge}"/>
+            <Label Text="Hello" FontSize="{m:Size Titanic}"/>
+        </HorizontalStackLayout>
+
+        <Label
+                Text="Line height"
                 Style="{StaticResource SubHeadline}"/>
 
-            <HorizontalStackLayout>
-                <BoxView Margin="{m:Size Xxl}" />
-                <Label Margin="{m:Size Xxl}" Text="Hi!" VerticalOptions="Center"/>
-                <Button Margin="{m:Size Xxl}" Text="Click me" VerticalOptions="Center"/>
-            </HorizontalStackLayout>
+        <HorizontalStackLayout Padding="{m:Size Lg}" Spacing="{m:Size Huge}">
+            <Label LineHeight="{m:Size None}" MaximumWidthRequest="150" Text="Hello this is some long text to test how this label looks when it has multiple lines" />
+            <Label LineHeight="{m:Size Xl}" MaximumWidthRequest="150" Text="Hello this is some long text to test how this label looks when it has multiple lines"/>
+            <Label LineHeight="{m:Size Titanic}" MaximumWidthRequest="150" Text="Hello this is some long text to test how this label looks when it has multiple lines"/>
+        </HorizontalStackLayout>
 
-            <Label
-                Text="Padding"
+        <Label
+                Text="Size"
                 Style="{StaticResource SubHeadline}"/>
 
-            <HorizontalStackLayout Padding="{m:Size Lg}">
-                <Border Padding="{m:Size Xxl}" >
-                    <Label Text="Hello there!" VerticalOptions="Center"/>
-                </Border>
-                <Label Padding="{m:Size Xxl}" Text="Hi!" VerticalOptions="Center"/>
-                <Button Padding="{m:Size Xxl}" Text="Click me"/>
-            </HorizontalStackLayout>
+        <Label Text="There are also sizes for the WidthRequest, HeightRequest, MinWidthRequest and MinHeightRequest properties."/>
 
-            <Label
-                Text="Border thickness"
+        <HorizontalStackLayout Spacing="{m:Size Xl}">
+            <BoxView WidthRequest="{m:Size Sm}" HeightRequest="{m:Size Sm}" />
+            <BoxView WidthRequest="{m:Size Md}" HeightRequest="{m:Size Md}" />
+            <BoxView WidthRequest="{m:Size Lg}" HeightRequest="{m:Size Lg}"/>
+            <BoxView WidthRequest="{m:Size Xl}" HeightRequest="{m:Size Xl}"/>
+            <BoxView WidthRequest="{m:Size Xxl}" HeightRequest="{m:Size Xxl}"/>
+        </HorizontalStackLayout>
+
+        <Label
+                Text="Spacing"
                 Style="{StaticResource SubHeadline}"/>
 
-            <HorizontalStackLayout Padding="{m:Size Lg}" Spacing="{m:Size Md}">
-                <Border StrokeThickness="{m:Size Xl}">
-                    <Label TextColor="#fff" Text="Hello there!"/>
-                </Border>
-                <Button BorderWidth="{m:Size Xxl}" Text="Click me"/>
-            </HorizontalStackLayout>
+        <Label Text="The Spacing property for StackLayout, VerticalStackLayout and Horizontral is also supported."/>
 
-            <Label
-                Text="Border radius"
-                Style="{StaticResource SubHeadline}"/>
+        <HorizontalStackLayout Spacing="{m:Size Md}">
+            <BoxView WidthRequest="{m:Size Sm}" HeightRequest="{m:Size Sm}" />
+            <BoxView WidthRequest="{m:Size Sm}" HeightRequest="{m:Size Sm}" />
+            <BoxView WidthRequest="{m:Size Sm}" HeightRequest="{m:Size Sm}" />
+        </HorizontalStackLayout>
 
-            <HorizontalStackLayout Padding="{m:Size Lg}" Spacing="{m:Size Md}">
-                <Border>
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="{m:Size Xxl}"/>
-                    </Border.StrokeShape>
-                    <Label TextColor="#fff" Text="Hello there!"/>
-                </Border>
-                <Button CornerRadius="{m:Size Xxl}" Text="Click me"/>
-            </HorizontalStackLayout>
-            
-            <Label
-                Text="Shadow"
-                Style="{StaticResource SubHeadline}"/>
+        <HorizontalStackLayout Spacing="{m:Size Xxl}">
+            <BoxView WidthRequest="{m:Size Sm}" HeightRequest="{m:Size Sm}" />
+            <BoxView WidthRequest="{m:Size Sm}" HeightRequest="{m:Size Sm}" />
+            <BoxView WidthRequest="{m:Size Sm}" HeightRequest="{m:Size Sm}" />
+        </HorizontalStackLayout>
 
-            <HorizontalStackLayout Padding="{m:Size Xxl}" Spacing="{m:Size Huge}" Background="{m:Brush 'Gray,Swatch50'}">
-                <BoxView Shadow="{m:Size Xl}"/>
-                <Button Shadow="{m:Size Xl}" Text="Click me"/>
-            </HorizontalStackLayout>
+        <HorizontalStackLayout Spacing="{m:Size Giant}">
+            <BoxView WidthRequest="{m:Size Sm}" HeightRequest="{m:Size Sm}" />
+            <BoxView WidthRequest="{m:Size Sm}" HeightRequest="{m:Size Sm}" />
+            <BoxView WidthRequest="{m:Size Sm}" HeightRequest="{m:Size Sm}" />
+        </HorizontalStackLayout>
 
-            <Label
-                Text="Font size"
-                Style="{StaticResource SubHeadline}"/>
-
-            <HorizontalStackLayout Padding="{m:Size Lg}" Spacing="{m:Size Huge}">
-                <Label Text="Hello" FontSize="{m:Size Xs}"/>
-                <Label Text="Hello" FontSize="{m:Size Xl}"/>
-                <Label Text="Hello" FontSize="{m:Size Huge}"/>
-                <Label Text="Hello" FontSize="{m:Size Titanic}"/>
-            </HorizontalStackLayout>
-
-            <Label
-                 Text="Line height"
-                 Style="{StaticResource SubHeadline}"/>
-
-            <HorizontalStackLayout Padding="{m:Size Lg}" Spacing="{m:Size Huge}">
-                <Label LineHeight="{m:Size None}" MaximumWidthRequest="150" Text="Hello this is some long text to test how this label looks when it has multiple lines" />
-                <Label LineHeight="{m:Size Xl}" MaximumWidthRequest="150" Text="Hello this is some long text to test how this label looks when it has multiple lines"/>
-                <Label LineHeight="{m:Size Titanic}" MaximumWidthRequest="150" Text="Hello this is some long text to test how this label looks when it has multiple lines"/>
-            </HorizontalStackLayout>
-
-            <Label
-                 Text="Size"
-                 Style="{StaticResource SubHeadline}"/>
-
-            <Label Text="There are also sizes for the WidthRequest, HeightRequest, MinWidthRequest and MinHeightRequest properties."/>
-
-            <HorizontalStackLayout Spacing="{m:Size Xl}">
-                <BoxView WidthRequest="{m:Size Sm}" HeightRequest="{m:Size Sm}" />
-                <BoxView WidthRequest="{m:Size Md}" HeightRequest="{m:Size Md}" />
-                <BoxView WidthRequest="{m:Size Lg}" HeightRequest="{m:Size Lg}"/>
-                <BoxView WidthRequest="{m:Size Xl}" HeightRequest="{m:Size Xl}"/>
-                <BoxView WidthRequest="{m:Size Xxl}" HeightRequest="{m:Size Xxl}"/>
-            </HorizontalStackLayout>
-
-            <Label
-                 Text="Spacing"
-                 Style="{StaticResource SubHeadline}"/>
-
-            <Label Text="The Spacing property for StackLayout, VerticalStackLayout and Horizontral is also supported."/>
-
-            <HorizontalStackLayout Spacing="{m:Size Md}">
-                <BoxView WidthRequest="{m:Size Sm}" HeightRequest="{m:Size Sm}" />
-                <BoxView WidthRequest="{m:Size Sm}" HeightRequest="{m:Size Sm}" />
-                <BoxView WidthRequest="{m:Size Sm}" HeightRequest="{m:Size Sm}" />
-            </HorizontalStackLayout>
-
-            <HorizontalStackLayout Spacing="{m:Size Xxl}">
-                <BoxView WidthRequest="{m:Size Sm}" HeightRequest="{m:Size Sm}" />
-                <BoxView WidthRequest="{m:Size Sm}" HeightRequest="{m:Size Sm}" />
-                <BoxView WidthRequest="{m:Size Sm}" HeightRequest="{m:Size Sm}" />
-            </HorizontalStackLayout>
-
-            <HorizontalStackLayout Spacing="{m:Size Giant}">
-                <BoxView WidthRequest="{m:Size Sm}" HeightRequest="{m:Size Sm}" />
-                <BoxView WidthRequest="{m:Size Sm}" HeightRequest="{m:Size Sm}" />
-                <BoxView WidthRequest="{m:Size Sm}" HeightRequest="{m:Size Sm}" />
-            </HorizontalStackLayout>
-
-        </VerticalStackLayout>
-    </ScrollView>
+    </VerticalStackLayout>
 </ContentView>

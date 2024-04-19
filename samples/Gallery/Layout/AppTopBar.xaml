@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Grid
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:m="clr-namespace:Manuela;assembly=Manuela"
+    xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons"
+    x:Class="Gallery.Layout.AppTopBar"
+    ColumnDefinitions="Auto, *"
+    ZIndex="10"
+    Background="{m:Brush 'Gray,Swatch100'}"
+    Padding="15, 0"
+    AbsoluteLayout.LayoutFlags="WidthProportional"
+    AbsoluteLayout.LayoutBounds="0,0,1,45">
+
+    <Image Source="m.png" Margin="0, 8" />
+
+    <HorizontalStackLayout
+        Margin="{OnPlatform Default=0, WinUI='0,0,135,0'}"
+        Grid.Column="1"
+        VerticalOptions="Center"
+        HorizontalOptions="End">
+
+        <HorizontalStackLayout.Resources>
+            <Style TargetType="mi:MauiIcon">
+                <Setter Property="Opacity" Value="0.75"/>
+                <Setter Property="Margin" Value="2, 0"/>
+                <Setter Property="IconSize" Value="22"/>
+                <Setter Property="Padding" Value="4"/>
+                <Setter Property="m:Has.States">
+                    <Setter.Value>
+                        <m:StatesCollection>
+                            <m:Default Setters="{m:Set Background='Gray,Swatch100'}"/>
+                            <m:Hovered Setters="{m:Set Background='Gray,Swatch300'}"/>
+                        </m:StatesCollection>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </HorizontalStackLayout.Resources>
+
+        <mi:MauiIcon Icon="{mi:SegoeFluent Icon=Ringer}"/>
+        <mi:MauiIcon Icon="{mi:SegoeFluent Icon=Contact}"/>
+
+    </HorizontalStackLayout>
+
+</Grid>

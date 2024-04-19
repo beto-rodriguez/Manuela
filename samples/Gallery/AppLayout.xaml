@@ -3,11 +3,15 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:m="clr-namespace:Manuela;assembly=Manuela"
+    xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons"
     xmlns:layout="clr-namespace:Gallery.Layout"
     xmlns:appViews="clr-namespace:Gallery.Views"
     x:Class="Gallery.AppLayout">
 
     <AbsoluteLayout>
+        <layout:AppTopBar
+            x:Name="AppTopBar"
+            m:Has.Transitions="{m:Transitions TranslateY}"/>
 
         <layout:AppMenu/>
 
@@ -15,16 +19,27 @@
             The app body content changes depending on the app route
         -->
 
-        <m:AppBody
+        <ScrollView
             Background="{m:Brush 'Gray,Swatch100'}"
             AbsoluteLayout.LayoutFlags="SizeProportional"
             AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
-            m:Has.States="{StaticResource AppBodyStates}">
+            m:Has.States="{StaticResource AppBodyStates}"
+            Scrolled="OnAppScrolled">
 
-            <!-- we can specify the view where the app starts, in this case, the MainView -->
-            <appViews:Brushes/>
+            <Border
+                StrokeThickness="1"
+                Stroke="{m:Color 'Gray,Swatch300'}"
+                Background="{m:Brush 'Gray,Swatch50'}">
+                <m:AppBody
+                    Padding="15, 0, 15, 0">
 
-        </m:AppBody>
+                    <!-- we can specify the view where the app starts, in this case, the MainView -->
+                    <appViews:Brushes/>
+
+                </m:AppBody>
+            </Border>
+            
+        </ScrollView>
 
     </AbsoluteLayout>
 

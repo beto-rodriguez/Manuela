@@ -1,5 +1,4 @@
 using Manuela.Styling;
-using Manuela.States.Screen;
 using MauiIcons.Core;
 
 namespace Gallery.Layout;
@@ -36,10 +35,6 @@ public partial class AppMenu : Grid
             Thickness margin = scene.FullScreen
                 ? new(0)
                 : new(0, 30, 0, 0);
-
-            if (AppIconBorder.Margin == margin) return;
-
-            AppIconBorder.Margin = margin;
         };
 #endif
     }
@@ -80,9 +75,12 @@ public partial class AppMenu : Grid
 
         // sets and animates the indicator based on the transition defined in XAML
 
+        var scale = .5;
+        Indicator.Scale = scale;
+
         if (MenuStackLayout.Orientation == StackOrientation.Vertical)
         {
-            Indicator.TranslationX = 0;
+            Indicator.TranslationX = 2;
             Indicator.HeightRequest = size.Height;
             Indicator.WidthRequest = 6;
             Indicator.SetManuelaProperty(
@@ -98,10 +96,9 @@ public partial class AppMenu : Grid
 #if WINDOWS
             //  for a reason on windows it seems wrong by about 10px
             // maybe window.width is not the right value to use
-            w -= 10;
+            w -= 10 * (1 + scale);
 #endif
-
-            Indicator.TranslationY = 0;
+            Indicator.TranslationY = 1;
             Indicator.WidthRequest = size.Width;
             Indicator.HeightRequest = 6;
             Indicator.SetManuelaProperty(

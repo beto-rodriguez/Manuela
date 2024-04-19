@@ -7,18 +7,18 @@
     xmlns:layout="clr-namespace:Gallery.Layout"
     x:Class="Gallery.Layout.AppMenu"
     RowDefinitions="Auto,*"
-    ZIndex="10"
-    Background="{m:Brush 'Gray,Swatch200'}"
+    ZIndex="9"
+    Background="{m:Brush 'Gray,Swatch100'}"
     m:Has.States="{StaticResource MenuStates}">
 
     <Grid.Resources>
 
         <x:Array x:Key="MenuData" Type="{x:Type layout:MenuItemModel}">
-            <layout:MenuItemModel DisplayName="Brushes and Colors"  Route="Brushes"     Icon="Brush"/>
-            <layout:MenuItemModel DisplayName="Sizing"              Route="Sizing"      Icon="DensityLarge"/>
-            <layout:MenuItemModel DisplayName="States"              Route="States"      Icon="RealEstateAgent"/>
-            <layout:MenuItemModel DisplayName="Transitions"         Route="Transitions" Icon="FastForward"/>
-            <layout:MenuItemModel DisplayName="Spacing"             Route="Spacing"     Icon="SpaceBar"/>
+            <layout:MenuItemModel DisplayName="Colors"              Route="Brushes"     Icon="Personalize"/>
+            <layout:MenuItemModel DisplayName="Sizing"              Route="Sizing"      Icon="FontSize"/>
+            <layout:MenuItemModel DisplayName="States"              Route="States"      Icon="Brightness"/>
+            <layout:MenuItemModel DisplayName="Transitions"         Route="Transitions" Icon="Sync"/>
+            <layout:MenuItemModel DisplayName="Spacing"             Route="Spacing"     Icon="MapLayers"/>
         </x:Array>
 
         <!--
@@ -35,7 +35,7 @@
 
                 <mi:MauiIcon
                     Icon="{Binding Icon}"
-                    IconSize="25"
+                    IconSize="20"
                     IconColor="{m:Color 'Gray,Swatch900'}"
                     Padding="{OnPlatform Default='0', MacCatalyst='17.5,0'}"
                     VerticalOptions="Center"
@@ -53,12 +53,12 @@
                     Text="{Binding DisplayName}"
                     TextColor="{m:Color 'Gray,Swatch900'}"
                     VerticalOptions="Center"
-                    HorizontalOptions="Center">
+                    HorizontalOptions="Center"
+                    FontSize="10">
 
                     <m:Has.States>
                         <m:StatesCollection>
                             <m:State Name="active" Setters="{m:Set TextColor=Primary}"/>
-                            <m:OnScreenSize Xs="{m:Set TextSize=10}" Md="{m:Set TextSize=15}"/>
                         </m:StatesCollection>
                     </m:Has.States>
                 </Label>
@@ -69,22 +69,6 @@
             </StackLayout>
         </DataTemplate>
     </Grid.Resources>
-
-    <Border
-        x:Name="AppIconBorder"
-        Grid.Row="0"
-        StrokeThickness="0"
-        m:Has.States="{StaticResource AppIconStates}">
-
-        <!--app icon--> 
-        <Image
-            HorizontalOptions="Start"
-            MaximumHeightRequest="40"
-            m:Has.States="{m:States
-                OnXs={m:Set ImageSource='m.png'},
-                OnXl={m:Set ImageSource='manuela.png'}}"/>
-
-    </Border>
 
     <ScrollView Grid.Row="1">
         <Grid RowDefinitions="Auto,Auto">

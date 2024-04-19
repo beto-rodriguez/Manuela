@@ -18,16 +18,13 @@ public partial class AppLayout : AppPage
 
         // Temporary Workaround for url styled namespace in xaml
         _ = new MauiIcon();
-
-        Loaded += (_, _) =>
-        {
-            UpdatePointerPassthroughRegion();
-            SideMenu.Window.SizeChanged += (_, _) => UpdatePointerPassthroughRegion();
-        };
     }
 
     protected override void OnAppLoaded(object? sender, EventArgs e)
     {
+        UpdatePointerPassthroughRegion();
+        SideMenu.Window.SizeChanged += (_, _) => UpdatePointerPassthroughRegion();
+
         // the app starts open, but on < lg screens it will be closed
         var isSmall = BodyElement.GetScreenBreakpoint() < Breakpoint.Lg;
         if (isSmall) ToggleMenu();
