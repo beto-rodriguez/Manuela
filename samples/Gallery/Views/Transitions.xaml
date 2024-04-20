@@ -12,7 +12,7 @@
             Text="Transitions made easy... Any property inside the m:Set Xaml extension is animatable."/>
 
         <Button
-            Margin="0, 50"
+            Margin="0, 30"
             Text="press me and hold"
             HorizontalOptions="Start"
             m:Has.Transitions="{m:Transitions 'Scale,Rotation'}"
@@ -23,7 +23,7 @@
 
         <!-- personalize more: -->
         <Button
-            Margin="0, 50"
+            Margin="0, 30"
             Text="press me and hold"
             Background="{m:Brush Secondary}"
             HorizontalOptions="Start"

@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:m="clr-namespace:Manuela;assembly=Manuela"
+    xmlns:forms="clr-namespace:Manuela.Forms;assembly=Manuela">
+
+    <Style TargetType="forms:TextInput">
+        <Setter Property="BackgroundColor" Value="{m:Color 'Gray,Swatch200'}"/>
+        <Setter Property="HighlightColor" Value="{m:Color 'Primary,Swatch700'}"/>
+        <Setter Property="HighlightBorderHeight" Value="3"/>
+        <Setter Property="InputMinimumHeightRequest" Value="48"/>
+        <Setter Property="Margin" Value="0, 5"/>
+        <Setter Property="StrokeShape">
+            <Setter.Value>
+                <RoundRectangle CornerRadius="{m:Size Xl}"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="forms:InputGroup">
+        <Setter Property="BackgroundColor" Value="{m:Color 'Gray,Swatch200'}"/>
+        <Setter Property="MinimumHeightRequest" Value="48"/>
+        <Setter Property="Margin" Value="0, 5"/>
+        <Setter Property="StrokeShape">
+            <Setter.Value>
+                <RoundRectangle CornerRadius="{m:Size Xl}"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

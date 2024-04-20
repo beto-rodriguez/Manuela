@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:m="clr-namespace:Manuela;assembly=Manuela"
+             xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons"
+             xmlns:forms="clr-namespace:Manuela.Forms;assembly=Manuela"
+             x:Class="Gallery.Views.Forms">
+    <VerticalStackLayout>
+
+        <forms:TextInput Placeholder="Enter something here"/>
+
+        <forms:TextInput
+            Placeholder="hola que hace"/>
+
+        <forms:InputGroup>
+            <forms:InputGroup.LeftContent>
+                <mi:MauiIcon Icon="{mi:SegoeFluent Icon=Phone}" IconSize="25" Margin="{m:Spacing Left=Lg}" />
+            </forms:InputGroup.LeftContent>
+
+            <forms:InputGroup.MiddleContent>
+                <forms:TextInput  Placeholder="Enter something here"/>
+            </forms:InputGroup.MiddleContent>
+        </forms:InputGroup>
+
+        <forms:InputGroup>
+            <forms:InputGroup.MiddleContent>
+                <forms:TextInput  Placeholder="Enter something here"/>
+            </forms:InputGroup.MiddleContent>
+
+            <forms:InputGroup.RightContent>
+                <mi:MauiIcon Icon="{mi:SegoeFluent Icon=Mail}" IconSize="25" Margin="{m:Spacing Right=Lg}" />
+            </forms:InputGroup.RightContent>
+        </forms:InputGroup>
+
+        <forms:InputGroup>
+            <forms:InputGroup.LeftContent>
+                <mi:MauiIcon Icon="{mi:SegoeFluent Icon=Phone}" IconSize="25" Margin="{m:Spacing Left=Lg}" />
+            </forms:InputGroup.LeftContent>
+
+            <forms:InputGroup.MiddleContent>
+                <forms:TextInput  Placeholder="Enter something here"/>
+            </forms:InputGroup.MiddleContent>
+
+            <forms:InputGroup.RightContent>
+                <mi:MauiIcon Icon="{mi:SegoeFluent Icon=Mail}" IconSize="25" Margin="{m:Spacing Right=Lg}"/>
+            </forms:InputGroup.RightContent>
+        </forms:InputGroup>
+
+        <forms:InputGroup>
+            <forms:InputGroup.MiddleContent>
+                <forms:TextInput  Placeholder="Enter something here"/>
+            </forms:InputGroup.MiddleContent>
+
+            <forms:InputGroup.RightContent>
+                <HorizontalStackLayout Spacing="{m:Size Lg}" Margin="{m:Spacing Right=Lg}">
+                    <mi:MauiIcon Icon="{mi:SegoeFluent Icon=Phone}" IconSize="25"  />
+                    <mi:MauiIcon Icon="{mi:SegoeFluent Icon=Mail}" IconSize="25"  />
+                </HorizontalStackLayout>
+            </forms:InputGroup.RightContent>
+        </forms:InputGroup>
+
+        <forms:InputGroup>
+            <forms:InputGroup.MiddleContent>
+                <forms:TextInput  Placeholder="Enter something here"/>
+            </forms:InputGroup.MiddleContent>
+
+            <forms:InputGroup.RightContent>
+                <Button Text="Search" HeightRequest="48" CornerRadius="{m:Size Xl}"/>
+            </forms:InputGroup.RightContent>
+        </forms:InputGroup>
+
+    </VerticalStackLayout>
+</ContentView>

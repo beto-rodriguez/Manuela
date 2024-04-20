@@ -28,7 +28,7 @@
 
             <m:AppBody
                 Background="{m:Brush 'Gray,Swatch50'}"
-                Padding="15, 0, 15, 0">
+                Padding="15, 10">
 
                 <!-- we can specify the view where the app starts, in this case, the MainView -->
                 <appViews:Brushes/>

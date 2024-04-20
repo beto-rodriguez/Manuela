@@ -20,7 +20,8 @@ public static class MauiProgram
                 new Route<States>(),
                 new Route<Sizing>(),
                 new Route<Spacing>(),
-                new Route<Transitions>()
+                new Route<Transitions>(),
+                new Route<Forms>()
             ])
             .UseSegoeFluentMauiIcons()
             .ConfigureFonts(fonts =>
