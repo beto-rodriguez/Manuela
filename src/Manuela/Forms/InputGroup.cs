@@ -1,6 +1,4 @@
-﻿using Microsoft.Maui.Animations;
-
-namespace Manuela.Forms;
+﻿namespace Manuela.Forms;
 
 public class InputGroup : Border
 {
@@ -10,9 +8,9 @@ public class InputGroup : Border
 
     public InputGroup()
     {
-        _middle = new ContentView();
-        _left = new ContentView();
-        _right = new ContentView();
+        _middle = new() { VerticalOptions = LayoutOptions.Center };
+        _left = new() { VerticalOptions = LayoutOptions.Center };
+        _right = new() { VerticalOptions = LayoutOptions.Center };
 
         Grid.SetColumn(_left, 0);
         Grid.SetColumn(_middle, 1);
@@ -77,10 +75,6 @@ public class InputGroup : Border
             var inputGroup = (InputGroup)bindable;
             var contentView = side == Side.Left ? inputGroup._left : inputGroup._right;
             contentView.Content = view;
-
-            contentView.VerticalOptions = LayoutOptions.Center;
-            //if (side == Side.Left) contentView.Margin = new(12, 0, 0, 0);
-            //else contentView.Margin = new(0, 0, 12, 0);
         };
     }
 

@@ -7,10 +7,53 @@
              x:Class="Gallery.Views.Forms">
     <VerticalStackLayout>
 
+        <Label
+            Text="Forms"
+            Style="{StaticResource Headline}"/>
+
+        <Label
+            Margin="0,0,0,20"
+            Text="These input elements, provide more control over the element style, such as borders, corer radius, and look the same on all platforms (but radius and checkbox)"/>
+
+        <Label
+            Text="Basic input"
+            Style="{StaticResource SubHeadline}"/>
+
+        <Label  Text="Enter something here:"/>
+        <forms:TextInput />
+
+        <Label
+            Margin="0, 10"
+            Text="Placeholder"
+            Style="{StaticResource SubHeadline}"/>
+
         <forms:TextInput Placeholder="Enter something here"/>
 
+        <Label
+            Margin="0,10"
+            Text="Customize more"
+            Style="{StaticResource SubHeadline}"/>
+
         <forms:TextInput
-            Placeholder="hola que hace"/>
+            Padding="10, 0"
+            Placeholder="Enter something here"
+            HighlightColor="Red"
+            HighlightBorderHeight="6"
+            HeightRequest="80">
+
+            <!-- the control inherits from Border, you can just use the border properties -->
+            <forms:TextInput.StrokeShape>
+                <RoundRectangle CornerRadius="40" />
+            </forms:TextInput.StrokeShape>
+        </forms:TextInput>
+
+        <Label Text="No highlight, no placeholder"/>
+        <forms:TextInput HighlightBorderHeight="0"/>
+
+        <Label
+            Margin="0,10"
+            Text="Input grups"
+            Style="{StaticResource SubHeadline}"/>
 
         <forms:InputGroup>
             <forms:InputGroup.LeftContent>
