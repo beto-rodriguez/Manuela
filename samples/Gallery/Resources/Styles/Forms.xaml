@@ -19,6 +19,75 @@
         </Setter>
     </Style>
 
+    <Style TargetType="forms:TextAreaInput">
+        <Setter Property="BackgroundColor" Value="{m:Color 'Gray,Swatch200'}"/>
+        <Setter Property="HighlightColor" Value="{m:Color 'Primary,Swatch700'}"/>
+        <Setter Property="HighlightBorderHeight" Value="3"/>
+        <Setter Property="InputMinimumHeightRequest" Value="150"/>
+        <Setter Property="Margin" Value="0, 5"/>
+        <Setter Property="StrokeShape">
+            <Setter.Value>
+                <RoundRectangle CornerRadius="{m:Size Xl}"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="forms:PickerInput">
+        <Setter Property="BackgroundColor" Value="{m:Color 'Gray,Swatch200'}"/>
+        <Setter Property="HighlightColor" Value="{m:Color 'Primary,Swatch700'}"/>
+        <Setter Property="HighlightBorderHeight" Value="3"/>
+        <Setter Property="InputMinimumHeightRequest" Value="48"/>
+        <Setter Property="Margin" Value="0, 5"/>
+        <Setter Property="StrokeShape">
+            <Setter.Value>
+                <RoundRectangle CornerRadius="{m:Size Xl}"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="forms:DatePickerInput">
+        <Setter Property="BackgroundColor" Value="{m:Color 'Gray,Swatch200'}"/>
+        <Setter Property="HighlightColor" Value="{m:Color 'Primary,Swatch700'}"/>
+        <Setter Property="HighlightBorderHeight" Value="3"/>
+        <Setter Property="InputMinimumHeightRequest" Value="48"/>
+        <Setter Property="Margin" Value="0, 5"/>
+        <Setter Property="StrokeShape">
+            <Setter.Value>
+                <RoundRectangle CornerRadius="{m:Size Xl}"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="forms:CheckBoxInput">
+        <Setter Property="HeightRequest" Value="32"/>
+        <Setter Property="WidthRequest" Value="32"/>
+    </Style>
+
+    <Style TargetType="Border" Class="CheckBoxInputCheck">
+        <Setter Property="StrokeThickness" Value="3"/>
+        <Setter Property="Stroke" Value="{m:Color 'Gray,Swatch50'}"/>
+    </Style>
+
+    <Style TargetType="Border" Class="CheckBoxInputActiveBackground">
+        <Setter Property="BackgroundColor" Value="{m:Color Primary}"/>
+        <Setter Property="StrokeThickness" Value="0"/>
+        <Setter Property="StrokeShape">
+            <Setter.Value>
+                <RoundRectangle CornerRadius="{m:Size Xl}"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="Border" Class="CheckBoxInputBackground">
+        <Setter Property="BackgroundColor" Value="{m:Color 'Gray,Swatch200'}"/>
+        <Setter Property="StrokeThickness" Value="0"/>
+        <Setter Property="StrokeShape">
+            <Setter.Value>
+                <RoundRectangle CornerRadius="{m:Size Xl}"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style TargetType="forms:InputGroup">
         <Setter Property="BackgroundColor" Value="{m:Color 'Gray,Swatch200'}"/>
         <Setter Property="MinimumHeightRequest" Value="48"/>

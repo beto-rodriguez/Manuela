@@ -6,9 +6,4 @@ public partial class Forms : ContentView
     {
         InitializeComponent();
     }
-
-    private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
-    {
-
-    }
 }

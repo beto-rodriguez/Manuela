@@ -15,24 +15,32 @@
             Margin="0,0,0,20"
             Text="These input elements, provide more control over the element style, such as borders, corer radius, and look the same on all platforms (but radius and checkbox)"/>
 
+        <forms:TextInput Placeholder="Enter some text here"/>
+        
+        <forms:TextAreaInput Placeholder="Intert multiple lines here" />
+        
+        <forms:PickerInput Placeholder="Select an option">
+            <forms:PickerInput.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>This is an option</x:String>
+                    <x:String>This is another one</x:String>
+                    <x:String>Pick me</x:String>
+                    <x:String>Please pick me!</x:String>
+                </x:Array>
+            </forms:PickerInput.ItemsSource>
+        </forms:PickerInput>
+
+        <forms:DatePickerInput Placeholder="Select a date"/>
+
+        <forms:CheckBoxInput/>
+
         <Label
-            Text="Basic input"
+            Margin="0,10"
+            Text="Styling"
             Style="{StaticResource SubHeadline}"/>
 
         <Label  Text="Enter something here:"/>
         <forms:TextInput />
-
-        <Label
-            Margin="0, 10"
-            Text="Placeholder"
-            Style="{StaticResource SubHeadline}"/>
-
-        <forms:TextInput Placeholder="Enter something here"/>
-
-        <Label
-            Margin="0,10"
-            Text="Customize more"
-            Style="{StaticResource SubHeadline}"/>
 
         <forms:TextInput
             Padding="10, 0"
