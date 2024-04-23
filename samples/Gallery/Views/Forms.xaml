@@ -13,7 +13,7 @@
 
         <Label
             Margin="0,0,0,20"
-            Text="These input elements, provide more control over the element style, such as borders, corer radius, and look the same on all platforms (but radius and checkbox)"/>
+            Text="These input elements, provide more control over the element style, such as borders, corer radius, and look the same on all platforms"/>
 
         <forms:TextInput Placeholder="Enter some text here"/>
         
@@ -32,7 +32,7 @@
 
         <forms:DatePickerInput Placeholder="Select a date"/>
 
-        <forms:CheckBoxInput/>
+        <forms:CheckBoxInput Placeholder="Check me"/>
 
         <StackLayout>
             <Label Text="What's your favorite animal?" />

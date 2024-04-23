@@ -4,30 +4,33 @@ using Microsoft.Maui.Layouts;
 
 namespace Manuela.Forms;
 
-public class CheckBoxInput : AbsoluteLayout
+public class CheckBoxInput : HorizontalStackLayout
 {
     private bool _isDown;
 
+    private readonly AbsoluteLayout _checkLayout;
     private readonly Border _checkBackground;
     private readonly Border _checkActiveBackground;
     private readonly Border _checkmark;
+    private readonly Label _label;
 
     public CheckBoxInput()
     {
-        _checkBackground = new() { StyleClass = new[] { "CheckBoxInputBackground" } };
-        _checkActiveBackground = new() { StyleClass = new[] { "CheckBoxInputActiveBackground" }, Scale = 0 };
+        _checkLayout = new() { StyleClass = new[] { "checkbox-layout" } };
+        _checkBackground = new() { StyleClass = new[] { "checkbox-inactive-background" } };
+        _checkActiveBackground = new() { StyleClass = new[] { "checkbox-active-background" }, Scale = 0 };
 
         var p = (Shape)new StrokeShapeTypeConverter().ConvertFrom("Path M4 12.6111L8.92308 17.5L20 6.5")!;
 
         _checkmark = new Border
         {
-            StyleClass = new[] { "CheckBoxInputCheck" },
-
+            StyleClass = new[] { "checkbox-checkmark" },
             StrokeShape = p,
             AnchorX = 0,
             AnchorY = 0,
-            Scale = HeightRequest / 28d,
-            Opacity = 0
+            Scale = _checkLayout.HeightRequest / 28d, // the path is 28x28
+            Opacity = 0,
+            ZIndex = 99
         };
 
         Has.SetTransitions(_checkActiveBackground, [
@@ -44,9 +47,12 @@ public class CheckBoxInput : AbsoluteLayout
         AbsoluteLayout.SetLayoutBounds(_checkActiveBackground, new(0, 0, 1, 1));
         AbsoluteLayout.SetLayoutBounds(_checkmark, new(0, 0, 1, 1));
 
-        Children.Add(_checkBackground);
-        Children.Add(_checkActiveBackground);
-        Children.Add(_checkmark);
+        _checkLayout.Children.Add(_checkBackground);
+        _checkLayout.Children.Add(_checkActiveBackground);
+        _checkLayout.Children.Add(_checkmark);
+
+        Children.Add(_checkLayout);
+        Children.Add(_label = new Label { VerticalOptions = LayoutOptions.Center });
 
         var b = new Behaviors.Behavior(this);
 
@@ -58,12 +64,23 @@ public class CheckBoxInput : AbsoluteLayout
         BindableProperty.Create(
             nameof(IsChecked), typeof(bool), typeof(CheckBoxInput), false, propertyChanged: OnIsCheckedChanged);
 
+    public static readonly BindableProperty PlaceholderProperty =
+        BindableProperty.Create(nameof(Placeholder), typeof(string), typeof(CheckBoxInput), string.Empty,
+            propertyChanged: (BindableObject o, object old, object newVal) =>
+                ((CheckBoxInput)o)._label.SetValue(Label.TextProperty, newVal));
+
     public event Action<CheckBoxInput>? CheckedChanged;
 
     public bool IsChecked
     {
         get => (bool)GetValue(IsCheckedProperty);
         set => SetValue(IsCheckedProperty, value);
+    }
+
+    public string Placeholder
+    {
+        get => (string)GetValue(PlaceholderProperty);
+        set => SetValue(PlaceholderProperty, value);
     }
 
     private static void OnIsCheckedChanged(BindableObject bindable, object oldValue, object newValue)
