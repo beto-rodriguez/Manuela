@@ -34,6 +34,14 @@
 
         <forms:CheckBoxInput/>
 
+        <StackLayout>
+            <Label Text="What's your favorite animal?" />
+            <forms:RadioButtonInput Content="Cat" />
+            <forms:RadioButtonInput Content="Dog" />
+            <forms:RadioButtonInput Content="Elephant" />
+            <forms:RadioButtonInput Content="Monkey" IsChecked="true" />
+        </StackLayout>
+
         <Label
             Margin="0,10"
             Text="Styling"
