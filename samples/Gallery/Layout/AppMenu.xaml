@@ -7,8 +7,8 @@
     xmlns:layout="clr-namespace:Gallery.Layout"
     x:Class="Gallery.Layout.AppMenu"
     RowDefinitions="Auto,*"
-    ZIndex="9"
-    Background="{m:Brush 'Gray,Swatch100'}"
+    ZIndex="10"
+    Background="{m:Brush 'Gray,Swatch50'}"
     m:Has.States="{StaticResource MenuStates}">
 
     <Grid.Resources>
@@ -70,6 +70,14 @@
             </StackLayout>
         </DataTemplate>
     </Grid.Resources>
+
+    <Image
+        Grid.Row="0"
+        Source="appmenuicon.png"
+        Margin="15, 9"
+        m:Has.States="{m:States
+            OnXs={m:Set Visible=False},
+            OnMd={m:Set Visible=True}}"/>
 
     <ScrollView Grid.Row="1">
         <Grid RowDefinitions="Auto,Auto">

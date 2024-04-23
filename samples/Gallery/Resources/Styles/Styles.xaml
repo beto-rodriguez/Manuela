@@ -185,7 +185,7 @@
     </Style>
 
     <Style TargetType="Label" x:Key="Headline">
-        <Setter Property="TextColor" Value="{m:Color 'Primary,Swatch900'}" />
+        <Setter Property="TextColor" Value="{m:Color 'Primary,Swatch600'}" />
         <Setter Property="FontSize" Value="32" />
         <Setter Property="HorizontalOptions" Value="Start" />
         <Setter Property="HorizontalTextAlignment" Value="Center" />
@@ -193,7 +193,7 @@
     </Style>
 
     <Style TargetType="Label" x:Key="SubHeadline">
-        <Setter Property="TextColor" Value="{m:Color 'Primary,Swatch900'}" />
+        <Setter Property="TextColor" Value="{m:Color 'Primary,Swatch600'}" />
         <Setter Property="FontSize" Value="24" />
         <Setter Property="HorizontalOptions" Value="Start" />
         <Setter Property="HorizontalTextAlignment" Value="Center" />

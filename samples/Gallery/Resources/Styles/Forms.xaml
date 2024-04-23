@@ -10,6 +10,7 @@
         <Setter Property="BackgroundColor" Value="{m:Color 'Gray,Swatch200'}"/>
         <Setter Property="HighlightColor" Value="{m:Color 'Primary,Swatch700'}"/>
         <Setter Property="HighlightBorderHeight" Value="3"/>
+        <Setter Property="PlaceholderColor" Value="{m:Color 'Gray,Swatch700'}"/>
         <Setter Property="InputMinimumHeightRequest" Value="48"/>
         <Setter Property="Margin" Value="0, 5"/>
         <Setter Property="StrokeShape">
@@ -23,6 +24,7 @@
         <Setter Property="BackgroundColor" Value="{m:Color 'Gray,Swatch200'}"/>
         <Setter Property="HighlightColor" Value="{m:Color 'Primary,Swatch700'}"/>
         <Setter Property="HighlightBorderHeight" Value="3"/>
+        <Setter Property="PlaceholderColor" Value="{m:Color 'Gray,Swatch700'}"/>
         <Setter Property="InputMinimumHeightRequest" Value="150"/>
         <Setter Property="Margin" Value="0, 5"/>
         <Setter Property="StrokeShape">
@@ -36,6 +38,7 @@
         <Setter Property="BackgroundColor" Value="{m:Color 'Gray,Swatch200'}"/>
         <Setter Property="HighlightColor" Value="{m:Color 'Primary,Swatch700'}"/>
         <Setter Property="HighlightBorderHeight" Value="3"/>
+        <Setter Property="PlaceholderColor" Value="{m:Color 'Gray,Swatch700'}"/>
         <Setter Property="InputMinimumHeightRequest" Value="48"/>
         <Setter Property="Margin" Value="0, 5"/>
         <Setter Property="StrokeShape">
@@ -49,6 +52,7 @@
         <Setter Property="BackgroundColor" Value="{m:Color 'Gray,Swatch200'}"/>
         <Setter Property="HighlightColor" Value="{m:Color 'Primary,Swatch700'}"/>
         <Setter Property="HighlightBorderHeight" Value="3"/>
+        <Setter Property="PlaceholderColor" Value="{m:Color 'Gray,Swatch700'}"/>
         <Setter Property="InputMinimumHeightRequest" Value="48"/>
         <Setter Property="Margin" Value="0, 5"/>
         <Setter Property="StrokeShape">

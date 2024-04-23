@@ -48,7 +48,7 @@
         x:Key="MdMenu"
         AbsoluteLayoutFlags="HeightProportional"
         AbsoluteLayoutBounds="0, 0, 80, 1"
-        Padding="0,50,0,0"/>
+        Padding="0,0,0,0"/>
 
     <m:Set
         x:Key="MdAppBody"

@@ -6,13 +6,22 @@
     xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons"
     x:Class="Gallery.Layout.AppTopBar"
     ColumnDefinitions="Auto, *"
-    ZIndex="10"
+    ZIndex="9"
     Background="{m:Brush 'Gray,Swatch100'}"
     Padding="15, 0"
     AbsoluteLayout.LayoutFlags="WidthProportional"
     AbsoluteLayout.LayoutBounds="0,0,1,45">
 
-    <Image Source="m.png" Margin="0, 8" IsVisible="{OnPlatform Default=True, MacCatalyst=False}" />
+    <BoxView
+        Grid.ColumnSpan="2"
+        BackgroundColor="{m:Color 'Gray,Swatch200'}"
+        Margin="-15,0"
+        HeightRequest="1"
+        TranslationY="22"/>
+
+    <Image
+        Source="appmenuicon.png"
+        Margin="0, 8" IsVisible="{OnPlatform Default=True, MacCatalyst=False}" />
 
     <HorizontalStackLayout
         Margin="{OnPlatform Default=0, WinUI='0,0,135,0'}"

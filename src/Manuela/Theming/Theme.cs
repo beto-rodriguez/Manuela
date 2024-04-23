@@ -179,7 +179,7 @@ public class Theme
             ColorPalletes.Blue.Reverse().ToArray(),
             ColorPalletes.Orange.Reverse().ToArray(),
             ColorPalletes.Pink.Reverse().ToArray(),
-            ColorPalletes.Slate.Reverse().ToArray()));
+            ColorPalletes.Gray.Reverse().ToArray()));
 
     public Dictionary<string, ISizeSource> PropertyMap { get; }
     public UISizeDictionary<double> Space { get; }
