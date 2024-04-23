@@ -64,8 +64,8 @@
     </Style>
 
     <Style TargetType="AbsoluteLayout" Class="checkbox-layout">
-        <Setter Property="HeightRequest" Value="32"/>
-        <Setter Property="WidthRequest" Value="32"/>
+        <Setter Property="HeightRequest" Value="24"/>
+        <Setter Property="WidthRequest" Value="24"/>
     </Style>
 
     <Style TargetType="Border" Class="checkbox-checkmark">
@@ -78,7 +78,7 @@
         <Setter Property="StrokeThickness" Value="0"/>
         <Setter Property="StrokeShape">
             <Setter.Value>
-                <RoundRectangle CornerRadius="{m:Size Xl}"/>
+                <RoundRectangle CornerRadius="{m:Size Lg}"/>
             </Setter.Value>
         </Setter>
     </Style>
@@ -88,7 +88,7 @@
         <Setter Property="StrokeThickness" Value="0"/>
         <Setter Property="StrokeShape">
             <Setter.Value>
-                <RoundRectangle CornerRadius="{m:Size Xl}"/>
+                <RoundRectangle CornerRadius="{m:Size Lg}"/>
             </Setter.Value>
         </Setter>
     </Style>
@@ -103,8 +103,8 @@
                     <HorizontalStackLayout Spacing="10">
 
                         <AbsoluteLayout
-                            HeightRequest="32"
-                            WidthRequest="32">
+                            HeightRequest="24"
+                            WidthRequest="24">
 
                             <Border
                                 x:Name="background"
@@ -115,7 +115,7 @@
                                 AbsoluteLayout.LayoutBounds="0,0,1,1">
 
                                 <Border.StrokeShape>
-                                    <RoundRectangle CornerRadius="{m:Size Xl}" />
+                                    <RoundRectangle CornerRadius="{m:Size Lg}" />
                                 </Border.StrokeShape>
 
                             </Border>
