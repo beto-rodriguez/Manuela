@@ -4,7 +4,7 @@ namespace Manuela.Forms;
 
 public interface IInputControl
 {
-    PropertyInput Input { get; set; }
+    PropertyInput InputOf { get; set; }
     string ValidationMessage { get; set; }
     void SetValue(object? value);
     void SetPlaceholder(string placeholder);

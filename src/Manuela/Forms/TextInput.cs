@@ -16,8 +16,8 @@ public class TextInput : BaseInput<Entry, IEntryHandler>, IInputControl
         };
     }
 
-    public static readonly BindableProperty InputProperty =
-        BindableProperty.Create(nameof(BaseControl), typeof(PropertyInput), typeof(TextInput), null,
+    public static readonly BindableProperty InputOfProperty =
+        BindableProperty.Create(nameof(InputOf), typeof(PropertyInput), typeof(TextInput), null,
             propertyChanged: OnInputChanged);
 
     public static readonly BindableProperty ValueProperty =
@@ -42,10 +42,10 @@ public class TextInput : BaseInput<Entry, IEntryHandler>, IInputControl
         propertyChanged: (BindableObject o, object old, object newVal) =>
             ((TextInput)o).BaseControl.SetValue(Entry.FontAttributesProperty, newVal));
 
-    public PropertyInput Input
+    public PropertyInput InputOf
     {
-        get => (PropertyInput)GetValue(InputProperty);
-        set => SetValue(InputProperty, value);
+        get => (PropertyInput)GetValue(InputOfProperty);
+        set => SetValue(InputOfProperty, value);
     }
 
     public string Value

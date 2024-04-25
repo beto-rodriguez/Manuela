@@ -9,7 +9,7 @@
 
     <VerticalStackLayout>
 
-        <forms:TextInput Input="{Binding NameInput}"/>
+        <forms:TextInput InputOf="{Binding NameInput}"/>
 
         <!--
         <forms:TextInput
