@@ -7,28 +7,28 @@ public class PickerInput : BaseInput<Picker, IPickerHandler>
 {
     public PickerInput()
     {
-        Input.BackgroundColor = Colors.Transparent;
+        BaseControl.BackgroundColor = Colors.Transparent;
     }
 
     public static readonly BindableProperty ItemsSourceProperty =
         BindableProperty.Create(nameof(PickerInput), typeof(IList), typeof(Picker), default(IList),
         propertyChanged: (BindableObject o, object old, object newVal) =>
-            ((PickerInput)o).Input.SetValue(Picker.ItemsSourceProperty, newVal));
+            ((PickerInput)o).BaseControl.SetValue(Picker.ItemsSourceProperty, newVal));
 
     public static readonly BindableProperty TextColorProperty =
         BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(PickerInput), Colors.Black,
         propertyChanged: (BindableObject o, object old, object newVal) =>
-            ((PickerInput)o).Input.SetValue(Picker.TextColorProperty, newVal));
+            ((PickerInput)o).BaseControl.SetValue(Picker.TextColorProperty, newVal));
 
     public static readonly BindableProperty FontSizeProperty =
         BindableProperty.Create(nameof(FontSize), typeof(double), typeof(PickerInput), 14d,
         propertyChanged: (BindableObject o, object old, object newVal) =>
-            ((PickerInput)o).Input.SetValue(Picker.FontSizeProperty, newVal));
+            ((PickerInput)o).BaseControl.SetValue(Picker.FontSizeProperty, newVal));
 
     public static readonly BindableProperty FontAttributesProperty =
         BindableProperty.Create(nameof(FontAttributes), typeof(FontAttributes), typeof(PickerInput), FontAttributes.None,
         propertyChanged: (BindableObject o, object old, object newVal) =>
-            ((PickerInput)o).Input.SetValue(Picker.FontAttributesProperty, newVal));
+            ((PickerInput)o).BaseControl.SetValue(Picker.FontAttributesProperty, newVal));
 
     public IList ItemsSource
     {
@@ -54,7 +54,7 @@ public class PickerInput : BaseInput<Picker, IPickerHandler>
         set => SetValue(FontAttributesProperty, value);
     }
 
-    protected override bool CanRestoreLabelOnUnFocus => Input.SelectedItem is null;
+    protected override bool CanRestoreLabelOnUnFocus => BaseControl.SelectedItem is null;
 
     protected override void OnInputHandlerChanged(IPickerHandler handler)
     {

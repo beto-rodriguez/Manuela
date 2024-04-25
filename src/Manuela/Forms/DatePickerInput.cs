@@ -6,23 +6,23 @@ public class DatePickerInput : BaseInput<DatePicker, IDatePickerHandler>
 {
     public DatePickerInput()
     {
-        Input.BackgroundColor = Colors.Transparent;
+        BaseControl.BackgroundColor = Colors.Transparent;
     }
 
     public static readonly BindableProperty TextColorProperty =
         BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(DatePickerInput), Colors.Black,
         propertyChanged: (BindableObject o, object old, object newVal) =>
-            ((DatePickerInput)o).Input.SetValue(DatePicker.TextColorProperty, newVal));
+            ((DatePickerInput)o).BaseControl.SetValue(DatePicker.TextColorProperty, newVal));
 
     public static readonly BindableProperty FontSizeProperty =
         BindableProperty.Create(nameof(FontSize), typeof(double), typeof(DatePickerInput), 14d,
         propertyChanged: (BindableObject o, object old, object newVal) =>
-            ((DatePickerInput)o).Input.SetValue(DatePicker.FontSizeProperty, newVal));
+            ((DatePickerInput)o).BaseControl.SetValue(DatePicker.FontSizeProperty, newVal));
 
     public static readonly BindableProperty FontAttributesProperty =
         BindableProperty.Create(nameof(FontAttributes), typeof(FontAttributes), typeof(DatePickerInput), FontAttributes.None,
         propertyChanged: (BindableObject o, object old, object newVal) =>
-            ((DatePickerInput)o).Input.SetValue(DatePicker.FontAttributesProperty, newVal));
+            ((DatePickerInput)o).BaseControl.SetValue(DatePicker.FontAttributesProperty, newVal));
 
     public Color TextColor
     {

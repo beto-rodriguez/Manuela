@@ -12,6 +12,8 @@ public abstract class BaseInput<TInput, THandler> : Border
     protected AbsoluteLayout _inputLayout;
     protected BoxView _activeBoxView;
 
+    protected Label _validationLabel;
+
     public BaseInput()
     {
         _isInitialized = true;
@@ -46,12 +48,36 @@ public abstract class BaseInput<TInput, THandler> : Border
         _inputLayout.Children.Add(input);
         _inputLayout.Children.Add(_activeBoxView);
 
-        Content = _inputLayout;
+        _validationLabel = new Label
+        {
+            FontSize = 15,
+            Text = ValidationMessage,
+            Padding = new(14, 5),
+            TextColor = Colors.Red,
+            IsVisible = ValidationMessage.Length > 0
+        };
 
-        Input = input;
+        var content = new Grid
+        {
+            RowDefinitions =
+            [
+                new RowDefinition { Height = GridLength.Auto },
+                new RowDefinition { Height = GridLength.Auto }
+            ]
+        };
 
-        Input.Focused += (_, _) => SetInputFocus();
-        Input.Unfocused += (_, _) => RemoveInputFocus();
+        content.Children.Add(_inputLayout);
+        content.Children.Add(_validationLabel);
+
+        Grid.SetRow(_inputLayout, 0);
+        Grid.SetRow(_validationLabel, 1);
+
+        Content = content;
+
+        BaseControl = input;
+
+        BaseControl.Focused += (_, _) => SetInputFocus();
+        BaseControl.Unfocused += (_, _) => RemoveInputFocus();
     }
 
     #region bindable properties
@@ -77,7 +103,7 @@ public abstract class BaseInput<TInput, THandler> : Border
                 if (!input._isInitialized) return;
                 var newLabel = (string?)newValue;
                 input._label.Text = newLabel;
-                input.Input.TranslationY = newLabel is not null && newLabel.Length > 0 ? 6 : 0;
+                input.BaseControl.TranslationY = newLabel is not null && newLabel.Length > 0 ? 6 : 0;
             });
 
     public static readonly BindableProperty PlaceholderColorProperty =
@@ -121,6 +147,20 @@ public abstract class BaseInput<TInput, THandler> : Border
             propertyName: nameof(HighlightBorderHeight), returnType: typeof(double),
             declaringType: typeof(BaseInput<TInput, THandler>), defaultValue: 3d);
 
+    public static readonly BindableProperty ValidationMessageProperty =
+        BindableProperty.Create(
+            propertyName: nameof(ValidationMessage), returnType: typeof(string),
+            declaringType: typeof(BaseInput<TInput, THandler>), defaultValue: string.Empty,
+            propertyChanged: (BindableObject bindable, object oldValue, object newValue) =>
+            {
+                var input = (BaseInput<TInput, THandler>)bindable;
+                if (!input._isInitialized) return;
+
+                var newStr = (string?)newValue;
+                input._validationLabel.Text = newStr;
+                input._validationLabel.IsVisible = newStr?.Length > 0;
+            });
+
     #endregion
 
     #region properties
@@ -128,7 +168,7 @@ public abstract class BaseInput<TInput, THandler> : Border
     /// <summary>
     /// Gets the input control.
     /// </summary>
-    public TInput Input { get; }
+    public TInput BaseControl { get; }
 
     public double InputMinimumHeightRequest
     {
@@ -179,6 +219,15 @@ public abstract class BaseInput<TInput, THandler> : Border
     {
         get { return (double)GetValue(HighlightBorderHeightProperty); }
         set { SetValue(HighlightBorderHeightProperty, value); }
+    }
+
+    /// <summary>
+    /// Gets or sets the validation message.
+    /// </summary>
+    public string ValidationMessage
+    {
+        get { return (string)GetValue(ValidationMessageProperty); }
+        set { SetValue(ValidationMessageProperty, value); }
     }
 
     #endregion

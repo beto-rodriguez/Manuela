@@ -2,38 +2,25 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:m="clr-namespace:Manuela;assembly=Manuela"
+             xmlns:forms="clr-namespace:Manuela.Forms;assembly=Manuela"
+             xmlns:local="clr-namespace:Gallery.Views;assembly=Gallery"
+             x:DataType="local:CustomerForm"
              x:Class="Gallery.Views.Validation">
+
     <VerticalStackLayout>
-        <Label
-            Style="{StaticResource Headline}"
-            Text="States"/>
 
-        <Label
-            Text="Transitions made easy... Any property inside the m:Set Xaml extension is animatable."/>
+        <forms:TextInput Input="{Binding NameInput}"/>
+
+        <!--
+        <forms:TextInput
+            ValidationMessage="{Binding Errors[Email]}"
+            ValueChangedCommand="{Binding OnChanged[Email]}"
+            Placeholder="Email" />
+        -->
 
         <Button
-            Margin="0, 30"
-            Text="press me and hold"
-            HorizontalOptions="Start"
-            m:Has.Transitions="{m:Transitions 'Scale,Rotation'}"
-            m:Has.States="{m:States
-                Default={m:Set Scale=1, Rotation=0},
-                Pressed={m:Set Scale=1.5, Rotation=45}}">
-        </Button>
-
-        <!-- personalize more: -->
-        <Button
-            Margin="0, 30"
-            Text="press me and hold"
-            Background="{m:Brush Secondary}"
-            HorizontalOptions="Start"
-            m:Has.Transitions="{m:Transitions
-                Scale={m:TransitionDefinition Easing={x:Static Easing.BounceOut},Duration=1200},
-                Rotation={m:TransitionDefinition Easing={x:Static Easing.SpringOut},Duration=1200}}"
-            m:Has.States="{m:States
-                Default={m:Set Scale=1, Rotation=0},
-                Pressed={m:Set Scale=1.5, Rotation=45}}">
-        </Button>
+            Command="{Binding SaveCommand}"
+            Text="submit"/>
 
     </VerticalStackLayout>
 </ContentView>

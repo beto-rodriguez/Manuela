@@ -9,24 +9,24 @@ public class TextAreaInput : BaseInput<Editor, IEditorHandler>
         _label.Margin = new(0, 14, 0, 0);
         AbsoluteLayout.SetLayoutBounds(_label, new(0, 0, AbsoluteLayout.AutoSize, AbsoluteLayout.AutoSize));
 
-        Input.BackgroundColor = Colors.Transparent;
-        Input.Margin = new(7, 14, 7, 0);
+        BaseControl.BackgroundColor = Colors.Transparent;
+        BaseControl.Margin = new(7, 14, 7, 0);
     }
 
     public static readonly BindableProperty TextColorProperty =
         BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(TextAreaInput), Colors.Black,
         propertyChanged: (BindableObject o, object old, object newVal) =>
-            ((TextAreaInput)o).Input.SetValue(Editor.TextColorProperty, newVal));
+            ((TextAreaInput)o).BaseControl.SetValue(Editor.TextColorProperty, newVal));
 
     public static readonly BindableProperty FontSizeProperty =
         BindableProperty.Create(nameof(FontSize), typeof(double), typeof(TextAreaInput), 14d,
         propertyChanged: (BindableObject o, object old, object newVal) =>
-            ((TextAreaInput)o).Input.SetValue(Editor.FontSizeProperty, newVal));
+            ((TextAreaInput)o).BaseControl.SetValue(Editor.FontSizeProperty, newVal));
 
     public static readonly BindableProperty FontAttributesProperty =
         BindableProperty.Create(nameof(FontAttributes), typeof(FontAttributes), typeof(TextAreaInput), FontAttributes.None,
         propertyChanged: (BindableObject o, object old, object newVal) =>
-            ((TextAreaInput)o).Input.SetValue(Editor.FontAttributesProperty, newVal));
+            ((TextAreaInput)o).BaseControl.SetValue(Editor.FontAttributesProperty, newVal));
 
     public Color TextColor
     {
@@ -46,7 +46,7 @@ public class TextAreaInput : BaseInput<Editor, IEditorHandler>
         set => SetValue(FontAttributesProperty, value);
     }
 
-    protected override bool CanRestoreLabelOnUnFocus => string.IsNullOrWhiteSpace(Input.Text);
+    protected override bool CanRestoreLabelOnUnFocus => string.IsNullOrWhiteSpace(BaseControl.Text);
 
     public override void SetInputFocus(uint speed = 150, bool? transformLabel = null, bool? transformViewBox = null)
     {
