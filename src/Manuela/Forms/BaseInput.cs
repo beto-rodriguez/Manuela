@@ -88,7 +88,7 @@ public abstract class BaseInput<TInput, TValue, THandler> : Border, IInputContro
             propertyChanged: OnInputChanged);
 
     public static readonly BindableProperty ValueProperty =
-        BindableProperty.Create(nameof(Value), typeof(string), typeof(BaseInput<TInput, TValue, THandler>), string.Empty,
+        BindableProperty.Create(nameof(Value), typeof(TValue), typeof(BaseInput<TInput, TValue, THandler>), default(TValue),
             defaultBindingMode: BindingMode.TwoWay);
 
     public static readonly BindableProperty ValueChangedCommandProperty =
@@ -218,9 +218,9 @@ public abstract class BaseInput<TInput, TValue, THandler> : Border, IInputContro
     /// <summary>
     /// Gets or sets the value of the input.
     /// </summary>
-    public string Value
+    public TValue Value
     {
-        get => (string)GetValue(ValueProperty);
+        get => (TValue)GetValue(ValueProperty);
         set => SetValue(ValueProperty, value);
     }
 
