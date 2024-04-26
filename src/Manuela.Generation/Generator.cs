@@ -1,4 +1,5 @@
 ﻿using System.Collections.Immutable;
+using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -11,6 +12,8 @@ namespace Manuela.Generation;
 public class Generator : IIncrementalGenerator
 {
     private static ISymbol? s_npcSymbol;
+    internal static readonly string s_displayAnnotation =
+        "System.ComponentModel.DataAnnotations." + nameof(DisplayAttribute);
 
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
@@ -26,12 +29,76 @@ public class Generator : IIncrementalGenerator
 
     private static bool IsSyntaxTargetForGeneration(SyntaxNode node, CancellationToken t)
     {
-        return node is ClassDeclarationSyntax cds &&
-            cds.BaseList?.Types.FirstOrDefault()?.Type is IdentifierNameSyntax ins
-            && ins.Identifier.Text == "XamlState";
+        if (node is ClassDeclarationSyntax cds)
+        {
+            var inheritsFrom = cds.BaseList?.Types.FirstOrDefault()?.Type;
+
+            // it is tarrget for generation if:
+            return
+
+                // 1. inherits from XamlState
+                (inheritsFrom is IdentifierNameSyntax ins && ins.Identifier.Text == "XamlState") ||
+
+                // 2. inherits from a class that inherits from Form<T>
+                (inheritsFrom is GenericNameSyntax gns && gns.Identifier.Text == "Form");
+        }
+
+        return false;
     }
 
     private static TemplateParams GetSemanticTargetForGeneration(
+        GeneratorSyntaxContext context, CancellationToken t)
+    {
+        var cds = (ClassDeclarationSyntax)context.Node;
+        var inheritsFrom = cds.BaseList?.Types.FirstOrDefault()?.Type;
+
+        if (inheritsFrom is IdentifierNameSyntax ins && ins.Identifier.Text == "XamlState")
+        {
+            return GetXamlStateSemanticTarget(context, t);
+        }
+        else if (inheritsFrom is GenericNameSyntax gns && gns.Identifier.Text == "Form")
+        {
+            return GetFormSemanticTarget(context, t);
+        }
+
+        return TemplateParams.Empty;
+    }
+
+    private static TemplateParams GetFormSemanticTarget(
+        GeneratorSyntaxContext context, CancellationToken t)
+    {
+        var cds = (ClassDeclarationSyntax)context.Node;
+        var classSymbol = (ITypeSymbol?)context.SemanticModel.GetDeclaredSymbol(cds);
+
+        if (classSymbol is null) return TemplateParams.Empty;
+
+        var typeProperties = classSymbol.BaseType?
+            .TypeArguments
+            .FirstOrDefault()?
+            .GetMembers()
+            .OfType<IPropertySymbol>()
+            ?? [];
+
+        var properties = new List<FormsPropertyParams>();
+
+        foreach (var property in typeProperties)
+        {
+            var displaySource = GetPropertyDisplaySource(property);
+
+            properties.Add(new FormsPropertyParams(
+                property.Name,
+                property.Type.ToDisplayString(),
+                displaySource));
+        }
+
+        return new TemplateParams(
+            TemplateType.Form,
+            classSymbol.ContainingNamespace.ToDisplayString(),
+            classSymbol.Name,
+            properties: [.. properties]);
+    }
+
+    private static TemplateParams GetXamlStateSemanticTarget(
         GeneratorSyntaxContext context, CancellationToken t)
     {
         s_npcSymbol ??= context.SemanticModel.Compilation
@@ -104,11 +171,12 @@ public class Generator : IIncrementalGenerator
         var rewriter = new ReferenceRewriter(memberAccessExpression, memberBindingExpression);
         var notifiersBody = rewriter.Visit(conditionBody);
 
-        return new(
+        return new TemplateParams(
+            TemplateType.XamlState,
             classSymbol.ContainingNamespace.ToDisplayString(),
             classSymbol.Name,
-            paramName,
-            notifiersBody.ToString());
+            visualElementParamName: paramName,
+            notifiersSyntax: notifiersBody.ToString());
     }
 
     private static void Execute(
@@ -119,6 +187,55 @@ public class Generator : IIncrementalGenerator
         if (templateParamsCollection.IsDefaultOrEmpty) return;
 
         foreach (var templateParams in templateParamsCollection)
-            XamlStateTemplate.Generate(context, templateParams);
+        {
+            switch (templateParams.Type)
+            {
+                case TemplateType.Form:
+                    FormTemplate.Generate(context, templateParams);
+                    break;
+                case TemplateType.XamlState:
+                    XamlStateTemplate.Generate(context, templateParams);
+                    break;
+                default:
+                    throw new InvalidOperationException("Invalid template type");
+            }
+        }
+    }
+
+    public static string GetPropertyDisplaySource(IPropertySymbol property)
+    {
+        string propertyDisplaySource;
+
+        var displayAttribute = property
+            .GetAttributes()
+            .FirstOrDefault(x => x.AttributeClass?.ToDisplayString() == s_displayAnnotation);
+
+        if (displayAttribute is null)
+        {
+            // if the display attribute is not present, we use the property name.
+            propertyDisplaySource = @$"""{property.Name}""";
+        }
+        else
+        {
+            var name = displayAttribute.NamedArguments
+                .FirstOrDefault(x => x.Key == nameof(DisplayAttribute.Name)).Value.Value;
+
+            var resourceType = displayAttribute.NamedArguments
+                .FirstOrDefault(x => x.Key == nameof(DisplayAttribute.ResourceType)).Value.Value;
+
+            if (resourceType is null)
+            {
+                // if the ResourceType is null, we use a string literal.
+                propertyDisplaySource = @$"""{(name is null ? null : (string)name) ?? property.Name}""";
+            }
+            else
+            {
+                // otherwise, we get it from the resource manager.
+                var namedTypeSymbol = (INamedTypeSymbol)resourceType;
+                propertyDisplaySource = @$"{namedTypeSymbol.ToDisplayString()}.ResourceManager.GetString(""{name}"")";
+            }
+        }
+
+        return propertyDisplaySource;
     }
 }

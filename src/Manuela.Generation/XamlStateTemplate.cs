@@ -32,3 +32,4 @@ public partial class {templateParams.TypeName}
 ");
     }
 }
+

@@ -9,14 +9,9 @@
 
     <VerticalStackLayout>
 
-        <forms:TextInput InputOf="{Binding NameInput}"/>
+        <forms:TextInput InputOf="{Binding Name}"/>
 
-        <!--
-        <forms:TextInput
-            ValidationMessage="{Binding Errors[Email]}"
-            ValueChangedCommand="{Binding OnChanged[Email]}"
-            Placeholder="Email" />
-        -->
+        <forms:TextInput InputOf="{Binding Email}"/>
 
         <Button
             Command="{Binding SaveCommand}"

@@ -15,7 +15,7 @@ public partial class Validation : ContentView
 
 public class Customer
 {
-    [Display(Name = "Name")]
+    [Display(Name = "Please inster a name")]
     [Required]
     [MinLength(10)]
     public string? Name { get; set; } = "juan peres";
@@ -24,32 +24,8 @@ public class Customer
     public string? Email { get; set; }
 }
 
-public class CustomerForm : Form<Customer>
+public partial class CustomerForm : Form<Customer>
 {
-    public PropertyInput NameInput { get; }
-
-    public CustomerForm()
-    {
-        OnInitialized();
-
-        NameInput = new(
-            this,
-            "Name",
-            "Please inset a name",
-            getter: () => Model.Name,
-            setter: value =>
-            {
-                var str = (string?)value;
-                if (str?.Length == 0) str = null;
-                Model.Name = str;
-            });
-    }
-
-    protected override void OnInitialized()
-    {
-        Model = new Customer();
-    }
-
     public Command SaveCommand => new(() =>
     {
         var v = Model.Name;
