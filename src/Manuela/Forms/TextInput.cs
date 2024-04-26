@@ -1,81 +1,18 @@
-﻿using System.Windows.Input;
-using Microsoft.Maui.Handlers;
+﻿using Microsoft.Maui.Handlers;
 
 namespace Manuela.Forms;
 
-public class TextInput : BaseInput<Entry, IEntryHandler>, IInputControl
+public class TextInput : BaseInput<Entry, string, IEntryHandler>
 {
     public TextInput()
     {
         BaseControl.BackgroundColor = Colors.Transparent;
-
         ValueChanged += (_, _) =>
         {
-            SetValue(ValueProperty, BaseControl.Text);
-            ValueChangedCommand?.Execute(Value);
+            var newValue = BaseControl.Text;
+            SetValue(ValueProperty, newValue);
+            ((IInputControl)this).ValueChangedCommand?.Execute(newValue);
         };
-    }
-
-    public static readonly BindableProperty InputOfProperty =
-        BindableProperty.Create(nameof(InputOf), typeof(PropertyInput), typeof(TextInput), null,
-            propertyChanged: OnInputChanged);
-
-    public static readonly BindableProperty ValueProperty =
-        BindableProperty.Create(nameof(Value), typeof(string), typeof(TextInput), string.Empty,
-            defaultBindingMode: BindingMode.TwoWay);
-
-    public static readonly BindableProperty ValueChangedCommandProperty =
-        BindableProperty.Create(nameof(ValueChangedCommand), typeof(ICommand), typeof(TextInput), null);
-
-    public static readonly BindableProperty TextColorProperty =
-        BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(TextInput), Colors.Black,
-        propertyChanged: (BindableObject o, object old, object newVal) =>
-            ((TextInput)o).BaseControl.SetValue(Entry.TextColorProperty, newVal));
-
-    public static readonly BindableProperty FontSizeProperty =
-        BindableProperty.Create(nameof(FontSize), typeof(double), typeof(TextInput), 14d,
-        propertyChanged: (BindableObject o, object old, object newVal) =>
-            ((TextInput)o).BaseControl.SetValue(Entry.FontSizeProperty, newVal));
-
-    public static readonly BindableProperty FontAttributesProperty =
-        BindableProperty.Create(nameof(FontAttributes), typeof(FontAttributes), typeof(TextInput), FontAttributes.None,
-        propertyChanged: (BindableObject o, object old, object newVal) =>
-            ((TextInput)o).BaseControl.SetValue(Entry.FontAttributesProperty, newVal));
-
-    public PropertyInput InputOf
-    {
-        get => (PropertyInput)GetValue(InputOfProperty);
-        set => SetValue(InputOfProperty, value);
-    }
-
-    public string Value
-    {
-        get => (string)GetValue(ValueProperty);
-        set => SetValue(ValueProperty, value);
-    }
-
-    public ICommand ValueChangedCommand
-    {
-        get => (ICommand)GetValue(ValueChangedCommandProperty);
-        set => SetValue(ValueChangedCommandProperty, value);
-    }
-
-    public Color TextColor
-    {
-        get => (Color)GetValue(TextColorProperty);
-        set => SetValue(TextColorProperty, value);
-    }
-
-    public double FontSize
-    {
-        get => (double)GetValue(FontSizeProperty);
-        set => SetValue(FontSizeProperty, value);
-    }
-
-    public FontAttributes FontAttributes
-    {
-        get => (FontAttributes)GetValue(FontAttributesProperty);
-        set => SetValue(FontAttributesProperty, value);
     }
 
     public event EventHandler<TextChangedEventArgs> ValueChanged
@@ -84,20 +21,11 @@ public class TextInput : BaseInput<Entry, IEntryHandler>, IInputControl
         remove => BaseControl.TextChanged -= value;
     }
 
-    void IInputControl.SetValue(object? value)
-    {
-        BaseControl.Text = (string?)value ?? string.Empty;
-    }
-
-    void IInputControl.SetPlaceholder(string placeholder)
-    {
-        if (string.IsNullOrWhiteSpace(placeholder)) return;
-
-        Placeholder = placeholder;
-        SetInputFocus(speed: 1);
-    }
-
     protected override bool CanRestoreLabelOnUnFocus => string.IsNullOrWhiteSpace(BaseControl.Text);
+    protected override void SetInputValue(object? value) => BaseControl.Text = (string?)value ?? string.Empty;
+    protected override BindableProperty GetTextColorProperty() => Entry.TextColorProperty;
+    protected override BindableProperty GetFontSizeProperty() => Entry.FontSizeProperty;
+    protected override BindableProperty GetFontAttributesProperty() => Entry.FontAttributesProperty;
 
     protected override void OnInputHandlerChanged(IEntryHandler handler)
     {
@@ -111,13 +39,5 @@ public class TextInput : BaseInput<Entry, IEntryHandler>, IInputControl
         handler.PlatformView.BorderThickness = new Microsoft.UI.Xaml.Thickness(0);
         handler.PlatformView.Style = null;
 #endif
-    }
-
-    private static void OnInputChanged(BindableObject bindable, object oldvalue, object newvalue)
-    {
-        if (newvalue is PropertyInput input)
-        {
-            input.Initialize((TextInput)bindable);
-        }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Manuela.Forms;
 
-public class TextAreaInput : BaseInput<Editor, IEditorHandler>
+public class TextAreaInput : BaseInput<Editor, string, IEditorHandler>
 {
     public TextAreaInput()
     {
@@ -11,42 +11,26 @@ public class TextAreaInput : BaseInput<Editor, IEditorHandler>
 
         BaseControl.BackgroundColor = Colors.Transparent;
         BaseControl.Margin = new(7, 14, 7, 0);
+
+        ValueChanged += (_, _) =>
+        {
+            var newValue = BaseControl.Text;
+            SetValue(ValueProperty, newValue);
+            ((IInputControl)this).ValueChangedCommand?.Execute(newValue);
+        };
     }
 
-    public static readonly BindableProperty TextColorProperty =
-        BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(TextAreaInput), Colors.Black,
-        propertyChanged: (BindableObject o, object old, object newVal) =>
-            ((TextAreaInput)o).BaseControl.SetValue(Editor.TextColorProperty, newVal));
-
-    public static readonly BindableProperty FontSizeProperty =
-        BindableProperty.Create(nameof(FontSize), typeof(double), typeof(TextAreaInput), 14d,
-        propertyChanged: (BindableObject o, object old, object newVal) =>
-            ((TextAreaInput)o).BaseControl.SetValue(Editor.FontSizeProperty, newVal));
-
-    public static readonly BindableProperty FontAttributesProperty =
-        BindableProperty.Create(nameof(FontAttributes), typeof(FontAttributes), typeof(TextAreaInput), FontAttributes.None,
-        propertyChanged: (BindableObject o, object old, object newVal) =>
-            ((TextAreaInput)o).BaseControl.SetValue(Editor.FontAttributesProperty, newVal));
-
-    public Color TextColor
+    public event EventHandler<TextChangedEventArgs> ValueChanged
     {
-        get => (Color)GetValue(TextColorProperty);
-        set => SetValue(TextColorProperty, value);
-    }
-
-    public double FontSize
-    {
-        get => (double)GetValue(FontSizeProperty);
-        set => SetValue(FontSizeProperty, value);
-    }
-
-    public FontAttributes FontAttributes
-    {
-        get => (FontAttributes)GetValue(FontAttributesProperty);
-        set => SetValue(FontAttributesProperty, value);
+        add => BaseControl.TextChanged += value;
+        remove => BaseControl.TextChanged -= value;
     }
 
     protected override bool CanRestoreLabelOnUnFocus => string.IsNullOrWhiteSpace(BaseControl.Text);
+    protected override void SetInputValue(object? value) => BaseControl.Text = (string?)value ?? string.Empty;
+    protected override BindableProperty GetTextColorProperty() => Editor.TextColorProperty;
+    protected override BindableProperty GetFontSizeProperty() => Editor.FontSizeProperty;
+    protected override BindableProperty GetFontAttributesProperty() => Editor.FontAttributesProperty;
 
     public override void SetInputFocus(uint speed = 150, bool? transformLabel = null, bool? transformViewBox = null)
     {

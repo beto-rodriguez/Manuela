@@ -9,9 +9,9 @@
 
     <VerticalStackLayout>
 
-        <forms:TextInput InputOf="{Binding Name}"/>
+        <forms:TextInput For="{Binding Name}"/>
 
-        <forms:TextInput InputOf="{Binding Email}"/>
+        <forms:TextInput For="{Binding Email}"/>
 
         <Button
             Command="{Binding SaveCommand}"

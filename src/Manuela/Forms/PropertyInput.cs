@@ -13,8 +13,8 @@ public class PropertyInput(
     /// <param name="inputControl"></param>
     public void Initialize(IInputControl inputControl)
     {
-        inputControl.SetPlaceholder(displayName);
         inputControl.SetValue(getter());
+        inputControl.SetPlaceholder(displayName);
 
         inputControl.ValueChangedCommand = new Command(value =>
         {

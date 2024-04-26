@@ -2,47 +2,30 @@
 
 namespace Manuela.Forms;
 
-public class DatePickerInput : BaseInput<DatePicker, IDatePickerHandler>
+public class DatePickerInput : BaseInput<DatePicker, DateTime, IDatePickerHandler>
 {
     public DatePickerInput()
     {
         BaseControl.BackgroundColor = Colors.Transparent;
+        ValueChanged += (_, _) =>
+        {
+            var newValue = BaseControl.Date;
+            SetValue(ValueProperty, newValue);
+            ((IInputControl)this).ValueChangedCommand?.Execute(newValue);
+        };
     }
 
-    public static readonly BindableProperty TextColorProperty =
-        BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(DatePickerInput), Colors.Black,
-        propertyChanged: (BindableObject o, object old, object newVal) =>
-            ((DatePickerInput)o).BaseControl.SetValue(DatePicker.TextColorProperty, newVal));
-
-    public static readonly BindableProperty FontSizeProperty =
-        BindableProperty.Create(nameof(FontSize), typeof(double), typeof(DatePickerInput), 14d,
-        propertyChanged: (BindableObject o, object old, object newVal) =>
-            ((DatePickerInput)o).BaseControl.SetValue(DatePicker.FontSizeProperty, newVal));
-
-    public static readonly BindableProperty FontAttributesProperty =
-        BindableProperty.Create(nameof(FontAttributes), typeof(FontAttributes), typeof(DatePickerInput), FontAttributes.None,
-        propertyChanged: (BindableObject o, object old, object newVal) =>
-            ((DatePickerInput)o).BaseControl.SetValue(DatePicker.FontAttributesProperty, newVal));
-
-    public Color TextColor
+    public event EventHandler<DateChangedEventArgs> ValueChanged
     {
-        get => (Color)GetValue(TextColorProperty);
-        set => SetValue(TextColorProperty, value);
-    }
-
-    public double FontSize
-    {
-        get => (double)GetValue(FontSizeProperty);
-        set => SetValue(FontSizeProperty, value);
-    }
-
-    public FontAttributes FontAttributes
-    {
-        get => (FontAttributes)GetValue(FontAttributesProperty);
-        set => SetValue(FontAttributesProperty, value);
+        add => BaseControl.DateSelected += value;
+        remove => BaseControl.DateSelected -= value;
     }
 
     protected override bool CanRestoreLabelOnUnFocus => false;
+    protected override void SetInputValue(object? value) => BaseControl.Date = (DateTime?)value ?? DateTime.MinValue;
+    protected override BindableProperty GetTextColorProperty() => DatePicker.TextColorProperty;
+    protected override BindableProperty GetFontSizeProperty() => DatePicker.FontSizeProperty;
+    protected override BindableProperty GetFontAttributesProperty() => DatePicker.FontAttributesProperty;
 
     protected override void OnInputHandlerChanged(IDatePickerHandler handler)
     {

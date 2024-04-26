@@ -1,9 +1,10 @@
-﻿using Microsoft.Maui.Controls.Shapes;
+﻿using System.Windows.Input;
+using Microsoft.Maui.Controls.Shapes;
 using Microsoft.Maui.Layouts;
 
 namespace Manuela.Forms;
 
-public abstract class BaseInput<TInput, THandler> : Border
+public abstract class BaseInput<TInput, TValue, THandler> : Border, IInputControl
     where TInput : View, new()
     where THandler : IViewHandler
 {
@@ -82,24 +83,33 @@ public abstract class BaseInput<TInput, THandler> : Border
 
     #region bindable properties
 
+    public static readonly BindableProperty ForProperty =
+        BindableProperty.Create(nameof(For), typeof(PropertyInput), typeof(BaseInput<TInput, TValue, THandler>), null,
+            propertyChanged: OnInputChanged);
+
+    public static readonly BindableProperty ValueProperty =
+        BindableProperty.Create(nameof(Value), typeof(string), typeof(BaseInput<TInput, TValue, THandler>), string.Empty,
+            defaultBindingMode: BindingMode.TwoWay);
+
+    public static readonly BindableProperty ValueChangedCommandProperty =
+        BindableProperty.Create(nameof(IInputControl.ValueChangedCommand), typeof(ICommand), typeof(BaseInput<TInput, TValue, THandler>), null);
+
     public static readonly BindableProperty InputMinimumHeightRequestProperty =
         BindableProperty.Create(
-         propertyName: nameof(InputMinimumHeightRequest), returnType: typeof(double),
-         declaringType: typeof(BaseInput<TInput, THandler>), defaultValue: 46d,
+         nameof(InputMinimumHeightRequest), typeof(double), typeof(BaseInput<TInput, TValue, THandler>), 46d,
          propertyChanged: (BindableObject bindable, object oldValue, object newValue) =>
          {
-             var input = (BaseInput<TInput, THandler>)bindable;
+             var input = (BaseInput<TInput, TValue, THandler>)bindable;
              if (!input._isInitialized) return;
              input._inputLayout.MinimumHeightRequest = (double)newValue;
          });
 
     public static readonly BindableProperty PlaceholderProperty =
         BindableProperty.Create(
-            propertyName: nameof(Placeholder), returnType: typeof(string),
-            declaringType: typeof(BaseInput<TInput, THandler>), defaultValue: null,
+            nameof(Placeholder), typeof(string), typeof(BaseInput<TInput, TValue, THandler>), null,
             propertyChanged: (BindableObject bindable, object oldValue, object newValue) =>
             {
-                var input = (BaseInput<TInput, THandler>)bindable;
+                var input = (BaseInput<TInput, TValue, THandler>)bindable;
                 if (!input._isInitialized) return;
                 var newLabel = (string?)newValue;
                 input._label.Text = newLabel;
@@ -108,11 +118,10 @@ public abstract class BaseInput<TInput, THandler> : Border
 
     public static readonly BindableProperty PlaceholderColorProperty =
         BindableProperty.Create(
-            propertyName: nameof(PlaceholderColor), returnType: typeof(Color),
-            declaringType: typeof(BaseInput<TInput, THandler>), defaultValue: Color.FromRgba(0, 0, 0, 255),
+            nameof(PlaceholderColor), typeof(Color), typeof(BaseInput<TInput, TValue, THandler>), Color.FromRgba(0, 0, 0, 255),
             propertyChanged: (BindableObject bindable, object oldValue, object newValue) =>
             {
-                var input = (BaseInput<TInput, THandler>)bindable;
+                var input = (BaseInput<TInput, TValue, THandler>)bindable;
                 if (!input._isInitialized) return;
 
                 input._label.TextColor = (Color)newValue;
@@ -120,11 +129,10 @@ public abstract class BaseInput<TInput, THandler> : Border
 
     public static readonly BindableProperty PlaceholderOpacityProperty =
         BindableProperty.Create(
-            propertyName: nameof(LabelOpacity), returnType: typeof(double),
-            declaringType: typeof(BaseInput<TInput, THandler>), defaultValue: 0.8d,
+            nameof(LabelOpacity), typeof(double), typeof(BaseInput<TInput, TValue, THandler>), 0.8d,
             propertyChanged: (BindableObject bindable, object oldValue, object newValue) =>
             {
-                var input = (BaseInput<TInput, THandler>)bindable;
+                var input = (BaseInput<TInput, TValue, THandler>)bindable;
                 if (!input._isInitialized) return;
 
                 input._label.Opacity = (double)newValue;
@@ -132,11 +140,10 @@ public abstract class BaseInput<TInput, THandler> : Border
 
     public static readonly BindableProperty HighlightColorProperty =
         BindableProperty.Create(
-            propertyName: nameof(HighlightColor), returnType: typeof(Color),
-            declaringType: typeof(BaseInput<TInput, THandler>), defaultValue: Color.FromRgba(59, 130, 246, 0),
+            nameof(HighlightColor), typeof(Color), typeof(BaseInput<TInput, TValue, THandler>), Color.FromRgba(59, 130, 246, 0),
             propertyChanged: (BindableObject bindable, object oldValue, object newValue) =>
             {
-                var input = (BaseInput<TInput, THandler>)bindable;
+                var input = (BaseInput<TInput, TValue, THandler>)bindable;
                 if (!input._isInitialized) return;
 
                 input._activeBoxView.BackgroundColor = (Color)newValue;
@@ -145,15 +152,14 @@ public abstract class BaseInput<TInput, THandler> : Border
     public static readonly BindableProperty HighlightBorderHeightProperty =
         BindableProperty.Create(
             propertyName: nameof(HighlightBorderHeight), returnType: typeof(double),
-            declaringType: typeof(BaseInput<TInput, THandler>), defaultValue: 3d);
+            declaringType: typeof(BaseInput<TInput, TValue, THandler>), defaultValue: 3d);
 
     public static readonly BindableProperty ValidationMessageProperty =
         BindableProperty.Create(
-            propertyName: nameof(ValidationMessage), returnType: typeof(string),
-            declaringType: typeof(BaseInput<TInput, THandler>), defaultValue: string.Empty,
+            nameof(ValidationMessage), typeof(string), typeof(BaseInput<TInput, TValue, THandler>), string.Empty,
             propertyChanged: (BindableObject bindable, object oldValue, object newValue) =>
             {
-                var input = (BaseInput<TInput, THandler>)bindable;
+                var input = (BaseInput<TInput, TValue, THandler>)bindable;
                 if (!input._isInitialized) return;
 
                 var newStr = (string?)newValue;
@@ -161,12 +167,65 @@ public abstract class BaseInput<TInput, THandler> : Border
                 input._validationLabel.IsVisible = newStr?.Length > 0;
             });
 
+    public static readonly BindableProperty TextColorProperty =
+       BindableProperty.Create(
+           nameof(TextColor), typeof(Color), typeof(BaseInput<TInput, TValue, THandler>), Colors.Black,
+           propertyChanged: (BindableObject bindable, object oldValue, object newVal) =>
+           {
+               var input = (BaseInput<TInput, TValue, THandler>)bindable;
+               if (!input._isInitialized) return;
+               input.BaseControl.SetValue(input.GetTextColorProperty(), newVal);
+           });
+
+    public static readonly BindableProperty FontSizeProperty =
+        BindableProperty.Create(
+            nameof(FontSize), typeof(double), typeof(BaseInput<TInput, TValue, THandler>), 14d,
+            propertyChanged: (BindableObject bindable, object oldValue, object newVal) =>
+            {
+                var input = (BaseInput<TInput, TValue, THandler>)bindable;
+                if (!input._isInitialized) return;
+                input.BaseControl.SetValue(input.GetFontSizeProperty(), newVal);
+            });
+
+    public static readonly BindableProperty FontAttributesProperty =
+        BindableProperty.Create(nameof(FontAttributes), typeof(FontAttributes), typeof(BaseInput<TInput, TValue, THandler>), FontAttributes.None,
+        propertyChanged: (BindableObject bindable, object oldValue, object newVal) =>
+        {
+            var input = (BaseInput<TInput, TValue, THandler>)bindable;
+            if (!input._isInitialized) return;
+            input.BaseControl.SetValue(input.GetFontAttributesProperty(), newVal);
+        });
+
     #endregion
 
     #region properties
 
     /// <summary>
-    /// Gets the input control.
+    /// Binds the validation and the input to the control.
+    /// </summary>
+    public PropertyInput For
+    {
+        get => (PropertyInput)GetValue(ForProperty);
+        set => SetValue(ForProperty, value);
+    }
+
+    ICommand IInputControl.ValueChangedCommand
+    {
+        get => (ICommand)GetValue(ValueChangedCommandProperty);
+        set => SetValue(ValueChangedCommandProperty, value);
+    }
+
+    /// <summary>
+    /// Gets or sets the value of the input.
+    /// </summary>
+    public string Value
+    {
+        get => (string)GetValue(ValueProperty);
+        set => SetValue(ValueProperty, value);
+    }
+
+    /// <summary>
+    /// Gets the base control.
     /// </summary>
     public TInput BaseControl { get; }
 
@@ -228,6 +287,33 @@ public abstract class BaseInput<TInput, THandler> : Border
     {
         get { return (string)GetValue(ValidationMessageProperty); }
         set { SetValue(ValidationMessageProperty, value); }
+    }
+
+    /// <summary>
+    /// Gets or sets the text color of the input.
+    /// </summary>
+    public Color TextColor
+    {
+        get => (Color)GetValue(TextColorProperty);
+        set => SetValue(TextColorProperty, value);
+    }
+
+    /// <summary>
+    /// Gets or sets the font size of the input.
+    /// </summary>
+    public double FontSize
+    {
+        get => (double)GetValue(FontSizeProperty);
+        set => SetValue(FontSizeProperty, value);
+    }
+
+    /// <summary>
+    /// Gets or sets the font attributes of the input.
+    /// </summary>
+    public FontAttributes FontAttributes
+    {
+        get => (FontAttributes)GetValue(FontAttributesProperty);
+        set => SetValue(FontAttributesProperty, value);
     }
 
     #endregion
@@ -293,6 +379,10 @@ public abstract class BaseInput<TInput, THandler> : Border
     }
 
     protected abstract void OnInputHandlerChanged(THandler handler);
+    protected abstract void SetInputValue(object? value);
+    protected abstract BindableProperty GetTextColorProperty();
+    protected abstract BindableProperty GetFontSizeProperty();
+    protected abstract BindableProperty GetFontAttributesProperty();
 
     public virtual void SetInputFocus(uint speed = 150, bool? transformLabel = null, bool? transformViewBox = null)
     {
@@ -324,11 +414,30 @@ public abstract class BaseInput<TInput, THandler> : Border
             speed);
     }
 
+    void IInputControl.SetValue(object? value)
+    {
+        SetInputValue(value);
+    }
+
+    void IInputControl.SetPlaceholder(string placeholder)
+    {
+        if (string.IsNullOrWhiteSpace(placeholder)) return;
+        Placeholder = placeholder;
+        if (!CanRestoreLabelOnUnFocus) SetInputFocus(speed: 1);
+    }
+
     private void Input_HandlerChanged(object? sender, EventArgs e)
     {
         if (sender is not TInput input || input.Handler is null || input.Handler.PlatformView is null)
             return;
 
         OnInputHandlerChanged((THandler)input.Handler);
+    }
+
+    private static void OnInputChanged(BindableObject bindable, object oldvalue, object newvalue)
+    {
+        if (newvalue is not PropertyInput input) return;
+
+        input.Initialize((BaseInput<TInput, TValue, THandler>)bindable);
     }
 }
