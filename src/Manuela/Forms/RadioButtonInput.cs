@@ -1,4 +1,5 @@
-﻿using Manuela.Styling;
+﻿using System.Windows.Input;
+using Manuela.Styling;
 using Microsoft.Maui.Controls.Shapes;
 
 namespace Manuela.Forms;
@@ -30,6 +31,9 @@ public class RadioButtonInput : RadioButton
         get => (Brush)GetValue(InactiveBrushProperty);
         set => SetValue(InactiveBrushProperty, value);
     }
+    public PropertyInput For { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    public ICommand ValueChangedCommand { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    public string ValidationMessage { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
     private void OnCheckedChanged(object? sender, CheckedChangedEventArgs e)
     {
@@ -67,5 +71,15 @@ public class RadioButtonInput : RadioButton
             _background.SetManuelaProperty(ManuelaProperty.Background, InactiveBrush);
             _check.SetManuelaProperty(ManuelaProperty.Scale, 0d);
         }
+    }
+
+    public void SetValue(object? value)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void SetPlaceholder(string placeholder)
+    {
+        throw new NotImplementedException();
     }
 }

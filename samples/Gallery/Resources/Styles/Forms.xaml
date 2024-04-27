@@ -64,7 +64,6 @@
 
     <Style TargetType="forms:CheckBoxInput" >
         <Setter Property="Margin" Value="0,5"/>
-        <Setter Property="Spacing" Value="12"/>
     </Style>
 
     <Style TargetType="AbsoluteLayout" Class="checkbox-layout">
@@ -152,6 +151,12 @@
                 <RoundRectangle CornerRadius="{m:Size Xl}"/>
             </Setter.Value>
         </Setter>
+    </Style>
+
+    <Style TargetType="Label" Class="validation-message">
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="Padding" Value="14,5"/>
+        <Setter Property="TextColor" Value="{m:Color Tertiary}"/>
     </Style>
 
 </ResourceDictionary>

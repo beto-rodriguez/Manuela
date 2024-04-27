@@ -1,11 +1,13 @@
-﻿using Manuela.Styling;
+﻿using System.Windows.Input;
+using Manuela.Styling;
 using Microsoft.Maui.Controls.Shapes;
 using Microsoft.Maui.Layouts;
 
 namespace Manuela.Forms;
 
-public class CheckBoxInput : HorizontalStackLayout
+public class CheckBoxInput : VerticalStackLayout, IInputControl
 {
+    private bool _isInitialized;
     private bool _isDown;
 
     private readonly AbsoluteLayout _checkLayout;
@@ -13,9 +15,12 @@ public class CheckBoxInput : HorizontalStackLayout
     private readonly Border _checkActiveBackground;
     private readonly Border _checkmark;
     private readonly Label _label;
+    private readonly Label _validationLabel;
 
     public CheckBoxInput()
     {
+        _isInitialized = true;
+
         _checkLayout = new() { StyleClass = new[] { "checkbox-layout" } };
         _checkBackground = new() { StyleClass = new[] { "checkbox-inactive-background" } };
         _checkActiveBackground = new() { StyleClass = new[] { "checkbox-active-background" }, Scale = 0 };
@@ -51,8 +56,19 @@ public class CheckBoxInput : HorizontalStackLayout
         _checkLayout.Children.Add(_checkActiveBackground);
         _checkLayout.Children.Add(_checkmark);
 
-        Children.Add(_checkLayout);
-        Children.Add(_label = new Label { VerticalOptions = LayoutOptions.Center });
+        var horizontalLayout = new HorizontalStackLayout { Spacing = 12 };
+
+        horizontalLayout.Children.Add(_checkLayout);
+        horizontalLayout.Children.Add(_label = new Label { VerticalOptions = LayoutOptions.Center });
+
+        _validationLabel = new Label
+        {
+            StyleClass = new[] { "validation-message" },
+            IsVisible = ValidationMessage.Length > 0
+        };
+
+        Children.Add(horizontalLayout);
+        Children.Add(_validationLabel);
 
         var b = new Behaviors.Behavior(this);
 
@@ -60,28 +76,92 @@ public class CheckBoxInput : HorizontalStackLayout
         b.Up += OnUp;
     }
 
-    public static readonly BindableProperty IsCheckedProperty =
+    #region Bindable Properties
+
+    public static readonly BindableProperty ForProperty =
+       BindableProperty.Create(nameof(For), typeof(PropertyInput), typeof(CheckBoxInput), null,
+           propertyChanged: OnInputChanged);
+
+    public static readonly BindableProperty ValueChangedCommandProperty =
+        BindableProperty.Create(nameof(IInputControl.ValueChangedCommand), typeof(ICommand), typeof(CheckBoxInput), null);
+
+    public static readonly BindableProperty ValueProperty =
         BindableProperty.Create(
-            nameof(IsChecked), typeof(bool), typeof(CheckBoxInput), false, propertyChanged: OnIsCheckedChanged);
+            nameof(Value), typeof(bool), typeof(CheckBoxInput), false, propertyChanged: OnIsCheckedChanged);
 
     public static readonly BindableProperty PlaceholderProperty =
         BindableProperty.Create(nameof(Placeholder), typeof(string), typeof(CheckBoxInput), string.Empty,
-            propertyChanged: (BindableObject o, object old, object newVal) =>
-                ((CheckBoxInput)o)._label.SetValue(Label.TextProperty, newVal));
+            propertyChanged: (BindableObject bindable, object oldValue, object newValue) =>
+            {
+                var input = (CheckBoxInput)bindable;
+                if (!input._isInitialized) return;
+                input._label.SetValue(Label.TextProperty, newValue);
+            });
+
+    public static readonly BindableProperty ValidationMessageProperty =
+        BindableProperty.Create(
+            nameof(ValidationMessage), typeof(string), typeof(CheckBoxInput), string.Empty,
+            propertyChanged: (BindableObject bindable, object oldValue, object newValue) =>
+            {
+                var input = (CheckBoxInput)bindable;
+                if (!input._isInitialized) return;
+                var newStr = (string?)newValue;
+                input._validationLabel.Text = newStr;
+                input._validationLabel.IsVisible = newStr?.Length > 0;
+            });
+
+    #endregion
 
     public event Action<CheckBoxInput>? CheckedChanged;
 
-    public bool IsChecked
+    #region properties
+
+    /// <summary>
+    /// Binds the validation and the input to the control.
+    /// </summary>
+    public PropertyInput For
     {
-        get => (bool)GetValue(IsCheckedProperty);
-        set => SetValue(IsCheckedProperty, value);
+        get => (PropertyInput)GetValue(ForProperty);
+        set => SetValue(ForProperty, value);
     }
 
+    ICommand IInputControl.ValueChangedCommand
+    {
+        get => (ICommand)GetValue(ValueChangedCommandProperty);
+        set => SetValue(ValueChangedCommandProperty, value);
+    }
+
+    /// <summary>
+    /// Gets or sets the checked state of the checkbox.
+    /// </summary>
+    public bool Value
+    {
+        get => (bool)GetValue(ValueProperty);
+        set => SetValue(ValueProperty, value);
+    }
+
+    /// <summary>
+    /// Gets or sets the placeholder text of the input.
+    /// </summary>
     public string Placeholder
     {
         get => (string)GetValue(PlaceholderProperty);
         set => SetValue(PlaceholderProperty, value);
     }
+
+    /// <summary>
+    /// Gets or sets the validation message of the input.
+    /// </summary>
+    public string ValidationMessage
+    {
+        get => (string)GetValue(ValidationMessageProperty);
+        set => SetValue(ValidationMessageProperty, value);
+    }
+
+    #endregion
+
+    void IInputControl.SetValue(object? value) => Value = (bool?)value ?? false;
+    void IInputControl.SetPlaceholder(string placeholder) { }
 
     private static void OnIsCheckedChanged(BindableObject bindable, object oldValue, object newValue)
     {
@@ -99,10 +179,17 @@ public class CheckBoxInput : HorizontalStackLayout
         // if the pointer was not down in this control, ignore the up event
         if (!_isDown) return;
 
-        IsChecked = !IsChecked;
+        Value = !Value;
         _isDown = false;
 
-        _checkActiveBackground.SetManuelaProperty(ManuelaProperty.Scale, IsChecked ? 1d : 0d);
-        _checkmark.Opacity = IsChecked ? 1 : 0;
+        _checkActiveBackground.SetManuelaProperty(ManuelaProperty.Scale, Value ? 1d : 0d);
+        _checkmark.Opacity = Value ? 1 : 0;
+    }
+
+    private static void OnInputChanged(BindableObject bindable, object oldvalue, object newvalue)
+    {
+        if (newvalue is not PropertyInput input) return;
+
+        input.Initialize((CheckBoxInput)bindable);
     }
 }

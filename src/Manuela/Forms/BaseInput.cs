@@ -8,11 +8,11 @@ public abstract class BaseInput<TInput, TValue, THandler> : Border, IInputContro
     where TInput : View, new()
     where THandler : IViewHandler
 {
-    private readonly bool _isInitialized;
+    private bool _isInitialized;
+
     protected Label _label;
     protected AbsoluteLayout _inputLayout;
     protected BoxView _activeBoxView;
-
     protected Label _validationLabel;
 
     public BaseInput()
@@ -51,10 +51,7 @@ public abstract class BaseInput<TInput, TValue, THandler> : Border, IInputContro
 
         _validationLabel = new Label
         {
-            FontSize = 15,
-            Text = ValidationMessage,
-            Padding = new(14, 5),
-            TextColor = Colors.Red,
+            StyleClass = new[] { "validation-message" },
             IsVisible = ValidationMessage.Length > 0
         };
 
@@ -97,57 +94,32 @@ public abstract class BaseInput<TInput, TValue, THandler> : Border, IInputContro
     public static readonly BindableProperty InputMinimumHeightRequestProperty =
         BindableProperty.Create(
          nameof(InputMinimumHeightRequest), typeof(double), typeof(BaseInput<TInput, TValue, THandler>), 46d,
-         propertyChanged: (BindableObject bindable, object oldValue, object newValue) =>
-         {
-             var input = (BaseInput<TInput, TValue, THandler>)bindable;
-             if (!input._isInitialized) return;
-             input._inputLayout.MinimumHeightRequest = (double)newValue;
-         });
+         propertyChanged: GetOnChanged((i, v) => i._inputLayout.MinimumHeightRequest = (double)v));
 
     public static readonly BindableProperty PlaceholderProperty =
         BindableProperty.Create(
             nameof(Placeholder), typeof(string), typeof(BaseInput<TInput, TValue, THandler>), null,
-            propertyChanged: (BindableObject bindable, object oldValue, object newValue) =>
+            propertyChanged: GetOnChanged((i, v) =>
             {
-                var input = (BaseInput<TInput, TValue, THandler>)bindable;
-                if (!input._isInitialized) return;
-                var newLabel = (string?)newValue;
-                input._label.Text = newLabel;
-                input.BaseControl.TranslationY = newLabel is not null && newLabel.Length > 0 ? 6 : 0;
-            });
+                var newLabel = (string?)v;
+                i._label.Text = newLabel;
+                i.BaseControl.TranslationY = newLabel is not null && newLabel.Length > 0 ? 6 : 0;
+            }));
 
     public static readonly BindableProperty PlaceholderColorProperty =
         BindableProperty.Create(
             nameof(PlaceholderColor), typeof(Color), typeof(BaseInput<TInput, TValue, THandler>), Color.FromRgba(0, 0, 0, 255),
-            propertyChanged: (BindableObject bindable, object oldValue, object newValue) =>
-            {
-                var input = (BaseInput<TInput, TValue, THandler>)bindable;
-                if (!input._isInitialized) return;
-
-                input._label.TextColor = (Color)newValue;
-            });
+            propertyChanged: GetOnChanged((i, v) => i._label.TextColor = (Color)v));
 
     public static readonly BindableProperty PlaceholderOpacityProperty =
         BindableProperty.Create(
             nameof(LabelOpacity), typeof(double), typeof(BaseInput<TInput, TValue, THandler>), 0.8d,
-            propertyChanged: (BindableObject bindable, object oldValue, object newValue) =>
-            {
-                var input = (BaseInput<TInput, TValue, THandler>)bindable;
-                if (!input._isInitialized) return;
-
-                input._label.Opacity = (double)newValue;
-            });
+            propertyChanged: GetOnChanged((i, v) => i._label.Opacity = (double)v));
 
     public static readonly BindableProperty HighlightColorProperty =
         BindableProperty.Create(
             nameof(HighlightColor), typeof(Color), typeof(BaseInput<TInput, TValue, THandler>), Color.FromRgba(59, 130, 246, 0),
-            propertyChanged: (BindableObject bindable, object oldValue, object newValue) =>
-            {
-                var input = (BaseInput<TInput, TValue, THandler>)bindable;
-                if (!input._isInitialized) return;
-
-                input._activeBoxView.BackgroundColor = (Color)newValue;
-            });
+            propertyChanged: GetOnChanged((i, v) => i._activeBoxView.BackgroundColor = (Color)v));
 
     public static readonly BindableProperty HighlightBorderHeightProperty =
         BindableProperty.Create(
@@ -157,44 +129,26 @@ public abstract class BaseInput<TInput, TValue, THandler> : Border, IInputContro
     public static readonly BindableProperty ValidationMessageProperty =
         BindableProperty.Create(
             nameof(ValidationMessage), typeof(string), typeof(BaseInput<TInput, TValue, THandler>), string.Empty,
-            propertyChanged: (BindableObject bindable, object oldValue, object newValue) =>
+            propertyChanged: GetOnChanged((i, v) =>
             {
-                var input = (BaseInput<TInput, TValue, THandler>)bindable;
-                if (!input._isInitialized) return;
-
-                var newStr = (string?)newValue;
-                input._validationLabel.Text = newStr;
-                input._validationLabel.IsVisible = newStr?.Length > 0;
-            });
+                var newStr = (string?)v;
+                i._validationLabel.Text = newStr;
+                i._validationLabel.IsVisible = newStr?.Length > 0;
+            }));
 
     public static readonly BindableProperty TextColorProperty =
        BindableProperty.Create(
            nameof(TextColor), typeof(Color), typeof(BaseInput<TInput, TValue, THandler>), Colors.Black,
-           propertyChanged: (BindableObject bindable, object oldValue, object newVal) =>
-           {
-               var input = (BaseInput<TInput, TValue, THandler>)bindable;
-               if (!input._isInitialized) return;
-               input.BaseControl.SetValue(input.GetTextColorProperty(), newVal);
-           });
+           propertyChanged: GetOnChanged((i, v) => i.BaseControl.SetValue(i.GetTextColorProperty(), v)));
 
     public static readonly BindableProperty FontSizeProperty =
         BindableProperty.Create(
             nameof(FontSize), typeof(double), typeof(BaseInput<TInput, TValue, THandler>), 14d,
-            propertyChanged: (BindableObject bindable, object oldValue, object newVal) =>
-            {
-                var input = (BaseInput<TInput, TValue, THandler>)bindable;
-                if (!input._isInitialized) return;
-                input.BaseControl.SetValue(input.GetFontSizeProperty(), newVal);
-            });
+            propertyChanged: GetOnChanged((i, v) => i.BaseControl.SetValue(i.GetFontSizeProperty(), v)));
 
     public static readonly BindableProperty FontAttributesProperty =
         BindableProperty.Create(nameof(FontAttributes), typeof(FontAttributes), typeof(BaseInput<TInput, TValue, THandler>), FontAttributes.None,
-        propertyChanged: (BindableObject bindable, object oldValue, object newVal) =>
-        {
-            var input = (BaseInput<TInput, TValue, THandler>)bindable;
-            if (!input._isInitialized) return;
-            input.BaseControl.SetValue(input.GetFontAttributesProperty(), newVal);
-        });
+        propertyChanged: GetOnChanged((i, v) => i.BaseControl.SetValue(i.GetFontAttributesProperty(), v)));
 
     #endregion
 
@@ -439,5 +393,15 @@ public abstract class BaseInput<TInput, TValue, THandler> : Border, IInputContro
         if (newvalue is not PropertyInput input) return;
 
         input.Initialize((BaseInput<TInput, TValue, THandler>)bindable);
+    }
+
+    private static BindableProperty.BindingPropertyChangedDelegate GetOnChanged(
+        Action<BaseInput<TInput, TValue, THandler>, object> predicate)
+    {
+        return (bindable, oldValue, newValue) =>
+        {
+            if (bindable is not BaseInput<TInput, TValue, THandler> input || !input._isInitialized) return;
+            predicate(input, newValue);
+        };
     }
 }
