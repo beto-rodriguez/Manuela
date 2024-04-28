@@ -37,8 +37,9 @@ public partial class AppLayout : AppPage
             : Theme.Current.DarkColors;
 
         var topColor = colorSet.Colors[UIBrush.Gray | UIBrush.Swatch100];
+        var bottomColor = colorSet.Colors[UIBrush.Gray | UIBrush.Swatch50];
 
-        ManuelaWindow.SetWindowColors(topColor, topColor);
+        ManuelaWindow.SetWindowColors(topColor, bottomColor);
     }
 
     private void UpdatePointerPassthroughRegion()

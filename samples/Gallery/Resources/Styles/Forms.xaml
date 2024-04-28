@@ -160,7 +160,7 @@
 
     <Style TargetType="Label" Class="validation-message">
         <Setter Property="FontSize" Value="15"/>
-        <Setter Property="Padding" Value="14,5"/>
+        <Setter Property="Margin" Value="14,5"/>
         <Setter Property="TextColor" Value="{m:Color Tertiary}"/>
         <Setter Property="BackgroundColor" Value="{m:Color 'Tertiary,Swatch100'}"/>
     </Style>

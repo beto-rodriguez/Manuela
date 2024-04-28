@@ -78,7 +78,7 @@
         Margin="15, 9"
         m:Has.States="{m:States
             OnXs={m:Set Visible=False},
-            OnMd={m:Set Visible=True}}"/>
+            OnMd={m:Set Visible={OnIdiom Default=True, Phone=False, Tablet=False}}}"/>
 
     <ScrollView Grid.Row="1">
         <Grid RowDefinitions="Auto,Auto">
@@ -88,12 +88,10 @@
                 VerticalOptions="Start"
                 StrokeThickness="0"
                 Background="{m:Brush Primary}"
+                StrokeShape="RoundRectangle 3"
                 m:Has.Transitions="{m:Transitions
                     TranslateY={m:TransitionDefinition Easing={x:Static Easing.SpringOut}, Duration=300},
                     TranslateX={m:TransitionDefinition Easing={x:Static Easing.SpringOut}, Duration=300}}">
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="3" />
-                </Border.StrokeShape>
             </Border>
 
             <StackLayout

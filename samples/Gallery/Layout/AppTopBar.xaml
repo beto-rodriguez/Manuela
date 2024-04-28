@@ -12,13 +12,6 @@
     AbsoluteLayout.LayoutFlags="WidthProportional"
     AbsoluteLayout.LayoutBounds="0,0,1,45">
 
-    <BoxView
-        Grid.ColumnSpan="2"
-        BackgroundColor="{m:Color 'Gray,Swatch200'}"
-        Margin="-15,0"
-        HeightRequest="1"
-        TranslationY="22"/>
-
     <Image
         Source="appmenuicon.png"
         Margin="0, 8" IsVisible="{OnPlatform Default=True, MacCatalyst=False}" />
