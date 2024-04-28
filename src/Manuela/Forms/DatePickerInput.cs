@@ -11,9 +11,12 @@ public class DatePickerInput : BaseInput<DatePicker, DateTime, IDatePickerHandle
         {
             var newValue = BaseControl.Date;
             SetValue(ValueProperty, newValue);
-            ((IInputControl)this).ValueChangedCommand?.Execute(newValue);
+
+            // at loast on windows, the date picker DateSelected event is called on initialization.
+            // lets prevent this ValueChanged call when the control is not loaded yet.
+
+            if (BaseControl.IsLoaded) ((IInputControl)this).ValueChangedCommand?.Execute(newValue);
         };
-        var a = 1;
     }
 
     public event EventHandler<DateChangedEventArgs> ValueChanged
@@ -23,8 +26,7 @@ public class DatePickerInput : BaseInput<DatePicker, DateTime, IDatePickerHandle
     }
 
     protected override bool CanRestoreLabelOnUnFocus => false;
-    protected override void SetInputValue(object? value) =>
-        BaseControl.Date = (DateTime?)value ?? DateTime.MinValue;
+    protected override void SetInputValue(object? value) => BaseControl.Date = (DateTime?)value ?? DateTime.MinValue;
     protected override BindableProperty GetTextColorProperty() => DatePicker.TextColorProperty;
     protected override BindableProperty GetFontSizeProperty() => DatePicker.FontSizeProperty;
     protected override BindableProperty GetFontAttributesProperty() => DatePicker.FontAttributesProperty;
