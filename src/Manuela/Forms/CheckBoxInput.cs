@@ -87,7 +87,7 @@ public class CheckBoxInput : VerticalStackLayout, IInputControl
 
     public static readonly BindableProperty ValueProperty =
         BindableProperty.Create(
-            nameof(Value), typeof(bool), typeof(CheckBoxInput), false, propertyChanged: OnIsCheckedChanged);
+            nameof(Value), typeof(bool), typeof(CheckBoxInput), false, propertyChanged: OnValueChanged);
 
     public static readonly BindableProperty PlaceholderProperty =
         BindableProperty.Create(nameof(Placeholder), typeof(string), typeof(CheckBoxInput), string.Empty,
@@ -163,13 +163,18 @@ public class CheckBoxInput : VerticalStackLayout, IInputControl
     #endregion
 
     void IInputControl.SetValue(object? value) => Value = (bool?)value ?? false;
-    void IInputControl.SetPlaceholder(string placeholder) { }
+    void IInputControl.SetPlaceholder(string placeholder)
+    {
+        if (string.IsNullOrWhiteSpace(placeholder)) return;
+        Placeholder = placeholder;
+    }
     void IInputControl.Dispatch(Action action) => Dispatcher.Dispatch(action);
 
-    private static void OnIsCheckedChanged(BindableObject bindable, object oldValue, object newValue)
+    private static void OnValueChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var checkBox = (CheckBoxInput)bindable;
         checkBox.CheckedChanged?.Invoke(checkBox);
+        ((IInputControl)checkBox).ValueChangedCommand?.Execute(newValue);
     }
 
     private void OnDown()

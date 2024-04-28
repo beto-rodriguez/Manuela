@@ -13,13 +13,13 @@
 
     <VerticalStackLayout>
 
-        <!--<f:TextInput For="{Binding Name}"/>-->
+        <f:TextInput For="{Binding Name}"/>
 
-        <!--<f:TextInput For="{Binding Email}"/>-->
+        <f:TextInput For="{Binding Email}"/>
 
         <f:DatePickerInput For="{Binding BirthDate}"/>
 
-        <!--<f:PickerInput For="{Binding Country}">
+        <f:PickerInput For="{Binding Country}">
             <f:PickerInput.ItemsSource>
                 <x:Array Type="{x:Type x:String}">
                     <x:String>Japan</x:String>
@@ -31,7 +31,7 @@
 
         <f:TextAreaInput For="{Binding Description}"/>
 
-        <f:CheckBoxInput For="{Binding IsSubscribed}" />-->
+        <f:CheckBoxInput For="{Binding IsSubscribed}" />
 
         <Button
             Command="{Binding SaveCommand}"

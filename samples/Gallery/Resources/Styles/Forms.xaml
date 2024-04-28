@@ -13,6 +13,7 @@
         <Setter Property="PlaceholderColor" Value="{m:Color 'Gray,Swatch700'}"/>
         <Setter Property="InputMinimumHeightRequest" Value="48"/>
         <Setter Property="Margin" Value="0, 5"/>
+        <Setter Property="StrokeThickness" Value="0"/>
         <Setter Property="StrokeShape">
             <Setter.Value>
                 <RoundRectangle CornerRadius="{m:Size Xl}"/>
@@ -27,6 +28,7 @@
         <Setter Property="PlaceholderColor" Value="{m:Color 'Gray,Swatch700'}"/>
         <Setter Property="InputMinimumHeightRequest" Value="150"/>
         <Setter Property="Margin" Value="0, 5"/>
+        <Setter Property="StrokeThickness" Value="0"/>
         <Setter Property="StrokeShape">
             <Setter.Value>
                 <RoundRectangle CornerRadius="{m:Size Xl}"/>
@@ -41,6 +43,7 @@
         <Setter Property="PlaceholderColor" Value="{m:Color 'Gray,Swatch700'}"/>
         <Setter Property="InputMinimumHeightRequest" Value="48"/>
         <Setter Property="Margin" Value="0, 5"/>
+        <Setter Property="StrokeThickness" Value="0"/>
         <Setter Property="StrokeShape">
             <Setter.Value>
                 <RoundRectangle CornerRadius="{m:Size Xl}"/>
@@ -55,6 +58,7 @@
         <Setter Property="PlaceholderColor" Value="{m:Color 'Gray,Swatch700'}"/>
         <Setter Property="InputMinimumHeightRequest" Value="48"/>
         <Setter Property="Margin" Value="0, 5"/>
+        <Setter Property="StrokeThickness" Value="0"/>
         <Setter Property="StrokeShape">
             <Setter.Value>
                 <RoundRectangle CornerRadius="{m:Size Xl}"/>
@@ -64,6 +68,7 @@
 
     <Style TargetType="forms:CheckBoxInput" >
         <Setter Property="Margin" Value="0,5"/>
+        <Setter Property="Spacing" Value="8"/>
     </Style>
 
     <Style TargetType="AbsoluteLayout" Class="checkbox-layout">
@@ -157,48 +162,50 @@
         <Setter Property="FontSize" Value="15"/>
         <Setter Property="Padding" Value="14,5"/>
         <Setter Property="TextColor" Value="{m:Color Tertiary}"/>
-        <Setter Property="BackgroundColor" Value="{m:Color 'Tertiary,Swatch200'}"/>
+        <Setter Property="BackgroundColor" Value="{m:Color 'Tertiary,Swatch100'}"/>
     </Style>
 
-    <Style TargetType="forms:TextInput" Class="input-valid">
-        <Setter Property="StrokeThickness" Value="0"/>
-    </Style>
+    <!--
+    the empty "input-valid" tags are a workaround for:
+    https://github.com/dotnet/maui/issues/20907
 
-    <Style TargetType="forms:DatePickerInput" Class="input-valid">
-        <Setter Property="StrokeThickness" Value="0"/>
-    </Style>
-
-    <Style TargetType="forms:PickerInput" Class="input-valid">
-        <Setter Property="StrokeThickness" Value="0"/>
-    </Style>
-
-    <Style TargetType="forms:TextAreaInput" Class="input-valid">
-        <Setter Property="StrokeThickness" Value="0"/>
-    </Style>
+    you could also add setters inside the empty tags if required.
+    -->
+    <Style TargetType="forms:TextInput" Class="input-valid"/>
+    <Style TargetType="forms:DatePickerInput" Class="input-valid"/>
+    <Style TargetType="forms:PickerInput" Class="input-valid"/>
+    <Style TargetType="forms:TextAreaInput" Class="input-valid"/>
 
     <Style TargetType="forms:TextInput" Class="input-invalid">
+        <Setter Property="PlaceholderColor" Value="{m:Color 'Tertiary,Swatch700'}"/>
+        <Setter Property="BackgroundColor" Value="{m:Color 'Tertiary,Swatch100'}"/>
         <Setter Property="StrokeThickness" Value="2"/>
         <Setter Property="Stroke" Value="{m:Color Tertiary}"/>
         <Setter Property="HighlightColor" Value="{m:Color Tertiary}"/>
     </Style>
 
     <Style TargetType="forms:DatePickerInput" Class="input-invalid">
+        <Setter Property="PlaceholderColor" Value="{m:Color 'Tertiary,Swatch700'}"/>
+        <Setter Property="BackgroundColor" Value="{m:Color 'Tertiary,Swatch100'}"/>
         <Setter Property="StrokeThickness" Value="2"/>
         <Setter Property="Stroke" Value="{m:Color Tertiary}"/>
         <Setter Property="HighlightColor" Value="{m:Color Tertiary}"/>
     </Style>
 
     <Style TargetType="forms:PickerInput" Class="input-invalid">
+        <Setter Property="PlaceholderColor" Value="{m:Color 'Tertiary,Swatch700'}"/>
+        <Setter Property="BackgroundColor" Value="{m:Color 'Tertiary,Swatch100'}"/>
         <Setter Property="StrokeThickness" Value="2"/>
         <Setter Property="Stroke" Value="{m:Color Tertiary}"/>
         <Setter Property="HighlightColor" Value="{m:Color Tertiary}"/>
     </Style>
 
     <Style TargetType="forms:TextAreaInput" Class="input-invalid">
+        <Setter Property="PlaceholderColor" Value="{m:Color 'Tertiary,Swatch700'}"/>
+        <Setter Property="BackgroundColor" Value="{m:Color 'Tertiary,Swatch100'}"/>
         <Setter Property="StrokeThickness" Value="2"/>
         <Setter Property="Stroke" Value="{m:Color Tertiary}"/>
         <Setter Property="HighlightColor" Value="{m:Color Tertiary}"/>
     </Style>
-
 
 </ResourceDictionary>

@@ -22,7 +22,7 @@ public class Customer
     public string? Description { get; set; } = "This is a short description";
 
     [Display(Name = "Subcribe to newsletter?")]
-    [Required(ErrorMessage = "Please subcribe to continue")]
+    [MustBeTrue(ErrorMessage = "Please subcribe to continue")]
     public bool IsSubscribed { get; set; }
 }
 
@@ -34,4 +34,12 @@ public class DateYearsRangeAttribute : RangeAttribute
           DateTime.Now.AddYears(minOffset).ToShortDateString(),
           DateTime.Now.AddYears(maxOffset).ToShortDateString())
     { }
+}
+
+public class MustBeTrueAttribute : ValidationAttribute
+{
+    public override bool IsValid(object? value)
+    {
+        return value is not null && (bool)value;
+    }
 }
