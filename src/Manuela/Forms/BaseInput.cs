@@ -132,8 +132,10 @@ public abstract class BaseInput<TInput, TValue, THandler> : Border, IInputContro
             propertyChanged: GetOnChanged((i, v) =>
             {
                 var newStr = (string?)v;
+                var isValid = string.IsNullOrWhiteSpace(newStr);
                 i._validationLabel.Text = newStr;
-                i._validationLabel.IsVisible = newStr?.Length > 0;
+                i._validationLabel.IsVisible = !isValid;
+                i.StyleClass = isValid ? ["input-valid"] : ["input-invalid"];
             }));
 
     public static readonly BindableProperty TextColorProperty =
@@ -368,17 +370,16 @@ public abstract class BaseInput<TInput, TValue, THandler> : Border, IInputContro
             speed);
     }
 
-    void IInputControl.SetValue(object? value)
-    {
-        SetInputValue(value);
-    }
+    void IInputControl.SetValue(object? value) => SetInputValue(value);
 
     void IInputControl.SetPlaceholder(string placeholder)
     {
         if (string.IsNullOrWhiteSpace(placeholder)) return;
         Placeholder = placeholder;
-        if (!CanRestoreLabelOnUnFocus) SetInputFocus(speed: 1);
+        if (!CanRestoreLabelOnUnFocus) SetInputFocus(speed: 1, transformViewBox: false);
     }
+
+    void IInputControl.Dispatch(Action action) => Dispatcher.Dispatch(action);
 
     private void Input_HandlerChanged(object? sender, EventArgs e)
     {

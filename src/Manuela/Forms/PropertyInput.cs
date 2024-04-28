@@ -16,17 +16,37 @@ public class PropertyInput(
         inputControl.SetValue(getter());
         inputControl.SetPlaceholder(displayName);
 
-        inputControl.ValueChangedCommand = new Command(value =>
+        Task? waitTask = null;
+        var cts = new CancellationTokenSource();
+
+        inputControl.ValueChangedCommand = new Command(async value =>
         {
+            // only execute/show the validation after 800ms without input changes.
             setter(value);
 
-            _ = form.IsValid(propertyName);
+            if (waitTask is not null)
+            {
+                cts.Cancel();
+                cts.Dispose();
+                cts = new CancellationTokenSource();
+            }
 
-            inputControl.ValidationMessage =
-                form.Errors.TryGetValue(propertyName, out var message)
-                ? message
-                : string.Empty;
+            waitTask = Task.Delay(800, cts.Token);
+
+            await waitTask
+                .ContinueWith(t =>
+                {
+                    if (t.IsCanceled) return;
+
+                    _ = form.IsValid(propertyName);
+                    var error = form.GetError(propertyName);
+
+                    inputControl.Dispatch(() => inputControl.ValidationMessage = error);
+                });
         });
+
+        form.OnFormValidated += f =>
+            inputControl.ValidationMessage = f.GetError(propertyName);
     }
 
     /// <summary>

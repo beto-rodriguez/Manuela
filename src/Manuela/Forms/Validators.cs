@@ -16,6 +16,9 @@ public static class Validators
             else
                 _ = form.Errors.Remove(propertyName);
 
+            // ToDo:
+            // we could instead validate only the property that changed.
+
             var context = new ValidationContext(model);
             var results = new List<ValidationResult>();
             _ = Validator.TryValidateObject(model, context, results, true);

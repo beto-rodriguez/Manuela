@@ -9,4 +9,5 @@ public interface IInputControl
     string ValidationMessage { get; set; }
     void SetValue(object? value);
     void SetPlaceholder(string placeholder);
+    void Dispatch(Action action);
 }

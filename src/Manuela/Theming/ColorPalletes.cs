@@ -74,6 +74,21 @@ public static class ColorPalletes
         "#431407"
     ];
 
+    public static string[] Green { get; } =
+    [
+        "#f0fdf4",
+        "#dcfce7",
+        "#bbf7d0",
+        "#86efac",
+        "#4ade80",
+        "#22c55e",
+        "#16a34a",
+        "#15803d",
+        "#166534",
+        "#14532d",
+        "#052e16"
+    ];
+
     public static string[] Pink { get; } =
     [
         "#fdf2f8",
@@ -87,6 +102,36 @@ public static class ColorPalletes
         "#9d174d",
         "#831843",
         "#500724"
+    ];
+
+    public static string[] Rose { get; } =
+    [
+        "#fff1f2",
+        "#ffe4e6",
+        "#fecdd3",
+        "#fda4af",
+        "#fb7185",
+        "#f43f5e",
+        "#e11d48",
+        "#be123c",
+        "#9f1239",
+        "#881337",
+        "#4c0519"
+    ];
+
+    public static string[] Red { get; } =
+    [
+        "#fef2f2",
+        "#fee2e2",
+        "#fecaca",
+        "#fca5a5",
+        "#f87171",
+        "#ef4444",
+        "#dc2626",
+        "#b91c1c",
+        "#991b1b",
+        "#7f1d1d",
+        "#450a0a"
     ];
 
     public static string[] Slate { get; } =

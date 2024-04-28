@@ -106,8 +106,10 @@ public class CheckBoxInput : VerticalStackLayout, IInputControl
                 var input = (CheckBoxInput)bindable;
                 if (!input._isInitialized) return;
                 var newStr = (string?)newValue;
+                var isValid = string.IsNullOrWhiteSpace(newStr);
                 input._validationLabel.Text = newStr;
-                input._validationLabel.IsVisible = newStr?.Length > 0;
+                input._validationLabel.IsVisible = !isValid;
+                input.StyleClass = isValid ? ["input-valid"] : ["input-invalid"];
             });
 
     #endregion
@@ -162,6 +164,7 @@ public class CheckBoxInput : VerticalStackLayout, IInputControl
 
     void IInputControl.SetValue(object? value) => Value = (bool?)value ?? false;
     void IInputControl.SetPlaceholder(string placeholder) { }
+    void IInputControl.Dispatch(Action action) => Dispatcher.Dispatch(action);
 
     private static void OnIsCheckedChanged(BindableObject bindable, object oldValue, object newValue)
     {

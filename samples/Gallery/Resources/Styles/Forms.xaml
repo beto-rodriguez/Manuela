@@ -157,6 +157,48 @@
         <Setter Property="FontSize" Value="15"/>
         <Setter Property="Padding" Value="14,5"/>
         <Setter Property="TextColor" Value="{m:Color Tertiary}"/>
+        <Setter Property="BackgroundColor" Value="{m:Color 'Tertiary,Swatch200'}"/>
     </Style>
+
+    <Style TargetType="forms:TextInput" Class="input-valid">
+        <Setter Property="StrokeThickness" Value="0"/>
+    </Style>
+
+    <Style TargetType="forms:DatePickerInput" Class="input-valid">
+        <Setter Property="StrokeThickness" Value="0"/>
+    </Style>
+
+    <Style TargetType="forms:PickerInput" Class="input-valid">
+        <Setter Property="StrokeThickness" Value="0"/>
+    </Style>
+
+    <Style TargetType="forms:TextAreaInput" Class="input-valid">
+        <Setter Property="StrokeThickness" Value="0"/>
+    </Style>
+
+    <Style TargetType="forms:TextInput" Class="input-invalid">
+        <Setter Property="StrokeThickness" Value="2"/>
+        <Setter Property="Stroke" Value="{m:Color Tertiary}"/>
+        <Setter Property="HighlightColor" Value="{m:Color Tertiary}"/>
+    </Style>
+
+    <Style TargetType="forms:DatePickerInput" Class="input-invalid">
+        <Setter Property="StrokeThickness" Value="2"/>
+        <Setter Property="Stroke" Value="{m:Color Tertiary}"/>
+        <Setter Property="HighlightColor" Value="{m:Color Tertiary}"/>
+    </Style>
+
+    <Style TargetType="forms:PickerInput" Class="input-invalid">
+        <Setter Property="StrokeThickness" Value="2"/>
+        <Setter Property="Stroke" Value="{m:Color Tertiary}"/>
+        <Setter Property="HighlightColor" Value="{m:Color Tertiary}"/>
+    </Style>
+
+    <Style TargetType="forms:TextAreaInput" Class="input-invalid">
+        <Setter Property="StrokeThickness" Value="2"/>
+        <Setter Property="Stroke" Value="{m:Color Tertiary}"/>
+        <Setter Property="HighlightColor" Value="{m:Color Tertiary}"/>
+    </Style>
+
 
 </ResourceDictionary>

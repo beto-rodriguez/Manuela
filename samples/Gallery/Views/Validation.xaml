@@ -2,16 +2,36 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:m="clr-namespace:Manuela;assembly=Manuela"
-             xmlns:forms="clr-namespace:Manuela.Forms;assembly=Manuela"
-             xmlns:local="clr-namespace:Gallery.Views;assembly=Gallery"
+             xmlns:f="clr-namespace:Manuela.Forms;assembly=Manuela"
+             xmlns:local="clr-namespace:Gallery.Views.ValidationObjects;assembly=Gallery"
              x:DataType="local:CustomerForm"
              x:Class="Gallery.Views.Validation">
 
+    <ContentView.BindingContext>
+        <local:CustomerForm/>
+    </ContentView.BindingContext>
+
     <VerticalStackLayout>
 
-        <forms:TextInput For="{Binding Name}"/>
+        <!--<f:TextInput For="{Binding Name}"/>-->
 
-        <forms:TextInput For="{Binding Email}"/>
+        <!--<f:TextInput For="{Binding Email}"/>-->
+
+        <f:DatePickerInput For="{Binding BirthDate}"/>
+
+        <!--<f:PickerInput For="{Binding Country}">
+            <f:PickerInput.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>Japan</x:String>
+                    <x:String>Brazil</x:String>
+                    <x:String>Egypt</x:String>
+                </x:Array>
+            </f:PickerInput.ItemsSource>
+        </f:PickerInput>
+
+        <f:TextAreaInput For="{Binding Description}"/>
+
+        <f:CheckBoxInput For="{Binding IsSubscribed}" />-->
 
         <Button
             Command="{Binding SaveCommand}"

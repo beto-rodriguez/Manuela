@@ -170,15 +170,15 @@ public class Theme
     public ColorSet LightColors { get; set; } = new(
         colors: ColorPalletes.BuildDictionary(
             ColorPalletes.Blue,
-            ColorPalletes.Orange,
-            ColorPalletes.Pink,
+            ColorPalletes.Green,
+            ColorPalletes.Red,
             ColorPalletes.Slate));
 
     public ColorSet DarkColors { get; set; } = new(
         colors: ColorPalletes.BuildDictionary(
             ColorPalletes.Blue.Reverse().ToArray(),
-            ColorPalletes.Orange.Reverse().ToArray(),
-            ColorPalletes.Pink.Reverse().ToArray(),
+            ColorPalletes.Green.Reverse().ToArray(),
+            ColorPalletes.Red.Reverse().ToArray(),
             ColorPalletes.Gray.Reverse().ToArray()));
 
     public Dictionary<string, ISizeSource> PropertyMap { get; }

@@ -13,6 +13,7 @@ public class DatePickerInput : BaseInput<DatePicker, DateTime, IDatePickerHandle
             SetValue(ValueProperty, newValue);
             ((IInputControl)this).ValueChangedCommand?.Execute(newValue);
         };
+        var a = 1;
     }
 
     public event EventHandler<DateChangedEventArgs> ValueChanged
@@ -22,7 +23,8 @@ public class DatePickerInput : BaseInput<DatePicker, DateTime, IDatePickerHandle
     }
 
     protected override bool CanRestoreLabelOnUnFocus => false;
-    protected override void SetInputValue(object? value) => BaseControl.Date = (DateTime?)value ?? DateTime.MinValue;
+    protected override void SetInputValue(object? value) =>
+        BaseControl.Date = (DateTime?)value ?? DateTime.MinValue;
     protected override BindableProperty GetTextColorProperty() => DatePicker.TextColorProperty;
     protected override BindableProperty GetFontSizeProperty() => DatePicker.FontSizeProperty;
     protected override BindableProperty GetFontAttributesProperty() => DatePicker.FontAttributesProperty;
@@ -34,12 +36,12 @@ public class DatePickerInput : BaseInput<DatePicker, DateTime, IDatePickerHandle
             Android.Content.Res.ColorStateList.ValueOf(
                 Microsoft.Maui.Controls.Compatibility.Platform.Android.ColorExtensions.ToAndroid(Colors.Transparent));
 #elif IOS && !MACCATALYST
-            handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
+        handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
 #elif MACCATALYST
         // how?
 #elif WINDOWS
-            handler.PlatformView.BorderThickness = new Microsoft.UI.Xaml.Thickness(0);
-            handler.PlatformView.Style = null;
+        handler.PlatformView.BorderThickness = new Microsoft.UI.Xaml.Thickness(0);
+        handler.PlatformView.Style = null;
 #endif
         SetInputFocus(transformViewBox: false);
     }
