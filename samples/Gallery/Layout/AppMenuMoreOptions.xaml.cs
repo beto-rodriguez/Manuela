@@ -33,7 +33,7 @@ public partial class AppMenuMoreOptions : Border
                 // for now, we will update the menu while this call is made within 500ms of the loaded event
                 if ((DateTime.Now - _loadTime).TotalMilliseconds < 500)
                 {
-                    MoveMenu(false);
+                    MoveMenu(true);
                 }
 
                 return;
@@ -64,7 +64,11 @@ public partial class AppMenuMoreOptions : Border
 
     private void MoveMenu(bool animated)
     {
-        if (this.GetScreenBreakpoint() >= Breakpoint.Md)
+        var isVertical =
+            this.GetScreenBreakpoint() >= Breakpoint.Md &&
+            !(DeviceInfo.Idiom == DeviceIdiom.Phone || DeviceInfo.Idiom == DeviceIdiom.Tablet);
+
+        if (isVertical)
         {
             TranslationY = 0;
             this.SetManuelaProperty(ManuelaProperty.TranslateX, _isMenuOpen ? 0d : -Width, animated);
