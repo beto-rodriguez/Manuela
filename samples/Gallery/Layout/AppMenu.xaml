@@ -19,27 +19,25 @@
             OnXs={m:Set Visible=False},
             OnMd={m:Set Visible={OnIdiom Default=True, Phone=False, Tablet=False}}}"/>
 
-    <ScrollView Grid.Row="1">
-        <Grid RowDefinitions="Auto,Auto">
-            <l:AppMenuIndicator x:Name="Indicator" />
-            
-            <StackLayout
-                x:Name="MenuStackLayout"
-                m:Has.States="{StaticResource MenuStackStates}">
+    <Grid Grid.Row="1" RowDefinitions="Auto,Auto">
+        <l:MenuIndicator x:Name="Indicator" />
 
-                <l:AppMenuItem Display="Colors"        Route="Brushes"     Icon="Personalize"/>
-                <l:AppMenuItem Display="Sizing"        Route="Sizing"      Icon="FontSize"/>
-                <l:AppMenuItem Display="Validation"    Route="Validation"  Icon="Accept"/>
-                <l:AppMenuItem Display="States"        Route="States"      Icon="Brightness"/>
+        <StackLayout
+            x:Name="MenuStackLayout"
+            m:Has.States="{StaticResource MenuStackStates}">
 
-                <l:AppMenuItem Display="Transitions"   Route="Transitions" Icon="Sync"/>
+            <l:MenuItem Display="Colors"        Route="Brushes"     Icon="Personalize"/>
+            <l:MenuItem Display="Sizing"        Route="Sizing"      Icon="FontSize"/>
+            <l:MenuItem Display="Validation"    Route="Validation"  Icon="Accept"/>
+            <l:MenuItem Display="States"        Route="States"      Icon="Brightness"/>
+            <l:MenuItem Display="More"                              Icon="More"     Tapped="OnMoreTapped"/>
+
+            <!--<l:AppMenuItem Display="Transitions"   Route="Transitions" Icon="Sync"/>
                 <l:AppMenuItem Display="Spacing"       Route="Spacing"     Icon="MapLayers"/>
-                <l:AppMenuItem Display="Forms"         Route="Forms"       Icon="AddNewLineFill"/>
-                
+                <l:AppMenuItem Display="Forms"         Route="Forms"       Icon="AddNewLineFill"/>-->
 
-            </StackLayout>
-        </Grid>
-    </ScrollView>
+        </StackLayout>
+    </Grid>
 
     <VerticalStackLayout
         Grid.Row="2"
@@ -47,8 +45,8 @@
             OnXs={m:Set Visible=False},
             OnMd={m:Set Visible={OnIdiom Default=True, Phone=False, Tablet=False}}}">
 
-        <l:AppMenuItem Display="Profile"   Icon="ContactInfo" Tapped="ActivateItem"/>
-        <l:AppMenuItem Display="Settings"  Icon="Settings"/>
+        <l:MenuItem Display="Profile"   Icon="ContactInfo" Tapped="ActivateItem"/>
+        <l:MenuItem Display="Settings"  Icon="Settings"/>
 
     </VerticalStackLayout>
 </Grid>

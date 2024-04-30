@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Border
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:m="clr-namespace:Manuela;assembly=Manuela"
+    xmlns:l="clr-namespace:Gallery.Layout"
+    x:Class="Gallery.Layout.AppMenuMoreOptions"
+    ZIndex="9"
+    StrokeThickness="0"
+    StrokeShape="RoundRectangle 15"
+    Background="{m:Brush 'Primary,Swatch950'}"
+    m:Has.States="{StaticResource MenuMoreStates}"
+    m:Has.Transitions="{m:Transitions 'TranslateX,TranslateY'}">
+
+    <ScrollView>
+        <VerticalStackLayout x:Name="Options">
+
+            <l:MoreMenuItem Display="Transitions"   Route="Transitions" Icon="Sync"/>
+            <l:MoreMenuItem Display="Spacing"       Route="Spacing"     Icon="MapLayers"/>
+            <l:MoreMenuItem Display="Forms"         Route="Forms"       Icon="AddNewLineFill"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</Border>

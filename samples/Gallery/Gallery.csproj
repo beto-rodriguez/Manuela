@@ -68,10 +68,31 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Layout\AppMenuIndicator.xaml">
+	  <Compile Update="Layout\MenuItem.xaml.cs">
+	    <DependentUpon>MenuItem.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Layout\MenuIndicator.xaml.cs">
+	    <DependentUpon>MenuIndicator.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Layout\AppMenuMoreOptions.xaml.cs">
+	    <DependentUpon>AppMenuMoreOptions.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Layout\MoreMenuItem.xaml.cs">
+	    <DependentUpon>MoreMenuItem.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Layout\MenuIndicator.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Layout\AppMenuItem.xaml">
+	  <MauiXaml Update="Layout\AppMenuMoreOptions.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Layout\MoreMenuItem.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Layout\MenuItem.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

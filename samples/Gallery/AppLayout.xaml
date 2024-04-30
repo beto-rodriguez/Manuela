@@ -13,7 +13,8 @@
             x:Name="AppTopBar"
             m:Has.Transitions="{m:Transitions TranslateY}"/>
 
-        <layout:AppMenu/>
+        <layout:AppMenu MoreOptionsMenu="{Reference MoreOptions}" />
+        <layout:AppMenuMoreOptions x:Name="MoreOptions" />
 
         <!--
             The app body content changes depending on the app route

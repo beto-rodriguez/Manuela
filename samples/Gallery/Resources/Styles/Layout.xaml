@@ -21,6 +21,13 @@
         Padding="0,0,0,0"/>
 
     <m:Set
+        x:Key="XsMoreMenu"
+        AbsoluteLayoutFlags="YProportional,WidthProportional"
+        AbsoluteLayoutBounds="0, 1, 1, -1"
+        MaxHeight="500"
+        Padding="15, 15, 15, 75"/>
+
+    <m:Set
         x:Key="XsAppBody"
         Padding="0, 45, 0, 60"/>
 
@@ -51,6 +58,13 @@
         Padding="0,0,0,0"/>
 
     <m:Set
+        x:Key="MdMoreMenu"
+        AbsoluteLayoutFlags="HeightProportional"
+        AbsoluteLayoutBounds="0,0, 300,1"
+        MaxHeight="99999"
+        Padding="90, 50, 15, 15"/>
+    
+    <m:Set
         x:Key="MdAppBody"
         Padding="80, 45, 0, 0"/>
 
@@ -76,6 +90,10 @@
         OnXs="{StaticResource XsMenu}"
         OnMd="{StaticResource MdMenu}"/>
 
+    <m:States x:Key="MenuMoreDefaultStates"
+        OnXs="{StaticResource XsMoreMenu}"
+        OnMd="{StaticResource MdMoreMenu}"/>
+
     <m:States x:Key="AppBodyDefaultStates"
         OnXs="{StaticResource XsAppBody}"
         OnMd="{StaticResource MdAppBody}"/>
@@ -97,7 +115,11 @@
     <m:States
         x:Key="MenuMobileStates"
         Default="{StaticResource XsMenu}"/>
-        
+
+    <m:States
+        x:Key="MenuMoreMobileStates"
+        Default="{StaticResource XsMoreMenu}"/>
+
     <m:States
         x:Key="AppBodyMobileStates"
         Default="{StaticResource XsAppBody}"/>
@@ -123,6 +145,13 @@
         Default="{StaticResource MenuDefaultStates}"
         Phone="{StaticResource MenuMobileStates}"
         Tablet="{StaticResource MenuMobileStates}"/>
+
+    <OnIdiom
+        x:TypeArguments="m:StatesCollection"
+        x:Key="MenuMoreStates"
+        Default="{StaticResource MenuMoreDefaultStates}"
+        Phone="{StaticResource MenuMoreMobileStates}"
+        Tablet="{StaticResource MenuMoreMobileStates}"/>
 
     <OnIdiom
         x:TypeArguments="m:StatesCollection"

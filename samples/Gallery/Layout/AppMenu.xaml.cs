@@ -18,8 +18,15 @@ public partial class AppMenu : Grid
             ActivateItem((StackLayout)MenuStackLayout.Children[0]);
             Window.Page!.SizeChanged += (_, _) => UpdateIndicator(null, false);
 
-            foreach (var item in MenuStackLayout.Children.OfType<AppMenuItem>())
+            foreach (var item in MenuStackLayout.Children.OfType<MenuItem>())
+            {
                 item.Tapped += ActivateItem;
+
+                if (item.Display != "More")
+                {
+                    item.Tapped += CloseMoreMenu;
+                }
+            }
         };
 
 #if MACCATALYST
@@ -41,6 +48,8 @@ public partial class AppMenu : Grid
         };
 #endif
     }
+
+    public AppMenuMoreOptions MoreOptionsMenu { get; set; } = null!;
 
     private void ActivateItem(StackLayout clickedVisual)
     {
@@ -106,5 +115,15 @@ public partial class AppMenu : Grid
                 ManuelaProperty.TranslateX,
                 clickedIndex * size.Width + w * 0.5, animated);
         }
+    }
+
+    private void CloseMoreMenu(StackLayout clickedVisual)
+    {
+        MoreOptionsMenu.Close();
+    }
+
+    private void OnMoreTapped(StackLayout obj)
+    {
+        MoreOptionsMenu.Toggle();
     }
 }

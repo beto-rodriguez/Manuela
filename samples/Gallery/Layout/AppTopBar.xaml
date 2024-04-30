@@ -6,7 +6,7 @@
     xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons"
     x:Class="Gallery.Layout.AppTopBar"
     ColumnDefinitions="Auto, *"
-    ZIndex="9"
+    ZIndex="8"
     Background="{m:Brush 'Gray,Swatch100'}"
     Padding="15, 0"
     AbsoluteLayout.LayoutFlags="WidthProportional"
