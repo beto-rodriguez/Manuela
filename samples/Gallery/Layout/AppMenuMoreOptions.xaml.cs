@@ -7,6 +7,7 @@ public partial class AppMenuMoreOptions : Border
 {
     private bool _isMenuOpen = false;
     private bool? _isLargeScreen;
+    private DateTime _loadTime;
 
     public AppMenuMoreOptions()
     {
@@ -14,17 +15,29 @@ public partial class AppMenuMoreOptions : Border
 
         Loaded += (_, _) =>
         {
-            MoveMenu(false);
             foreach (var item in Options.Children.OfType<MoreMenuItem>())
             {
                 item.Tapped += Item_Tapped;
             }
+            _loadTime = DateTime.Now;
         };
 
         SizeChanged += (_, _) =>
         {
             var isLargeScreen = this.GetScreenBreakpoint() >= Breakpoint.Md;
-            if (_isLargeScreen == isLargeScreen) return;
+            if (_isLargeScreen == isLargeScreen)
+            {
+                // when the loaded event is called, the size of this control is not yet set
+                // when is it safe to call this method?
+
+                // for now, we will update the menu while this call is made within 500ms of the loaded event
+                if ((DateTime.Now - _loadTime).TotalMilliseconds < 500)
+                {
+                    MoveMenu(false);
+                }
+
+                return;
+            }
 
             _isLargeScreen = isLargeScreen;
             MoveMenu(false);
@@ -54,12 +67,12 @@ public partial class AppMenuMoreOptions : Border
         if (this.GetScreenBreakpoint() >= Breakpoint.Md)
         {
             TranslationY = 0;
-            this.SetManuelaProperty(ManuelaProperty.TranslateX, _isMenuOpen ? 0d : -300d, animated);
+            this.SetManuelaProperty(ManuelaProperty.TranslateX, _isMenuOpen ? 0d : -Width, animated);
         }
         else
         {
             TranslationX = 0;
-            this.SetManuelaProperty(ManuelaProperty.TranslateY, _isMenuOpen ? 0d : 500d, animated);
+            this.SetManuelaProperty(ManuelaProperty.TranslateY, _isMenuOpen ? 0d : Height, animated);
         }
     }
 

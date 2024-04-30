@@ -12,14 +12,14 @@
     <mi:MauiIcon
         x:Name="icon"
         IconSize="20"
-        IconColor="{m:Color 'Gray,Swatch50'}"
+        IconColor="{m:Color 'Gray,Swatch950'}"
         VerticalOptions="Center"
         HorizontalOptions="Center">
     </mi:MauiIcon>
 
     <Label
         x:Name="label"
-        TextColor="{m:Color 'Gray,Swatch50'}"
+        TextColor="{m:Color 'Gray,Swatch950'}"
         VerticalOptions="Center"
         HorizontalOptions="Center"
         FontSize="15">

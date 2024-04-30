@@ -2,7 +2,7 @@ using Manuela.Styling;
 using MauiIcons.Core;
 
 namespace Gallery.Layout;
-public partial class AppMenu : Grid
+public partial class AppMenu : Border
 {
     private MauiIcon? _activeIcon;
     private Label? _activeLabel;

@@ -24,7 +24,6 @@
         x:Key="XsMoreMenu"
         AbsoluteLayoutFlags="YProportional,WidthProportional"
         AbsoluteLayoutBounds="0, 1, 1, -1"
-        MaxHeight="500"
         Padding="15, 15, 15, 75"/>
 
     <m:Set
@@ -61,7 +60,6 @@
         x:Key="MdMoreMenu"
         AbsoluteLayoutFlags="HeightProportional"
         AbsoluteLayoutBounds="0,0, 300,1"
-        MaxHeight="99999"
         Padding="90, 50, 15, 15"/>
     
     <m:Set

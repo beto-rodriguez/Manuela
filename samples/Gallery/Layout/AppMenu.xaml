@@ -1,52 +1,55 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<Grid
+<Border
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:m="clr-namespace:Manuela;assembly=Manuela"
     xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons"
     xmlns:l="clr-namespace:Gallery.Layout"
     x:Class="Gallery.Layout.AppMenu"
-    RowDefinitions="Auto,*, Auto"
     ZIndex="10"
+    StrokeThickness="0.5"
+    Stroke="{m:Brush 'Gray,Swatch300'}"
     Background="{m:Brush 'Gray,Swatch50'}"
     m:Has.States="{StaticResource MenuStates}">
 
-    <Image
-        Grid.Row="0"
-        Source="appmenuicon.png"
-        Margin="15, 9"
-        m:Has.States="{m:States
-            OnXs={m:Set Visible=False},
-            OnMd={m:Set Visible={OnIdiom Default=True, Phone=False, Tablet=False}}}"/>
+    <Grid RowDefinitions="Auto,*, Auto">
+        <Image
+            Grid.Row="0"
+            Source="appmenuicon.png"
+            Margin="15, 9"
+            m:Has.States="{m:States
+                OnXs={m:Set Visible=False},
+                OnMd={m:Set Visible={OnIdiom Default=True, Phone=False, Tablet=False}}}"/>
 
-    <Grid Grid.Row="1" RowDefinitions="Auto,Auto">
-        <l:MenuIndicator x:Name="Indicator" />
+        <Grid Grid.Row="1" RowDefinitions="Auto,Auto">
+            <l:MenuIndicator x:Name="Indicator" />
 
-        <StackLayout
-            x:Name="MenuStackLayout"
-            m:Has.States="{StaticResource MenuStackStates}">
+            <StackLayout
+                x:Name="MenuStackLayout"
+                m:Has.States="{StaticResource MenuStackStates}">
 
-            <l:MenuItem Display="Colors"        Route="Brushes"     Icon="Personalize"/>
-            <l:MenuItem Display="Sizing"        Route="Sizing"      Icon="FontSize"/>
-            <l:MenuItem Display="Validation"    Route="Validation"  Icon="Accept"/>
-            <l:MenuItem Display="States"        Route="States"      Icon="Brightness"/>
-            <l:MenuItem Display="More"                              Icon="More"     Tapped="OnMoreTapped"/>
+                <l:MenuItem Display="Colors"        Route="Brushes"     Icon="Personalize"/>
+                <l:MenuItem Display="Sizing"        Route="Sizing"      Icon="FontSize"/>
+                <l:MenuItem Display="Validation"    Route="Validation"  Icon="Accept"/>
+                <l:MenuItem Display="States"        Route="States"      Icon="Brightness"/>
+                <l:MenuItem Display="More"                              Icon="More"     Tapped="OnMoreTapped"/>
 
-            <!--<l:AppMenuItem Display="Transitions"   Route="Transitions" Icon="Sync"/>
-                <l:AppMenuItem Display="Spacing"       Route="Spacing"     Icon="MapLayers"/>
-                <l:AppMenuItem Display="Forms"         Route="Forms"       Icon="AddNewLineFill"/>-->
+                <!--<l:AppMenuItem Display="Transitions"   Route="Transitions" Icon="Sync"/>
+                    <l:AppMenuItem Display="Spacing"       Route="Spacing"     Icon="MapLayers"/>
+                    <l:AppMenuItem Display="Forms"         Route="Forms"       Icon="AddNewLineFill"/>-->
 
-        </StackLayout>
+            </StackLayout>
+        </Grid>
+
+        <VerticalStackLayout
+            Grid.Row="2"
+            m:Has.States="{m:States
+                OnXs={m:Set Visible=False},
+                OnMd={m:Set Visible={OnIdiom Default=True, Phone=False, Tablet=False}}}">
+
+            <l:MenuItem Display="Profile"   Icon="ContactInfo" Tapped="ActivateItem"/>
+            <l:MenuItem Display="Settings"  Icon="Settings"/>
+
+        </VerticalStackLayout>
     </Grid>
-
-    <VerticalStackLayout
-        Grid.Row="2"
-        m:Has.States="{m:States
-            OnXs={m:Set Visible=False},
-            OnMd={m:Set Visible={OnIdiom Default=True, Phone=False, Tablet=False}}}">
-
-        <l:MenuItem Display="Profile"   Icon="ContactInfo" Tapped="ActivateItem"/>
-        <l:MenuItem Display="Settings"  Icon="Settings"/>
-
-    </VerticalStackLayout>
-</Grid>
+</Border>

@@ -6,9 +6,10 @@
     xmlns:l="clr-namespace:Gallery.Layout"
     x:Class="Gallery.Layout.AppMenuMoreOptions"
     ZIndex="9"
-    StrokeThickness="0"
+    StrokeThickness="0.5"
+    Stroke="{m:Brush 'Gray,Swatch300'}"
     StrokeShape="RoundRectangle 15"
-    Background="{m:Brush 'Primary,Swatch950'}"
+    Background="{m:Brush 'Gray,Swatch200'}"
     m:Has.States="{StaticResource MenuMoreStates}"
     m:Has.Transitions="{m:Transitions 'TranslateX,TranslateY'}">
 
