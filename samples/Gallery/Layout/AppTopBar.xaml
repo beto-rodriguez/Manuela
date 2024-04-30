@@ -22,25 +22,21 @@
         VerticalOptions="Center"
         HorizontalOptions="End">
 
-        <HorizontalStackLayout.Resources>
-            <Style TargetType="mi:MauiIcon">
-                <Setter Property="Opacity" Value="0.75"/>
-                <Setter Property="Margin" Value="2, 0"/>
-                <Setter Property="IconSize" Value="22"/>
-                <Setter Property="Padding" Value="4"/>
-                <Setter Property="m:Has.States">
-                    <Setter.Value>
-                        <m:StatesCollection>
-                            <m:Default Setters="{m:Set Background='Gray,Swatch100'}"/>
-                            <m:Hovered Setters="{m:Set Background='Gray,Swatch300'}"/>
-                        </m:StatesCollection>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-        </HorizontalStackLayout.Resources>
+        <Border
+            StrokeThickness="0"
+            StrokeShape="RoundRectangle 12"
+            m:Has.States="{m:States
+                Hovered={m:Set Background='Gray,Swatch200'}}">
+            <mi:MauiIcon Icon="{mi:SegoeFluent Icon=Ringer}" IconSize="20" Margin="8"/>
+        </Border>
 
-        <mi:MauiIcon Icon="{mi:SegoeFluent Icon=Ringer}"/>
-        <mi:MauiIcon Icon="{mi:SegoeFluent Icon=Contact}"/>
+        <Border
+            StrokeThickness="0"
+            StrokeShape="RoundRectangle 12"
+            m:Has.States="{m:States
+                Hovered={m:Set Background='Gray,Swatch200'}}">
+            <mi:MauiIcon Icon="{mi:SegoeFluent Icon=More}" IconSize="20" Margin="8"/>
+        </Border>
 
     </HorizontalStackLayout>
 

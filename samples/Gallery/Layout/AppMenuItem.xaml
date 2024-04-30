@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<StackLayout
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:m="clr-namespace:Manuela;assembly=Manuela"
+    xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons"
+    xmlns:layout="clr-namespace:Gallery.Layout"
+    x:Class="Gallery.Layout.AppMenuItem"
+    m:Has.States="{StaticResource MenuItemStates}">
+
+    <mi:MauiIcon
+        x:Name="icon"
+        IconSize="20"
+        IconColor="{m:Color 'Gray,Swatch900'}"
+        Padding="{OnPlatform Default='0', MacCatalyst='17.5,0'}"
+        VerticalOptions="Center"
+        HorizontalOptions="Center">
+
+        <m:Has.States>
+            <m:StatesCollection>
+                <m:Default Setters="{m:Set Opacity=0.75}" />
+                <m:State Name="active" Setters="{m:Set TextColor=Primary, Opacity=1}"/>
+            </m:StatesCollection>
+        </m:Has.States>
+    </mi:MauiIcon>
+
+    <Label
+        x:Name="label"
+        TextColor="{m:Color 'Gray,Swatch900'}"
+        VerticalOptions="Center"
+        HorizontalOptions="Center"
+        FontSize="10">
+
+        <m:Has.States>
+            <m:StatesCollection>
+                <m:State Name="active" Setters="{m:Set TextColor=Primary}"/>
+            </m:StatesCollection>
+        </m:Has.States>
+    </Label>
+
+    <StackLayout.GestureRecognizers>
+        <TapGestureRecognizer Tapped="OnTapped" />
+    </StackLayout.GestureRecognizers>
+
+</StackLayout>

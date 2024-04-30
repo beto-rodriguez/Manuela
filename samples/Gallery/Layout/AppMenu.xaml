@@ -4,73 +4,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:m="clr-namespace:Manuela;assembly=Manuela"
     xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons"
-    xmlns:layout="clr-namespace:Gallery.Layout"
+    xmlns:l="clr-namespace:Gallery.Layout"
     x:Class="Gallery.Layout.AppMenu"
-    RowDefinitions="Auto,*"
+    RowDefinitions="Auto,*, Auto"
     ZIndex="10"
     Background="{m:Brush 'Gray,Swatch50'}"
     m:Has.States="{StaticResource MenuStates}">
-
-    <Grid.Resources>
-
-        <x:Array x:Key="MenuData" Type="{x:Type layout:MenuItemModel}">
-            <layout:MenuItemModel DisplayName="Colors"              Route="Brushes"     Icon="Personalize"/>
-            <layout:MenuItemModel DisplayName="Sizing"              Route="Sizing"      Icon="FontSize"/>
-            <layout:MenuItemModel DisplayName="States"              Route="States"      Icon="Brightness"/>
-            <layout:MenuItemModel DisplayName="Transitions"         Route="Transitions" Icon="Sync"/>
-            <layout:MenuItemModel DisplayName="Spacing"             Route="Spacing"     Icon="MapLayers"/>
-            <layout:MenuItemModel DisplayName="Forms"               Route="Forms"       Icon="AddNewLineFill"/>
-            <layout:MenuItemModel DisplayName="Validation"          Route="Validation"  Icon="Accept"/>
-        </x:Array>
-
-        <!--
-            The Router.Link property, defines the route where the app navigates to when the item is clicked.
-            In this case, the app navigates to the MainView route.
-
-            The MainView route must be defined in the MauiProgram.cs file.
-        -->
-
-        <DataTemplate x:Key="MenuItemTemplate" x:DataType="{x:Type layout:MenuItemModel}">
-            <StackLayout
-                m:Router.Link="{Binding Route}"
-                m:Has.States="{StaticResource MenuItemStates}">
-
-                <mi:MauiIcon
-                    Icon="{Binding Icon}"
-                    IconSize="20"
-                    IconColor="{m:Color 'Gray,Swatch900'}"
-                    Padding="{OnPlatform Default='0', MacCatalyst='17.5,0'}"
-                    VerticalOptions="Center"
-                    HorizontalOptions="Center">
-
-                    <m:Has.States>
-                        <m:StatesCollection>
-                            <m:Default Setters="{m:Set Opacity=0.75}" />
-                            <m:State Name="active" Setters="{m:Set TextColor=Primary, Opacity=1}"/>
-                        </m:StatesCollection>
-                    </m:Has.States>
-                </mi:MauiIcon>
-
-                <Label
-                    Text="{Binding DisplayName}"
-                    TextColor="{m:Color 'Gray,Swatch900'}"
-                    VerticalOptions="Center"
-                    HorizontalOptions="Center"
-                    FontSize="10">
-
-                    <m:Has.States>
-                        <m:StatesCollection>
-                            <m:State Name="active" Setters="{m:Set TextColor=Primary}"/>
-                        </m:StatesCollection>
-                    </m:Has.States>
-                </Label>
-
-                <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
-                </StackLayout.GestureRecognizers>
-            </StackLayout>
-        </DataTemplate>
-    </Grid.Resources>
 
     <Image
         Grid.Row="0"
@@ -82,24 +21,34 @@
 
     <ScrollView Grid.Row="1">
         <Grid RowDefinitions="Auto,Auto">
-            <Border
-                x:Name="Indicator"
-                HorizontalOptions="Start"
-                VerticalOptions="Start"
-                StrokeThickness="0"
-                Background="{m:Brush Primary}"
-                StrokeShape="RoundRectangle 3"
-                m:Has.Transitions="{m:Transitions
-                    TranslateY={m:TransitionDefinition Easing={x:Static Easing.SpringOut}, Duration=300},
-                    TranslateX={m:TransitionDefinition Easing={x:Static Easing.SpringOut}, Duration=300}}">
-            </Border>
-
+            <l:AppMenuIndicator x:Name="Indicator" />
+            
             <StackLayout
                 x:Name="MenuStackLayout"
-                BindableLayout.ItemsSource="{StaticResource MenuData}"
-                BindableLayout.ItemTemplate="{StaticResource MenuItemTemplate}"
                 m:Has.States="{StaticResource MenuStackStates}">
+
+                <l:AppMenuItem Display="Colors"        Route="Brushes"     Icon="Personalize"/>
+                <l:AppMenuItem Display="Sizing"        Route="Sizing"      Icon="FontSize"/>
+                <l:AppMenuItem Display="Validation"    Route="Validation"  Icon="Accept"/>
+                <l:AppMenuItem Display="States"        Route="States"      Icon="Brightness"/>
+
+                <l:AppMenuItem Display="Transitions"   Route="Transitions" Icon="Sync"/>
+                <l:AppMenuItem Display="Spacing"       Route="Spacing"     Icon="MapLayers"/>
+                <l:AppMenuItem Display="Forms"         Route="Forms"       Icon="AddNewLineFill"/>
+                
+
             </StackLayout>
         </Grid>
     </ScrollView>
+
+    <VerticalStackLayout
+        Grid.Row="2"
+        m:Has.States="{m:States
+            OnXs={m:Set Visible=False},
+            OnMd={m:Set Visible={OnIdiom Default=True, Phone=False, Tablet=False}}}">
+
+        <l:AppMenuItem Display="Profile"   Icon="ContactInfo" Tapped="ActivateItem"/>
+        <l:AppMenuItem Display="Settings"  Icon="Settings"/>
+
+    </VerticalStackLayout>
 </Grid>

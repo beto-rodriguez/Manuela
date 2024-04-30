@@ -67,4 +67,13 @@
       <ProjectReference Include="..\..\src\Manuela.Generation\Manuela.Generation.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <MauiXaml Update="Layout\AppMenuIndicator.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Layout\AppMenuItem.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
 </Project>

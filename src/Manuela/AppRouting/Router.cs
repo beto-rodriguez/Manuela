@@ -25,6 +25,8 @@ public class Router
 
             if (bindable is not View view) return;
 
+            // use manuela's recognizers???
+
             view.GestureRecognizers.Add(new TapGestureRecognizer
             {
                 Command = new Command(() => AppRouting.Routing.GoTo(route))

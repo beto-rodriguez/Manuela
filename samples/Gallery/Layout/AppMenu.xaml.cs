@@ -15,8 +15,11 @@ public partial class AppMenu : Grid
         // activate the first icon and label
         Loaded += (_, _) =>
         {
-            TapGestureRecognizer_Tapped(MenuStackLayout.Children[0], null!);
+            ActivateItem((StackLayout)MenuStackLayout.Children[0]);
             Window.Page!.SizeChanged += (_, _) => UpdateIndicator(null, false);
+
+            foreach (var item in MenuStackLayout.Children.OfType<AppMenuItem>())
+                item.Tapped += ActivateItem;
         };
 
 #if MACCATALYST
@@ -39,13 +42,11 @@ public partial class AppMenu : Grid
 #endif
     }
 
-    private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
+    private void ActivateItem(StackLayout clickedVisual)
     {
         // clear the previous selected icon and label
         _activeIcon?.SetCustomState(null);
         _activeLabel?.SetCustomState(null);
-
-        var clickedVisual = (StackLayout)sender;
 
         // we know that the clicked visual is an HorizontalStackLayout
         // and we know that it has 2 children, the first is the icon and the second is the label
