@@ -53,7 +53,7 @@
     <m:Set
         x:Key="MdMenu"
         AbsoluteLayoutFlags="HeightProportional"
-        AbsoluteLayoutBounds="0, 0, 80, 1"
+        AbsoluteLayoutBounds="0, 0, 90, 1"
         Padding="0,0,0,0"/>
 
     <m:Set
@@ -64,11 +64,11 @@
     
     <m:Set
         x:Key="MdAppBody"
-        Padding="80, 45, 0, 0"/>
+        Padding="90, 45, 0, 0"/>
 
     <m:Set
         x:Key="MdMenuItem"
-        Width="70"
+        Width="76"
         Padding="0, 10, 0, 0"
         Height="60"
         StackOrientation="Vertical"/>

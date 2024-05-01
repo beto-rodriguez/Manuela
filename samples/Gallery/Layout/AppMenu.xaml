@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
+<!--
+    this menu is placed at the left side of the screen on medium or greater screens,
+    and at the bottom of the screen on smaller screens.
+
+    there is also the AppMenuMoreOptions view, that menu is shown when the user taps the "More" item in this menu.
+-->
 <Border
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -13,15 +19,29 @@
     m:Has.States="{StaticResource MenuStates}">
 
     <Grid RowDefinitions="Auto,*, Auto">
+
+        <!--
+            the app image is not shown on Mac Catalyst, so it looks more... mac-like
+            also not visible on phones or tablets, because the menu is at the bottom of the screen.
+        -->
+        
         <Image
             Grid.Row="0"
             Source="appmenuicon.png"
             Margin="15, 9"
             m:Has.States="{m:States
                 OnXs={m:Set Visible=False},
-                OnMd={m:Set Visible={OnIdiom Default=True, Phone=False, Tablet=False}}}"/>
+                OnMd={m:Set Visible={OnPlatform
+                    Default={OnIdiom
+                        Default=True,
+                        Phone=False,
+                        Tablet=False},
+                    MacCatalyst=False}}}"/>
 
-        <Grid Grid.Row="1" RowDefinitions="Auto,Auto">
+        <Grid
+            Grid.Row="1"
+            RowDefinitions="Auto,Auto"
+            Margin="{OnPlatform Default='0', MacCatalyst='0,40,0,0'}">
             <l:MenuIndicator x:Name="Indicator" />
 
             <StackLayout
@@ -47,8 +67,8 @@
                 OnXs={m:Set Visible=False},
                 OnMd={m:Set Visible={OnIdiom Default=True, Phone=False, Tablet=False}}}">
 
-            <l:MenuItem Display="Profile"   Icon="ContactInfo" Tapped="ActivateItem"/>
-            <l:MenuItem Display="Settings"  Icon="Settings"/>
+            <l:MenuItem Display="Profile"   Icon="ContactInfo"  Tapped="ActivateItem"/>
+            <l:MenuItem Display="Settings"  Icon="Settings"     Tapped="ActivateItem"/>
 
         </VerticalStackLayout>
     </Grid>

@@ -7,11 +7,21 @@
     x:Class="Gallery.Layout.AppMenuMoreOptions"
     ZIndex="9"
     StrokeThickness="0.5"
-    Stroke="{m:Brush 'Gray,Swatch300'}"
+    Stroke="{m:Brush 'Gray,Swatch400'}"
     StrokeShape="RoundRectangle 15"
     Background="{m:Brush 'Gray,Swatch200'}"
     m:Has.States="{StaticResource MenuMoreStates}"
     m:Has.Transitions="{m:Transitions 'TranslateX,TranslateY'}">
+
+    <Border.Resources>
+        <Style x:Key="ResponsiveButton" TargetType="l:MoreMenuItem">
+            <Setter Property="m:Has.States">
+                <m:States
+                    OnXs="{m:Set Visible=True}"
+                    OnMd="{m:Set Visible={OnIdiom Default=False, Phone=True, Tablet=True}}" />
+            </Setter>
+        </Style>
+    </Border.Resources>
 
     <ScrollView>
         <VerticalStackLayout x:Name="Options">
@@ -19,6 +29,9 @@
             <l:MoreMenuItem Display="Transitions"   Route="Transitions" Icon="Sync"/>
             <l:MoreMenuItem Display="Spacing"       Route="Spacing"     Icon="MapLayers"/>
             <l:MoreMenuItem Display="Forms"         Route="Forms"       Icon="AddNewLineFill"/>
+
+            <l:MoreMenuItem Display="Profile"       Icon="ContactInfo"  Style="{StaticResource ResponsiveButton}" />
+            <l:MoreMenuItem Display="Settings"      Icon="Settings"     Style="{StaticResource ResponsiveButton}" />
 
         </VerticalStackLayout>
     </ScrollView>
