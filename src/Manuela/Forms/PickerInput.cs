@@ -46,9 +46,9 @@ public class PickerInput : BaseInput<Picker, object, IPickerHandler>
             Android.Content.Res.ColorStateList.ValueOf(
                 Microsoft.Maui.Controls.Compatibility.Platform.Android.ColorExtensions.ToAndroid(Colors.Transparent));
 #elif IOS && !MACCATALYST
-         handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
+        handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
 #elif MACCATALYST
-        // how?
+        handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
 #elif WINDOWS
         handler.PlatformView.BorderThickness = new Microsoft.UI.Xaml.Thickness(0);
         handler.PlatformView.Style = null;

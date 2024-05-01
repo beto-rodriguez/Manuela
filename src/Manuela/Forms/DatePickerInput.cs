@@ -7,6 +7,11 @@ public class DatePickerInput : BaseInput<DatePicker, DateTime, IDatePickerHandle
     public DatePickerInput()
     {
         BaseControl.BackgroundColor = Colors.Transparent;
+        
+        #if MACCATALYST && !IOS
+        BaseControl.Margin = new(0, 15, 0, 0);
+        #endif
+
         ValueChanged += (_, _) =>
         {
             var newValue = BaseControl.Date;
@@ -40,7 +45,7 @@ public class DatePickerInput : BaseInput<DatePicker, DateTime, IDatePickerHandle
 #elif IOS && !MACCATALYST
         handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
 #elif MACCATALYST
-        // how?
+        // already borderless? at least on macos 14.4
 #elif WINDOWS
         handler.PlatformView.BorderThickness = new Microsoft.UI.Xaml.Thickness(0);
         handler.PlatformView.Style = null;
