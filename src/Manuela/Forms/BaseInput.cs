@@ -34,7 +34,7 @@ public abstract class BaseInput<TInput, TValue, THandler> : Border, IInputContro
         AbsoluteLayout.SetLayoutFlags(_label, AbsoluteLayoutFlags.PositionProportional);
         AbsoluteLayout.SetLayoutBounds(_label, new(0, 0.5, AbsoluteLayout.AutoSize, AbsoluteLayout.AutoSize));
 
-        var input = new TInput { Margin = new(4, 0) };
+        var input = new TInput();
 
         AbsoluteLayout.SetLayoutFlags(input, AbsoluteLayoutFlags.SizeProportional | AbsoluteLayoutFlags.PositionProportional);
         AbsoluteLayout.SetLayoutBounds(input, new(0, 0, 1, 1));

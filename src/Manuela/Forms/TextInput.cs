@@ -7,6 +7,13 @@ public class TextInput : BaseInput<Entry, string, IEntryHandler>
     public TextInput()
     {
         BaseControl.BackgroundColor = Colors.Transparent;
+
+#if MACCATALYST || IOS
+        BaseControl.Margin = new(15, 0);
+#else
+        BaseControl.Margin = new(4, 0);
+#endif
+
         ValueChanged += (_, _) =>
         {
             var newValue = BaseControl.Text;
