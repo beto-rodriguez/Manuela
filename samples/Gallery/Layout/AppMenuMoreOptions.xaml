@@ -23,8 +23,8 @@
         </Style>
     </Border.Resources>
 
-    <ScrollView>
-        <VerticalStackLayout x:Name="Options">
+    <ScrollView HorizontalOptions="Center">
+        <VerticalStackLayout x:Name="Options" HorizontalOptions="Center">
 
             <l:MoreMenuItem Display="Transitions"   Route="Transitions" Icon="Sync"/>
             <l:MoreMenuItem Display="Spacing"       Route="Spacing"     Icon="MapLayers"/>
