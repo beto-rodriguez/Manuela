@@ -10,6 +10,8 @@ public class DatePickerInput : BaseInput<DatePicker, DateTime, IDatePickerHandle
         
         #if MACCATALYST && !IOS
         BaseControl.Margin = new(0, 15, 0, 0);
+        #elif IOS && !MACCATALYST
+        BaseControl.Margin = new(15, 0);
         #endif
 
         ValueChanged += (_, _) =>
