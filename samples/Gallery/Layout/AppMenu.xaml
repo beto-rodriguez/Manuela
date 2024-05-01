@@ -43,7 +43,7 @@
             RowDefinitions="Auto,Auto"
             m:Has.States="{m:States
                 OnXs={m:Set Margin='0'},
-                OnMd={OnPlatform Default='0', MacCatalyst='0, 40, 0, 0'}}">
+                OnMd={m:Set Margin={OnPlatform Default='0', MacCatalyst='0, 40, 0, 0'}}}">
 
             <l:MenuIndicator x:Name="Indicator" />
 
