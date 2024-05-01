@@ -8,11 +8,15 @@ public class PickerInput : BaseInput<Picker, object, IPickerHandler>
     public PickerInput()
     {
         BaseControl.BackgroundColor = Colors.Transparent;
+#if MACCATALYST || IOS
+        BaseControl.Margin = new(15, 0);
+#endif
         ValueChanged += (_, _) =>
         {
             var newValue = BaseControl.SelectedItem;
             SetValue(ValueProperty, newValue);
             ((IInputControl)this).ValueChangedCommand?.Execute(newValue);
+            SetInputFocus(transformViewBox: false); // move placeholder on selection change
         };
     }
 
