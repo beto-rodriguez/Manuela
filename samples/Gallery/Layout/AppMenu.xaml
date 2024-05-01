@@ -54,10 +54,6 @@
                 <l:MenuItem Display="States"        Route="States"      Icon="Brightness"/>
                 <l:MenuItem Display="More"                              Icon="More"     Tapped="OnMoreTapped"/>
 
-                <!--<l:AppMenuItem Display="Transitions"   Route="Transitions" Icon="Sync"/>
-                    <l:AppMenuItem Display="Spacing"       Route="Spacing"     Icon="MapLayers"/>
-                    <l:AppMenuItem Display="Forms"         Route="Forms"       Icon="AddNewLineFill"/>-->
-
             </StackLayout>
         </Grid>
 
