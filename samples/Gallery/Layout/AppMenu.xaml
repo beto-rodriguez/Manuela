@@ -41,7 +41,9 @@
         <Grid
             Grid.Row="1"
             RowDefinitions="Auto,Auto"
-            Margin="{OnPlatform Default='0', MacCatalyst='0,40,0,0'}">
+            m:Has.States="{m:States
+                OnXs={m:Set Margin='0'},
+                OnMd={OnPlatform Default='0', MacCatalyst='0, 40, 0, 0'}}">
             <l:MenuIndicator x:Name="Indicator" />
 
             <StackLayout
