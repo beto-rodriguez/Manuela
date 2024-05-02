@@ -12,6 +12,13 @@ public class RadioButtonInput : RadioButton
     public RadioButtonInput()
     {
         CheckedChanged += OnCheckedChanged;
+
+#if IOS || MACCATALYST
+        // it seems that when overriding the control template, 
+        // the default behavior of the radio button is lost
+        // so we need to add it back manually
+        new Behaviors.Behavior(this).Down += () => IsChecked = true;
+#endif
     }
 
     public static BindableProperty HighlightBrushProperty = BindableProperty.Create(
