@@ -21,15 +21,15 @@
 
     <VerticalStackLayout>
         <Label
-                Text="Spacing"
-                Style="{StaticResource Headline}"/>
+            Text="Spacing"
+            Style="{StaticResource Headline}"/>
 
         <Label
-                Text="Some times the Size extension is not enough (See sizing tab), when you need to specify more about Paddings and margins, you can use the Spacing extension."/>
+            Text="Some times the Size extension is not enough (See sizing tab), when you need to specify more about Paddings and margins, you can use the Spacing extension."/>
 
         <Label
-                Text="Horizontal"
-                Style="{StaticResource Headline}"/>
+            Text="Horizontal"
+            Style="{StaticResource Headline}"/>
 
         <HorizontalStackLayout>
             <BoxView Margin="{m:Spacing Horizontal=Huge}" />
@@ -37,9 +37,15 @@
             <BoxView Margin="{m:Spacing Horizontal=Huge}" />
         </HorizontalStackLayout>
 
+        <Editor Style="{StaticResource Code}">
+            <Editor.Text>
+&lt;BoxView Margin="{m:Spacing Horizontal=Huge}" />
+            </Editor.Text>
+        </Editor>
+
         <Label
-                Text="Vertical"
-                Style="{StaticResource Headline}"/>
+            Text="Vertical"
+            Style="{StaticResource Headline}"/>
 
         <HorizontalStackLayout>
             <BoxView Margin="{m:Spacing Vertical=Huge}" />
@@ -47,9 +53,15 @@
             <BoxView Margin="{m:Spacing Vertical=Huge}" />
         </HorizontalStackLayout>
 
+        <Editor Style="{StaticResource Code}">
+            <Editor.Text>
+&lt;BoxView Margin="{m:Spacing Vertical=Huge}" />
+            </Editor.Text>
+        </Editor>
+
         <Label
-                 Text="Left, Top, Right and Bottom"
-                 Style="{StaticResource Headline}"/>
+            Text="Left, Top, Right and Bottom"
+            Style="{StaticResource Headline}"/>
 
         <HorizontalStackLayout>
             <BoxView Margin="{m:Spacing Right=Huge}" />
@@ -58,22 +70,37 @@
             <BoxView Margin="{m:Spacing Left=Huge}" />
         </HorizontalStackLayout>
 
-        <Label
-                Text="Mixed Spacing"
-                Style="{StaticResource Headline}"/>
+        <Editor Style="{StaticResource Code}">
+            <Editor.Text>
+&lt;BoxView Margin="{m:Spacing Right=Huge}" />
+&lt;BoxView Margin="{m:Spacing Top=Huge}" />
+&lt;BoxView Margin="{m:Spacing Bottom=Huge}" />
+&lt;BoxView Margin="{m:Spacing Left=Huge}" />
+            </Editor.Text>
+        </Editor>
 
         <Label
-                Text="You can mix properties, the spacing is applied from the less specific to the most specific property."/>
+            Text="Mixed Spacing"
+            Style="{StaticResource Headline}"/>
+
         <Label
-                Text="The Size (uniform) is applied first, then the Vertical and Horizontal sizes, finally the Left, Top, Right and Bottom."/>
+            Text="You can mix properties, the spacing is applied from the less specific to the most specific property."/>
         <Label
-                Text="This means that you can for example set all the properties to large but override the top to None."/>
+            Text="The Size (uniform) is applied first, then the Vertical and Horizontal sizes, finally the Left, Top, Right and Bottom."/>
+        <Label
+            Text="This means that you can for example set all the properties to large but override the top to None."/>
 
         <HorizontalStackLayout>
             <BoxView Margin="{m:Spacing Size=Xl, Top=None}" />
             <BoxView Margin="{m:Spacing Size=Xl, Top=None}" />
             <BoxView Margin="{m:Spacing Size=Xl, Top=None}" />
         </HorizontalStackLayout>
+
+        <Editor Style="{StaticResource Code}">
+            <Editor.Text>
+&lt;BoxView Margin="{m:Spacing Size=Xl, Top=None}" />
+            </Editor.Text>
+        </Editor>
 
     </VerticalStackLayout>
 </ContentView>

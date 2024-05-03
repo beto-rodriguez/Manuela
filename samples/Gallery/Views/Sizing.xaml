@@ -56,6 +56,14 @@
             <Button Margin="{m:Size Xxl}" Text="Click me" VerticalOptions="Center"/>
         </HorizontalStackLayout>
 
+        <Editor Style="{StaticResource Code}">
+            <Editor.Text>
+&lt;BoxView Margin="{m:Size Xxl}" />
+&lt;Label Margin="{m:Size Xxl}"/>
+&lt;Button Margin="{m:Size Xxl}"/>
+            </Editor.Text>
+        </Editor>
+
         <Label
             Text="Padding"
             Style="{StaticResource SubHeadline}"/>
@@ -68,6 +76,14 @@
             <Button Padding="{m:Size Xxl}" Text="Click me"/>
         </HorizontalStackLayout>
 
+        <Editor Style="{StaticResource Code}">
+            <Editor.Text>
+&lt;BoxView Padding="{m:Size Xxl}" />
+&lt;Label Padding="{m:Size Xxl}"/>
+&lt;Button Padding="{m:Size Xxl}"/>
+            </Editor.Text>
+        </Editor>
+
         <Label
             Text="Border thickness"
             Style="{StaticResource SubHeadline}"/>
@@ -78,6 +94,13 @@
             </Border>
             <Button BorderWidth="{m:Size Xxl}" Text="Click me"/>
         </HorizontalStackLayout>
+
+        <Editor Style="{StaticResource Code}">
+            <Editor.Text>
+&lt;Border StrokeThickness="{m:Size Xxl}" />
+&lt;Button BorderWidth="{m:Size Xxl}"/>
+            </Editor.Text>
+        </Editor>
 
         <Label
             Text="Border radius"
@@ -93,6 +116,17 @@
             <Button CornerRadius="{m:Size Xxl}" Text="Click me"/>
         </HorizontalStackLayout>
 
+        <Editor Style="{StaticResource Code}">
+            <Editor.Text>
+&lt;Border>
+    &lt;Border.StrokeShape>
+        &lt;RoundRectangle CornerRadius="{m:Size Xxl}"/>
+    &lt;/Border.StrokeShape>
+&lt;/Border>
+&lt;Button CornerRadius="{m:Size Xxl}"/>
+            </Editor.Text>
+        </Editor>
+
         <Label
             Text="Shadow"
             Style="{StaticResource SubHeadline}"/>
@@ -101,6 +135,13 @@
             <BoxView Shadow="{m:Size Xl}"/>
             <Button Shadow="{m:Size Xl}" Text="Click me"/>
         </HorizontalStackLayout>
+
+        <Editor Style="{StaticResource Code}">
+            <Editor.Text>
+&lt;BoxView Shadow="{m:Size Xl}"/>
+&lt;Button Shadow="{m:Size Xl}" Text="Click me"/>
+            </Editor.Text>
+        </Editor>
 
         <Label
             Text="Font size"
@@ -113,6 +154,15 @@
             <Label Text="Hello" FontSize="{m:Size Titanic}"/>
         </HorizontalStackLayout>
 
+        <Editor Style="{StaticResource Code}">
+            <Editor.Text>
+&lt;Label Text="Hello" FontSize="{m:Size Xs}"/>
+&lt;Label Text="Hello" FontSize="{m:Size Xl}"/>
+&lt;Label Text="Hello" FontSize="{m:Size Huge}"/>
+&lt;Label Text="Hello" FontSize="{m:Size Titanic}"/>
+            </Editor.Text>
+        </Editor>
+
         <Label
                 Text="Line height"
                 Style="{StaticResource SubHeadline}"/>
@@ -122,6 +172,15 @@
             <Label LineHeight="{m:Size Xl}" MaximumWidthRequest="150" Text="Hello this is some long text to test how this label looks when it has multiple lines"/>
             <Label LineHeight="{m:Size Titanic}" MaximumWidthRequest="150" Text="Hello this is some long text to test how this label looks when it has multiple lines"/>
         </HorizontalStackLayout>
+
+        <Editor Style="{StaticResource Code}">
+            <Editor.Text>
+&lt;Label LineHeight="{m:Size Xs}"/>
+&lt;Label LineHeight="{m:Size Xl}"/>
+&lt;Label LineHeight="{m:Size Huge}"/>
+&lt;Label LineHeight="{m:Size Titanic}"/>
+            </Editor.Text>
+        </Editor>
 
         <Label
                 Text="Size"
@@ -136,6 +195,13 @@
             <BoxView WidthRequest="{m:Size Xl}" HeightRequest="{m:Size Xl}"/>
             <BoxView WidthRequest="{m:Size Xxl}" HeightRequest="{m:Size Xxl}"/>
         </HorizontalStackLayout>
+
+        <Editor Style="{StaticResource Code}">
+            <Editor.Text>
+&lt;BoxView WidthRequest="{m:Size Sm}" HeightRequest="{m:Size Sm}" />
+&lt;BoxView WidthRequest="{m:Size Xl}" HeightRequest="{m:Size Xl}" />
+            </Editor.Text>
+        </Editor>
 
         <Label
                 Text="Spacing"
@@ -160,6 +226,13 @@
             <BoxView WidthRequest="{m:Size Sm}" HeightRequest="{m:Size Sm}" />
             <BoxView WidthRequest="{m:Size Sm}" HeightRequest="{m:Size Sm}" />
         </HorizontalStackLayout>
+
+        <Editor Style="{StaticResource Code}">
+            <Editor.Text>
+&lt;HorizontalStackLayout Spacing="{m:Size Md}"> ... &lt;/HorizontalStackLayout>
+&lt;HorizontalStackLayout Spacing="{m:Size Xl}"> ... &lt;/HorizontalStackLayout>
+            </Editor.Text>
+        </Editor>
 
     </VerticalStackLayout>
 </ContentView>

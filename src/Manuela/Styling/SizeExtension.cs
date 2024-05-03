@@ -27,6 +27,9 @@ public class SizeExtension : IMarkupExtension
         var bp = valueProvider.TargetProperty as BindableProperty;
         var pi = valueProvider.TargetProperty as PropertyInfo;
 
+        if (valueProvider.TargetObject is Setter setter)
+            bp = setter.Property;
+
         var name = bp?.PropertyName ?? pi?.Name
             ?? throw new Exception("Unable to find a property name");
 

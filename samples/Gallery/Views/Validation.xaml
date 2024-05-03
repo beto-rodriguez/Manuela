@@ -13,6 +13,69 @@
 
     <VerticalStackLayout>
 
+        <Label Text="Manuela can validate inputs based on the DataAnnotation attributes in a model."/>
+
+        <Editor Style="{StaticResource Code}">
+            <Editor.Text>
+public class Customer
+{
+    [Display(Name = "Please inster a name")]
+    [Required]
+    [MinLength(10)]
+    public string? Name { get; set; } = "juan";
+
+    // ...
+    // full file at Views/ValidationObjects/Customer.cs
+}
+            </Editor.Text>
+        </Editor>
+
+        <Label
+            Text="Then, we need to create a Form for our customer class, Manuela source generator will setup this form so we can just bind it to the UI inputs."/>
+
+        <Editor Style="{StaticResource Code}">
+            <Editor.Text>
+public partial class CustomerForm : Form&lt;Customer>
+{
+    // when we inherit from Form&lt;T>, manuela will generate the form for us.
+    // now we are ready to use this form as the BindingContext of our UI.
+
+    // we can also add custom methods/commands here, for example lets add a command to save the customer.
+    public Command SaveCommand => new(() =>
+    {
+        if (!IsValid()) return;
+
+        // the model is valid at this point.
+        // save the record maybe?
+        var customer = Model;
+    });
+
+    // full file at Views/ValidationObjects/CustomerForm.cs
+}
+            </Editor.Text>
+        </Editor>
+
+        <Label
+            Text="Finally use the form in the UI, the validation error will be shown after 800ms without changes in the input."/>
+
+        <Editor Style="{StaticResource Code}">
+            <Editor.Text>
+&lt;ContentView
+    xmlns:f="clr-namespace:Manuela.Forms;assembly=Manuela"
+    xmlns:local="clr-namespace:Gallery.Views.ValidationObjects;assembly=Gallery">
+
+    &lt;ContentView.BindingContext>
+        &lt;local:CustomerForm/>
+    &lt;/ContentView.BindingContext>
+
+    &lt;f:TextInput For="{Binding Name}"/>
+
+    &lt;!-- full xaml at Views/Validation.xaml -->
+
+&lt;/ContentView>
+            </Editor.Text>
+        </Editor>
+
         <f:TextInput For="{Binding Name}"/>
 
         <f:TextInput For="{Binding Email}"/>

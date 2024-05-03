@@ -16,9 +16,21 @@
             Text="These input elements, provide more control over the element style, such as borders, corer radius, and look the same on all platforms"/>
 
         <forms:TextInput Placeholder="Enter some text here"/>
-        
+
+        <Editor Style="{StaticResource Code}">
+            <Editor.Text>
+&lt;forms:TextInput Placeholder="Enter some text here"/>
+            </Editor.Text>
+        </Editor>
+
         <forms:TextAreaInput Placeholder="Intert multiple lines here" />
-        
+
+        <Editor Style="{StaticResource Code}">
+            <Editor.Text>
+&lt;forms:TextAreaInput Placeholder="Intert multiple lines here" />
+            </Editor.Text>
+        </Editor>
+
         <forms:PickerInput Placeholder="Select an option">
             <forms:PickerInput.ItemsSource>
                 <x:Array Type="{x:Type x:String}">
@@ -30,9 +42,27 @@
             </forms:PickerInput.ItemsSource>
         </forms:PickerInput>
 
+        <Editor Style="{StaticResource Code}">
+            <Editor.Text>
+&lt;forms:PickerInput Placeholder="Select an option"> ... &lt;/PickerInput>
+            </Editor.Text>
+        </Editor>
+
         <forms:DatePickerInput Placeholder="Select a date"/>
 
+        <Editor Style="{StaticResource Code}">
+            <Editor.Text>
+&lt;forms:DatePickerInput Placeholder="Select a date"/>
+            </Editor.Text>
+        </Editor>
+
         <forms:CheckBoxInput Placeholder="Check me"/>
+
+        <Editor Style="{StaticResource Code}">
+            <Editor.Text>
+&lt;forms:CheckBoxInput Placeholder="Check me"/>
+            </Editor.Text>
+        </Editor>
 
         <StackLayout>
             <Label Text="What's your favorite animal?" />
@@ -42,13 +72,16 @@
             <forms:RadioButtonInput Content="Monkey" IsChecked="true" />
         </StackLayout>
 
+        <Editor Style="{StaticResource Code}">
+            <Editor.Text>
+&lt;forms:RadioButtonInput Content="Cat" />
+            </Editor.Text>
+        </Editor>
+
         <Label
             Margin="0,10"
             Text="Styling"
             Style="{StaticResource SubHeadline}"/>
-
-        <Label  Text="Enter something here:"/>
-        <forms:TextInput />
 
         <forms:TextInput
             Padding="10, 0"
@@ -63,8 +96,30 @@
             </forms:TextInput.StrokeShape>
         </forms:TextInput>
 
+        <Editor Style="{StaticResource Code}">
+            <Editor.Text>
+&lt;forms:TextInput
+    Padding="10, 0"
+    Placeholder="Enter something here"
+    HighlightColor="Red"
+    HighlightBorderHeight="6"
+    HeightRequest="80">
+            &lt;!-- the control inherits from Border, you can just use the border properties -->
+            &lt;forms:TextInput.StrokeShape>
+                &lt;RoundRectangle CornerRadius="40" />
+            &lt;/forms:TextInput.StrokeShape>
+&lt;/forms:TextInput>
+            </Editor.Text>
+        </Editor>
+
         <Label Text="No highlight, no placeholder"/>
         <forms:TextInput HighlightBorderHeight="0"/>
+
+        <Editor Style="{StaticResource Code}">
+            <Editor.Text>
+&lt;forms:TextInput HighlightBorderHeight="0"/>
+            </Editor.Text>
+        </Editor>
 
         <Label
             Margin="0,10"
@@ -81,6 +136,20 @@
             </forms:InputGroup.MiddleContent>
         </forms:InputGroup>
 
+        <Editor Style="{StaticResource Code}">
+            <Editor.Text>
+&lt;forms:InputGroup>
+    &lt;forms:InputGroup.LeftContent>
+        &lt;mi:MauiIcon Icon="{mi:SegoeFluent Icon=Phone}" IconSize="25" Margin="{m:Spacing Left=Lg}" />
+    &lt;/forms:InputGroup.LeftContent>
+
+    &lt;forms:InputGroup.MiddleContent>
+        &lt;forms:TextInput  Placeholder="Enter something here"/>
+    &lt;/forms:InputGroup.MiddleContent>
+&lt;/forms:InputGroup>
+            </Editor.Text>
+        </Editor>
+
         <forms:InputGroup>
             <forms:InputGroup.MiddleContent>
                 <forms:TextInput  Placeholder="Enter something here"/>
@@ -90,6 +159,20 @@
                 <mi:MauiIcon Icon="{mi:SegoeFluent Icon=Mail}" IconSize="25" Margin="{m:Spacing Right=Lg}" />
             </forms:InputGroup.RightContent>
         </forms:InputGroup>
+
+        <Editor Style="{StaticResource Code}">
+            <Editor.Text>
+&lt;forms:InputGroup>
+    &lt;forms:InputGroup.MiddleContent>
+        &lt;forms:TextInput  Placeholder="Enter something here"/>
+    &lt;/forms:InputGroup.MiddleContent>
+
+    &lt;forms:InputGroup.RightContent>
+        &lt;mi:MauiIcon Icon="{mi:SegoeFluent Icon=Mail}" IconSize="25" Margin="{m:Spacing Right=Lg}" />
+    &lt;/forms:InputGroup.RightContent>
+&lt;/forms:InputGroup>
+            </Editor.Text>
+        </Editor>
 
         <forms:InputGroup>
             <forms:InputGroup.LeftContent>
@@ -105,6 +188,24 @@
             </forms:InputGroup.RightContent>
         </forms:InputGroup>
 
+        <Editor Style="{StaticResource Code}">
+            <Editor.Text>
+&lt;forms:InputGroup>
+    &lt;forms:InputGroup.LeftContent>
+        &lt;mi:MauiIcon Icon="{mi:SegoeFluent Icon=Phone}" IconSize="25" Margin="{m:Spacing Left=Lg}" />
+    &lt;/forms:InputGroup.LeftContent>
+
+    &lt;forms:InputGroup.MiddleContent>
+        &lt;forms:TextInput  Placeholder="Enter something here"/>
+    &lt;/forms:InputGroup.MiddleContent>
+
+    &lt;forms:InputGroup.RightContent>
+        &lt;mi:MauiIcon Icon="{mi:SegoeFluent Icon=Mail}" IconSize="25" Margin="{m:Spacing Right=Lg}"/>
+    &lt;/forms:InputGroup.RightContent>
+&lt;/forms:InputGroup>
+            </Editor.Text>
+        </Editor>
+
         <forms:InputGroup>
             <forms:InputGroup.MiddleContent>
                 <forms:TextInput  Placeholder="Enter something here"/>
@@ -118,6 +219,23 @@
             </forms:InputGroup.RightContent>
         </forms:InputGroup>
 
+        <Editor Style="{StaticResource Code}">
+            <Editor.Text>
+&lt;forms:InputGroup>
+    &lt;forms:InputGroup.MiddleContent>
+        &lt;forms:TextInput  Placeholder="Enter something here"/>
+    &lt;/forms:InputGroup.MiddleContent>
+
+    &lt;forms:InputGroup.RightContent>
+        &lt;HorizontalStackLayout Spacing="{m:Size Lg}" Margin="{m:Spacing Right=Lg}">
+            &lt;mi:MauiIcon Icon="{mi:SegoeFluent Icon=Phone}" IconSize="25"  />
+            &lt;mi:MauiIcon Icon="{mi:SegoeFluent Icon=Mail}" IconSize="25"  />
+        &lt;/HorizontalStackLayout>
+    &lt;/forms:InputGroup.RightContent>
+&lt;/forms:InputGroup>
+            </Editor.Text>
+        </Editor>
+
         <forms:InputGroup>
             <forms:InputGroup.MiddleContent>
                 <forms:TextInput  Placeholder="Enter something here"/>
@@ -127,6 +245,20 @@
                 <Button Text="Search" HeightRequest="48" CornerRadius="{m:Size Xl}"/>
             </forms:InputGroup.RightContent>
         </forms:InputGroup>
+
+        <Editor Style="{StaticResource Code}">
+            <Editor.Text>
+&lt;forms:InputGroup>
+    &lt;forms:InputGroup.MiddleContent>
+        &lt;forms:TextInput  Placeholder="Enter something here"/>
+    &lt;/forms:InputGroup.MiddleContent>
+
+    &lt;forms:InputGroup.RightContent>
+        &lt;Button Text="Search" HeightRequest="48" CornerRadius="{m:Size Xl}"/>
+    &lt;/forms:InputGroup.RightContent>
+&lt;/forms:InputGroup>
+            </Editor.Text>
+        </Editor>
 
     </VerticalStackLayout>
 </ContentView>

@@ -17,19 +17,6 @@ public class StatesExtension : IMarkupExtension<StatesCollection>
     public ManuelaSettersDictionary? Selected { get; set; }
     public ManuelaSettersDictionary? Unchecked { get; set; }
 
-    public ManuelaSettersDictionary? OnDesktop { get; set; }
-    public ManuelaSettersDictionary? OnPhone { get; set; }
-    public ManuelaSettersDictionary? OnTablet { get; set; }
-    public ManuelaSettersDictionary? OnTV { get; set; }
-    public ManuelaSettersDictionary? OnWatch { get; set; }
-
-    public ManuelaSettersDictionary? OnAndroid { get; set; }
-    public ManuelaSettersDictionary? OniOS { get; set; }
-    public ManuelaSettersDictionary? OnMacOS { get; set; }
-    public ManuelaSettersDictionary? OnTizen { get; set; }
-    public ManuelaSettersDictionary? OnWatchOS { get; set; }
-    public ManuelaSettersDictionary? OnWindows { get; set; }
-
     public ManuelaSettersDictionary? OnXs { get; set; }
     public ManuelaSettersDictionary? OnSm { get; set; }
     public ManuelaSettersDictionary? OnMd { get; set; }
@@ -55,19 +42,6 @@ public class StatesExtension : IMarkupExtension<StatesCollection>
         if (Pressed is not null) collection.Add(new Pressed { Setters = Pressed });
         if (Selected is not null) collection.Add(new Selected { Setters = Selected });
         if (Unchecked is not null) collection.Add(new Unchecked { Setters = Unchecked });
-
-        if (OnDesktop is not null) collection.Add(new OnDesktop { Setters = OnDesktop });
-        if (OnPhone is not null) collection.Add(new OnPhone { Setters = OnPhone });
-        if (OnTablet is not null) collection.Add(new OnTablet { Setters = OnTablet });
-        if (OnTV is not null) collection.Add(new OnTV { Setters = OnTV });
-        if (OnWatch is not null) collection.Add(new OnWatch { Setters = OnWatch });
-
-        if (OnAndroid is not null) collection.Add(new OnAndroid { Setters = OnAndroid });
-        if (OniOS is not null) collection.Add(new OnIOS { Setters = OniOS });
-        if (OnMacOS is not null) collection.Add(new OnMacOS { Setters = OnMacOS });
-        if (OnTizen is not null) collection.Add(new OnTizen { Setters = OnTizen });
-        if (OnWatchOS is not null) collection.Add(new OnWatchOS { Setters = OnWatchOS });
-        if (OnWindows is not null) collection.Add(new OnWindows { Setters = OnWindows });
 
         var isResponsive =
             OnXs is not null ||

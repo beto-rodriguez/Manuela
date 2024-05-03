@@ -21,6 +21,17 @@
                 Pressed={m:Set Scale=1.5, Rotation=45}}">
         </Button>
 
+        <Editor Style="{StaticResource Code}">
+            <Editor.Text>
+&lt;Button
+    m:Has.Transitions="{m:Transitions 'Scale,Rotation'}"
+    m:Has.States="{m:States
+        Default={m:Set Scale=1, Rotation=0},
+        Pressed={m:Set Scale=1.5, Rotation=45}}">
+&lt;/Button>
+            </Editor.Text>
+        </Editor>
+
         <!-- personalize more: -->
         <Button
             Margin="0, 30"
@@ -34,6 +45,19 @@
                 Default={m:Set Scale=1, Rotation=0},
                 Pressed={m:Set Scale=1.5, Rotation=45}}">
         </Button>
+
+        <Editor Style="{StaticResource Code}">
+            <Editor.Text>
+&lt;Button
+    m:Has.Transitions="{m:Transitions
+        Scale={m:TransitionDefinition Easing={x:Static Easing.BounceOut},Duration=1200},
+        Rotation={m:TransitionDefinition Easing={x:Static Easing.SpringOut},Duration=1200}}"
+    m:Has.States="{m:States
+        Default={m:Set Scale=1, Rotation=0},
+        Pressed={m:Set Scale=1.5, Rotation=45}}">
+&lt;/Button>
+            </Editor.Text>
+        </Editor>
 
     </VerticalStackLayout>
 </ContentView>

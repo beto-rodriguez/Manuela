@@ -26,14 +26,13 @@ public class Customer
     public bool IsSubscribed { get; set; }
 }
 
-public class DateYearsRangeAttribute : RangeAttribute
+public class DateYearsRangeAttribute(int minOffset, int maxOffset)
+    : RangeAttribute(
+        typeof(DateTime),
+        DateTime.Now.AddYears(minOffset).ToShortDateString(),
+        DateTime.Now.AddYears(maxOffset).ToShortDateString())
 {
-    public DateYearsRangeAttribute(int minOffset, int maxOffset)
-      : base(
-          typeof(DateTime),
-          DateTime.Now.AddYears(minOffset).ToShortDateString(),
-          DateTime.Now.AddYears(maxOffset).ToShortDateString())
-    { }
+
 }
 
 public class MustBeTrueAttribute : ValidationAttribute

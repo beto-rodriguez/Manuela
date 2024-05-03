@@ -5,6 +5,15 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:m="clr-namespace:Manuela;assembly=Manuela">
 
+    <Style x:Key="Code" TargetType="Editor">
+        <Setter Property="IsReadOnly" Value="True"/>
+        <Setter Property="Margin" Value="0,10"/>
+        <Setter Property="BackgroundColor" Value="{m:Color 'Gray,Swatch950'}"/>
+        <Setter Property="TextColor" Value="{m:Color 'Gray,Swatch50'}"/>
+        <Setter Property="FontFamily" Value="JetBrainsMono"/>
+        <Setter Property="FontSize" Value="{m:Size Md}"/>
+    </Style>
+    
     <Style TargetType="ActivityIndicator">
         <Setter Property="Color" Value="{m:Color Primary}" />
     </Style>
@@ -40,7 +49,7 @@
                     <VisualState x:Name="Normal" />
                     <VisualState x:Name="Disabled">
                         <VisualState.Setters>
-                            <Setter Property="TextColor" Value="{m:Color 'Gray,Swatch950'}" />
+                            <Setter Property="TextColor" Value="{m:Color 'Gray,Swatch400'}" />
                             <Setter Property="BackgroundColor" Value="{m:Color 'Gray,Swatch200'}" />
                         </VisualState.Setters>
                     </VisualState>
@@ -94,7 +103,7 @@
         <Setter Property="BackgroundColor" Value="Transparent" />
         <Setter Property="FontFamily" Value="OpenSansRegular"/>
         <Setter Property="FontSize" Value="14" />
-        <Setter Property="PlaceholderColor" Value="{m:Color 'Gray,Swatch200'}" />
+        <Setter Property="PlaceholderColor" Value="{m:Color 'Gray,Swatch400'}" />
         <Setter Property="MinimumHeightRequest" Value="44"/>
         <Setter Property="MinimumWidthRequest" Value="44"/>
         <Setter Property="VisualStateManager.VisualStateGroups">
@@ -116,7 +125,7 @@
         <Setter Property="BackgroundColor" Value="Transparent" />
         <Setter Property="FontFamily" Value="OpenSansRegular"/>
         <Setter Property="FontSize" Value="14" />
-        <Setter Property="PlaceholderColor" Value="{m:Color 'Gray,Swatch200'}" />
+        <Setter Property="PlaceholderColor" Value="{m:Color 'Gray,Swatch400'}" />
         <Setter Property="MinimumHeightRequest" Value="44"/>
         <Setter Property="MinimumWidthRequest" Value="44"/>
         <Setter Property="VisualStateManager.VisualStateGroups">

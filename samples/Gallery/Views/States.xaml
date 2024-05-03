@@ -12,9 +12,7 @@
             Text="States"/>
 
         <Label
-            Text="States is an alternative to Maui Triggers and VisualStates."/>
-        <Label
-            Text="States simplify the syntax, this makes Xaml easier to read and maintain."/>
+            Text="Manuela states simplify the required xaml to add responsiveness to our UI."/>
 
         <Label
             Margin="0, 20"
@@ -31,6 +29,16 @@
                 Hovered={m:Set  Background=Primary},
                 Disabled={m:Set Background='Gray,Swatch300'}}"/>
 
+        <Editor Style="{StaticResource Code}">
+            <Editor.Text>
+&lt;Entry
+    m:Has.States="{m:States
+        Focused={m:Set  Background=Secondary},
+        Hovered={m:Set  Background=Primary},
+        Disabled={m:Set Background='Gray,Swatch300'}}"/>
+            </Editor.Text>
+        </Editor>
+
         <Button
             Margin="0,10"
             Text="Click me!"
@@ -39,10 +47,28 @@
                 Hovered={m:Set Background='Primary,Swatch200', TextColor='Gray,Swatch950'},
                 Pressed={m:Set Background='Primary,Swatch900', TextColor='Gray,Swatch200'}}"/>
 
+        <Editor Style="{StaticResource Code}">
+            <Editor.Text>
+&lt;Button
+    m:Has.States="{m:States
+        Default={m:Set Background=Primary},
+        Hovered={m:Set Background='Primary,Swatch200', TextColor='Gray,Swatch950'},
+        Pressed={m:Set Background='Primary,Swatch900', TextColor='Gray,Swatch200'}}"/>
+            </Editor.Text>
+        </Editor>
+
         <CheckBox
             Margin="0,10"
             m:Has.States="{m:States
                 Checked={m:Set Background=Secondary}}"/>
+
+        <Editor Style="{StaticResource Code}">
+            <Editor.Text>
+&lt;CheckBox
+    m:Has.States="{m:States
+        Checked={m:Set Background=Secondary}}"/>
+            </Editor.Text>
+        </Editor>
 
         <CollectionView
             Margin="0,10"
@@ -65,6 +91,20 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+
+        <Editor Style="{StaticResource Code}">
+            <Editor.Text>
+&lt;CollectionView>
+    &lt;CollectionView.ItemTemplate>
+        &lt;DataTemplate x:DataType="x:String">
+            &lt;Label
+                m:Has.States="{m:States
+                    Selected={m:Set Background=Secondary}}"/>
+        &lt;/DataTemplate>
+    &lt;/CollectionView.ItemTemplate>
+&lt;/CollectionView>
+            </Editor.Text>
+        </Editor>
 
         <Label
             Margin="0, 20"
@@ -94,60 +134,22 @@
 
         </VerticalStackLayout>
 
-        <Label
-            Margin="0, 20"
-            Text="Data triggers / Custom triggers"
-            Style="{StaticResource SubHeadline}" />
-
-        <Label
-            Margin="0, 20"
-            Text="Disable the button when the entry text is empty." />
-
-        <Entry x:Name="entry" Placeholder="Enter text" />
-        <Button
-            Text="Save">
-            <m:Has.States>
-                <m:StatesCollection>
-                    <custom:IsEmpty Entry="{x:Reference entry}" Setters="{m:Set IsEnabled=False}"/>
-                </m:StatesCollection>
-            </m:Has.States>
-        </Button>
-            
-        <Label
-            Margin="0, 20"
-            Text="In the next trigger we evaluate if any entry child text is empty, if any is empty the button is disabled." />
-
-        <VerticalStackLayout x:Name="layout">
-            <Entry Placeholder="Enter mail" />
-            <Entry  Placeholder="Enter phone" />
-
-            <Button
-                Text="Save">
-                <m:Has.States>
-                    <m:StatesCollection>
-                        <custom:IsAnyChildEmpty
-                            Layout="{x:Reference layout}"
-                            Setters="{m:Set IsEnabled=False}"/>
-                    </m:StatesCollection>
-                </m:Has.States>
-            </Button>
-        </VerticalStackLayout>
-
-        <Label
-            Margin="0, 20"
-            Text="Named states"
-            Style="{StaticResource SubHeadline}" />
-
-        <Button
-            Text="Click me to toggle the state"
-            Clicked="ToggleState">
-
-            <m:Has.States>
-                <m:StatesCollection>
-                    <m:State Name="active" Setters="{m:Set Background=Secondary}"/>
-                </m:StatesCollection>
-            </m:Has.States>
-        </Button>
+        <Editor Style="{StaticResource Code}">
+            <Editor.Text>
+&lt;Style TargetType="Entry">
+    &lt;Setter Property="Background" Value="{m:Brush 'Primary,Swatch300'}"/>
+    &lt;Setter Property="m:Has.States">
+        &lt;Setter.Value>
+            &lt;m:StatesCollection>
+                &lt;m:Hovered Setters="{m:Set Background='Primary,Swatch300'}" />
+                &lt;m:Pressed Setters="{m:Set Background='Primary,Swatch600'}" />
+                &lt;m:Disabled Setters="{m:Set Background= 'Primary,Swatch100'}"/>
+            &lt;/m:StatesCollection>
+        &lt;/Setter.Value>
+    &lt;/Setter>
+&lt;/Style>
+            </Editor.Text>
+        </Editor>
 
         <Label
             Margin="0, 20"
@@ -174,46 +176,159 @@
                 OnXxl=  {m:Set Background=Gradient}}">
         </Button>
 
+        <Editor Style="{StaticResource Code}">
+            <Editor.Text>
+&lt;Button
+    m:Has.States="{m:States
+        OnXs=   {m:Set Background=Primary},
+        OnSm=   {m:Set Background=Secondary},
+        OnMd=   {m:Set Background=Tertiary},
+        OnXl=   {m:Set Background=Gray},
+        OnXxl=  {m:Set Background=Gradient}}">
+&lt;/Button>
+            </Editor.Text>
+        </Editor>
+
         <Label
             Margin="0, 20"
-            Text="Platform"
+            Text="Named states"
             Style="{StaticResource SubHeadline}" />
 
-        <Label
-            Margin="0, 20"
-            Text="Useful to customize things depending if running on Windows, iOS, Android, MacOS, Tizen or WatchOs" />
+        <Label Margin="0,0,0,10" Text="here, we define a state with the name 'active' then we toggle it when the button is clicked."/>
 
         <Button
-            Margin="0, 10"
-            Text="This button changes background depending on the OS"
-            m:Has.States="{m:States
-                OnWindows=  {m:Set Background=Primary},
-                OnMacOS=    {m:Set Background=Secondary},
-                OnAndroid=  {m:Set Background=Tertiary},
-                OniOS=      {m:Set Background=Secondary},
-                OnWatchOS=  {m:Set Background=Secondary},
-                OnTizen=    {m:Set Background=Gray}}">
+            Text="Toggle"
+            Clicked="ToggleState">
+
+            <m:Has.States>
+                <m:StatesCollection>
+                    <m:State Name="active" Setters="{m:Set Background=Secondary}"/>
+                </m:StatesCollection>
+            </m:Has.States>
         </Button>
+
+        <Editor Style="{StaticResource Code}">
+            <Editor.Text>
+&lt;Button
+    Clicked="ToggleState">
+
+    &lt;m:Has.States>
+        &lt;m:StatesCollection>
+            &lt;m:State Name="active" Setters="{m:Set Background=Secondary}"/>
+        &lt;/m:StatesCollection>
+    &lt;/m:Has.States>
+&lt;/Button>
+
+// code behind:
+private void ToggleState(object sender, EventArgs e)
+{
+    var button = (Button)sender;
+    var state = button.GetCustomState();
+
+    if (state == "active")
+    {
+        button.SetCustomState(null);
+    }
+    else
+    {
+        button.SetCustomState("active");
+    }
+}
+            </Editor.Text>
+        </Editor>
 
         <Label
             Margin="0, 20"
-            Text="Idiom"
+            Text="Data triggers / Custom triggers"
             Style="{StaticResource SubHeadline}" />
 
+        <Label Text="You can also create your own 'states', the source code of the next examples is located at Views/CustomStates folder." />
+
         <Label
             Margin="0, 20"
-            Text="Useful to customize things depending if the device is Desktop, Tablet, Phone, TV or Watch" />
+            Text="Disable the button when the entry text is empty." />
 
+        <Entry x:Name="entry" Placeholder="Enter text" />
         <Button
-            Margin="0, 10"
-            Text="This button changes background depending on the screen size"
-            m:Has.States="{m:States
-                OnDesktop=  {m:Set Background=Primary},
-                OnPhone=    {m:Set Background=Secondary},
-                OnTablet=   {m:Set Background=Tertiary},
-                OnTV=       {m:Set Background=Gray},
-                OnWatch=    {m:Set Background=Gradient}}">
+            Text="Save">
+            <m:Has.States>
+                <m:StatesCollection>
+                    <custom:IsEmpty Entry="{x:Reference entry}" Setters="{m:Set IsEnabled=False}"/>
+                </m:StatesCollection>
+            </m:Has.States>
         </Button>
+
+        <Editor Style="{StaticResource Code}">
+            <Editor.Text>
+&lt;Button Text="Save">
+    &lt;m:Has.States>
+        &lt;m:StatesCollection>
+            &lt;custom:IsEmpty
+                Entry="{x:Reference entry}"
+                Setters="{m:Set IsEnabled=False}"/>
+        &lt;/m:StatesCollection>
+    &lt;/m:Has.States>
+&lt;/Button>
+
+public partial class IsEmpty : XamlState
+{
+    public Entry? Entry { get; set; }
+
+    public override bool IsActive(VisualElement visualElement)
+    {
+        return string.IsNullOrEmpty(Entry?.Text);
+    }
+}
+            </Editor.Text>
+        </Editor>
+
+
+        <Label
+            Margin="0, 20"
+            Text="In the next trigger we evaluate if any entry child text is empty, if any is empty the button is disabled." />
+
+        <VerticalStackLayout x:Name="layout">
+            <Entry Placeholder="Enter mail" />
+            <Entry  Placeholder="Enter phone" />
+
+            <Button
+                Text="Save">
+                <m:Has.States>
+                    <m:StatesCollection>
+                        <custom:IsAnyChildEmpty
+                            Layout="{x:Reference layout}"
+                            Setters="{m:Set IsEnabled=False}"/>
+                    </m:StatesCollection>
+                </m:Has.States>
+            </Button>
+        </VerticalStackLayout>
+
+        <Editor Style="{StaticResource Code}">
+            <Editor.Text>
+&lt;Button Text="Save">
+    &lt;m:Has.States>
+        &lt;m:StatesCollection>
+            &lt;custom:IsAnyChildEmpty
+                Layout="{x:Reference layout}"
+                Setters="{m:Set IsEnabled=False}"/>
+        &lt;/m:StatesCollection>
+    &lt;/m:Has.States>
+&lt;/Button>
+
+public partial class IsAnyChildEmpty : XamlState
+{
+    public VerticalStackLayout Layout { get; set; }
+
+    public override bool IsActive(VisualElement visualElement)
+    {
+        return Layout.Children
+            .OfType&lt;Entry>()
+            .Listen(x => x.Text) // ensures that the state is re-evaluated when any child Text changes.
+            .Any(x => string.IsNullOrEmpty(x.Text));
+    }
+}
+            </Editor.Text>
+        </Editor>
 
     </VerticalStackLayout>
 </ContentView>
