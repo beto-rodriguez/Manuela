@@ -88,7 +88,7 @@
             Placeholder="Enter something here"
             HighlightColor="Red"
             HighlightBorderHeight="6"
-            HeightRequest="80">
+            InputMinimumHeightRequest="80">
 
             <!-- the control inherits from Border, you can just use the border properties -->
             <forms:TextInput.StrokeShape>
@@ -103,11 +103,11 @@
     Placeholder="Enter something here"
     HighlightColor="Red"
     HighlightBorderHeight="6"
-    HeightRequest="80">
-            &lt;!-- the control inherits from Border, you can just use the border properties -->
-            &lt;forms:TextInput.StrokeShape>
-                &lt;RoundRectangle CornerRadius="40" />
-            &lt;/forms:TextInput.StrokeShape>
+    InputMinimumHeightRequest="80">
+        &lt;!-- the control inherits from Border, you can just use the border properties -->
+        &lt;forms:TextInput.StrokeShape>
+            &lt;RoundRectangle CornerRadius="40" />
+        &lt;/forms:TextInput.StrokeShape>
 &lt;/forms:TextInput>
             </Editor.Text>
         </Editor>

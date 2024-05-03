@@ -52,7 +52,7 @@
                 m:Has.States="{StaticResource MenuStackStates}">
 
                 <l:MenuItem Display="Colors"        Route="Brushes"     Icon="Personalize"/>
-                <l:MenuItem Display="Sizing"        Route="Sizing"      Icon="FontSize"/>
+                <l:MenuItem Display="Forms"         Route="Forms"       Icon="ActionCenterNotification"/>
                 <l:MenuItem Display="Validation"    Route="Validation"  Icon="Accept"/>
                 <l:MenuItem Display="States"        Route="States"      Icon="Brightness"/>
                 <l:MenuItem Display="More"                              Icon="More"     Tapped="OnMoreTapped"/>
