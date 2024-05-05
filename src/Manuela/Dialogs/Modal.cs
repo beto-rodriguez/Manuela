@@ -83,7 +83,7 @@ public static class Modal
         return answer;
     }
 
-    public static Task<object?> Show(View view, DialogSize size, bool animated)
+    private static Task<object?> Show(View view, DialogSize size = DialogSize.Small, bool animated = true)
     {
         if (s_shadow is null) Root.Children.Add(s_shadow = new Border { StyleClass = s_modalShadowStyle });
 

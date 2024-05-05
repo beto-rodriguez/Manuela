@@ -42,8 +42,8 @@ public partial class Dialogs : ContentView
         var message = $"you picked {answer?.Name}";
     }
 
-    private async void ShowNestedDialog(object sender, EventArgs e)
+    private void ShowNestedDialog(object sender, EventArgs e)
     {
-        _ = await Modal.Show<bool>(new Nested());
+        Modal.Show<string>(new Nested());
     }
 }

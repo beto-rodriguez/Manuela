@@ -7,10 +7,32 @@
 
     <VerticalStackLayout>
 
+        <Label
+            Text="Default dialogs"
+            Style="{StaticResource Headline}"/>
+
         <Button
             Margin="0,10"
-            Text="Show default dialog"
+            Text="Default dialog answers"
             Clicked="ShowDefaultDialog"/>
+
+        <Editor Style="{StaticResource Code}">
+            <Editor.Text>
+var answer = await Modal.Show(
+     "Select an option",
+     "Modals can be awaited to know the user result, please select an option:",
+     ModalOptions.YesNoCancel);
+
+// the ModalOptions enum has multiple options, such as:
+// ModalOptions.YesNo;
+// ModalOptions.OkCancel;
+// ModalOptions.YesNoCancel;
+            </Editor.Text>
+        </Editor>
+
+        <Label
+            Text="Dialog Size"
+            Style="{StaticResource Headline}"/>
 
         <Button
             Margin="0,10"
@@ -27,15 +49,51 @@
             Text="Large dialog"
             Clicked="ShowLargeDialog"/>
 
+        <Editor Style="{StaticResource Code}">
+            <Editor.Text>
+Modal.Show("Small", $"This is small", ModalOptions.Ok, DialogSize.Small);
+Modal.Show("Medium", $"This is medium", ModalOptions.Ok, DialogSize.Medium);
+Modal.Show("Large", $"This is large", ModalOptions.Ok, DialogSize.Large);
+            </Editor.Text>
+        </Editor>
+
+        <Label
+            Text="Custom dialogs"
+            Style="{StaticResource Headline}"/>
+
         <Button
             Margin="0,10"
             Text="Show custom dialog"
             Clicked="ShowCustomDialog"/>
 
+        <Editor Style="{StaticResource Code}">
+            <Editor.Text>
+// here we ask for a PickerItem instance, which is a custom class
+// the dialog will also show our custom MyModalPicker view
+// you can find the view and the PickerItem class at Views/CustomDialogs
+                
+var answer = await Modal.Show&lt;PickerItem>(new MyModalPicker());
+            </Editor.Text>
+        </Editor>
+
+        <Label
+            Text="Nested dialogs"
+            Style="{StaticResource Headline}"/>
+
         <Button
             Margin="0,10"
             Text="Nested dialogs"
             Clicked="ShowNestedDialog"/>
+
+        <Editor Style="{StaticResource Code}">
+            <Editor.Text>
+// modals can be nested, this means that you can show a modal from another modal
+// see the Views/CustomDialogs/Nested.xaml view for more information
+// we are just calling the next code everytime the nest button is clicked
+                
+Modal.Show&lt;string>(new Nested());
+            </Editor.Text>
+        </Editor>
 
     </VerticalStackLayout>
 </ContentView>
