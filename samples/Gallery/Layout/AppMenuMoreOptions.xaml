@@ -29,6 +29,7 @@
             <l:MoreMenuItem Display="Transitions"   Route="Transitions" Icon="Sync"/>
             <l:MoreMenuItem Display="Spacing"       Route="Spacing"     Icon="MapLayers"/>
             <l:MoreMenuItem Display="Sizing"        Route="Sizing"      Icon="FontSize"/>
+            <l:MoreMenuItem Display="Dialogs"       Route="Dialogs"     Icon="NewWindow"/>
 
             <l:MoreMenuItem Display="Profile"       Icon="ContactInfo"  Style="{StaticResource ResponsiveButton}" />
             <l:MoreMenuItem Display="Settings"      Icon="Settings"     Style="{StaticResource ResponsiveButton}" />

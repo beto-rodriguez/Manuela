@@ -23,6 +23,7 @@ public static class MauiProgram
                 new Route<Transitions>(),
                 new Route<Forms>(),
                 new Route<Validation>(),
+                new Route<Dialogs>()
             ])
             .UseSegoeFluentMauiIcons()
             .ConfigureFonts(fonts =>

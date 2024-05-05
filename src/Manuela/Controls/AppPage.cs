@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 
 namespace Manuela;
 
-public class AppPage : ContentPage
+public abstract class AppPage : ContentPage
 {
     private static AppPage? s_current;
     private AppBody? _appBodyElement;
@@ -30,6 +30,8 @@ public class AppPage : ContentPage
             _appBodyElement!.Content = value;
         }
     }
+
+    public abstract void ShowModal(View view);
 
     protected virtual void OnAppLoaded(object? sender, EventArgs e)
     { }
