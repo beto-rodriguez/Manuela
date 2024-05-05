@@ -26,11 +26,11 @@ public class Has
     public static BindableProperty IsCheckedStateProperty = BindableProperty.CreateAttached(
         "IsCheckedState", typeof(bool), typeof(Has), false);
 
-    public static BindableProperty IsValidStateProperty = BindableProperty.CreateAttached(
-        "IsValidState", typeof(bool), typeof(Has), true);
-
     public static BindableProperty CustomStateProperty = BindableProperty.CreateAttached(
         "CustomState", typeof(string), typeof(Has), null);
+
+    public static BindableProperty ModalTcsProperty = BindableProperty.CreateAttached(
+        "ModalTcs", typeof(TaskCompletionSource<object>), typeof(Has), null);
 #pragma warning restore CA2211 // Non-constant fields should not be visible
 
     public static StatesCollection GetStates(BindableObject view) => (StatesCollection)view.GetValue(StatesProperty);
@@ -38,6 +38,9 @@ public class Has
 
     public static TransitionsCollection GetTransitions(BindableObject view) => (TransitionsCollection)view.GetValue(TransitionsProperty);
     public static void SetTransitions(BindableObject view, TransitionsCollection value) => view.SetValue(TransitionsProperty, value);
+
+    public static TaskCompletionSource<object> GetModalTcs(BindableObject view) => (TaskCompletionSource<object>)view.GetValue(ModalTcsProperty);
+    public static void SetModalTcs(BindableObject view, TaskCompletionSource<object> value) => view.SetValue(ModalTcsProperty, value);
 
     public static void OnStyleCollectionChanged(BindableObject bindable, object? oldValue, object? newValue)
     {

@@ -43,8 +43,9 @@ public static class StylingExtensions
             animated &&
             value is not null &&
             transitions is not null &&
-            transitions.TryGetValue(visualElement, property, out var transition, out var isFirst) &&
-            !isFirst
+            transitions.TryGetValue(visualElement, property, out var transition, out var isFirst)
+            // &&
+            //!isFirst
             )
         {
             // animate if a transition is defined

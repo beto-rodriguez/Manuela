@@ -31,8 +31,6 @@ public abstract class AppPage : ContentPage
         }
     }
 
-    public abstract void ShowModal(View view);
-
     protected virtual void OnAppLoaded(object? sender, EventArgs e)
     { }
 

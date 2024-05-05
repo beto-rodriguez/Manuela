@@ -1,3 +1,4 @@
+using Gallery.Layout;
 using Manuela;
 using Manuela.States.Screen;
 using Manuela.Styling;
@@ -15,11 +16,6 @@ public partial class AppLayout : AppPage
 
         // Temporary Workaround for url styled namespace in xaml
         _ = new MauiIcon();
-    }
-
-    public override void ShowModal(View view)
-    {
-        modal.TranslateTo(0, 0, 300);
     }
 
     protected override void OnAppLoaded(object? sender, EventArgs e)

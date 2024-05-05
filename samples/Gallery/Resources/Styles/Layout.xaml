@@ -47,8 +47,7 @@
 
     <!--
         MD
-        on medium screens, the app menu is placed on the left side
-        but with a reduced width that only shows the icons of each item in the menu.
+        on medium screens, the app menu is placed on the left side.
     -->
 
     <m:Set
@@ -81,8 +80,8 @@
         Padding="4,0,0,0"/>
     
     <!--
-        DEFAULT STATES
-        By default, the app is styled based on the screen size
+        SCREEN SIZE STATES
+        this section merges the states defined above into a single state collection
     -->
     
     <m:States x:Key="MenuDefaultStates"
@@ -173,7 +172,11 @@
         Phone="{StaticResource MenuStackMobileStates}"
         Tablet="{StaticResource MenuStackMobileStates}"/>
 
-    <Style TargetType="l:ModalDialog">
+    <!--
+        MODAL STYLES
+    -->
+    
+    <Style TargetType="Border" Class="modal-shadow">
         <Setter Property="ZIndex" Value="99"/>
         <Setter Property="StrokeThickness" Value="0"/>
         <Setter Property="Background" Value="{m:Brush 'Gray,Swatch500,Opacity50'}"/>
@@ -182,14 +185,25 @@
     </Style>
 
     <Style TargetType="Border" Class="modal-window">
+        <Setter Property="ZIndex" Value="100"/>
         <Setter Property="StrokeThickness" Value="1"/>
         <Setter Property="Stroke" Value="{m:Color 'Gray,Swatch400'}"/>
         <Setter Property="StrokeShape" Value="RoundRectangle 8"/>
         <Setter Property="BackgroundColor" Value="{m:Color 'Gray,Swatch50'}"/>
         <Setter Property="Margin" Value="0, 50, 0, 0"/>
         <Setter Property="Padding" Value="20"/>
-        <Setter Property="MaximumWidthRequest" Value="800"/>
+        <Setter Property="MaximumWidthRequest" Value="700"/>
         <Setter Property="VerticalOptions" Value="Start"/>
+        <Setter Property="AbsoluteLayout.LayoutFlags" Value="PositionProportional"/>
+        <Setter Property="AbsoluteLayout.LayoutBounds" Value="0.5, 0"/>
     </Style>
-    
+
+    <Style TargetType="Border" Class="modal-window-xs">
+        <Setter Property="MaximumWidthRequest" Value="400"/>
+    </Style>
+
+    <Style TargetType="Border" Class="modal-window-xl">
+        <Setter Property="MaximumWidthRequest" Value="1200"/>
+    </Style>
+
 </ResourceDictionary>

@@ -8,7 +8,8 @@
     xmlns:appViews="clr-namespace:Gallery.Views"
     x:Class="Gallery.AppLayout">
 
-    <AbsoluteLayout>
+    <AbsoluteLayout
+        x:Name="Root">
 
         <layout:AppTopBar
             x:Name="AppTopBar"
@@ -38,8 +39,6 @@
             </m:AppBody>
 
         </ScrollView>
-
-        <layout:ModalDialog x:Name="modal" TranslationY="1000" />
 
     </AbsoluteLayout>
 </m:AppPage>

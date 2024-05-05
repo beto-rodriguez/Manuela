@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<VerticalStackLayout
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:m="clr-namespace:Manuela"
+    x:Class="Manuela.Dialogs.DefaultDialog">
+
+    <Label
+        x:Name="titleLabel"
+        Margin="{m:Spacing Bottom=Xl}"
+        FontSize="{m:Size Xxl}"/>
+
+    <Label
+        x:Name="messageLabel"
+        Margin="{m:Spacing Bottom=Huge}" />
+
+    <HorizontalStackLayout
+        HorizontalOptions="End"
+        Spacing="10">
+
+        <Button
+            x:Name="cancelBtn"
+            Text="Cancel"
+            StyleClass="button-muted"
+            Clicked="cancelBtn_Clicked"/>
+        <Button
+            x:Name="noBtn"
+            Text="No"
+            StyleClass="button-muted"
+            Clicked="noBtn_Clicked"/>
+        <Button
+            x:Name="yesBtn"
+            Text="Yes"
+            StyleClass="button-muted"
+            TextColor="{m:Color 'Primary,Swatch700'}"
+            Clicked="yesBtn_Clicked"/>
+        <Button
+            x:Name="okBtn"
+            Text="Ok"
+            StyleClass="button-muted"
+            TextColor="{m:Color 'Primary,Swatch700'}"
+            Clicked="okBtn_Clicked"/>
+
+    </HorizontalStackLayout>
+
+</VerticalStackLayout>

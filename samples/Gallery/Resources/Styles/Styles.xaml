@@ -59,6 +59,11 @@
         </Setter>
     </Style>
 
+    <Style TargetType="Button" Class="button-muted">
+        <Setter Property="BackgroundColor" Value="{m:Color 'Gray,Swatch200'}"/>
+        <Setter Property="TextColor" Value="{m:Color 'Gray,Swatch950'}"/>
+    </Style>
+
     <Style TargetType="CheckBox">
         <Setter Property="Color" Value="{m:Color Primary}" />
         <Setter Property="MinimumHeightRequest" Value="44"/>
