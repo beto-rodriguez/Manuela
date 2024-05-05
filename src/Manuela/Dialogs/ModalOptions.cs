@@ -1,7 +1,7 @@
 ﻿namespace Manuela.Dialogs;
 
 [Flags]
-public enum Answer
+public enum ModalOptions
 {
     Ok = 1 << 0,
     Yes = 1 << 1,

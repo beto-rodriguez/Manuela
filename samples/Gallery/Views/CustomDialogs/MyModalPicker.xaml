@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:m="clr-namespace:Manuela;assembly=Manuela"
+    xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons"
+    xmlns:local="clr-namespace:Gallery.Views.CustomDialogs"
+    x:Class="Gallery.Views.CustomDialogs.MyModalPicker">
+
+    <VerticalStackLayout>
+
+        <Label
+            Margin="{m:Spacing Bottom=Md}"
+            Text="You can use any view as a dialog, dialogs can respond anything you need, in this case, this picker aswers with a PickerItem instance."/>
+        <Label
+            Margin="{m:Spacing Bottom=Huge}"
+            Text="Both, the custom control and the PickerInput class can be found at Views/CustomDialogs."/>
+
+        <CollectionView
+            SelectionMode="Single"
+            SelectionChanged="CollectionView_SelectionChanged">
+
+            <CollectionView.ItemsSource>
+                <x:Array Type="{x:Type local:PickerItem}">
+                    <local:PickerItem Icon="Back" Name="Bank"/>
+                    <local:PickerItem Icon="Market" Name="Market"/>
+                    <local:PickerItem Icon="Home" Name="Home"/>
+                    <local:PickerItem Icon="Car" Name="Car"/>
+                    <local:PickerItem Icon="Airplane" Name="Airplane"/>
+                </x:Array>
+            </CollectionView.ItemsSource>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="{x:Type local:PickerItem}">
+                    <HorizontalStackLayout
+                        Padding="{m:Size Md}"
+                        Spacing="{m:Size Xl}">
+                        
+                        <mi:MauiIcon
+                            Icon="{Binding Icon}"/>
+                        <Label
+                            Text="{Binding Name}"
+                            VerticalOptions="Center"/>
+
+                    </HorizontalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </VerticalStackLayout>
+</ContentView>

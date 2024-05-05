@@ -1,9 +1,41 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:m="clr-namespace:Manuela;assembly=Manuela"
-             x:Class="Gallery.Views.Dialogs">
+<ContentView
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:m="clr-namespace:Manuela;assembly=Manuela"
+    x:Class="Gallery.Views.Dialogs">
+
     <VerticalStackLayout>
-        <Button Clicked="Button_Clicked" Text="Show dialog"></Button>
+
+        <Button
+            Margin="0,10"
+            Text="Show default dialog"
+            Clicked="ShowDefaultDialog"/>
+
+        <Button
+            Margin="0,10"
+            Text="Small dialog"
+            Clicked="ShowSmallDialog"/>
+
+        <Button
+            Margin="0,10"
+            Text="Medium dialog"
+            Clicked="ShowMediumDialog"/>
+
+        <Button
+            Margin="0,10"
+            Text="Large dialog"
+            Clicked="ShowLargeDialog"/>
+
+        <Button
+            Margin="0,10"
+            Text="Show custom dialog"
+            Clicked="ShowCustomDialog"/>
+
+        <Button
+            Margin="0,10"
+            Text="Nested dialogs"
+            Clicked="ShowNestedDialog"/>
+
     </VerticalStackLayout>
 </ContentView>

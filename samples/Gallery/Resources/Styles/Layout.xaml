@@ -185,25 +185,13 @@
     </Style>
 
     <Style TargetType="Border" Class="modal-window">
-        <Setter Property="ZIndex" Value="100"/>
         <Setter Property="StrokeThickness" Value="1"/>
         <Setter Property="Stroke" Value="{m:Color 'Gray,Swatch400'}"/>
         <Setter Property="StrokeShape" Value="RoundRectangle 8"/>
         <Setter Property="BackgroundColor" Value="{m:Color 'Gray,Swatch50'}"/>
         <Setter Property="Margin" Value="0, 50, 0, 0"/>
         <Setter Property="Padding" Value="20"/>
-        <Setter Property="MaximumWidthRequest" Value="700"/>
         <Setter Property="VerticalOptions" Value="Start"/>
-        <Setter Property="AbsoluteLayout.LayoutFlags" Value="PositionProportional"/>
-        <Setter Property="AbsoluteLayout.LayoutBounds" Value="0.5, 0"/>
-    </Style>
-
-    <Style TargetType="Border" Class="modal-window-xs">
-        <Setter Property="MaximumWidthRequest" Value="400"/>
-    </Style>
-
-    <Style TargetType="Border" Class="modal-window-xl">
-        <Setter Property="MaximumWidthRequest" Value="1200"/>
     </Style>
 
 </ResourceDictionary>

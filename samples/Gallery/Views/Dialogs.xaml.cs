@@ -1,3 +1,4 @@
+using Gallery.Views.CustomDialogs;
 using Manuela.Dialogs;
 
 namespace Gallery.Views;
@@ -9,12 +10,40 @@ public partial class Dialogs : ContentView
         InitializeComponent();
     }
 
-    private async void Button_Clicked(object sender, EventArgs e)
+    private async void ShowDefaultDialog(object sender, EventArgs e)
     {
-        var ans = await Modal.Show(
-            "title here",
-            "hi this is a really long messagehi this is a really long messagehi this ", Answer.YesNo);
+        var answer = await Modal.Show(
+            "Select an option",
+            "Modals can be awaited to know the user result, please select an option:",
+            ModalOptions.YesNoCancel);
 
-        var a = 1;
+        var message = $"you picked {answer}";
+    }
+
+    private void ShowSmallDialog(object sender, EventArgs e)
+    {
+        Modal.Show("Small", $"This is small", ModalOptions.Ok, DialogSize.Small);
+    }
+
+    private void ShowMediumDialog(object sender, EventArgs e)
+    {
+        Modal.Show("Medium", $"This is medium", ModalOptions.Ok, DialogSize.Medium);
+    }
+
+    private void ShowLargeDialog(object sender, EventArgs e)
+    {
+        Modal.Show("Large", $"This is large", ModalOptions.Ok, DialogSize.Large);
+    }
+
+    private async void ShowCustomDialog(object sender, EventArgs e)
+    {
+        var answer = await Modal.Show<PickerItem>(new MyModalPicker());
+
+        var message = $"you picked {answer?.Name}";
+    }
+
+    private async void ShowNestedDialog(object sender, EventArgs e)
+    {
+        _ = await Modal.Show<bool>(new Nested());
     }
 }

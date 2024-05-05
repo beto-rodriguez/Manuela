@@ -71,12 +71,12 @@ public partial class AppMenuMoreOptions : Border
         if (isVertical)
         {
             TranslationY = 0;
-            this.SetManuelaProperty(ManuelaProperty.TranslateX, _isMenuOpen ? 0d : -Width, animated);
+            this.SetManuelaProperty(ManuelaProperty.TranslateX, _isMenuOpen ? 0d : -Width, null, animated);
         }
         else
         {
             TranslationX = 0;
-            this.SetManuelaProperty(ManuelaProperty.TranslateY, _isMenuOpen ? 0d : Height, animated);
+            this.SetManuelaProperty(ManuelaProperty.TranslateY, _isMenuOpen ? 0d : Height, null, animated);
         }
     }
 

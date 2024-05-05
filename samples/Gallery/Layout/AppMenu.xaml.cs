@@ -95,7 +95,7 @@ public partial class AppMenu : Border
             Indicator.WidthRequest = 6;
             Indicator.SetManuelaProperty(
                 ManuelaProperty.TranslateY,
-                clickedIndex * size.Height, animated);
+                clickedIndex * size.Height, null, animated);
         }
         else
         {
@@ -113,7 +113,7 @@ public partial class AppMenu : Border
             Indicator.HeightRequest = 6;
             Indicator.SetManuelaProperty(
                 ManuelaProperty.TranslateX,
-                clickedIndex * size.Width + w * 0.5, animated);
+                clickedIndex * size.Width + w * 0.5, null, animated);
         }
     }
 

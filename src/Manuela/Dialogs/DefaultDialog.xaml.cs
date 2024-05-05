@@ -10,20 +10,20 @@ public partial class DefaultDialog : VerticalStackLayout
     public void SetContent(
         string? title,
         string? message,
-        Answer answerType = Answer.Ok)
+        ModalOptions answerType = ModalOptions.Ok)
     {
         titleLabel.Text = title;
         messageLabel.Text = message;
 
-        okBtn.IsVisible = answerType.HasFlag(Answer.Ok);
-        yesBtn.IsVisible = answerType.HasFlag(Answer.Yes);
-        noBtn.IsVisible = answerType.HasFlag(Answer.No);
-        cancelBtn.IsVisible = answerType.HasFlag(Answer.Cancel);
+        okBtn.IsVisible = answerType.HasFlag(ModalOptions.Ok);
+        yesBtn.IsVisible = answerType.HasFlag(ModalOptions.Yes);
+        noBtn.IsVisible = answerType.HasFlag(ModalOptions.No);
+        cancelBtn.IsVisible = answerType.HasFlag(ModalOptions.Cancel);
     }
 
-    private void cancelBtn_Clicked(object sender, EventArgs e) => this.SetDialogResponse(Answer.Cancel);
-    private void noBtn_Clicked(object sender, EventArgs e) => this.SetDialogResponse(Answer.No);
-    private void yesBtn_Clicked(object sender, EventArgs e) => this.SetDialogResponse(Answer.Yes);
-    private void okBtn_Clicked(object sender, EventArgs e) => this.SetDialogResponse(Answer.Ok);
+    private void cancelBtn_Clicked(object sender, EventArgs e) => this.SetDialogResponse(ModalOptions.Cancel);
+    private void noBtn_Clicked(object sender, EventArgs e) => this.SetDialogResponse(ModalOptions.No);
+    private void yesBtn_Clicked(object sender, EventArgs e) => this.SetDialogResponse(ModalOptions.Yes);
+    private void okBtn_Clicked(object sender, EventArgs e) => this.SetDialogResponse(ModalOptions.Ok);
 
 }
