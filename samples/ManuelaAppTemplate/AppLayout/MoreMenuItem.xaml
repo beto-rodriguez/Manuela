@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<HorizontalStackLayout
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:m="clr-namespace:Manuela;assembly=Manuela"
+    xmlns:i="http://www.aathifmahir.com/dotnet/2022/maui/icons"
+    x:Class="ManuelaAppTemplate.AppLayout.MoreMenuItem"
+    Spacing="20"
+    Padding="18, 12">
+
+    <i:MauiIcon
+        x:Name="icon"
+        IconSize="20"
+        IconColor="{m:Color 'Gray,Swatch950'}"
+        VerticalOptions="Center"
+        HorizontalOptions="Center">
+    </i:MauiIcon>
+
+    <Label
+        x:Name="label"
+        TextColor="{m:Color 'Gray,Swatch950'}"
+        VerticalOptions="Center"
+        HorizontalOptions="Center"
+        FontSize="15">
+    </Label>
+
+    <HorizontalStackLayout.GestureRecognizers>
+        <TapGestureRecognizer Tapped="OnTapped" />
+    </HorizontalStackLayout.GestureRecognizers>
+
+</HorizontalStackLayout>

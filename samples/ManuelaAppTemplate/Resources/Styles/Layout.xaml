@@ -1,0 +1,250 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:l="clr-namespace:ManuelaAppTemplate.AppLayout"
+    xmlns:m="clr-namespace:Manuela;assembly=Manuela">
+
+    <!--
+        define the property values for the different states in the app layout
+    -->
+
+    <!--
+        XS
+        The smallest screen size, the app menu is placed at the bottom of the screen.
+    -->
+
+    <m:Set
+        x:Key="XsMenu"
+        AbsoluteLayoutFlags="WidthProportional,YProportional"
+        AbsoluteLayoutBounds="0, 1, 1, 60"
+        Padding="0,0,0,0"/>
+
+    <m:Set
+        x:Key="XsMoreMenu"
+        AbsoluteLayoutFlags="YProportional,WidthProportional"
+        AbsoluteLayoutBounds="0, 1, 1, -1"
+        Padding="15, 15, 15, 75"/>
+
+    <m:Set
+        x:Key="XsAppBody"
+        Padding="0, 45, 0, 60"/>
+
+    <m:Set
+        x:Key="XsMenuItem"
+        Width="70"
+        Padding="0, 8, 0, 0"
+        Height="52"
+        StackSpacing="5"
+        StackOrientation="Vertical"/>
+
+    <m:Set
+        x:Key="XsMenuStack"
+        Padding="0,4"
+        StackOrientation="Horizontal"
+        HorizontalOptions="Center"/>
+
+    <!--
+        MD
+        on medium screens, the app menu is placed on the left side.
+    -->
+
+    <m:Set
+        x:Key="MdMenu"
+        AbsoluteLayoutFlags="HeightProportional"
+        AbsoluteLayoutBounds="0, 0, 90, 1"
+        Padding="0,0,0,0"/>
+
+    <m:Set
+        x:Key="MdMoreMenu"
+        AbsoluteLayoutFlags="HeightProportional"
+        AbsoluteLayoutBounds="0,0, 300,1"
+        Padding="90, 50, 15, 15"/>
+    
+    <m:Set
+        x:Key="MdAppBody"
+        Padding="90, 45, 0, 0"/>
+
+    <m:Set
+        x:Key="MdMenuItem"
+        Width="76"
+        Padding="0, 10, 0, 0"
+        Height="60"
+        StackOrientation="Vertical"/>
+
+    <m:Set
+        x:Key="MdMenuStack"
+        StackOrientation="Vertical"
+        HorizontalOptions="Start"
+        Padding="4,0,0,0"/>
+    
+    <!--
+        SCREEN SIZE STATES
+        this section merges the states defined above into a single state collection
+    -->
+    
+    <m:States x:Key="MenuDefaultStates"
+        OnXs="{StaticResource XsMenu}"
+        OnMd="{StaticResource MdMenu}"/>
+
+    <m:States x:Key="MenuMoreDefaultStates"
+        OnXs="{StaticResource XsMoreMenu}"
+        OnMd="{StaticResource MdMoreMenu}"/>
+
+    <m:States x:Key="AppBodyDefaultStates"
+        OnXs="{StaticResource XsAppBody}"
+        OnMd="{StaticResource MdAppBody}"/>
+
+    <m:States x:Key="MenuItemDefaultStates"
+        Hovered="{m:Set Background='Gray,Swatch400,Opacity10'}"
+        OnXs="{StaticResource XsMenuItem}"
+        OnMd="{StaticResource MdMenuItem}"/>
+
+    <m:States x:Key="MenuStackDefaultStates"
+        OnXs="{StaticResource XsMenuStack}"
+        OnMd="{StaticResource MdMenuStack}"/>
+
+    <!--
+        MOBILE STATES
+        On mobile devices, the app menu is always placed at the bottom of the screen.
+    -->
+
+    <m:States
+        x:Key="MenuMobileStates"
+        Default="{StaticResource XsMenu}"/>
+
+    <m:States
+        x:Key="MenuMoreMobileStates"
+        Default="{StaticResource XsMoreMenu}"/>
+
+    <m:States
+        x:Key="AppBodyMobileStates"
+        Default="{StaticResource XsAppBody}"/>
+        
+    <m:States
+        x:Key="MenuItemMobileStates"
+        Hovered="{m:Set Background='Gray,Swatch400,Opacity10'}"
+        Default="{StaticResource XsMenuItem}" />
+
+    <m:States
+        x:Key="MenuStackMobileStates"
+        Default="{StaticResource XsMenuStack}"/>
+
+    <!--
+        APP STATES
+        In this section, we pick the states defined above, these are the states
+        that are referenced in the app layout XAML.
+    -->
+    
+    <OnIdiom
+        x:TypeArguments="m:StatesCollection"
+        x:Key="MenuStates"
+        Default="{StaticResource MenuDefaultStates}"
+        Phone="{StaticResource MenuMobileStates}"
+        Tablet="{StaticResource MenuMobileStates}"/>
+
+    <OnIdiom
+        x:TypeArguments="m:StatesCollection"
+        x:Key="MenuMoreStates"
+        Default="{StaticResource MenuMoreDefaultStates}"
+        Phone="{StaticResource MenuMoreMobileStates}"
+        Tablet="{StaticResource MenuMoreMobileStates}"/>
+
+    <OnIdiom
+        x:TypeArguments="m:StatesCollection"
+        x:Key="AppBodyStates"
+        Default="{StaticResource AppBodyDefaultStates}"
+        Phone="{StaticResource AppBodyMobileStates}"
+        Tablet="{StaticResource AppBodyMobileStates}"/>
+
+    <OnIdiom
+        x:TypeArguments="m:StatesCollection"
+        x:Key="MenuItemStates"
+        Default="{StaticResource MenuItemDefaultStates}"
+        Phone="{StaticResource MenuItemMobileStates}"
+        Tablet="{StaticResource MenuItemMobileStates}"/>
+
+    <OnIdiom
+        x:TypeArguments="m:StatesCollection"
+        x:Key="MenuStackStates"
+        Default="{StaticResource MenuStackDefaultStates}"
+        Phone="{StaticResource MenuStackMobileStates}"
+        Tablet="{StaticResource MenuStackMobileStates}"/>
+
+    <!--
+        MODAL STYLES
+    -->
+    
+    <Style TargetType="Border" Class="modal-shadow">
+        <Setter Property="ZIndex" Value="99"/>
+        <Setter Property="StrokeThickness" Value="0"/>
+        <Setter Property="Background" Value="{m:Brush 'Gray,Swatch500,Opacity50'}"/>
+        <Setter Property="AbsoluteLayout.LayoutFlags" Value="SizeProportional"/>
+        <Setter Property="AbsoluteLayout.LayoutBounds" Value="0, 0, 1, 1"/>
+    </Style>
+
+    <Style TargetType="Border" Class="modal-window">
+        <Setter Property="StrokeThickness" Value="1"/>
+        <Setter Property="Stroke" Value="{m:Color 'Gray,Swatch400'}"/>
+        <Setter Property="StrokeShape" Value="RoundRectangle 8"/>
+        <Setter Property="BackgroundColor" Value="{m:Color 'Gray,Swatch50'}"/>
+        <Setter Property="Margin" Value="0, 50, 0, 0"/>
+        <Setter Property="Padding" Value="20"/>
+        <Setter Property="VerticalOptions" Value="Start"/>
+    </Style>
+
+    <!--
+        ROOT LAYOUT STYLES
+    -->
+
+    <Style x:Key="MainScrollerStyle" TargetType="ScrollView">
+        <Setter Property="BackgroundColor" Value="{m:Color 'Gray,Swatch100'}"/>
+        <Setter Property="AbsoluteLayout.LayoutFlags" Value="SizeProportional"/>
+        <Setter Property="AbsoluteLayout.LayoutBounds" Value="0, 0, 1, 1"/>
+        <Setter Property="m:Has.States" Value="{StaticResource AppBodyStates}"/>
+    </Style>
+
+    <Style x:Key="AppMenuBorderStyle" TargetType="Border">
+        <Setter Property="ZIndex" Value="10"/>
+        <Setter Property="StrokeThickness" Value="0.5"/>
+        <Setter Property="Stroke" Value="{m:Brush 'Gray,Swatch300'}"/>
+        <Setter Property="Background" Value="{m:Brush 'Gray,Swatch50'}"/>
+        <Setter Property="m:Has.States" Value="{StaticResource MenuStates}"/>
+    </Style>
+
+    <Style x:Key="AppMenuFirstElementStyle" TargetType="Grid">
+        <Setter Property="Grid.Row" Value="1"/>
+        <Setter Property="RowDefinitions" Value="Auto,Auto"/>
+        <Setter Property="m:Has.States" 
+                Value="{m:States
+                    OnXs={m:Set Margin='0'},
+                    OnMd={m:Set Margin={OnPlatform Default='0', MacCatalyst='0, 40, 0, 0'}}}"/>
+    </Style>
+
+    <Style x:Key="AppMenuSecondElemenetStyle" TargetType="VerticalStackLayout">
+        <Setter Property="Grid.Row" Value="2"/>
+        <Setter Property="m:Has.States"
+                Value="{m:States
+                    OnXs={m:Set Visible=False},
+                    OnMd={m:Set Visible={OnIdiom Default=True, Phone=False, Tablet=False}}}"/>
+    </Style>
+
+    <Style x:Key="AppMenuMoreOptionsStyle" TargetType="Border">
+        <Setter Property="ZIndex" Value="9"/>
+        <Setter Property="StrokeThickness" Value="0.5"/>
+        <Setter Property="Stroke" Value="{m:Brush 'Gray,Swatch400'}"/>
+        <Setter Property="StrokeShape" Value="RoundRectangle 15"/>
+        <Setter Property="Background" Value="{m:Brush 'Gray,Swatch200'}"/>
+        <Setter Property="m:Has.States" Value="{StaticResource MenuMoreStates}"/>
+        <Setter Property="m:Has.Transitions" Value="{m:Transitions 'TranslateX,TranslateY'}"/>
+    </Style>
+
+    <Style Class="mobile-and-small-visible" TargetType="l:MoreMenuItem">
+        <Setter Property="m:Has.States"
+                Value="{m:States
+                    OnXs={m:Set Visible=True},
+                    OnMd={m:Set Visible={OnIdiom Default=False, Phone=True, Tablet=True}}}"/>
+    </Style>
+
+</ResourceDictionary>
