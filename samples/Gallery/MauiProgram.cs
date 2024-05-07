@@ -16,14 +16,14 @@ public static class MauiProgram
         builder
             .UseMauiApp<App>()
             .UseManuela([
-                new Route<Brushes>(),
-                new Route<States>(),
-                new Route<Sizing>(),
-                new Route<Spacing>(),
-                new Route<Transitions>(),
-                new Route<Forms>(),
-                new Route<Validation>(),
-                new Route<Dialogs>()
+                new Route<Brushes>(isSingleton: true),
+                new Route<States>(isSingleton: true),
+                new Route<Sizing>(isSingleton: true),
+                new Route<Spacing>(isSingleton: true),
+                new Route<Transitions>(isSingleton: true),
+                new Route<Forms>(isSingleton: true),
+                new Route<Validation>(isSingleton: true),
+                new Route<Dialogs>(isSingleton: true)
             ])
             .UseSegoeFluentMauiIcons()
             .ConfigureFonts(fonts =>
