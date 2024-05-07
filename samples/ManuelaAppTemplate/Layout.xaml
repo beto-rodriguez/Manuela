@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:m="clr-namespace:Manuela;assembly=Manuela"
     xmlns:l="clr-namespace:ManuelaAppTemplate.AppLayout"
+    xmlns:v="clr-namespace:ManuelaAppTemplate.AppViews"
     x:Class="ManuelaAppTemplate.Layout">
 
     <AbsoluteLayout x:Name="Root">
@@ -19,10 +20,10 @@
 
                 <!--
                     The app body content changes depending on the app route.
-                    you can specify the view where the app starts, in this case, the MainView.
+                    you can specify the view where the app starts, in this case, the HomeView.
                 -->
 
-                <!--<appViews:Brushes/>-->
+                <v:HomeView/>
 
             </m:AppBody>
 
