@@ -25,7 +25,7 @@
         <Setter Property="ZIndex" Value="10"/>
         <Setter Property="StrokeThickness" Value="0.5"/>
         <Setter Property="Stroke" Value="{m:Brush 'Gray,Swatch300'}"/>
-        <Setter Property="Background" Value="{m:Brush 'Gray,Swatch50'}"/>
+        <Setter Property="BackgroundColor" Value="{m:Color 'Gray,Swatch50'}"/>
         <Setter
             Property="m:Has.States"
             Value="{m:States
@@ -66,7 +66,7 @@
         <Setter Property="StrokeThickness" Value="0.2"/>
         <Setter Property="Stroke" Value="{m:Brush 'Gray,Swatch400'}"/>
         <Setter Property="StrokeShape" Value="RoundRectangle 15"/>
-        <Setter Property="Background" Value="{m:Brush 'Gray,Swatch200'}"/>
+        <Setter Property="BackgroundColor" Value="{m:Color 'Gray,Swatch200'}"/>
         <Setter Property="m:Has.Transitions" Value="{m:Transitions 'TranslateX,TranslateY'}"/>
         <Setter
             Property="m:Has.States"

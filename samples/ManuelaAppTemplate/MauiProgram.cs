@@ -38,7 +38,7 @@ public static class MauiProgram
 
                     // In this exaple, we use the "mobile-and-small-visible" style class
                     // this class makes the item button visible only on small screens and mobile devices.
-                    // its useful to show the Secondary menut items, because they are not visible on small screens.
+                    // its useful to show the Secondary menu items, because they are not visible on small screens.
                     .AddCollapsed(SegoeFluentIcons.More, "More", collapsed => collapsed
                         .Add<AnotherView>(
                             SegoeFluentIcons.Play, "Another")
