@@ -5,13 +5,7 @@
     xmlns:m="clr-namespace:Manuela;assembly=Manuela"
     xmlns:l="clr-namespace:Gallery.Layout"
     x:Class="Gallery.Layout.AppMenuMoreOptions"
-    ZIndex="9"
-    StrokeThickness="0.5"
-    Stroke="{m:Brush 'Gray,Swatch400'}"
-    StrokeShape="RoundRectangle 15"
-    Background="{m:Brush 'Gray,Swatch200'}"
-    m:Has.States="{StaticResource MenuMoreStates}"
-    m:Has.Transitions="{m:Transitions 'TranslateX,TranslateY'}">
+    Style="{StaticResource CollapsedMenuStyle}">
 
     <Border.Resources>
         <Style x:Key="ResponsiveButton" TargetType="l:MoreMenuItem">

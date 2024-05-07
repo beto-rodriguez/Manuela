@@ -5,7 +5,7 @@
     xmlns:m="clr-namespace:Manuela;assembly=Manuela"
     xmlns:l="clr-namespace:ManuelaAppTemplate.AppLayout"
     x:Class="ManuelaAppTemplate.AppLayout.AppCollapsedMenu"
-    Style="{StaticResource AppMenuMoreOptionsStyle}"
+    Style="{StaticResource CollapsedMenuStyle}"
     x:DataType="l:IMenuItem">
 
     <ScrollView HorizontalOptions="Center" VerticalScrollBarVisibility="Never">

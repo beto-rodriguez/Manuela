@@ -5,7 +5,7 @@
     xmlns:m="clr-namespace:Manuela;assembly=Manuela"
     xmlns:i="http://www.aathifmahir.com/dotnet/2022/maui/icons"
     x:Class="ManuelaAppTemplate.AppLayout.MenuItem"
-    m:Has.States="{StaticResource MenuItemStates}">
+    Style="{StaticResource MenuItemStyle}">
 
     <i:MauiIcon
         x:Name="icon"

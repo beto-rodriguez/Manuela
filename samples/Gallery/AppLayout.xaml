@@ -24,16 +24,13 @@
         -->
 
         <ScrollView
-            Background="{m:Brush 'Gray,Swatch100'}"
-            AbsoluteLayout.LayoutFlags="SizeProportional"
-            AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
-            m:Has.States="{StaticResource AppBodyStates}"
+            Style="{StaticResource MainScrollerStyle}"
             Scrolled="OnAppScrolled">
 
             <m:AppBody
                 Padding="15, 10">
 
-                <!-- we can specify the view where the app starts, in this case, the MainView -->
+                <!-- we can specify the view where the app starts, in this case, the Brushes -->
                 <appViews:Brushes/>
 
             </m:AppBody>

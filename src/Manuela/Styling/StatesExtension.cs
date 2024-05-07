@@ -30,6 +30,13 @@ public class StatesExtension : IMarkupExtension<StatesCollection>
     public Breakpoint LgMaxBreakpoint { get; set; } = Breakpoint.Xxl;
     public Breakpoint XlMaxBreakpoint { get; set; } = Breakpoint.Xxl;
 
+    public ForceOnIdiom ForceXsOnIdiom { get; set; } = ForceOnIdiom.None;
+    public ForceOnIdiom ForceSmOnIdiom { get; set; } = ForceOnIdiom.None;
+    public ForceOnIdiom ForceMdOnIdiom { get; set; } = ForceOnIdiom.None;
+    public ForceOnIdiom ForceLgOnIdiom { get; set; } = ForceOnIdiom.None;
+    public ForceOnIdiom ForceXlOnIdiom { get; set; } = ForceOnIdiom.None;
+    public ForceOnIdiom ForceXxlOnIdiom { get; set; } = ForceOnIdiom.None;
+
     public StatesCollection ProvideValue(IServiceProvider serviceProvider)
     {
         var collection = new StatesCollection();
@@ -54,15 +61,81 @@ public class StatesExtension : IMarkupExtension<StatesCollection>
         if (isResponsive)
         {
             var screenCondition = new OnScreenSize();
+            var wasForced = false;
 
-            if (OnXs is not null) { screenCondition.Xs = OnXs; screenCondition.XsMaxBreakpoint = XsMaxBreakpoint; }
-            if (OnSm is not null) { screenCondition.Sm = OnSm; screenCondition.SmMaxBreakpoint = SmMaxBreakpoint; }
-            if (OnMd is not null) { screenCondition.Md = OnMd; screenCondition.MdMaxBreakpoint = MdMaxBreakpoint; }
-            if (OnLg is not null) { screenCondition.Lg = OnLg; screenCondition.LgMaxBreakpoint = LgMaxBreakpoint; }
-            if (OnXl is not null) { screenCondition.Xl = OnXl; screenCondition.XlMaxBreakpoint = XlMaxBreakpoint; }
-            if (OnXxl is not null) screenCondition.Xxl = OnXxl;
+            if (OnXs is not null)
+            {
+                if (IsForcedTo(ForceXsOnIdiom))
+                {
+                    collection.Add(new Default { Setters = OnXs });
+                    wasForced = true;
+                }
 
-            collection.Add(screenCondition);
+                screenCondition.Xs = OnXs;
+                screenCondition.XsMaxBreakpoint = XsMaxBreakpoint;
+            }
+
+            if (OnSm is not null)
+            {
+                if (IsForcedTo(ForceSmOnIdiom))
+                {
+                    collection.Add(new Default { Setters = OnSm });
+                    wasForced = true;
+                }
+
+                screenCondition.Sm = OnSm;
+                screenCondition.SmMaxBreakpoint = SmMaxBreakpoint;
+            }
+
+            if (OnMd is not null)
+            {
+                if (IsForcedTo(ForceMdOnIdiom))
+                {
+                    collection.Add(new Default { Setters = OnMd });
+                    wasForced = true;
+                }
+
+                screenCondition.Md = OnMd;
+                screenCondition.MdMaxBreakpoint = MdMaxBreakpoint;
+            }
+
+            if (OnLg is not null)
+            {
+                if (IsForcedTo(ForceLgOnIdiom))
+                {
+                    collection.Add(new Default { Setters = OnLg });
+                    wasForced = true;
+                }
+
+                screenCondition.Lg = OnLg;
+                screenCondition.LgMaxBreakpoint = LgMaxBreakpoint;
+            }
+
+            if (OnXl is not null)
+            {
+                if (IsForcedTo(ForceXlOnIdiom))
+                {
+                    collection.Add(new Default { Setters = OnXl });
+                    wasForced = true;
+                }
+
+                screenCondition.Xl = OnXl;
+                screenCondition.XlMaxBreakpoint = XlMaxBreakpoint;
+            }
+
+            if (OnXxl is not null)
+            {
+                if (IsForcedTo(ForceXxlOnIdiom))
+                {
+                    collection.Add(new Default { Setters = OnXxl });
+                    wasForced = true;
+                }
+
+                screenCondition.Xxl = OnXxl;
+            }
+
+            if (!wasForced)
+                collection.Add(screenCondition);
         }
 
         return collection;
@@ -71,5 +144,29 @@ public class StatesExtension : IMarkupExtension<StatesCollection>
     object IMarkupExtension.ProvideValue(IServiceProvider serviceProvider)
     {
         return ProvideValue(serviceProvider);
+    }
+
+    [Flags]
+    public enum ForceOnIdiom
+    {
+        None = 0,
+        Phone = 1 << 0,
+        Tablet = 1 << 1,
+        Desktop = 1 << 2,
+        TV = 1 << 3,
+        Watch = 1 << 4
+    }
+
+    public static bool IsForcedTo(ForceOnIdiom forcedTo)
+    {
+        var idiom = DeviceInfo.Idiom;
+
+        if (idiom == DeviceIdiom.Phone) return forcedTo.HasFlag(ForceOnIdiom.Phone);
+        if (idiom == DeviceIdiom.Tablet) return forcedTo.HasFlag(ForceOnIdiom.Tablet);
+        if (idiom == DeviceIdiom.Desktop) return forcedTo.HasFlag(ForceOnIdiom.Desktop);
+        if (idiom == DeviceIdiom.TV) return forcedTo.HasFlag(ForceOnIdiom.TV);
+        if (idiom == DeviceIdiom.Watch) return forcedTo.HasFlag(ForceOnIdiom.Watch);
+
+        return false;
     }
 }

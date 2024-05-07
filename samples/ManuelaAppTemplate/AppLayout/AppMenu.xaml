@@ -21,7 +21,7 @@
 
             <StackLayout
                 x:Name="MenuStackLayout"
-                m:Has.States="{StaticResource MenuStackStates}"
+                Style="{StaticResource MenuStackStyle}"
                 BindableLayout.ItemsSource="{Static l:AppRoutes.MainMenu}">
 
                 <BindableLayout.ItemTemplateSelector>

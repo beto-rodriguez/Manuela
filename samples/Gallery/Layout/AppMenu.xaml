@@ -12,11 +12,7 @@
     xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons"
     xmlns:l="clr-namespace:Gallery.Layout"
     x:Class="Gallery.Layout.AppMenu"
-    ZIndex="10"
-    StrokeThickness="0.5"
-    Stroke="{m:Brush 'Gray,Swatch300'}"
-    Background="{m:Brush 'Gray,Swatch50'}"
-    m:Has.States="{StaticResource MenuStates}">
+    Style="{StaticResource AppMenuBorderStyle}">
 
     <Grid RowDefinitions="Auto,*, Auto">
 
@@ -38,18 +34,12 @@
                         Tablet=False},
                     MacCatalyst=False}}}"/>
 
-        <Grid
-            Grid.Row="1"
-            RowDefinitions="Auto,Auto"
-            m:Has.States="{m:States
-                OnXs={m:Set Margin='0'},
-                OnMd={m:Set Margin={OnPlatform Default='0', MacCatalyst='0, 40, 0, 0'}}}">
-
+        <Grid Style="{StaticResource AppMenuFirstElementStyle}">
             <l:MenuIndicator x:Name="Indicator" />
 
             <StackLayout
                 x:Name="MenuStackLayout"
-                m:Has.States="{StaticResource MenuStackStates}">
+                Style="{StaticResource MenuStackStyle}">
 
                 <l:MenuItem Display="Colors"        Route="Brushes"     Icon="Personalize"/>
                 <l:MenuItem Display="Forms"         Route="Forms"       Icon="ActionCenterNotification"/>
@@ -61,10 +51,7 @@
         </Grid>
 
         <VerticalStackLayout
-            Grid.Row="2"
-            m:Has.States="{m:States
-                OnXs={m:Set Visible=False},
-                OnMd={m:Set Visible={OnIdiom Default=True, Phone=False, Tablet=False}}}">
+            Style="{StaticResource AppMenuSecondElemenetStyle}">
 
             <l:MenuItem Display="Profile"   Icon="ContactInfo"  Tapped="ActivateItem"/>
             <l:MenuItem Display="Settings"  Icon="Settings"     Tapped="ActivateItem"/>
