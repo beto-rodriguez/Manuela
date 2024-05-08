@@ -77,6 +77,25 @@ public class AppRoutes
     }
 
     /// <summary>
+    /// Adds a route to the app, this route will not be visible in the menu, but is accessible through the navigation stack.
+    /// </summary>
+    /// <typeparam name="T">The type of the route.</typeparam>
+    /// <param name="icon">The icon.</param>
+    /// <param name="displayName">The dipslay name, if null the name of the type will be used.</param>
+    /// <param name="routeName">The route name, if null the name of the type will be used.</param>
+    /// <param name="isSingleton">Indicates wether the view is a singleton.</param>
+    public AppRoutes AddHidden<T>(
+        string? routeName = null,
+        bool isSingleton = false)
+            where T : ContentView
+    {
+        var defaultName = typeof(T).Name;
+        AllRoutes.Add(new Route<T>(routeName ?? defaultName, isSingleton));
+
+        return s_instance;
+    }
+
+    /// <summary>
     /// Adds a collection of routes to the more options menu, this menu is collapsed and expanded when
     /// the user clicks on the more options button.
     /// </summary>

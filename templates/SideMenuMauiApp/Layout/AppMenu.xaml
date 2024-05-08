@@ -37,15 +37,9 @@
                     </BoxView>
                 </AbsoluteLayout>
 
-                <VerticalStackLayout x:Name="MenuItemsContainer">
-                    <BindableLayout.ItemsSource>
-                        <x:Array Type="{x:Type layout:MenuItemModel}" >
-                            <layout:MenuItemModel DisplayName="Main" Route="MainView" Icon="Home"/>
-                            <layout:MenuItemModel DisplayName="Another" Route="AnotherView" Icon="Bookmark"/>
-                            <layout:MenuItemModel DisplayName="Settings" Route="Settings" Icon="Settings"/>
-                        </x:Array>
-                    </BindableLayout.ItemsSource>
-
+                <VerticalStackLayout
+                    x:Name="MenuItemsContainer"
+                    BindableLayout.ItemsSource="{Static layout:AppRoutes.MainMenu}">
                     <!--
                         The Router.Link property, defines the route where the app navigates to when the item is clicked.
                         In this case, the app navigates to the MainView route.
@@ -54,16 +48,16 @@
                     -->
 
                     <BindableLayout.ItemTemplate>
-                        <DataTemplate x:DataType="{x:Type layout:MenuItemModel}">
+                        <DataTemplate x:DataType="{x:Type layout:IMenuItem}">
                             <HorizontalStackLayout
                                 Spacing="15"
                                 Padding="20, 10"
                                 HeightRequest="50"
-                                m:Router.Link="{Binding Route}"
+                                m:Router.Link="{Binding RouteName}"
                                 m:Has.States="{m:States Hovered={m:Set Background='Gray,Swatch400,Opacity10'}}">
 
                                 <mi:MauiIcon Icon="{Binding Icon}" IconSize="20" VerticalOptions="Center"/>
-                                <Label Text="{Binding DisplayName}" VerticalOptions="Center"/>
+                                <Label Text="{Binding Display}" VerticalOptions="Center"/>
 
                                 <HorizontalStackLayout.GestureRecognizers>
                                     <TapGestureRecognizer Tapped="OnItemTapped"/>

@@ -46,7 +46,11 @@ public static class MauiProgram
                             SegoeFluentIcons.ContactInfo, "My profile", styleClass: ["mobile-and-small-visible"])
                         .Add<SettingsView>(
                             SegoeFluentIcons.Settings, "Settings", styleClass: ["mobile-and-small-visible"])
-                    )));
+                    )
+
+                    // Hidden routes are not visible in the app menu, but are accessible by navigating to the route.
+                    // .AddHidden<AnotherView>()
+                    ));
 
 #if DEBUG
         builder.Logging.AddDebug();

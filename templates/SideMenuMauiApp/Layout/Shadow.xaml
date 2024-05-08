@@ -8,7 +8,7 @@
     IsVisible="False"
     AbsoluteLayout.LayoutBounds="0,0,1,1"
     AbsoluteLayout.LayoutFlags="WidthProportional,HeightProportional"
-    m:Has.States="{m:States Default={m:Set Background='Gray,Swatch950,Opacity30'}}">
+    m:Has.States="{m:States Default={m:Set Background='Gray,Swatch950,Opacity35'}}">
     
     <Border.GestureRecognizers>
         <TapGestureRecognizer Tapped="OnShadowTapped"/>

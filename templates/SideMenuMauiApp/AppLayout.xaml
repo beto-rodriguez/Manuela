@@ -26,7 +26,7 @@
             AbsoluteLayout.LayoutFlags="WidthProportional,HeightProportional"
             m:Has.Transitions="{m:Transitions Padding}"
             m:Has.States="{m:States
-                Default=    {m:Set Background='Gray,Swatch100', BorderThickness=0},
+                Default=    {m:Set Background='Gray,Swatch50', BorderThickness=0},
                 OnSm=       {x:StaticResource BodyExpandedStyle},
                 OnLg=       {x:StaticResource BodyContractedStyle}}">
 

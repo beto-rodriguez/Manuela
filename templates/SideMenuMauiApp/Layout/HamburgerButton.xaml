@@ -10,7 +10,7 @@
     HorizontalOptions="Start"
     m:Has.Transitions="{m:Transitions Scale}"
     m:Has.States="{m:States
-        Default={m:Set Scale=1, Background='Gray,Opacity0'},
+        Default={m:Set Scale=1, Background='Gray,Swatch50'},
         Pressed={m:Set Scale=0.8}}">
     
     <Border.GestureRecognizers>
