@@ -56,6 +56,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Images\appmenuicon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
     <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
@@ -64,21 +68,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Manuela\Manuela.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <MauiXaml Update="Resources\Styles\Modals.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </MauiXaml>
-    <MauiXaml Update="Resources\Styles\Styles.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </MauiXaml>
-    <MauiXaml Update="Resources\Styles\Layout.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </MauiXaml>
-    <MauiXaml Update="Resources\Styles\Forms.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </MauiXaml>
   </ItemGroup>
 
 </Project>

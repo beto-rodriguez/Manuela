@@ -16,6 +16,17 @@
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
     <TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+
+    <AssemblyName>Manuela</AssemblyName>
+    <RootNamespace>Manuela</RootNamespace>
+    <Version>0.1</Version>
+    <PackageIcon>icon.png</PackageIcon>
+    <Description>A simple and flexible carousel.</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Authors>BetoRodriguez</Authors>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <RepositoryUrl>https://github.com/beto-rodriguez/Manuela</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,15 +37,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Dialogs\DefaultDialog.xaml.cs">
-      <DependentUpon>%(Filename)</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <MauiXaml Update="Dialogs\DefaultDialog.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </MauiXaml>
+    <None Include="icon.png" Pack="true" PackagePath="\" />
   </ItemGroup>
 
 </Project>

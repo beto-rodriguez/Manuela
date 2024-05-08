@@ -57,6 +57,7 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\Fonts\JetBrainsMono-VariableFont_wght.ttf" />
+	  <None Remove="Resources\Images\appmenuicon.png" />
 	</ItemGroup>
 
 	<ItemGroup>

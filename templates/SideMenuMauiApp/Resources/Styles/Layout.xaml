@@ -13,7 +13,7 @@
     <Style x:Key="AppBodyStyle" TargetType="Border">
         <Setter Property="AbsoluteLayout.LayoutBounds" Value="0,0,1,1"/>
         <Setter Property="AbsoluteLayout.LayoutFlags" Value="SizeProportional"/>
-        <Setter Property="m:Has.Transitions" Value="Padding"/>
+        <Setter Property="m:Has.Transitions" Value="{m:Transitions Padding}"/>
         <Setter
             Property="m:Has.States"
             Value="{m:States

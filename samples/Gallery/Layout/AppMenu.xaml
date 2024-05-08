@@ -20,19 +20,16 @@
             the app image is not shown on Mac Catalyst, so it looks more... mac-like
             also not visible on phones or tablets, because the menu is at the bottom of the screen.
         -->
-        
-        <Image
-            Grid.Row="0"
-            Source="appmenuicon.png"
-            Margin="15, 9"
+
+        <Border
+            Padding="5"
+            StrokeThickness="0"
             m:Has.States="{m:States
                 OnXs={m:Set Visible=False},
-                OnMd={m:Set Visible={OnPlatform
-                    Default={OnIdiom
-                        Default=True,
-                        Phone=False,
-                        Tablet=False},
-                    MacCatalyst=False}}}"/>
+                OnMd={m:Set Visible={OnPlatform Default=True,MacCatalyst=False}},
+                ForceXsOnIdiom='Phone,Tablet'}">
+            <Image Source="appmenuicon.png" MaximumHeightRequest="42.5"/>
+        </Border>
 
         <Grid Style="{StaticResource AppMenuFirstElementStyle}">
             <l:MenuIndicator x:Name="Indicator" />

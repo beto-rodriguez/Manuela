@@ -47,7 +47,6 @@
                         </l:MenuTemplateSelector.Collapsed>
                     </l:MenuTemplateSelector>
                 </BindableLayout.ItemTemplateSelector>
-
             </StackLayout>
         </Grid>
 

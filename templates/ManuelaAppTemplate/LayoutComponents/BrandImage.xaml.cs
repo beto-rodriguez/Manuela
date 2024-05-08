@@ -1,6 +1,6 @@
 namespace ManuelaAppTemplate.LayoutComponents;
 
-public partial class BrandImage : Image
+public partial class BrandImage : Border
 {
     public BrandImage()
     {

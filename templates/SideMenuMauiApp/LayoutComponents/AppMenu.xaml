@@ -9,14 +9,17 @@
     Style="{StaticResource AppMenuStyle}">
 
     <Grid RowDefinitions="Auto,*">
-        <Border Grid.Row="0" StrokeThickness="0" Padding="0, 20">
-            <Image
-                Source="manuela.png"
-                Margin="20, 0, 0, 0"
-                HorizontalOptions="Start"
-                MaximumHeightRequest="30"/>
-        </Border>
-
+        <HorizontalStackLayout Spacing="20">
+            <Border Grid.Row="0" StrokeThickness="0" Padding="0, 10">
+                <Image
+                    Source="appmenuicon.png"
+                    Margin="15, 0, 0, 0"
+                    HorizontalOptions="Start"
+                    MaximumHeightRequest="40"/>
+            </Border>
+            <Label Text="Manuela App" FontSize="{m:Size Xxl}" TextColor="{m:Color Primary}" VerticalOptions="Center"/>
+        </HorizontalStackLayout>
+        
         <ScrollView Grid.Row="1" Padding="0, 10, 0, 0">
             <Grid>
 
