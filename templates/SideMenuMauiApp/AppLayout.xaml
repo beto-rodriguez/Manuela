@@ -22,27 +22,19 @@
         <!-- body -->
         <Border
             x:Name="BodyElement"
-            AbsoluteLayout.LayoutBounds="0,0,1,1"
-            AbsoluteLayout.LayoutFlags="WidthProportional,HeightProportional"
-            m:Has.Transitions="{m:Transitions Padding}"
-            m:Has.States="{m:States
-                Default=    {m:Set Background='Gray,Swatch50', BorderThickness=0},
-                OnSm=       {x:StaticResource BodyExpandedStyle},
-                OnLg=       {x:StaticResource BodyContractedStyle}}">
+            Style="{StaticResource AppBodyStyle}">
 
             <VerticalStackLayout>
                 <layout:HamburgerButton Tapped="ToggleMenu" />
 
                 <!-- The app body is the element that changes depending on the app route -->
-                <m:AppBody>
+                <m:AppBody Padding="15, 5">
 
                     <!-- we can specify the view where the app starts, in this case, the MainView -->
                     <appViews:MainView/>
 
                 </m:AppBody>
-
             </VerticalStackLayout>
         </Border>
-
     </AbsoluteLayout>
 </m:AppPage>

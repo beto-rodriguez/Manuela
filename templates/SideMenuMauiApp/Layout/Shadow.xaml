@@ -4,11 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:m="clr-namespace:Manuela;assembly=Manuela"
     x:Class="SideMenuMauiApp.Layout.Shadow"
-    ZIndex="9"
-    IsVisible="False"
-    AbsoluteLayout.LayoutBounds="0,0,1,1"
-    AbsoluteLayout.LayoutFlags="WidthProportional,HeightProportional"
-    m:Has.States="{m:States Default={m:Set Background='Gray,Swatch950,Opacity35'}}">
+    Style="{StaticResource AppMenuShadowStyle}">
     
     <Border.GestureRecognizers>
         <TapGestureRecognizer Tapped="OnShadowTapped"/>

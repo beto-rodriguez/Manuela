@@ -9,14 +9,9 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
-                <ResourceDictionary>
-                    <m:Set x:Key="MenuClosedStyle" TranslateX="-300" />
-                    <m:Set x:Key="MenuOpenedStyle" TranslateX="0"/>
-                    <m:Set x:Key="BodyExpandedStyle" Padding="0"/>
-                    <m:Set x:Key="BodyContractedStyle" Padding="300,0,0,0"/>
-                </ResourceDictionary>
+                <ResourceDictionary Source="Resources/Styles/Layout.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Forms.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

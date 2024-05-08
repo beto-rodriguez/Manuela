@@ -4,14 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:m="clr-namespace:Manuela;assembly=Manuela"
     x:Class="SideMenuMauiApp.Layout.HamburgerButton"
-    Padding="20"
-    StrokeThickness="0"
-    VerticalOptions="Start"
-    HorizontalOptions="Start"
-    m:Has.Transitions="{m:Transitions Scale}"
-    m:Has.States="{m:States
-        Default={m:Set Scale=1, Background='Gray,Swatch50'},
-        Pressed={m:Set Scale=0.8}}">
+    Style="{StaticResource HamburgetButtonStyle}">
     
     <Border.GestureRecognizers>
         <TapGestureRecognizer Tapped="OnTapped" />

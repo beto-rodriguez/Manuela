@@ -26,7 +26,6 @@
                 <v:HomeView/>
 
             </m:AppBody>
-
         </ScrollView>
     </AbsoluteLayout>
 </m:AppPage>

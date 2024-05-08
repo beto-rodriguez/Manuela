@@ -6,14 +6,7 @@
     xmlns:layout="clr-namespace:SideMenuMauiApp.Layout"
     xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons"
     x:Class="SideMenuMauiApp.Layout.AppMenu"
-    ZIndex="10"
-    AbsoluteLayout.LayoutBounds="0,0,300,1"
-    AbsoluteLayout.LayoutFlags="HeightProportional"
-    m:Has.Transitions="{m:Transitions TranslateX}"
-    m:Has.States="{m:States
-        Default={m:Set Background='Gray,Swatch200', BorderThickness=0},
-        OnSm=   {x:StaticResource MenuClosedStyle},
-        OnLg=   {x:StaticResource MenuOpenedStyle}}">
+    Style="{StaticResource AppMenuStyle}">
 
     <Grid RowDefinitions="Auto,*">
         <Border Grid.Row="0" StrokeThickness="0" Padding="0, 20">
@@ -30,16 +23,14 @@
                 <AbsoluteLayout>
                     <BoxView
                         x:Name="SelectedIndicator"
-                        m:Has.Transitions="{m:Transitions
-                            AbsoluteLayoutBounds={m:TD Easing={x:Static Easing.SpringOut}, Duration=600}}"
-                        m:Has.States="{m:States
-                            Default={m:Set Background='Primary,Opacity10', Height=50, Width=300}}">
+                        Style="{StaticResource IndicatorStyle}">
                     </BoxView>
                 </AbsoluteLayout>
 
                 <VerticalStackLayout
                     x:Name="MenuItemsContainer"
                     BindableLayout.ItemsSource="{Static layout:AppRoutes.MainMenu}">
+
                     <!--
                         The Router.Link property, defines the route where the app navigates to when the item is clicked.
                         In this case, the app navigates to the MainView route.

@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:m="clr-namespace:Manuela;assembly=Manuela">
+
+    <m:Set x:Key="MenuClosedStyle" TranslateX="-300" />
+    <m:Set x:Key="MenuOpenedStyle" TranslateX="0"/>
+    <m:Set x:Key="BodyExpandedStyle" Padding="0"/>
+    <m:Set x:Key="BodyContractedStyle" Padding="300,0,0,0"/>
+
+    <Style x:Key="AppBodyStyle" TargetType="Border">
+        <Setter Property="AbsoluteLayout.LayoutBounds" Value="0,0,1,1"/>
+        <Setter Property="AbsoluteLayout.LayoutFlags" Value="SizeProportional"/>
+        <Setter Property="m:Has.Transitions" Value="Padding"/>
+        <Setter
+            Property="m:Has.States"
+            Value="{m:States
+                Default=    {m:Set Background='Gray,Swatch50', BorderThickness=0},
+                OnSm=       {StaticResource BodyExpandedStyle},
+                OnLg=       {StaticResource BodyContractedStyle}}"/>
+    </Style>
+
+    <Style x:Key="AppMenuStyle" TargetType="Border">
+        <Setter Property="ZIndex" Value="10"/>
+        <Setter Property="AbsoluteLayout.LayoutBounds" Value="0,0,300,1"/>
+        <Setter Property="AbsoluteLayout.LayoutFlags" Value="HeightProportional"/>
+        <Setter Property="m:Has.Transitions" Value="{m:Transitions TranslateX}"/>
+        <Setter
+            Property="m:Has.States"
+            Value="{m:States
+                Default=    {m:Set Background='Gray,Swatch200', BorderThickness=0},
+                OnSm=       {StaticResource MenuClosedStyle},
+                OnLg=       {StaticResource MenuOpenedStyle}}"/>
+    </Style>
+
+    <Style x:Key="AppMenuShadowStyle" TargetType="Border">
+        <Setter Property="ZIndex" Value="9"/>
+        <Setter Property="IsVisible" Value="False"/>
+        <Setter Property="AbsoluteLayout.LayoutBounds" Value="0,0,1,1"/>
+        <Setter Property="AbsoluteLayout.LayoutFlags" Value="WidthProportional,HeightProportional"/>
+        <Setter Property="Background" Value="{m:Brush 'Gray,Swatch950,Opacity35'}"/>
+    </Style>
+
+    <Style x:Key="IndicatorStyle" TargetType="BoxView">
+        <Setter Property="Background" Value="{m:Brush 'Primary,Opacity10'}"/>
+        <Setter Property="HeightRequest" Value="50"/>
+        <Setter Property="WidthRequest" Value="300"/>
+        <Setter
+            Property="m:Has.Transitions"
+            Value="{m:Transitions
+                AbsoluteLayoutBounds={m:TransitionDefinition
+                    Easing={Static Easing.SpringOut},
+                    Duration=600}}"/>
+    </Style>
+
+    <Style x:Key="HamburgetButtonStyle" TargetType="Border">
+        <Setter Property="Padding" Value="20"/>
+        <Setter Property="StrokeThickness" Value="0"/>
+        <Setter Property="VerticalOptions" Value="Start"/>
+        <Setter Property="HorizontalOptions" Value="Start"/>
+        <Setter Property="BackgroundColor" Value="{m:Color 'Gray,Swatch50'}"/>
+        <Setter Property="m:Has.Transitions" Value="{m:Transitions Scale}"/>
+        <Setter
+            Property="m:Has.States"
+            Value="{m:States
+                Default=    {m:Set Scale=1},
+                Pressed=    {m:Set Scale=0.8}}"/>
+    </Style>
+    
+</ResourceDictionary>
