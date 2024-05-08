@@ -5,41 +5,51 @@
     xmlns:m="clr-namespace:Manuela;assembly=Manuela"
     xmlns:v="clr-namespace:EmptyApp.Views"
     x:Class="EmptyApp.AppLayout">
+    <!--
+        The absolute layout as first child, is a requirement for to show modals
+        if you dont need them, feel free to remove this element.
+    -->
+    <AbsoluteLayout>
+        <Grid
+            RowDefinitions="64, *"
+            BackgroundColor="{m:Color 'Gray,Swatch50'}"
+            AbsoluteLayout.LayoutFlags="SizeProportional"
+            AbsoluteLayout.LayoutBounds="0,0,1,1">
+            <Border
+                Stroke="{m:Brush 'Gray,Swatch200'}"
+                BackgroundColor="{m:Color 'Gray,Swatch100'}"
+                StrokeThickness="0.25"
+                Margin="-1,-2,-1,0"
+                Padding="8">
+                <HorizontalStackLayout
+                    x:Name="NavButtons"
+                    Grid.Row="0"
+                    HorizontalOptions="Start">
 
-    <Grid RowDefinitions="64, *" BackgroundColor="{m:Color 'Gray,Swatch50'}">
+                    <!--
+                        The Router.Link property, defines the route where the app navigates to when the item is clicked.
+                        The MainView route must be defined in the MauiProgram.cs file.
+                    -->
 
-        <!--
-            The Router.Link property, defines the route where the app navigates to when the item is clicked.
-            The MainView route must be defined in the MauiProgram.cs file.
-        -->
+                    <Button
+                        Text="Go Home"
+                        TextColor="{m:Color Primary}"
+                        BackgroundColor="{m:Color 'Gray,Swatch100'}"
+                        m:Router.Link="Home"/>
 
-        <Border
-            Stroke="{m:Brush 'Gray,Swatch200'}"
-            BackgroundColor="{m:Color 'Gray,Swatch100'}"
-            Padding="8">
-            <HorizontalStackLayout
-                x:Name="NavButtons"
-                Grid.Row="0"
-                HorizontalOptions="Start">
+                    <Button
+                        Text="Go Second"
+                        TextColor="{m:Color Primary}"
+                        BackgroundColor="{m:Color 'Gray,Swatch100'}"
+                        m:Router.Link="Second"/>
 
-                <Button
-                    Text="Go Home"
-                    TextColor="{m:Color Primary}"
-                    BackgroundColor="{m:Color 'Gray,Swatch100'}"
-                    m:Router.Link="Home"/>
+                </HorizontalStackLayout>
+            </Border>
 
-                <Button
-                    Text="Go Second"
-                    TextColor="{m:Color Primary}"
-                    BackgroundColor="{m:Color 'Gray,Swatch100'}"
-                    m:Router.Link="Second"/>
-
-            </HorizontalStackLayout>
-        </Border>
-
-        <!-- we can specify the view where the app starts, in this case, the MainView -->
-        <m:AppBody Padding="25" Grid.Row="1">
-            <v:Home/>
-        </m:AppBody>
-    </Grid>
+            <!-- we can specify the view where the app starts, in this case, the MainView -->
+            <m:AppBody Padding="25" Grid.Row="1">
+                <v:Home/>
+            </m:AppBody>
+        </Grid>
+    </AbsoluteLayout>
 </m:AppPage>

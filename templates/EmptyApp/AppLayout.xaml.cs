@@ -29,9 +29,9 @@ public partial class AppLayout : AppPage
             ? Theme.Current.LightColors
             : Theme.Current.DarkColors;
 
-        var color = colorSet.Colors[UIBrush.Gray | UIBrush.Swatch100];
-
-        ManuelaWindow.SetWindowColors(color, color);
+        ManuelaWindow.SetWindowColors(
+            colorSet.Colors[UIBrush.Gray | UIBrush.Swatch100],
+            colorSet.Colors[UIBrush.Gray | UIBrush.Swatch50]);
     }
 
     private void UpdatePointerPassthroughRegion()

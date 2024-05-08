@@ -136,6 +136,9 @@
     <MauiXaml Update="AppViews\SettingsView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
+    <MauiXaml Update="Resources\Styles\Modals.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
   </ItemGroup>
 
 </Project>

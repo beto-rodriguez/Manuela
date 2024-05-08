@@ -10,7 +10,8 @@
             FontSize="{m:Size Huge}"
             TextColor="{m:Color Secondary}"
             Margin="{m:Spacing Bottom=Huge}"/>
-        <Label
-            Text="Add content here...."/>
+        <Button
+            Text="Show Modal"
+            Clicked="Button_Clicked"/>
     </VerticalStackLayout>
 </ContentView>
