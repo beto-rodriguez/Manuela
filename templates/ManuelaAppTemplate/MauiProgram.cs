@@ -1,5 +1,5 @@
 ﻿using Manuela;
-using ManuelaAppTemplate.AppLayout;
+using ManuelaAppTemplate.LayoutComponents;
 using ManuelaAppTemplate.AppViews;
 using MauiIcons.SegoeFluent;
 using Microsoft.Extensions.Logging;

@@ -1,0 +1,212 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:m="clr-namespace:Manuela;assembly=Manuela"
+    xmlns:f="clr-namespace:Manuela.Forms;assembly=Manuela">
+
+    <Style TargetType="f:TextInput">
+        <Setter Property="BackgroundColor" Value="{m:Color 'Gray,Swatch200'}"/>
+        <Setter Property="HighlightColor" Value="{m:Color 'Primary,Swatch700'}"/>
+        <Setter Property="HighlightBorderHeight" Value="3"/>
+        <Setter Property="PlaceholderColor" Value="{m:Color 'Gray,Swatch700'}"/>
+        <Setter Property="InputMinimumHeightRequest" Value="48"/>
+        <Setter Property="Margin" Value="0, 5"/>
+        <Setter Property="StrokeThickness" Value="0"/>
+        <Setter Property="StrokeShape">
+            <Setter.Value>
+                <RoundRectangle CornerRadius="{m:Size Xl}"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="f:TextAreaInput">
+        <Setter Property="BackgroundColor" Value="{m:Color 'Gray,Swatch200'}"/>
+        <Setter Property="HighlightColor" Value="{m:Color 'Primary,Swatch700'}"/>
+        <Setter Property="HighlightBorderHeight" Value="3"/>
+        <Setter Property="PlaceholderColor" Value="{m:Color 'Gray,Swatch700'}"/>
+        <Setter Property="InputMinimumHeightRequest" Value="150"/>
+        <Setter Property="Margin" Value="0, 5"/>
+        <Setter Property="StrokeThickness" Value="0"/>
+        <Setter Property="StrokeShape">
+            <Setter.Value>
+                <RoundRectangle CornerRadius="{m:Size Xl}"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="f:PickerInput">
+        <Setter Property="BackgroundColor" Value="{m:Color 'Gray,Swatch200'}"/>
+        <Setter Property="HighlightColor" Value="{m:Color 'Primary,Swatch700'}"/>
+        <Setter Property="HighlightBorderHeight" Value="3"/>
+        <Setter Property="PlaceholderColor" Value="{m:Color 'Gray,Swatch700'}"/>
+        <Setter Property="InputMinimumHeightRequest" Value="48"/>
+        <Setter Property="Margin" Value="0, 5"/>
+        <Setter Property="StrokeThickness" Value="0"/>
+        <Setter Property="StrokeShape">
+            <Setter.Value>
+                <RoundRectangle CornerRadius="{m:Size Xl}"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="f:DatePickerInput">
+        <Setter Property="BackgroundColor" Value="{m:Color 'Gray,Swatch200'}"/>
+        <Setter Property="HighlightColor" Value="{m:Color 'Primary,Swatch700'}"/>
+        <Setter Property="HighlightBorderHeight" Value="3"/>
+        <Setter Property="PlaceholderColor" Value="{m:Color 'Gray,Swatch700'}"/>
+        <Setter Property="InputMinimumHeightRequest" Value="48"/>
+        <Setter Property="Margin" Value="0, 5"/>
+        <Setter Property="StrokeThickness" Value="0"/>
+        <Setter Property="StrokeShape">
+            <Setter.Value>
+                <RoundRectangle CornerRadius="{m:Size Xl}"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="f:CheckBoxInput" >
+        <Setter Property="Margin" Value="0,5"/>
+        <Setter Property="Spacing" Value="8"/>
+    </Style>
+
+    <Style TargetType="AbsoluteLayout" Class="checkbox-layout">
+        <Setter Property="HeightRequest" Value="24"/>
+        <Setter Property="WidthRequest" Value="24"/>
+    </Style>
+
+    <Style TargetType="Border" Class="checkbox-checkmark">
+        <Setter Property="Margin" Value="{OnPlatform Default='2,1,0,0', WinUI='0'}"/>
+        <Setter Property="StrokeThickness" Value="3"/>
+        <Setter Property="Stroke" Value="{m:Color 'Gray,Swatch50'}"/>
+    </Style>
+
+    <Style TargetType="Border" Class="checkbox-active-background">
+        <Setter Property="BackgroundColor" Value="{m:Color Primary}"/>
+        <Setter Property="StrokeThickness" Value="0"/>
+        <Setter Property="StrokeShape">
+            <Setter.Value>
+                <RoundRectangle CornerRadius="{m:Size Lg}"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="Border" Class="checkbox-inactive-background">
+        <Setter Property="BackgroundColor" Value="{m:Color 'Gray,Swatch200'}"/>
+        <Setter Property="StrokeThickness" Value="0"/>
+        <Setter Property="StrokeShape">
+            <Setter.Value>
+                <RoundRectangle CornerRadius="{m:Size Lg}"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="f:RadioButtonInput" >
+        <Setter Property="HighlightBrush" Value="{m:Brush Primary}" />
+        <Setter Property="InactiveBrush" Value="{m:Brush 'Gray,Swatch200'}" />
+        <Setter Property="Margin" Value="0,5"/>
+        <Setter Property="ControlTemplate">
+            <Setter.Value>
+                <ControlTemplate>
+                    <HorizontalStackLayout Spacing="10">
+
+                        <AbsoluteLayout
+                            HeightRequest="24"
+                            WidthRequest="24">
+
+                            <Border
+                                x:Name="background"
+                                Stroke="{m:Brush 'Gray,Swatch300'}"
+                                StrokeThickness="0"
+                                BackgroundColor="{m:Color 'Gray,Swatch200'}"
+                                AbsoluteLayout.LayoutFlags="SizeProportional"
+                                AbsoluteLayout.LayoutBounds="0,0,1,1">
+
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="{m:Size Lg}" />
+                                </Border.StrokeShape>
+
+                            </Border>
+
+                            <Ellipse
+                                x:Name="check"
+                                Fill="{m:Brush 'Gray,Swatch50'}"
+                                WidthRequest="12"
+                                HeightRequest="12"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                Opacity="1"
+                                AbsoluteLayout.LayoutFlags="PositionProportional"
+                                AbsoluteLayout.LayoutBounds="0.5,0.5"/>
+                        </AbsoluteLayout>
+
+                        <ContentPresenter VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="f:InputGroup">
+        <Setter Property="BackgroundColor" Value="{m:Color 'Gray,Swatch200'}"/>
+        <Setter Property="MinimumHeightRequest" Value="48"/>
+        <Setter Property="Margin" Value="0, 5"/>
+        <Setter Property="StrokeShape">
+            <Setter.Value>
+                <RoundRectangle CornerRadius="{m:Size Xl}"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="Label" Class="validation-message">
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="Margin" Value="14,5"/>
+        <Setter Property="TextColor" Value="{m:Color Tertiary}"/>
+        <Setter Property="BackgroundColor" Value="{m:Color 'Tertiary,Swatch100'}"/>
+    </Style>
+
+    <!--
+    the empty "input-valid" tags are a workaround for:
+    https://github.com/dotnet/maui/issues/20907
+
+    you could also add setters inside the empty tags if required.
+    -->
+    <Style TargetType="f:TextInput" Class="input-valid"/>
+    <Style TargetType="f:DatePickerInput" Class="input-valid"/>
+    <Style TargetType="f:PickerInput" Class="input-valid"/>
+    <Style TargetType="f:TextAreaInput" Class="input-valid"/>
+
+    <Style TargetType="f:TextInput" Class="input-invalid">
+        <Setter Property="PlaceholderColor" Value="{m:Color 'Tertiary,Swatch700'}"/>
+        <Setter Property="BackgroundColor" Value="{m:Color 'Tertiary,Swatch100'}"/>
+        <Setter Property="StrokeThickness" Value="2"/>
+        <Setter Property="Stroke" Value="{m:Color Tertiary}"/>
+        <Setter Property="HighlightColor" Value="{m:Color Tertiary}"/>
+    </Style>
+
+    <Style TargetType="f:DatePickerInput" Class="input-invalid">
+        <Setter Property="PlaceholderColor" Value="{m:Color 'Tertiary,Swatch700'}"/>
+        <Setter Property="BackgroundColor" Value="{m:Color 'Tertiary,Swatch100'}"/>
+        <Setter Property="StrokeThickness" Value="2"/>
+        <Setter Property="Stroke" Value="{m:Color Tertiary}"/>
+        <Setter Property="HighlightColor" Value="{m:Color Tertiary}"/>
+    </Style>
+
+    <Style TargetType="f:PickerInput" Class="input-invalid">
+        <Setter Property="PlaceholderColor" Value="{m:Color 'Tertiary,Swatch700'}"/>
+        <Setter Property="BackgroundColor" Value="{m:Color 'Tertiary,Swatch100'}"/>
+        <Setter Property="StrokeThickness" Value="2"/>
+        <Setter Property="Stroke" Value="{m:Color Tertiary}"/>
+        <Setter Property="HighlightColor" Value="{m:Color Tertiary}"/>
+    </Style>
+
+    <Style TargetType="f:TextAreaInput" Class="input-invalid">
+        <Setter Property="PlaceholderColor" Value="{m:Color 'Tertiary,Swatch700'}"/>
+        <Setter Property="BackgroundColor" Value="{m:Color 'Tertiary,Swatch100'}"/>
+        <Setter Property="StrokeThickness" Value="2"/>
+        <Setter Property="Stroke" Value="{m:Color Tertiary}"/>
+        <Setter Property="HighlightColor" Value="{m:Color Tertiary}"/>
+    </Style>
+
+</ResourceDictionary>

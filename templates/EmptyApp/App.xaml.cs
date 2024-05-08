@@ -1,4 +1,4 @@
-﻿namespace ManuelaAppTemplate;
+﻿namespace EmptyApp;
 
 public partial class App : Application
 {

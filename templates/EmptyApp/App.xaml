@@ -1,19 +1,14 @@
 ﻿<?xml version = "1.0" encoding = "UTF-8" ?>
 <Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:m="clr-namespace:Manuela;assembly=Manuela"
-             xmlns:layout="clr-namespace:SideMenuMauiApp.LayoutComponents"
-             xmlns:appViews="clr-namespace:SideMenuMauiApp.Views"
-             x:Class="SideMenuMauiApp.App">
-
+             xmlns:local="clr-namespace:EmptyApp"
+             x:Class="EmptyApp.App">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
-                <ResourceDictionary Source="Resources/Styles/Layout.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Forms.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
-
 </Application>

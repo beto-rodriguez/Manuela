@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Border
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:m="clr-namespace:Manuela;assembly=Manuela"
+    xmlns:layout="clr-namespace:SideMenuMauiApp.LayoutComponents"
+    xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons"
+    x:Class="SideMenuMauiApp.LayoutComponents.AppMenu"
+    Style="{StaticResource AppMenuStyle}">
+
+    <Grid RowDefinitions="Auto,*">
+        <Border Grid.Row="0" StrokeThickness="0" Padding="0, 20">
+            <Image
+                Source="manuela.png"
+                Margin="20, 0, 0, 0"
+                HorizontalOptions="Start"
+                MaximumHeightRequest="30"/>
+        </Border>
+
+        <ScrollView Grid.Row="1" Padding="0, 10, 0, 0">
+            <Grid>
+
+                <AbsoluteLayout>
+                    <BoxView
+                        x:Name="SelectedIndicator"
+                        Style="{StaticResource IndicatorStyle}">
+                    </BoxView>
+                </AbsoluteLayout>
+
+                <VerticalStackLayout
+                    x:Name="MenuItemsContainer"
+                    BindableLayout.ItemsSource="{Static layout:AppRoutes.MainMenu}">
+
+                    <!--
+                        The Router.Link property, defines the route where the app navigates to when the item is clicked.
+                        The MainView route must be defined in the MauiProgram.cs file.
+                    -->
+
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="{x:Type layout:IMenuItem}">
+                            <HorizontalStackLayout
+                                Spacing="15"
+                                Padding="20, 10"
+                                HeightRequest="50"
+                                m:Router.Link="{Binding RouteName}"
+                                m:Has.States="{m:States Hovered={m:Set Background='Gray,Swatch400,Opacity10'}}">
+
+                                <mi:MauiIcon Icon="{Binding Icon}" IconSize="20" VerticalOptions="Center"/>
+                                <Label Text="{Binding Display}" VerticalOptions="Center"/>
+
+                                <HorizontalStackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnItemTapped"/>
+                                </HorizontalStackLayout.GestureRecognizers>
+                            </HorizontalStackLayout>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </VerticalStackLayout>
+            </Grid>
+        </ScrollView>
+    </Grid>
+</Border>

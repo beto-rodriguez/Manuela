@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    the app image is not shown on Mac Catalyst, so it looks more... mac-like
+    also not visible on phones or tablets, because the menu is at the bottom of the screen.
+-->
+<Image
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:m="clr-namespace:Manuela;assembly=Manuela"
+    x:Class="ManuelaAppTemplate.LayoutComponents.BrandImage"
+    Grid.Row="0"
+    Source="appmenuicon.png"
+    Margin="15, 9"
+    m:Has.States="{m:States
+        OnXs={m:Set Visible=False},
+        OnMd={m:Set Visible={OnPlatform
+            Default={OnIdiom
+                Default=True,
+                Phone=False,
+                Tablet=False},
+            MacCatalyst=False}}}">
+</Image>
