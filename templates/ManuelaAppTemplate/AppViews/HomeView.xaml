@@ -3,17 +3,14 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:m="clr-namespace:Manuela;assembly=Manuela"
-    x:Class="ManuelaAppTemplate.AppViews.HomeView">
-    
+    x:Class="ManuelaAppTemplate.AppViews.HomeView">    
     <VerticalStackLayout>
-
         <Label
             Text="Home View"
             FontSize="{m:Size Huge}"
             TextColor="{m:Color Secondary}"
             Margin="{m:Spacing Bottom=Huge}"/>
-
-        <Label Text="Welcome to manuela, the productivity tool for Maui."/>
-
+        <Label
+            Text="Add content here...."/>
     </VerticalStackLayout>
 </ContentView>
