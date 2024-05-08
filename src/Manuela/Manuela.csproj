@@ -17,6 +17,7 @@
     <TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 
+    <!-- package info -->
     <AssemblyName>Manuela</AssemblyName>
     <RootNamespace>Manuela</RootNamespace>
     <Version>0.1</Version>
@@ -34,6 +35,7 @@
     <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
     <!-- to access InputNonClientPointerSource API -->
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.4.231115000" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" />
+    <PackageReference Include="Manuela.Generation" Version="0.1.0" />
   </ItemGroup>
 
   <ItemGroup>

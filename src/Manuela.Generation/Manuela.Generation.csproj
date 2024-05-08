@@ -8,6 +8,17 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
 
+    <!-- package info -->
+    <AssemblyName>Manuela.Generation</AssemblyName>
+    <RootNamespace>Manuela.Generation</RootNamespace>
+    <Version>0.1</Version>
+    <PackageIcon>icon.png</PackageIcon>
+    <Description>A simple and flexible carousel.</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Authors>BetoRodriguez</Authors>
+    <IncludeSymbols>true</IncludeSymbols>
+    <RepositoryUrl>https://github.com/beto-rodriguez/Manuela</RepositoryUrl>
+
     <!-- debug source generator things -->
     <IsRoslynComponent>true</IsRoslynComponent>
     <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
@@ -20,7 +31,14 @@
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" PrivateAssets="all" />
   </ItemGroup>
 
-  <!-- debug source generator things -->
+  <PropertyGroup>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="icon.png" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
   <ItemGroup>
     <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
   </ItemGroup>
