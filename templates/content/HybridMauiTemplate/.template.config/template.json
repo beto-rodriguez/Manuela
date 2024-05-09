@@ -1,0 +1,15 @@
+{
+    "$schema": "http://json.schemastore.org/template",
+    "author": "BetoRodriguez",
+    "classifications": [ "Maui", "Manuela" ],
+    "identity": "Manuela.Hybrid",
+    "name": "Manuela hybrid",
+    "description": "Maui Blazor hybrid template, with borderless windows using Manuela.",
+    "shortName": "mn-hybrid",
+    "sourceName":"HybridMauiTemplate",
+    "defaultName": "MauiApp",
+    "tags": {
+      "language": "C#",
+      "type": "project"
+    }
+  }

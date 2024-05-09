@@ -9,7 +9,7 @@ else {
         New-Item $nupkgOutputPath -ItemType "directory"
 }
 
-$projects = @("./src/Manuela/Manuela.csproj", "./src/Manuela.Generation/Manuela.Generation.csproj")
+$projects = @("./src/Manuela/Manuela.csproj", "./src/Manuela.Generation/Manuela.Generation.csproj", "./templates/Manuela.Templates.csproj")
 
 foreach ($project in $projects) {
     
@@ -21,7 +21,7 @@ foreach ($project in $projects) {
         Copy-Item $found.FullName $nupkgOutputPath
 
         $found = Get-ChildItem $folder -Filter "*.snupkg" -Recurse -Force
-        # because the source generator do not generrrates .snupkg
+        # because the source generator and temmplates do not generate .snupkg
         if (![string]::IsNullOrEmpty($found))
         {                
                 Copy-Item $found.FullName $nupkgOutputPath
