@@ -17,7 +17,8 @@
 
 .top-row {
     height: 3.5rem;
-    background-color: rgba(0,0,0,0.4);
+    /*background-color: rgba(0,0,0,0.4);*/
+    background: #3a0647;
 }
 
 .navbar-brand {

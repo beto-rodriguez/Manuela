@@ -12,7 +12,13 @@ public partial class MainPage : AppPage
 
     protected override void OnAppLoaded(object? sender, EventArgs e)
     {
+        SetStatusAndNavigationBarColors();
         UpdatePointerPassthroughRegion();
+    }
+
+    private static void SetStatusAndNavigationBarColors()
+    {
+        ManuelaWindow.SetWindowColors(Color.FromArgb("#3a0647"), Color.FromArgb("#ffffff"));
     }
 
     private void UpdatePointerPassthroughRegion()

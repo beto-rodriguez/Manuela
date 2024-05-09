@@ -1,6 +1,6 @@
 ﻿<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="">HybridMauiTemplate</a>
+        <a class="navbar-brand @platformClass" href="">HybridMauiTemplate</a>
     </div>
 </div>
 
@@ -25,3 +25,12 @@
         </div>
     </nav>
 </div>
+
+@code {
+    private string platformClass = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        platformClass = DeviceInfo.Platform.ToString().ToLowerInvariant();
+    }
+}

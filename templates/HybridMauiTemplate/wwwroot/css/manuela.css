@@ -12,13 +12,22 @@
     margin-left: 3.5rem;
 }
 
+    .navbar-brand.maccatalyst {
+        display: none;
+    }
+
 .top-row {
+    
     padding-left: 1.5rem !important;
     padding-right: 1.5rem !important;
 }
 
+.sidebar {
+    background: #3a0647;
+}
+
 @media(min-width: 641px) {
-    .top-row {
+    .top-row.winui {
         align-items: flex-end !important;
         padding-right: 1rem !important;
     }
