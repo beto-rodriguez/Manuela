@@ -20,7 +20,7 @@
     <!-- package info -->
     <AssemblyName>Manuela</AssemblyName>
     <RootNamespace>Manuela</RootNamespace>
-    <Version>0.1</Version>
+    <Version>0.1.1</Version>
     <PackageIcon>icon.png</PackageIcon>
     <Description>A simple and flexible carousel.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
