@@ -8,6 +8,11 @@
     left: 1rem;
 }
 
+.navbar-toggler.maccatalyst {
+    left: unset;
+    right: 1rem;
+}
+
 .navbar-brand {
     margin-left: 3.5rem;
 }
@@ -17,7 +22,6 @@
     }
 
 .top-row {
-    
     padding-left: 1.5rem !important;
     padding-right: 1.5rem !important;
 }
