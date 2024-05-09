@@ -25,7 +25,9 @@
             Style="{StaticResource AppBodyStyle}">
 
             <VerticalStackLayout>
-                <layout:HamburgerButton Tapped="ToggleMenu" />
+                <layout:HamburgerButton
+                    Tapped="ToggleMenu"
+                    Margin="{OnPlatform Default=0, MacCatalyst='0,20,0,0'}" />
 
                 <!-- The app body is the element that changes depending on the app route -->
                 <m:AppBody Padding="15, 5">

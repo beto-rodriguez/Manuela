@@ -9,7 +9,7 @@
     Style="{StaticResource AppMenuStyle}">
 
     <Grid RowDefinitions="Auto,*">
-        <HorizontalStackLayout Spacing="20">
+        <HorizontalStackLayout Spacing="20" IsVisible="{OnPlatform Default=True, MacCatalyst=False}">
             <Border Grid.Row="0" StrokeThickness="0" Padding="0, 10">
                 <Image
                     Source="appmenuicon.png"
@@ -19,8 +19,8 @@
             </Border>
             <Label Text="Manuela App" FontSize="{m:Size Xxl}" TextColor="{m:Color Primary}" VerticalOptions="Center"/>
         </HorizontalStackLayout>
-        
-        <ScrollView Grid.Row="1" Padding="0, 10, 0, 0">
+
+        <ScrollView Grid.Row="1" Padding="{OnPlatform Default='0, 10, 0, 0', MacCatalyst='0, 40, 0, 0'}">
             <Grid>
 
                 <AbsoluteLayout>

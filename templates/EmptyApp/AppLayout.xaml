@@ -11,7 +11,7 @@
     -->
     <AbsoluteLayout>
         <Grid
-            RowDefinitions="64, *"
+            RowDefinitions="{OnPlatform Default='64, *', MacCatalyst='94, *'}"
             BackgroundColor="{m:Color 'Gray,Swatch50'}"
             AbsoluteLayout.LayoutFlags="SizeProportional"
             AbsoluteLayout.LayoutBounds="0,0,1,1">
@@ -24,7 +24,8 @@
                 <HorizontalStackLayout
                     x:Name="NavButtons"
                     Grid.Row="0"
-                    HorizontalOptions="Start">
+                    HorizontalOptions="Start"
+                    Margin="{OnPlatform Default=0, MacCatalyst='0,25,0,0'}">
 
                     <!--
                         The Router.Link property, defines the route where the app navigates to when the item is clicked.

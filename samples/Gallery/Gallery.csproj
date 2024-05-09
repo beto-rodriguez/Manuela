@@ -69,7 +69,11 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\src\Manuela\Manuela.csproj" />
-      <ProjectReference Include="..\..\src\Manuela.Generation\Manuela.Generation.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+      <!--
+      this is now added as a reference to Manuela proj, if debugging the source generator is necessary
+      then remove the reference in Manuela.csproj to the Nuget package and uncomment this line
+      -->
+      <!--<ProjectReference Include="..\..\src\Manuela.Generation\Manuela.Generation.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />-->
 	</ItemGroup>
 
 	<ItemGroup>
