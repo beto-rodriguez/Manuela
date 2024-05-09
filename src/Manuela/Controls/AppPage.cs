@@ -22,6 +22,8 @@ public abstract class AppPage : ContentPage
         private set => s_current = value;
     }
 
+    public bool IsRoutingEnabled { get; set; } = true;
+
     public View? Body
     {
         set
@@ -73,7 +75,7 @@ public abstract class AppPage : ContentPage
     {
         TryGetAppBody(Content);
 
-        if (_appBodyElement is null)
+        if (_appBodyElement is null && IsRoutingEnabled)
             throw new InvalidOperationException(
                 $"{nameof(AppBody)} not found. Manuela required an element of type {nameof(AppBody)}, " +
                 $"to get more info and get started, see Manuela docs.");

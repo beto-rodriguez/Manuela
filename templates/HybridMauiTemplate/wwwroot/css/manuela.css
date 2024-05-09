@@ -1,0 +1,29 @@
+/*
+    this file overrides the default blazor/bootstrap css to make things look better, because now we don't have the window border.
+    remove this file if you want to use the default blazor css
+*/
+
+.navbar-toggler {
+    right: unset;
+    left: 1rem;
+}
+
+.navbar-brand {
+    margin-left: 3.5rem;
+}
+
+.top-row {
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+}
+
+@media(min-width: 641px) {
+    .top-row {
+        align-items: flex-end !important;
+        padding-right: 1rem !important;
+    }
+
+    .navbar-brand {
+        margin-left: 0;
+    }
+}
