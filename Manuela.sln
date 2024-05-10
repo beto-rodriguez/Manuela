@@ -28,6 +28,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ManuelaAppTemplate", "templ
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SideMenuMauiApp", "templates\content\SideMenuMauiApp\SideMenuMauiApp.csproj", "{0BA7B33F-A1D9-47BA-9607-DAC4BF01847C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Compare", "samples\Compare\Compare.csproj", "{493017E3-8C3B-4B89-AEF9-91AF9076F845}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,6 +74,12 @@ Global
 		{0BA7B33F-A1D9-47BA-9607-DAC4BF01847C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0BA7B33F-A1D9-47BA-9607-DAC4BF01847C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0BA7B33F-A1D9-47BA-9607-DAC4BF01847C}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{493017E3-8C3B-4B89-AEF9-91AF9076F845}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{493017E3-8C3B-4B89-AEF9-91AF9076F845}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{493017E3-8C3B-4B89-AEF9-91AF9076F845}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{493017E3-8C3B-4B89-AEF9-91AF9076F845}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{493017E3-8C3B-4B89-AEF9-91AF9076F845}.Release|Any CPU.Build.0 = Release|Any CPU
+		{493017E3-8C3B-4B89-AEF9-91AF9076F845}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -84,6 +92,7 @@ Global
 		{6BFDDBA1-1F84-4392-A18E-2959663662BD} = {AB55780F-55B0-445F-B2A8-0F6673FFEDC5}
 		{BEC8853B-F4EA-4844-82FC-3CE51295AACF} = {AB55780F-55B0-445F-B2A8-0F6673FFEDC5}
 		{0BA7B33F-A1D9-47BA-9607-DAC4BF01847C} = {AB55780F-55B0-445F-B2A8-0F6673FFEDC5}
+		{493017E3-8C3B-4B89-AEF9-91AF9076F845} = {4A265F1D-F91B-486C-9CC7-FB9C5117E72A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {304FB10D-E254-4A43-8226-1A6DCFBD6C66}

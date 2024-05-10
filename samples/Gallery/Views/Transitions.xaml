@@ -6,7 +6,7 @@
     <VerticalStackLayout>
         <Label
             Style="{StaticResource Headline}"
-            Text="States"/>
+            Text="Transitions"/>
 
         <Label
             Text="Transitions made easy... Any property inside the m:Set Xaml extension is animatable."/>

@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:m="clr-namespace:Manuela;assembly=Manuela"
+    x:Class="Compare.MainPage"
+    NavigationPage.HasNavigationBar="False">
+
+    <!-- this example compares the Manuela syntax (Red) with AdaptiveTriggers (Blue) -->
+
+    <Grid RowDefinitions="*,*">
+        <AbsoluteLayout Grid.Row="0" Background="Red">
+
+            <Label TextColor="White" Text="Manuela way" AbsoluteLayout.LayoutBounds="100,100"/>
+
+            <Border
+                Background="White"
+                m:Has.States="{m:States
+                    OnXs={m:Set
+                        AbsoluteLayoutFlags='WidthProportional,YProportional',
+                        AbsoluteLayoutBounds='0, 1, 1, 60',
+                        Padding='0',
+                        Margin='-1,0,-1,-1'},
+                    OnMd={m:Set
+                        AbsoluteLayoutFlags='HeightProportional',
+                        AbsoluteLayoutBounds='0, 0, 90, 1',
+                        Padding='0'}}" />
+
+        </AbsoluteLayout>
+
+        <AbsoluteLayout Grid.Row="1" Background="Blue">
+
+            <Label TextColor="White" Text="Maui way" AbsoluteLayout.LayoutBounds="100,100"/>
+
+            <Border Background="White">
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup>
+                        <VisualState x:Name="Xs">
+                            <VisualState.StateTriggers>
+                                <AdaptiveTrigger MinWindowWidth="0"/>
+                            </VisualState.StateTriggers>
+                            <VisualState.Setters>
+                                <Setter Property="AbsoluteLayout.LayoutFlags" Value="WidthProportional,YProportional" />
+                                <Setter Property="AbsoluteLayout.LayoutBounds" Value="0, 1, 1, 60" />
+                                <Setter Property="Padding" Value="0" />
+                                <Setter Property="Margin" Value="-1,0,-1,-1" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Md">
+                            <VisualState.StateTriggers>
+                                <AdaptiveTrigger MinWindowWidth="768"/>
+                            </VisualState.StateTriggers>
+                            <VisualState.Setters>
+                                <Setter Property="AbsoluteLayout.LayoutFlags" Value="HeightProportional" />
+                                <Setter Property="AbsoluteLayout.LayoutBounds" Value="0, 0, 90, 1" />
+                                <Setter Property="Padding" Value="0" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+            </Border>
+
+        </AbsoluteLayout>
+    </Grid>
+
+</ContentPage>
