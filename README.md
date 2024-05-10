@@ -308,7 +308,7 @@ public class Customer
 Then, we need to create a Form for our customer class, Manuela source generator will setup this form so we can just bind it to the UI inputs.
 
 ```c#
-public partial class CustomerForm : Form&lt;Customer>
+public partial class CustomerForm : Form<Customer>
 {
     // when we inherit from Form&lt;T>, manuela will generate the form for us.
     // now we are ready to use this form as the BindingContext of our UI.
