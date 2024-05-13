@@ -161,6 +161,6 @@ public static class ColorPalletes
         "#374151",
         "#1f2937",
         "#111827",
-        "030712"
+        "#030712"
     ];
 }
