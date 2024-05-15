@@ -5,14 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:m="clr-namespace:Manuela;assembly=Manuela">
 
-    <Style x:Key="Code" TargetType="Editor">
-        <Setter Property="IsReadOnly" Value="True"/>
-        <Setter Property="Margin" Value="0,10"/>
-        <Setter Property="BackgroundColor" Value="{m:Color 'Gray,Swatch950'}"/>
-        <Setter Property="TextColor" Value="{m:Color 'Gray,Swatch50'}"/>
-        <Setter Property="FontFamily" Value="JetBrainsMono"/>
-        <Setter Property="FontSize" Value="{m:Size Md}"/>
-    </Style>
+    <x:String x:Key="BaseFont">OpenSansRegular</x:String>
 
     <Style TargetType="ActivityIndicator">
         <Setter Property="Color" Value="{m:Color Primary}" />
@@ -26,7 +19,7 @@
     <Style TargetType="Border">
         <Setter Property="Stroke" Value="{m:Color 'Gray,Swatch200'}" />
         <Setter Property="StrokeShape" Value="Rectangle"/>
-        <Setter Property="StrokeThickness" Value="1"/>
+        <Setter Property="StrokeThickness" Value="{m:Size Xs}"/>
     </Style>
 
     <Style TargetType="BoxView">
@@ -36,13 +29,13 @@
     <Style TargetType="Button">
         <Setter Property="TextColor" Value="{m:Color 'Gray,Swatch50'}" />
         <Setter Property="BackgroundColor" Value="{m:Color Primary}" />
-        <Setter Property="FontFamily" Value="OpenSansRegular"/>
-        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontFamily" Value="{StaticResource BoldFont}"/>
+        <Setter Property="FontSize" Value="{m:Size Md}"/>
         <Setter Property="BorderWidth" Value="0"/>
-        <Setter Property="CornerRadius" Value="8"/>
-        <Setter Property="Padding" Value="14,10"/>
-        <Setter Property="MinimumHeightRequest" Value="44"/>
-        <Setter Property="MinimumWidthRequest" Value="44"/>
+        <Setter Property="CornerRadius" Value="{m:Size Lg}"/>
+        <Setter Property="Padding" Value="{m:Size Lg}"/>
+        <Setter Property="MinimumHeightRequest" Value="{m:Size Lg}"/>
+        <Setter Property="MinimumWidthRequest" Value="{m:Size Lg}"/>
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">
@@ -66,8 +59,8 @@
 
     <Style TargetType="CheckBox">
         <Setter Property="Color" Value="{m:Color Primary}" />
-        <Setter Property="MinimumHeightRequest" Value="44"/>
-        <Setter Property="MinimumWidthRequest" Value="44"/>
+        <Setter Property="MinimumHeightRequest" Value="{m:Size Lg}"/>
+        <Setter Property="MinimumWidthRequest" Value="{m:Size Lg}"/>
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">
@@ -85,10 +78,10 @@
     <Style TargetType="DatePicker">
         <Setter Property="TextColor" Value="{m:Color 'Gray,Swatch900'}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
-        <Setter Property="FontFamily" Value="OpenSansRegular"/>
-        <Setter Property="FontSize" Value="14"/>
-        <Setter Property="MinimumHeightRequest" Value="44"/>
-        <Setter Property="MinimumWidthRequest" Value="44"/>
+        <Setter Property="FontFamily" Value="{StaticResource BaseFont}"/>
+        <Setter Property="FontSize" Value="{m:Size Md}"/>
+        <Setter Property="MinimumHeightRequest" Value="{m:Size Lg}"/>
+        <Setter Property="MinimumWidthRequest" Value="{m:Size Lg}"/>
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">
@@ -106,11 +99,11 @@
     <Style TargetType="Editor">
         <Setter Property="TextColor" Value="{m:Color 'Gray,Swatch950'}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
-        <Setter Property="FontFamily" Value="OpenSansRegular"/>
+        <Setter Property="FontFamily" Value="{StaticResource BaseFont}"/>
         <Setter Property="FontSize" Value="14" />
         <Setter Property="PlaceholderColor" Value="{m:Color 'Gray,Swatch400'}" />
-        <Setter Property="MinimumHeightRequest" Value="44"/>
-        <Setter Property="MinimumWidthRequest" Value="44"/>
+        <Setter Property="MinimumHeightRequest" Value="{m:Size Lg}"/>
+        <Setter Property="MinimumWidthRequest" Value="{m:Size Lg}"/>
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">
@@ -128,11 +121,11 @@
     <Style TargetType="Entry">
         <Setter Property="TextColor" Value="{m:Color 'Gray,Swatch950'}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
-        <Setter Property="FontFamily" Value="OpenSansRegular"/>
-        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontFamily" Value="{StaticResource BaseFont}"/>
+        <Setter Property="FontSize" Value="{m:Size Md}" />
         <Setter Property="PlaceholderColor" Value="{m:Color 'Gray,Swatch400'}" />
-        <Setter Property="MinimumHeightRequest" Value="44"/>
-        <Setter Property="MinimumWidthRequest" Value="44"/>
+        <Setter Property="MinimumHeightRequest" Value="{m:Size Lg}"/>
+        <Setter Property="MinimumWidthRequest" Value="{m:Size Lg}"/>
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">
@@ -150,7 +143,7 @@
     <Style TargetType="Frame">
         <Setter Property="HasShadow" Value="False" />
         <Setter Property="BorderColor" Value="{m:Color 'Gray,Swatch200'}" />
-        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="CornerRadius" Value="{m:Size Lg}" />
     </Style>
 
     <Style TargetType="ImageButton">
@@ -158,8 +151,8 @@
         <Setter Property="BorderColor" Value="Transparent"/>
         <Setter Property="BorderWidth" Value="0"/>
         <Setter Property="CornerRadius" Value="0"/>
-        <Setter Property="MinimumHeightRequest" Value="44"/>
-        <Setter Property="MinimumWidthRequest" Value="44"/>
+        <Setter Property="MinimumHeightRequest" Value="{m:Size Lg}"/>
+        <Setter Property="MinimumWidthRequest" Value="{m:Size Lg}"/>
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">
@@ -178,8 +171,8 @@
     <Style TargetType="Label">
         <Setter Property="TextColor" Value="{m:Color 'Gray,Swatch950'}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
-        <Setter Property="FontFamily" Value="OpenSansRegular" />
-        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontFamily" Value="{StaticResource BaseFont}" />
+        <Setter Property="FontSize" Value="{m:Size Md}" />
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">
@@ -200,7 +193,7 @@
 
     <Style TargetType="Label" x:Key="Headline">
         <Setter Property="TextColor" Value="{m:Color 'Primary,Swatch600'}" />
-        <Setter Property="FontSize" Value="32" />
+        <Setter Property="FontSize" Value="{m:Size Huge}" />
         <Setter Property="HorizontalOptions" Value="Start" />
         <Setter Property="HorizontalTextAlignment" Value="Center" />
         <Setter Property="Margin" Value="0, 0, 0, 20"/>
@@ -208,7 +201,7 @@
 
     <Style TargetType="Label" x:Key="SubHeadline">
         <Setter Property="TextColor" Value="{m:Color 'Primary,Swatch600'}" />
-        <Setter Property="FontSize" Value="24" />
+        <Setter Property="FontSize" Value="{m:Size Xxl}" />
         <Setter Property="HorizontalOptions" Value="Start" />
         <Setter Property="HorizontalTextAlignment" Value="Center" />
     </Style>
@@ -222,10 +215,10 @@
         <Setter Property="TextColor" Value="{m:Color 'Gray,Swatch900'}" />
         <Setter Property="TitleColor" Value="{m:Color 'Gray,Swatch900'}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
-        <Setter Property="FontFamily" Value="OpenSansRegular"/>
-        <Setter Property="FontSize" Value="14"/>
-        <Setter Property="MinimumHeightRequest" Value="44"/>
-        <Setter Property="MinimumWidthRequest" Value="44"/>
+        <Setter Property="FontFamily" Value="{StaticResource BaseFont}"/>
+        <Setter Property="FontSize" Value="{m:Size Md}"/>
+        <Setter Property="MinimumHeightRequest" Value="{m:Size Lg}"/>
+        <Setter Property="MinimumWidthRequest" Value="{m:Size Lg}"/>
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">
@@ -260,10 +253,10 @@
     <Style TargetType="RadioButton">
         <Setter Property="BackgroundColor" Value="Transparent"/>
         <Setter Property="TextColor" Value="{m:Color 'Gray,Swatch950'}" />
-        <Setter Property="FontFamily" Value="OpenSansRegular"/>
+        <Setter Property="FontFamily" Value="{StaticResource BaseFont}"/>
         <Setter Property="FontSize" Value="14"/>
-        <Setter Property="MinimumHeightRequest" Value="44"/>
-        <Setter Property="MinimumWidthRequest" Value="44"/>
+        <Setter Property="MinimumHeightRequest" Value="{m:Size Lg}"/>
+        <Setter Property="MinimumWidthRequest" Value="{m:Size Lg}"/>
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">
@@ -287,10 +280,10 @@
         <Setter Property="PlaceholderColor" Value="{m:Color 'Gray,Swatch500'}" />
         <Setter Property="CancelButtonColor" Value="{m:Color 'Gray,Swatch500'}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
-        <Setter Property="FontFamily" Value="OpenSansRegular" />
+        <Setter Property="FontFamily" Value="{StaticResource BaseFont}" />
         <Setter Property="FontSize" Value="14" />
-        <Setter Property="MinimumHeightRequest" Value="44"/>
-        <Setter Property="MinimumWidthRequest" Value="44"/>
+        <Setter Property="MinimumHeightRequest" Value="{m:Size Lg}"/>
+        <Setter Property="MinimumWidthRequest" Value="{m:Size Lg}"/>
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">
@@ -310,8 +303,8 @@
         <Setter Property="TextColor" Value="{m:Color 'Gray,Swatch900'}" />
         <Setter Property="PlaceholderColor" Value="{m:Color 'Gray,Swatch500'}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
-        <Setter Property="FontFamily" Value="OpenSansRegular" />
-        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontFamily" Value="{StaticResource BaseFont}" />
+        <Setter Property="FontSize" Value="{m:Size Md}" />
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">
@@ -390,10 +383,10 @@
     <Style TargetType="TimePicker">
         <Setter Property="TextColor" Value="{m:Color 'Gray,Swatch900'}" />
         <Setter Property="BackgroundColor" Value="Transparent"/>
-        <Setter Property="FontFamily" Value="OpenSansRegular"/>
-        <Setter Property="FontSize" Value="14"/>
-        <Setter Property="MinimumHeightRequest" Value="44"/>
-        <Setter Property="MinimumWidthRequest" Value="44"/>
+        <Setter Property="FontFamily" Value="{StaticResource BaseFont}"/>
+        <Setter Property="FontSize" Value="{m:Size Md}"/>
+        <Setter Property="MinimumHeightRequest" Value="{m:Size Lg}"/>
+        <Setter Property="MinimumWidthRequest" Value="{m:Size Lg}"/>
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">

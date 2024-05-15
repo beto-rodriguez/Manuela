@@ -13,7 +13,7 @@ public static class ManuelaExtensions
     public static MauiAppBuilder UseManuela(
         this MauiAppBuilder builder,
         Route[]? routes = null,
-        Action<Theme>? themeBuilder = null)
+        Theme? theme = null)
     {
         routes ??= [];
         var serviceCollection = builder.Services;
@@ -30,7 +30,7 @@ public static class ManuelaExtensions
 
         AppRouting.Routing.ServiceCollection = serviceCollection;
 
-        themeBuilder?.Invoke(Theme.Current);
+        Theme.Current = theme ?? new();
 
 #if MACCATALYST
         builder.ConfigureLifecycleEvents(lifecycle =>

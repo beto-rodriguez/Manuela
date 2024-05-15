@@ -17,7 +17,8 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             })
-            .UseManuela([
+            .UseManuela(
+            routes: [
                 new Route<Home>(),
                 new Route<Second>()
             ]);

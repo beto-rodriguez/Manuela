@@ -16,16 +16,16 @@ public class Theme
         AppThemeBindingDictionary<Shadow>? shadows = null)
     {
         LightColors = lighColors ?? new ColorSet()
-            .AddPallete(UIThemeColor.Primary, ColorPalletes.Blue)
-            .AddPallete(UIThemeColor.Secondary, ColorPalletes.Green)
-            .AddPallete(UIThemeColor.Tertiary, ColorPalletes.Red)
-            .AddPallete(UIThemeColor.Gray, ColorPalletes.Slate);
+            .AddPallete(UIThemeColor.Primary, Palletes.Blue)
+            .AddPallete(UIThemeColor.Secondary, Palletes.Green)
+            .AddPallete(UIThemeColor.Tertiary, Palletes.Red)
+            .AddPallete(UIThemeColor.Gray, Palletes.Slate);
 
         DarkColors = darkColors ?? new ColorSet()
-            .AddPallete(UIThemeColor.Primary, ColorPalletes.Blue.Reverse())
-            .AddPallete(UIThemeColor.Secondary, ColorPalletes.Green.Reverse())
-            .AddPallete(UIThemeColor.Tertiary, ColorPalletes.Red.Reverse())
-            .AddPallete(UIThemeColor.Gray, ColorPalletes.Gray.Reverse());
+            .AddPallete(UIThemeColor.Primary, Palletes.Blue.Reverse())
+            .AddPallete(UIThemeColor.Secondary, Palletes.Green.Reverse())
+            .AddPallete(UIThemeColor.Tertiary, Palletes.Red.Reverse())
+            .AddPallete(UIThemeColor.Gray, Palletes.Gray.Reverse());
 
         Space = spacing ?? new()
         {
@@ -48,11 +48,11 @@ public class Theme
             [UISize.Sm] = 8,
             [UISize.Md] = 16,
             [UISize.Lg] = 32,
-            [UISize.Xl] = 64,
-            [UISize.Xxl] = 128,
-            [UISize.Huge] = 192,
-            [UISize.Giant] = 256,
-            [UISize.Titanic] = 512
+            [UISize.Xl] = 44,
+            [UISize.Xxl] = 64,
+            [UISize.Huge] = 128,
+            [UISize.Giant] = 192,
+            [UISize.Titanic] = 256
         };
 
         Border = borders ?? new()
@@ -179,7 +179,7 @@ public class Theme
         };
     }
 
-    public static Theme Current { get; set; } = new();
+    public static Theme Current { get; set; } = null!;
 
     public ColorSet LightColors { get; set; }
     public ColorSet DarkColors { get; set; }
