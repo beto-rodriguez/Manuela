@@ -29,7 +29,7 @@
     <Style TargetType="Button">
         <Setter Property="TextColor" Value="{m:Color 'Gray,Swatch50'}" />
         <Setter Property="BackgroundColor" Value="{m:Color Primary}" />
-        <Setter Property="FontFamily" Value="{StaticResource BoldFont}"/>
+        <Setter Property="FontFamily" Value="{StaticResource BaseFont}"/>
         <Setter Property="FontSize" Value="{m:Size Md}"/>
         <Setter Property="BorderWidth" Value="0"/>
         <Setter Property="CornerRadius" Value="{m:Size Lg}"/>
