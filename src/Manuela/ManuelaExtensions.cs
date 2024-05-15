@@ -1,4 +1,5 @@
 ﻿using Manuela.AppRouting;
+using Manuela.Theming;
 
 #if MACCATALYST
 using Microsoft.Maui.LifecycleEvents;
@@ -11,7 +12,8 @@ public static class ManuelaExtensions
 {
     public static MauiAppBuilder UseManuela(
         this MauiAppBuilder builder,
-        Route[]? routes = null)
+        Route[]? routes = null,
+        Action<Theme>? themeBuilder = null)
     {
         routes ??= [];
         var serviceCollection = builder.Services;
@@ -27,6 +29,8 @@ public static class ManuelaExtensions
         }
 
         AppRouting.Routing.ServiceCollection = serviceCollection;
+
+        themeBuilder?.Invoke(Theme.Current);
 
 #if MACCATALYST
         builder.ConfigureLifecycleEvents(lifecycle =>

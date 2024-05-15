@@ -416,8 +416,8 @@ public static class ManuelaThings
                 end = new(0.5, 1);
             }
 
-            var c1 = colors.Colors[(UIBrush)(baseColor | sw1)];
-            var c2 = colors.Colors[(UIBrush)(baseColor | sw2)];
+            var c1 = colors[(UIBrush)(baseColor | sw1)];
+            var c2 = colors[(UIBrush)(baseColor | sw2)];
 
             if ((intFlags & UICC.GradientInvert) > 0) (c2, c1) = (c1, c2);
 
@@ -428,7 +428,7 @@ public static class ManuelaThings
         }
 
         var swatch = GetSwatch(intFlags);
-        var c = colors.Colors[(UIBrush)(baseColor | swatch)];
+        var c = colors[(UIBrush)(baseColor | swatch)];
         c = SetColorOpacity(c, intFlags);
 
         return new SolidColorBrush(c);
@@ -439,7 +439,7 @@ public static class ManuelaThings
         var baseColor = GetBaseColor(intFlags);
         var swatch = GetSwatch(intFlags);
 
-        return colors.Colors[(UIBrush)(baseColor | swatch)];
+        return colors[(UIBrush)(baseColor | swatch)];
     }
 
     private static object? BrushConverter(BindableObject bindable, object? source)

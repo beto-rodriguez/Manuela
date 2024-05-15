@@ -2,46 +2,41 @@
 
 public static class ColorPalletes
 {
-    public static Dictionary<UIBrush, Color> BuildDictionary(
-        string[] primary,
-        string[] secondary,
-        string[] tertiary,
-        string[] gray,
-        int defaultIndex = 6)
+    private static readonly int[] s_swatches =
+    [
+        UICC.Sw50, UICC.Sw100, UICC.Sw200, UICC.Sw300, UICC.Sw400, UICC.Sw500,
+        UICC.Sw600, UICC.Sw700, UICC.Sw800, UICC.Sw900, UICC.Sw950
+    ];
+
+    /// <summary>
+    /// Adds a color to the theme.
+    /// </summary>
+    /// <param name="set">The colors set instance.</param>
+    /// <param name="themeColor">The theme color to add.</param>
+    /// <param name="swatches">The swatches, it must contain 11 elements:
+    /// 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950.</param>
+    /// <param name="defaultIndex">The index of the element that contains the default color in the swatches collection.</param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentException"></exception>
+    public static ColorSet AddPallete(
+        this ColorSet set,
+        UIThemeColor themeColor,
+        IEnumerable<string> swatches,
+        int defaultIndex = 5)
     {
-        var d = new Dictionary<UIBrush, Color>();
+        var i = 0;
 
-        var swatches = new[]
+        foreach (var swatch in swatches)
         {
-            UICC.Sw50, UICC.Sw100, UICC.Sw200, UICC.Sw300, UICC.Sw400, UICC.Sw500,
-            UICC.Sw600, UICC.Sw700, UICC.Sw800, UICC.Sw900, UICC.Sw950
-        };
+            set[(UIBrush)((int)themeColor | s_swatches[i])] = Color.FromArgb(swatch);
+            if (i == defaultIndex) set[(UIBrush)themeColor] = Color.FromArgb(swatch);
 
-        var sameLength = primary.Length == secondary.Length &&
-            secondary.Length == tertiary.Length &&
-            tertiary.Length == gray.Length
-            && gray.Length == swatches.Length;
-
-        if (!sameLength)
-            throw new ArgumentException("All color palletes length must be 10.");
-
-        for (var i = 0; i < swatches.Length; i++)
-        {
-            if (i == defaultIndex)
-            {
-                d[UIBrush.Primary] = Color.FromArgb(primary[i]);
-                d[UIBrush.Secondary] = Color.FromArgb(secondary[i]);
-                d[UIBrush.Tertiary] = Color.FromArgb(tertiary[i]);
-                d[UIBrush.Gray] = Color.FromArgb(gray[i]);
-            }
-
-            d[(UIBrush)((int)UIBrush.Primary | swatches[i])] = Color.FromArgb(primary[i]);
-            d[(UIBrush)((int)UIBrush.Secondary | swatches[i])] = Color.FromArgb(secondary[i]);
-            d[(UIBrush)((int)UIBrush.Tertiary | swatches[i])] = Color.FromArgb(tertiary[i]);
-            d[(UIBrush)((int)UIBrush.Gray | swatches[i])] = Color.FromArgb(gray[i]);
+            i++;
         }
 
-        return d;
+        if (i != 11) throw new ArgumentException("Swatches must be 11.");
+
+        return set;
     }
 
     public static string[] Blue { get; } =

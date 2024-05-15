@@ -5,6 +5,8 @@ namespace Manuela.Theming;
 public class Theme
 {
     public Theme(
+        ColorSet? lighColors = null,
+        ColorSet? darkColors = null,
         UISizeDictionary<double>? spacing = null,
         UISizeDictionary<double>? sizes = null,
         UISizeDictionary<double>? borders = null,
@@ -13,6 +15,18 @@ public class Theme
         UISizeDictionary<double>? lineHeight = null,
         AppThemeBindingDictionary<Shadow>? shadows = null)
     {
+        LightColors = lighColors ?? new ColorSet()
+            .AddPallete(UIThemeColor.Primary, ColorPalletes.Blue)
+            .AddPallete(UIThemeColor.Secondary, ColorPalletes.Green)
+            .AddPallete(UIThemeColor.Tertiary, ColorPalletes.Red)
+            .AddPallete(UIThemeColor.Gray, ColorPalletes.Slate);
+
+        DarkColors = darkColors ?? new ColorSet()
+            .AddPallete(UIThemeColor.Primary, ColorPalletes.Blue.Reverse())
+            .AddPallete(UIThemeColor.Secondary, ColorPalletes.Green.Reverse())
+            .AddPallete(UIThemeColor.Tertiary, ColorPalletes.Red.Reverse())
+            .AddPallete(UIThemeColor.Gray, ColorPalletes.Gray.Reverse());
+
         Space = spacing ?? new()
         {
             [UISize.None] = 0,
@@ -167,30 +181,14 @@ public class Theme
 
     public static Theme Current { get; set; } = new();
 
-    public ColorSet LightColors { get; set; } = new(
-        colors: ColorPalletes.BuildDictionary(
-            ColorPalletes.Blue,
-            ColorPalletes.Green,
-            ColorPalletes.Red,
-            ColorPalletes.Slate));
-
-    public ColorSet DarkColors { get; set; } = new(
-        colors: ColorPalletes.BuildDictionary(
-            ColorPalletes.Blue.Reverse().ToArray(),
-            ColorPalletes.Green.Reverse().ToArray(),
-            ColorPalletes.Red.Reverse().ToArray(),
-            ColorPalletes.Gray.Reverse().ToArray()));
-
-    public Dictionary<string, ISizeSource> PropertyMap { get; }
-    public UISizeDictionary<double> Space { get; }
-    public UISizeDictionary<double> Size { get; }
-    public UISizeDictionary<double> Border { get; }
-    public CornerRadiusSizeSource Radius { get; } // int because Button.CornerRadius is int
-    public UISizeDictionary<double> TextSize { get; }
-    public UISizeDictionary<double> LineHeight { get; }
-    public AppThemeBindingDictionary<Shadow> Shadows { get; }
-
-    public ThemeParams Params { get; set; } = new();
-
-    public ThemeParams? ButtonParams { get; set; } = new() { BorderWidth = 0, Padding = new(14, 10) };
+    public ColorSet LightColors { get; set; }
+    public ColorSet DarkColors { get; set; }
+    internal Dictionary<string, ISizeSource> PropertyMap { get; set; }
+    public UISizeDictionary<double> Space { get; set; }
+    public UISizeDictionary<double> Size { get; set; }
+    public UISizeDictionary<double> Border { get; set; }
+    public CornerRadiusSizeSource Radius { get; set; }
+    public UISizeDictionary<double> TextSize { get; set; }
+    public UISizeDictionary<double> LineHeight { get; set; }
+    public AppThemeBindingDictionary<Shadow> Shadows { get; set; }
 }
