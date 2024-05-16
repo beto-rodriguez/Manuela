@@ -4,6 +4,7 @@ using Manuela.Styling;
 using Manuela.Theming;
 using Manuela.WindowStyle;
 using ManuelaAppTemplate.LayoutComponents;
+using Manuela.Things;
 using MauiIcons.Core;
 
 namespace ManuelaAppTemplate;
@@ -16,9 +17,7 @@ public partial class AppLayout : AppPage
     public AppLayout()
     {
         InitializeComponent();
-
-        // Temporary Workaround for url styled namespace in xaml
-        _ = new MauiIcon();
+        ManuelaThings.RegisterType<MauiIcon>(ManuelaProperty.TextColor, MauiIcon.IconColorProperty);
     }
 
     protected override void OnAppLoaded(object? sender, EventArgs e)
