@@ -32,13 +32,13 @@
             x:Name="yesBtn"
             Text="Yes"
             StyleClass="button-muted"
-            TextColor="{m:Color 'Primary,Swatch700'}"
+            TextColor="{m:Color Primary}"
             Clicked="yesBtn_Clicked"/>
         <Button
             x:Name="okBtn"
             Text="Ok"
             StyleClass="button-muted"
-            TextColor="{m:Color 'Primary,Swatch700'}"
+            TextColor="{m:Color Primary}"
             Clicked="okBtn_Clicked"/>
 
     </HorizontalStackLayout>
