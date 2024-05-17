@@ -22,7 +22,7 @@
         <Setter Property="Stroke" Value="{m:Color 'Gray,Swatch400'}"/>
         <Setter Property="StrokeShape" Value="RoundRectangle 8"/>
         <Setter Property="BackgroundColor" Value="{m:Color 'Gray,Swatch50'}"/>
-        <Setter Property="Margin" Value="0, 50, 0, 0"/>
+        <Setter Property="Margin" Value="0, 50"/>
         <Setter Property="Padding" Value="20"/>
         <Setter Property="VerticalOptions" Value="Start"/>
     </Style>

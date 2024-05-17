@@ -47,7 +47,7 @@ public static class Modal
             _ = s_dialogStack.Pop();
 
             var window = (Border)view.Parent;
-            var windowWrap = (Border)window.Parent;
+            var windowWrap = (ScrollView)window.Parent;
 
             if (animated)
             {
@@ -101,11 +101,10 @@ public static class Modal
             Content = view
         };
 
-        var windowWrap = new Border
+        var windowWrap = new ScrollView
         {
             ZIndex = 100,
             Background = null,
-            StrokeThickness = 0,
             Content = window
         };
 
