@@ -70,6 +70,8 @@ public abstract class BaseInput<TInput, TValue, THandler> : Border, IInputContro
         Grid.SetRow(_inputLayout, 0);
         Grid.SetRow(_validationLabel, 1);
 
+        SizeChanged += (_, _) => content.WidthRequest = Width;
+
         Content = content;
 
         BaseControl = input;
