@@ -31,8 +31,16 @@ public static class Routing
         var view = ServiceProvider?.GetRequiredService(routeObject.ViewType) as ContentView ??
             throw new InvalidOperationException($"The view type {routeObject.ViewType} is not assignable to ContentView type.");
 
+        if (routeObject.ViewModelType is not null)
+        {
+            var viewModel = ServiceProvider?.GetRequiredService(routeObject.ViewModelType);
+            view.BindingContext = viewModel;
+        }
+
         Navigating?.Invoke(previousRoute);
 
         AppPage.Current.Body = view;
     }
+
+    public static void Reload() => GoTo(ActiveRoute.RouteName);
 }

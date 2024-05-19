@@ -26,6 +26,9 @@ public static class ManuelaExtensions
                 _ = serviceCollection.AddSingleton(route.ViewType);
             else
                 _ = serviceCollection.AddTransient(route.ViewType);
+
+            if (route.ViewModelType is not null)
+                _ = serviceCollection.AddTransient(route.ViewModelType);
         }
 
         AppRouting.Routing.ServiceCollection = serviceCollection;

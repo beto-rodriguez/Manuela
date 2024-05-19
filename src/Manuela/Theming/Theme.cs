@@ -44,15 +44,15 @@ public class Theme
         Size = sizes ?? new()
         {
             [UISize.None] = 0,
-            [UISize.Xs] = 4,
-            [UISize.Sm] = 8,
-            [UISize.Md] = 16,
-            [UISize.Lg] = 32,
-            [UISize.Xl] = 44,
-            [UISize.Xxl] = 64,
-            [UISize.Huge] = 128,
-            [UISize.Giant] = 192,
-            [UISize.Titanic] = 256
+            [UISize.Xs] = 22,
+            [UISize.Sm] = 44,
+            [UISize.Md] = 128,
+            [UISize.Lg] = 256,
+            [UISize.Xl] = 576,
+            [UISize.Xxl] = 768,
+            [UISize.Huge] = 1024,
+            [UISize.Giant] = 1280,
+            [UISize.Titanic] = 1536
         };
 
         Border = borders ?? new()

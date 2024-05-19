@@ -1,14 +1,21 @@
 ﻿namespace Manuela.AppRouting;
 
-public class Route(Type type, string? routeName = null, bool isSingleton = false)
+public class Route(Type type, Type? viewModelType = null, string? routeName = null, bool isSingleton = false)
 {
-    public static Route Empty { get; } = new(typeof(object), "{empty}", false);
+    public static Route Empty { get; } = new(typeof(object), null, "{empty}", false);
     public string RouteName { get; } = routeName ?? type.Name;
     public Type ViewType { get; } = type;
+    public Type? ViewModelType { get; } = viewModelType;
     public bool IsSingleton { get; } = isSingleton;
 }
 
-public class Route<T>(string? routeName = null, bool isSingleton = false)
-    : Route(typeof(T), routeName, isSingleton)
-        where T : ContentView
+public class Route<TView>(string? routeName = null, bool isSingleton = false)
+    : Route(typeof(TView), null, routeName, isSingleton)
+        where TView : ContentView
+{ }
+
+
+public class Route<TView, TViewModel>(string? routeName = null, bool isSingleton = false)
+    : Route(typeof(TView), typeof(TViewModel), routeName, isSingleton)
+        where TView : ContentView
 { }
