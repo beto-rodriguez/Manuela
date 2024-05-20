@@ -73,7 +73,34 @@ public class OnScreenSize : ConditionalStyle
     protected override void OnInitialized(VisualElement visualElement)
     {
         _element = visualElement;
+
+        if (visualElement.Window is not null)
+        {
+            _window = visualElement.Window;
+            InitializeWindow(visualElement);
+        }
+        else
+        {
+            visualElement.PropertyChanged += DetectWindowSet;
+        }
+
+        Condition.Triggers = [new(visualElement, [Has.ScreenBreakPointProperty.PropertyName])];
+    }
+
+    private void DetectWindowSet(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName != nameof(VisualElement.Window)) return;
+
+        var visualElement = (VisualElement)sender!;
+        visualElement.PropertyChanged -= DetectWindowSet;
+
         _window = visualElement.Window;
+        InitializeWindow(visualElement);
+    }
+
+    private void InitializeWindow(VisualElement visualElement)
+    {
+        if (_window is null) throw new Exception($"{nameof(OnScreenSize)} was not able to find the element window.");
 
         _windowHandler = (sender, args) =>
         {
@@ -96,8 +123,6 @@ public class OnScreenSize : ConditionalStyle
 
         // initial value.
         visualElement.SetValue(Has.ScreenBreakPointProperty, GetBreakpoint());
-
-        Condition.Triggers = [new(visualElement, [Has.ScreenBreakPointProperty.PropertyName])];
     }
 
     private Breakpoint GetBreakpoint()

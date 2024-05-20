@@ -60,15 +60,17 @@ public class Has
 
         foreach (var style in styleCollection)
         {
-            if (ve.IsLoaded) style.Initialize(ve);
-            else ve.Loaded += (_, _) => style.Initialize(ve);
+            style.Initialize(ve);
 
-            ve.Unloaded += (_, _) =>
+            if (!AppRouting.Routing.ActiveRoute.IsSingleton)
             {
-                style.Dispose(ve);
-                if (style.InitializedElements.Count == 0)
-                    styleCollection.Dispose();
-            };
+                ve.Unloaded += (_, _) =>
+                {
+                    style.Dispose(ve);
+                    if (style.InitializedElements.Count == 0)
+                        styleCollection.Dispose();
+                };
+            }
         }
     }
 

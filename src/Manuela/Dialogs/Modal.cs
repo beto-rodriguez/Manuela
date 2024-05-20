@@ -1,4 +1,5 @@
 ﻿using Manuela.Styling;
+using Manuela.Things;
 using Microsoft.Maui.Layouts;
 
 namespace Manuela.Dialogs;
@@ -24,15 +25,24 @@ public static class Modal
         return Show<ModalOptions>(dialog, size, animated);
     }
 
-    public static async Task<T?> Show<T>(View view, DialogSize size = DialogSize.Medium, bool animated = true)
+    public static Task<TResponse?> Show<TResponse, TView>(DialogSize size = DialogSize.Medium, bool animated = true)
+        where TView : notnull, View
+    {
+        var view = ManuelaThings.ServiceProvider.GetRequiredService<TView>()
+            ?? throw new Exception($"Unable to find an instance of {nameof(TView)} in the service collection.");
+
+        return Show<TResponse>(view, size, animated);
+    }
+
+    public static async Task<TResponse?> Show<TResponse>(View view, DialogSize size = DialogSize.Medium, bool animated = true)
     {
         var showDialogTask = Show(view, size, animated);
 
-        T? answer;
+        TResponse? answer;
 
         try
         {
-            answer = (T?)await showDialogTask;
+            answer = (TResponse?)await showDialogTask;
         }
         catch (OperationCanceledException)
         {

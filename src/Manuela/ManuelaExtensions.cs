@@ -1,5 +1,7 @@
 ﻿using Manuela.AppRouting;
 using Manuela.Theming;
+using Manuela.Things;
+
 
 #if MACCATALYST
 using Microsoft.Maui.LifecycleEvents;
@@ -31,7 +33,7 @@ public static class ManuelaExtensions
                 _ = serviceCollection.AddTransient(route.ViewModelType);
         }
 
-        AppRouting.Routing.ServiceCollection = serviceCollection;
+        ManuelaThings.ServiceCollection = serviceCollection;
 
         Theme.Current = theme ?? new();
 

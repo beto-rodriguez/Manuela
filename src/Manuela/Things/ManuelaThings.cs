@@ -1,5 +1,6 @@
 ﻿using Manuela.Styling;
 using Manuela.Theming;
+using Microsoft.Maui.Layouts;
 
 namespace Manuela.Things;
 
@@ -216,6 +217,10 @@ public static class ManuelaThings
         [ManuelaProperty.IsEnabled] =
             [
                 new PropertySource<VisualElement>(VisualElement.IsEnabledProperty)
+            ],
+        [ManuelaProperty.Columns] =
+            [
+                new PropertySource<VisualElement>(FlexLayout.BasisProperty)
             ]
     };
     private static readonly Dictionary<ManuelaProperty, Func<BindableObject, object?, object?>> s_converters = new()
@@ -224,7 +229,8 @@ public static class ManuelaThings
         { ManuelaProperty.BorderColor, BorderColorConverter },
         { ManuelaProperty.Shadow, ShadowConverter },
         { ManuelaProperty.TextColor, ColorConverter },
-        { ManuelaProperty.ImageSource, ImageSourceConverter }
+        { ManuelaProperty.ImageSource, ImageSourceConverter },
+        { ManuelaProperty.Columns, ColumnsConverter }
     };
     private static readonly Dictionary<Type, Func<BindableObject, BindableProperty, object, Animation>> s_transitions = new()
     {
@@ -346,6 +352,25 @@ public static class ManuelaThings
             }
         }
     };
+    private static IServiceProvider? s_serviceProvider;
+
+    public static float MaxColumns { get; set; } = 12f;
+
+    internal static IServiceCollection? ServiceCollection { get; set; }
+
+    internal static IServiceProvider ServiceProvider
+    {
+        get
+        {
+            if (s_serviceProvider is null)
+            {
+                s_serviceProvider = ServiceCollection?.BuildServiceProvider();
+                ServiceCollection = null;
+            }
+
+            return s_serviceProvider ?? throw new Exception("Unable to find the service provider.");
+        }
+    }
 
     public static BindableProperty? GetBindableProperty(BindableObject? bindable, ManuelaProperty property)
     {
@@ -528,6 +553,13 @@ public static class ManuelaThings
         return Uri.TryCreate(strValue, UriKind.Absolute, out var uri) && uri.Scheme != "file"
             ? ImageSource.FromUri(uri)
             : ImageSource.FromFile(strValue);
+    }
+
+    private static object? ColumnsConverter(BindableObject bindable, object? source)
+    {
+        if (source is null) return new FlexBasis(1, true);
+
+        return new FlexBasis((int)source / MaxColumns, true);
     }
 
     private static int GetBaseColor(int intFlags)
