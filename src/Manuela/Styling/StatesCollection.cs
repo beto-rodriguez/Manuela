@@ -61,7 +61,7 @@ public class StatesCollection : ObservableCollection<ConditionalStyle>
             case NotifyCollectionChangedAction.Add:
                 foreach (var newStyle in e.NewItems?.Cast<ConditionalStyle>() ?? empty)
                 {
-                    newStyle.Initialize(_visualElement);
+                    newStyle.Initialize(_visualElement, this);
                 }
                 break;
             case NotifyCollectionChangedAction.Remove:

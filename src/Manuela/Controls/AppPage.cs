@@ -26,6 +26,7 @@ public abstract class AppPage : ContentPage
 
     public View? Body
     {
+        get => _appBodyElement?.Content;
         set
         {
             if (_appBodyElement is null) GetAppBody();
@@ -71,34 +72,19 @@ public abstract class AppPage : ContentPage
 #endif
     }
 
+    protected override bool OnBackButtonPressed()
+    {
+
+        return true;
+    }
+
     private void GetAppBody()
     {
-        TryGetAppBody(Content);
+        _appBodyElement = Content.FindChildOfType<AppBody>();
 
         if (_appBodyElement is null && IsRoutingEnabled)
             throw new InvalidOperationException(
                 $"{nameof(AppBody)} not found. Manuela required an element of type {nameof(AppBody)}, " +
                 $"to get more info and get started, see Manuela docs.");
-    }
-
-    private void TryGetAppBody(IView view)
-    {
-        if (view is AppBody appBody)
-        {
-            _appBodyElement = appBody;
-            return;
-        }
-        else if (view is IContentView contentView && contentView.Content is IView contentViewContent)
-        {
-            TryGetAppBody(contentViewContent);
-        }
-        else if (view is Layout layout)
-        {
-            foreach (var child in layout.Children)
-            {
-                TryGetAppBody(child);
-                if (_appBodyElement is not null) return;
-            }
-        }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Manuela.Forms;
+﻿using System.ComponentModel;
+
+namespace Manuela.Forms;
 
 public class Form
 {
@@ -6,6 +8,7 @@ public class Form
     public Dictionary<string, string> Errors { get; } = [];
 
     public event Action<Form>? OnFormValidated;
+    public event Action<Form>? OnModelChanged;
 
     public virtual bool IsValid(string? property = null)
     {
@@ -29,12 +32,30 @@ public class Form
     {
         return null;
     }
+
+    protected virtual void InvokeModelChanged()
+    {
+        OnModelChanged?.Invoke(this);
+    }
 }
 
-public class Form<T>() : Form
+public class Form<T>() : Form, INotifyPropertyChanged
     where T : new()
 {
-    public T Model { get; set; } = new();
+    private T _model = new();
+
+    public T Model
+    {
+        get => _model;
+        set
+        {
+            _model = value;
+            OnPropertyChanged(nameof(Model));
+            InvokeModelChanged();
+        }
+    }
+
+    public event PropertyChangedEventHandler? PropertyChanged;
 
     public override object? GetModel()
     {
@@ -43,4 +64,9 @@ public class Form<T>() : Form
 
     protected virtual void OnInitialized()
     { }
+
+    protected virtual void OnPropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
 }

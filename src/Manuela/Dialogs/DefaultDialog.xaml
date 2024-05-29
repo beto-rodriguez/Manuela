@@ -3,7 +3,8 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:m="clr-namespace:Manuela"
-    x:Class="Manuela.Dialogs.DefaultDialog">
+    x:Class="Manuela.Dialogs.DefaultDialog"
+    Padding="10">
 
     <Label
         x:Name="titleLabel"

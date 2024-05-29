@@ -31,6 +31,8 @@ public class InputGroup : Border
                 _right
             }
         };
+
+        SizeChanged += (_, _) => Content.WidthRequest = Width;
     }
 
     public static readonly BindableProperty MiddleContentProperty =

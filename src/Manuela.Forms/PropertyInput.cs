@@ -47,6 +47,8 @@ public class PropertyInput(
 
         form.OnFormValidated += f =>
             inputControl.ValidationMessage = f.GetError(propertyName);
+        form.OnModelChanged += f =>
+            Initialize(inputControl);
     }
 
     /// <summary>

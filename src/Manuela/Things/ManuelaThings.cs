@@ -238,7 +238,7 @@ public static class ManuelaThings
             {
                 var start = (double)bindable.GetValue(property);
                 var end = (double)targeValue;
-                return new(t =>
+                return new Animation(t =>
                     bindable.SetValue(
                         property,
                         start + t * (end - start)),

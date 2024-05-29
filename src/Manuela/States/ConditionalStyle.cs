@@ -33,7 +33,7 @@ public class ConditionalStyle
     // to avoid a possible issue when the state is shared between mupltiple elements.
     public HashSet<VisualElement> InitializedElements { get; } = [];
 
-    public void Initialize(VisualElement visual)
+    public void Initialize(VisualElement visual, StatesCollection collection)
     {
         if (InitializedElements.Contains(visual)) return;
 
@@ -69,6 +69,17 @@ public class ConditionalStyle
 
         _ = InitializedElements.Add(visual);
         Apply(visual);
+
+        if (!Router.Current.ActiveRoute.IsSingleton)
+        {
+            visual.Unloaded += (_, _) =>
+            {
+                Dispose(visual);
+
+                if (InitializedElements.Count == 0)
+                    collection.Dispose();
+            };
+        }
     }
 
     public virtual ManuelaSettersDictionary? GetSetters()
@@ -76,43 +87,43 @@ public class ConditionalStyle
         return _setters;
     }
 
-    public void Apply(VisualElement? visual)
+    public void Apply(VisualElement? applyTarget)
     {
-        if (visual is null || !InitializedElements.Contains(visual)) return;
+        if (applyTarget is null || !InitializedElements.Contains(applyTarget)) return;
 
         var keys = GetSetters()?.Keys;
         if (keys is null) return;
 
-        var allStyles = (StatesCollection?)visual.GetValue(Has.StatesProperty);
-        var transitions = (TransitionsCollection?)visual.GetValue(Has.TransitionsProperty);
+        var allStyles = (StatesCollection?)applyTarget.GetValue(Has.StatesProperty);
+        var transitions = (TransitionsCollection?)applyTarget.GetValue(Has.TransitionsProperty);
 
         foreach (var property in keys)
         {
-            var bindableProperty = ManuelaThings.GetBindableProperty(visual, property);
+            var bindableProperty = ManuelaThings.GetBindableProperty(applyTarget, property);
 
             if (bindableProperty is null)
             {
 #if DEBUG
-                Trace.WriteLine($"Property {property} is not supported on {visual.GetType().Name}");
+                Trace.WriteLine($"Property {property} is not supported on {applyTarget.GetType().Name}");
 #endif
                 continue;
             }
 
-            var conditionMet = ApplyPropertyIfMet(visual, property, bindableProperty, transitions);
+            var conditionMet = ApplyPropertyIfMet(applyTarget, property, bindableProperty, transitions);
 
             if (!conditionMet)
             {
-                var anyOtherStateMet = allStyles?.ApplyPropertyIfMet(visual, property, bindableProperty, transitions)
+                var anyOtherStateMet = allStyles?.ApplyPropertyIfMet(applyTarget, property, bindableProperty, transitions)
                     ?? false;
 
                 if (!anyOtherStateMet)
-                    visual.ClearValue(bindableProperty);
+                    applyTarget.ClearValue(bindableProperty);
             }
         }
     }
 
     public bool ApplyPropertyIfMet(
-        VisualElement visual,
+        VisualElement applyTarget,
         ManuelaProperty property,
         BindableProperty bindableProperty,
         TransitionsCollection? transitions)
@@ -120,23 +131,23 @@ public class ConditionalStyle
         var setters = GetSetters();
 
         if (setters is null || !setters.TryGetValue(property, out var value)) return false;
-        if (!Condition?.Predicate(visual) ?? false) return false;
+        if (!Condition?.Predicate(applyTarget) ?? false) return false;
 
-        value = ManuelaThings.TryConvert(visual, property, value);
+        value = ManuelaThings.TryConvert(applyTarget, property, value);
 
         if (                                                                                    // do not animate if:
             value is not null &&                                                                // target value is null
             transitions is not null &&                                                          // there are no transitions
-            transitions.TryGetValue(visual, property, out var transition, out var isFirst) &&   // the property does not have a transition
-            !isFirst                                                                            // is the first time the property is being set
+            transitions.TryGetValue(applyTarget, property, out var transition, out var isFirst)      // the property does not have a transition
+            // && !isFirst    <- is this neccesary?                                             // is the first time the property is being set
             )
         {
-            var animation = ManuelaThings.GetAnimation(visual, bindableProperty, value);
-            animation.Commit(visual, $"{property} animation", easing: transition.Easing, length: transition.Duration);
+            var animation = ManuelaThings.GetAnimation(applyTarget, bindableProperty, value);
+            animation.Commit(applyTarget, $"{property} animation", easing: transition.Easing, length: transition.Duration);
         }
         else
         {
-            visual.SetValue(bindableProperty, value);
+            applyTarget.SetValue(bindableProperty, value);
         }
 
         return true;
@@ -178,7 +189,7 @@ public class ConditionalStyle
     protected void ReApply()
     {
         foreach (var visualElement in InitializedElements)
-            Apply(visualElement);
+            Apply(visualElement); // this is just used in hot reload.
     }
 
     protected virtual void OnInitialized(VisualElement visualElement) { }

@@ -8,6 +8,7 @@ namespace Manuela;
 [ContentProperty(nameof(Properties))]
 public class TransitionsExtension : IMarkupExtension<TransitionsCollection>
 {
+    private Transition? _allTransition;
     private readonly Dictionary<ManuelaProperty, Transition> _properties = [];
 
     public TransitionsExtension()
@@ -20,6 +21,7 @@ public class TransitionsExtension : IMarkupExtension<TransitionsCollection>
 
     public string Properties { get; set; } = string.Empty;
 
+    public Transition? All { set => _allTransition = value; }
     public Transition? Background { set => SetProperty(ManuelaProperty.Background, value); }
     public Transition? Margin { set => SetProperty(ManuelaProperty.Margin, value); }
     public Transition? Padding { set => SetProperty(ManuelaProperty.Padding, value); }
@@ -58,6 +60,12 @@ public class TransitionsExtension : IMarkupExtension<TransitionsCollection>
         {
             foreach (var property in Properties.Split(','))
             {
+                if (property == "All")
+                {
+                    All = new Transition();
+                    continue;
+                }
+
                 if (!Enum.TryParse<ManuelaProperty>(property, true, out var manuelaProperty)) continue;
                 SetProperty(manuelaProperty, new Transition());
             }
@@ -67,6 +75,8 @@ public class TransitionsExtension : IMarkupExtension<TransitionsCollection>
 
         foreach (var item in _properties.Values)
             collection.Add(item);
+
+        if (_allTransition is not null) collection.AllTransition = _allTransition;
 
         return collection;
     }

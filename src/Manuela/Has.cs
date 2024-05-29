@@ -59,19 +59,7 @@ public class Has
         styleCollection.Initialize(ve);
 
         foreach (var style in styleCollection)
-        {
-            style.Initialize(ve);
-
-            if (!AppRouting.Routing.ActiveRoute.IsSingleton)
-            {
-                ve.Unloaded += (_, _) =>
-                {
-                    style.Dispose(ve);
-                    if (style.InitializedElements.Count == 0)
-                        styleCollection.Dispose();
-                };
-            }
-        }
+            style.Initialize(ve, styleCollection);
     }
 
     public static void OnTransitionsCollectionChanged(BindableObject bindable, object? oldValue, object? newValue)

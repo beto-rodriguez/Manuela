@@ -33,13 +33,14 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
     <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
-    <!-- to access InputNonClientPointerSource API -->
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.4.231115000" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" />
-    <PackageReference Include="Manuela.Generation" Version="0.1.0" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="icon.png" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Manuela.Forms\Manuela.Forms.csproj" />
   </ItemGroup>
 
 </Project>

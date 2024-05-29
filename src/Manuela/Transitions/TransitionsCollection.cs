@@ -11,6 +11,17 @@ public class TransitionsCollection : List<Transition>
 {
     private Dictionary<VisualElement, HashSet<ManuelaProperty>> _animatedProperties = [];
     private Dictionary<ManuelaProperty, Transition>? _transitions;
+    private bool _allFirst = true;
+
+    public TransitionsCollection()
+    { }
+
+    public TransitionsCollection(Transition allTransiton)
+    {
+        AllTransition = allTransiton;
+    }
+
+    public Transition? AllTransition { get; set; }
 
     public bool TryGetValue(
         VisualElement visualElement,
@@ -25,7 +36,26 @@ public class TransitionsCollection : List<Transition>
 
         isFirst = visualAnimatedProperties.Add(key);
 
-        return _transitions.TryGetValue(key, out value);
+        if (!_transitions.TryGetValue(key, out value))
+        {
+            // if there is no transition for the property,
+            // check if there is a global transition
+
+            if (AllTransition is null)
+            {
+                return false;
+            }
+            else
+            {
+                value = AllTransition;
+                isFirst = _allFirst;
+
+                _allFirst = false;
+                return true;
+            }
+        }
+
+        return true;
     }
 
     public void Dispose()

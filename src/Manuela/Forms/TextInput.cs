@@ -29,10 +29,25 @@ public class TextInput : BaseInput<Entry, string, IEntryHandler>
     }
 
     protected override bool CanRestoreLabelOnUnFocus => string.IsNullOrWhiteSpace(BaseControl.Text);
-    protected override void SetInputValue(object? value) => BaseControl.Text = (string?)value ?? string.Empty;
-    protected override BindableProperty GetTextColorProperty() => Entry.TextColorProperty;
-    protected override BindableProperty GetFontSizeProperty() => Entry.FontSizeProperty;
-    protected override BindableProperty GetFontAttributesProperty() => Entry.FontAttributesProperty;
+    protected override void SetInputValue(object? value)
+    {
+        BaseControl.Text = (string?)value ?? string.Empty;
+    }
+
+    protected override BindableProperty GetTextColorProperty()
+    {
+        return Entry.TextColorProperty;
+    }
+
+    protected override BindableProperty GetFontSizeProperty()
+    {
+        return Entry.FontSizeProperty;
+    }
+
+    protected override BindableProperty GetFontAttributesProperty()
+    {
+        return Entry.FontAttributesProperty;
+    }
 
     protected override void OnInputHandlerChanged(IEntryHandler handler)
     {

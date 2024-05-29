@@ -1,5 +1,5 @@
-﻿using Manuela.Styling;
-using Manuela.Things;
+﻿using Manuela.States.Screen;
+using Manuela.Styling;
 using Microsoft.Maui.Layouts;
 
 namespace Manuela.Dialogs;
@@ -17,32 +17,44 @@ public static class Modal
         ?? throw new("The root of the page is not an AbsoluteLayout, that is a requirement to show dialogs.");
 
     public static Task<ModalOptions> Show(
-        string? title, string? message, ModalOptions answerType, DialogSize size = DialogSize.Small, bool animated = true)
+        string? title,
+        string? message,
+        ModalOptions answerType,
+        DialogSize size = DialogSize.Small,
+        bool animated = true,
+        bool scrollContent = true,
+        TaskCompletionSource<object?>? tcs = null)
     {
         var dialog = new DefaultDialog();
+
         dialog.SetContent(title, message, answerType);
 
-        return Show<ModalOptions>(dialog, size, animated);
+        return Show<ModalOptions>(dialog, size, animated, scrollContent);
     }
 
-    public static Task<TResponse?> Show<TResponse, TView>(DialogSize size = DialogSize.Medium, bool animated = true)
-        where TView : notnull, View
+    public static async Task<TResponse?> Show<TResponse>(View view,
+        DialogSize size = DialogSize.Medium,
+        bool animated = true,
+        bool scrollContent = true,
+        TaskCompletionSource<object?>? tcs = null)
     {
-        var view = ManuelaThings.ServiceProvider.GetRequiredService<TView>()
-            ?? throw new Exception($"Unable to find an instance of {nameof(TView)} in the service collection.");
-
-        return Show<TResponse>(view, size, animated);
+        return (TResponse?)await Show(view, size, animated, scrollContent, tcs);
     }
 
-    public static async Task<TResponse?> Show<TResponse>(View view, DialogSize size = DialogSize.Medium, bool animated = true)
+    public static async Task<object?> Show(
+        View view,
+        DialogSize size = DialogSize.Medium,
+        bool animated = true,
+        bool scrollContent = true,
+        TaskCompletionSource<object?>? tcs = null)
     {
-        var showDialogTask = Show(view, size, animated);
+        var openDialogTask = OpenDialog(view, size, animated, scrollContent, tcs);
 
-        TResponse? answer;
+        object? answer;
 
         try
         {
-            answer = (TResponse?)await showDialogTask;
+            answer = await openDialogTask;
         }
         catch (OperationCanceledException)
         {
@@ -57,7 +69,7 @@ public static class Modal
             _ = s_dialogStack.Pop();
 
             var window = (Border)view.Parent;
-            var windowWrap = (ScrollView)window.Parent;
+            var windowWrap = (View)window.Parent;
 
             if (animated)
             {
@@ -93,7 +105,12 @@ public static class Modal
         return answer;
     }
 
-    private static Task<object?> Show(View view, DialogSize size = DialogSize.Small, bool animated = true)
+    private static Task<object?> OpenDialog(
+        View view,
+        DialogSize size = DialogSize.Small,
+        bool animated = true,
+        bool scrollContent = true,
+        TaskCompletionSource<object?>? tcs = null)
     {
         if (s_shadow is null) Root.Children.Add(s_shadow = new Border { StyleClass = s_modalShadowStyle });
 
@@ -108,15 +125,25 @@ public static class Modal
                 DialogSize.Large => 1200,
                 _ => 800
             },
-            Content = view
+            StrokeThickness = 0,
+            Content = view,
+            Margin = Root.GetScreenBreakpoint() > Breakpoint.Md ? new(0, 50, 0, 0) : new(0)
         };
 
-        var windowWrap = new ScrollView
-        {
-            ZIndex = 100,
-            Background = null,
-            Content = window
-        };
+        View windowWrap = scrollContent
+            ? new ScrollView
+            {
+                ZIndex = 100,
+                Background = null,
+                Content = window
+            }
+            : new Border
+            {
+                StrokeThickness = 0,
+                ZIndex = 100,
+                Background = null,
+                Content = window
+            };
 
         AbsoluteLayout.SetLayoutFlags(windowWrap, AbsoluteLayoutFlags.SizeProportional);
         AbsoluteLayout.SetLayoutBounds(windowWrap, new Rect(0, 0, 1, 1));
@@ -140,7 +167,7 @@ public static class Modal
         s_dialogStack.Push(view);
         AnimateStack(false);
 
-        var tcs = new TaskCompletionSource<object?>();
+        tcs ??= new TaskCompletionSource<object?>();
         Has.SetModalTcs(view, tcs);
 
         return tcs.Task;

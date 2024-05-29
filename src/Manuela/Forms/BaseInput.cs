@@ -8,8 +8,7 @@ public abstract class BaseInput<TInput, TValue, THandler> : Border, IInputContro
     where TInput : View, new()
     where THandler : IViewHandler
 {
-    private bool _isInitialized;
-
+    private readonly bool _isInitialized = false;
     protected Label _label;
     protected AbsoluteLayout _inputLayout;
     protected BoxView _activeBoxView;
@@ -18,7 +17,6 @@ public abstract class BaseInput<TInput, TValue, THandler> : Border, IInputContro
     public BaseInput()
     {
         _isInitialized = true;
-
         _inputLayout = new AbsoluteLayout { MinimumHeightRequest = InputMinimumHeightRequest };
 
         var cornerRadius = StrokeShape is RoundRectangle roundRectangle ? roundRectangle.CornerRadius.TopLeft : 0;
@@ -189,8 +187,8 @@ public abstract class BaseInput<TInput, TValue, THandler> : Border, IInputContro
 
     public double InputMinimumHeightRequest
     {
-        get { return (double)GetValue(InputMinimumHeightRequestProperty); }
-        set { SetValue(InputMinimumHeightRequestProperty, value); }
+        get => (double)GetValue(InputMinimumHeightRequestProperty);
+        set => SetValue(InputMinimumHeightRequestProperty, value);
     }
 
     /// <summary>
@@ -198,8 +196,8 @@ public abstract class BaseInput<TInput, TValue, THandler> : Border, IInputContro
     /// </summary>
     public string Placeholder
     {
-        get { return (string)GetValue(PlaceholderProperty); }
-        set { SetValue(PlaceholderProperty, value); }
+        get => (string)GetValue(PlaceholderProperty);
+        set => SetValue(PlaceholderProperty, value);
     }
 
     /// <summary>
@@ -207,8 +205,8 @@ public abstract class BaseInput<TInput, TValue, THandler> : Border, IInputContro
     /// </summary>
     public Color PlaceholderColor
     {
-        get { return (Color)GetValue(PlaceholderColorProperty); }
-        set { SetValue(PlaceholderColorProperty, value); }
+        get => (Color)GetValue(PlaceholderColorProperty);
+        set => SetValue(PlaceholderColorProperty, value);
     }
 
     /// <summary>
@@ -216,8 +214,8 @@ public abstract class BaseInput<TInput, TValue, THandler> : Border, IInputContro
     /// </summary>
     public double LabelOpacity
     {
-        get { return (double)GetValue(PlaceholderOpacityProperty); }
-        set { SetValue(PlaceholderOpacityProperty, value); }
+        get => (double)GetValue(PlaceholderOpacityProperty);
+        set => SetValue(PlaceholderOpacityProperty, value);
     }
 
     /// <summary>
@@ -225,8 +223,8 @@ public abstract class BaseInput<TInput, TValue, THandler> : Border, IInputContro
     /// </summary>
     public Color HighlightColor
     {
-        get { return (Color)GetValue(HighlightColorProperty); }
-        set { SetValue(HighlightColorProperty, value); }
+        get => (Color)GetValue(HighlightColorProperty);
+        set => SetValue(HighlightColorProperty, value);
     }
 
     /// <summary>
@@ -234,8 +232,8 @@ public abstract class BaseInput<TInput, TValue, THandler> : Border, IInputContro
     /// </summary>
     public double HighlightBorderHeight
     {
-        get { return (double)GetValue(HighlightBorderHeightProperty); }
-        set { SetValue(HighlightBorderHeightProperty, value); }
+        get => (double)GetValue(HighlightBorderHeightProperty);
+        set => SetValue(HighlightBorderHeightProperty, value);
     }
 
     /// <summary>
@@ -243,8 +241,8 @@ public abstract class BaseInput<TInput, TValue, THandler> : Border, IInputContro
     /// </summary>
     public string ValidationMessage
     {
-        get { return (string)GetValue(ValidationMessageProperty); }
-        set { SetValue(ValidationMessageProperty, value); }
+        get => (string)GetValue(ValidationMessageProperty);
+        set => SetValue(ValidationMessageProperty, value);
     }
 
     /// <summary>
@@ -372,7 +370,10 @@ public abstract class BaseInput<TInput, TValue, THandler> : Border, IInputContro
             speed);
     }
 
-    void IInputControl.SetValue(object? value) => SetInputValue(value);
+    void IInputControl.SetValue(object? value)
+    {
+        SetInputValue(value);
+    }
 
     void IInputControl.SetPlaceholder(string placeholder)
     {
@@ -381,7 +382,10 @@ public abstract class BaseInput<TInput, TValue, THandler> : Border, IInputContro
         if (!CanRestoreLabelOnUnFocus) SetInputFocus(speed: 1, transformViewBox: false);
     }
 
-    void IInputControl.Dispatch(Action action) => Dispatcher.Dispatch(action);
+    void IInputControl.Dispatch(Action action)
+    {
+        _ = Dispatcher.Dispatch(action);
+    }
 
     private void Input_HandlerChanged(object? sender, EventArgs e)
     {
