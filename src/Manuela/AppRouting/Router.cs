@@ -2,6 +2,7 @@
 // DO NOT MOVE THE NS.
 
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using Manuela.AppRouting;
 using Manuela.Things;
@@ -31,31 +32,25 @@ public class Router : INotifyPropertyChanged
 #pragma warning disable CA2211 // Non-constant fields should not be visible
     public static BindableProperty LinkProperty = BindableProperty.CreateAttached(
         "Link", typeof(string), typeof(Has), null,
-        defaultBindingMode: BindingMode.OneTime,
         propertyChanged: (bindable, oldValue, newValue) =>
         {
             var route = (string)newValue;
 
-            //if (bindable is Button button)
-            //{
-            //    button.Clicked += (_, _) => Current.GoTo(route);
-            //    return;
-            //}
-
-            //if (bindable is ImageButton imgButton)
-            //{
-            //    imgButton.Clicked += (_, _) => Current.GoTo(route);
-            //    return;
-            //}
-
             if (bindable is not View view) return;
 
-            // use manuela's recognizers???
+            // on CollectionViews (virtualized) it seems that the same UI element is reused
+            // lets clear the gesture recognizers to avoid multiple taps on different links
+            // this has an issue... what if the user is using gestures on the view?
 
-            view.GestureRecognizers.Add(new TapGestureRecognizer
-            {
-                Command = new Command(() => Current.GoTo(route, view))
-            });
+            view.GestureRecognizers.Clear();
+
+            Command cmd = route == "../"
+                ? new(() => Current.GoBack())
+                : route == "."
+                    ? new(() => Current.Reload())
+                    : new(() => Current.GoTo(route, view));
+
+            view.GestureRecognizers.Add(new TapGestureRecognizer { Command = cmd });
         });
 #pragma warning restore CA2211 // Non-constant fields should not be visible
 
@@ -74,18 +69,12 @@ public class Router : INotifyPropertyChanged
         GoTo(typeof(T).Name, null);
     }
 
-    private void GoTo(string route, View? sender)
+    public void GoTo(string route, View? sender)
     {
         Navigation.Stack(ActiveRoute);
+        Trace.WriteLine($"Navigating to {route}.");
 
-        var r = GetRoute(route);
-
-        if (r is null)
-        {
-            // redirect to 404 page???
-
-            throw new InvalidOperationException($"The route {route} does not exists.");
-        }
+        var r = GetRoute(route) ?? throw new InvalidOperationException($"The route {route} does not exists.");
 
         LoadView(r, sender);
     }
@@ -169,8 +158,7 @@ public class Router : INotifyPropertyChanged
         }
 
         AppPage.Current.Body = view;
-
-        Navigated?.Invoke(new(navigationArgs, view));
+        Navigated?.Invoke(new(navigationArgs, AppPage.Current.Body!));
     }
 
     private class NavStack<T>(int capacity)
