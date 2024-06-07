@@ -1,4 +1,7 @@
-﻿namespace Manuela.Forms;
+﻿using System.ComponentModel;
+using System.Reflection.Metadata.Ecma335;
+
+namespace Manuela.Forms;
 
 public class InputGroup : Border
 {
@@ -80,6 +83,8 @@ public class InputGroup : Border
         };
     }
 
+    private static PropertyChangedEventHandler? s_middleViewPropertyChanged;
+
     private static void OnMiddleChanged(BindableObject bindable, object oldValue, object newValue)
     {
         if (newValue is not View view) return;
@@ -88,6 +93,25 @@ public class InputGroup : Border
 
         view.Margin = new Thickness(0);
         inputGroup._middle.Content = view;
+
+        // lets track the middle view's IsEnabled property to change the style of the input group
+
+        if (oldValue is View oldView)
+            oldView.PropertyChanged -= s_middleViewPropertyChanged;
+
+        s_middleViewPropertyChanged = GetPCEH(inputGroup);
+        view.PropertyChanged += s_middleViewPropertyChanged;
+    }
+
+    private static PropertyChangedEventHandler GetPCEH(View inputGroup)
+    {
+        return (sender, e) =>
+        {
+            if (sender is not View view || e.PropertyName != nameof(view.IsEnabled)) return;
+            inputGroup.StyleClass = view.IsEnabled
+                ? ["input-group-enabled"]
+                : ["input-group-disabled"];
+        };
     }
 
     private enum Side

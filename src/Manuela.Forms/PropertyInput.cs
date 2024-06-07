@@ -45,10 +45,15 @@ public class PropertyInput(
                 });
         });
 
-        form.OnFormValidated += f =>
-            inputControl.ValidationMessage = f.GetError(propertyName);
-        form.OnModelChanged += f =>
-            Initialize(inputControl);
+        form.OnFormValidated += f => inputControl.ValidationMessage = f.GetError(propertyName);
+        form.OnModelChanged += f => inputControl.SetValue(getter());
+
+        inputControl.IsEnabled = form.IsEnabled;
+        form.PropertyChanged += (_, e) =>
+        {
+            if (e.PropertyName != nameof(form.IsEnabled)) return;
+            inputControl.IsEnabled = form.IsEnabled;
+        };
     }
 
     /// <summary>

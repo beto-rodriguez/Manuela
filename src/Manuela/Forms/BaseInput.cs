@@ -1,11 +1,12 @@
-﻿using System.Windows.Input;
+﻿using System.Runtime.CompilerServices;
+using System.Windows.Input;
 using Microsoft.Maui.Controls.Shapes;
 using Microsoft.Maui.Layouts;
 
 namespace Manuela.Forms;
 
 public abstract class BaseInput<TInput, TValue, THandler> : Border, IInputControl
-    where TInput : View, new()
+    where TInput : VisualElement, new()
     where THandler : IViewHandler
 {
     private readonly bool _isInitialized = false;
@@ -135,7 +136,19 @@ public abstract class BaseInput<TInput, TValue, THandler> : Border, IInputContro
                 var isValid = string.IsNullOrWhiteSpace(newStr);
                 i._validationLabel.Text = newStr;
                 i._validationLabel.IsVisible = !isValid;
-                i.StyleClass = isValid ? ["input-valid"] : ["input-invalid"];
+
+                if (isValid)
+                {
+                    i.StyleClass = new[] { "input-valid" };
+                    var ig = i.Parent.Parent.Parent as InputGroup;
+                    if (ig is not null) ig.StyleClass = new[] { "input-valid" };
+                }
+                else
+                {
+                    i.StyleClass = new[] { "input-invalid" };
+                    var ig = i.Parent.Parent.Parent as InputGroup;
+                    if (ig is not null) ig.StyleClass = new[] { "input-invalid" };
+                }
             }));
 
     public static readonly BindableProperty TextColorProperty =
@@ -339,6 +352,14 @@ public abstract class BaseInput<TInput, TValue, THandler> : Border, IInputContro
     protected abstract BindableProperty GetTextColorProperty();
     protected abstract BindableProperty GetFontSizeProperty();
     protected abstract BindableProperty GetFontAttributesProperty();
+
+    protected override void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+    {
+        base.OnPropertyChanged(propertyName);
+
+        if (propertyName != nameof(IsEnabled)) return;
+        BaseControl.IsEnabled = IsEnabled;
+    }
 
     public virtual void SetInputFocus(uint speed = 150, bool? transformLabel = null, bool? transformViewBox = null)
     {

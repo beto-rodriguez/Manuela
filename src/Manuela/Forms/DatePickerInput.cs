@@ -7,12 +7,12 @@ public class DatePickerInput : BaseInput<DatePicker, DateTime, IDatePickerHandle
     public DatePickerInput()
     {
         BaseControl.BackgroundColor = Colors.Transparent;
-        
-        #if MACCATALYST && !IOS
+
+#if MACCATALYST && !IOS
         BaseControl.Margin = new(0, 15, 0, 0);
-        #elif IOS && !MACCATALYST
+#elif IOS && !MACCATALYST
         BaseControl.Margin = new(15, 0);
-        #endif
+#endif
 
         ValueChanged += (_, _) =>
         {

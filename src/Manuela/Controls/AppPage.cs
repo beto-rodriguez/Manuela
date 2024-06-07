@@ -74,7 +74,7 @@ public abstract class AppPage : ContentPage
 
     protected override bool OnBackButtonPressed()
     {
-
+        Router.Current.GoBack();
         return true;
     }
 

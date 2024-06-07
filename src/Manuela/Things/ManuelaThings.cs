@@ -1,5 +1,6 @@
 ﻿using Manuela.Styling;
 using Manuela.Theming;
+using Microsoft.Maui.Controls.Shapes;
 using Microsoft.Maui.Layouts;
 
 namespace Manuela.Things;
@@ -43,7 +44,8 @@ public static class ManuelaThings
                 new PropertySource<Border>(Border.StrokeShapeProperty),
                 new PropertySource<Button>(Button.CornerRadiusProperty),
                 new PropertySource<Frame>(Frame.CornerRadiusProperty),
-                new PropertySource<BoxView>(BoxView.CornerRadiusProperty)
+                new PropertySource<BoxView>(BoxView.CornerRadiusProperty),
+                new PropertySource<RoundRectangle>(RoundRectangle.CornerRadiusProperty)
             ],
         [ManuelaProperty.Shadow] =
             [

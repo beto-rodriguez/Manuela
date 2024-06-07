@@ -1,4 +1,5 @@
 ﻿using Manuela.AppRouting;
+using Manuela.Dialogs;
 using Manuela.Theming;
 using Manuela.Things;
 
@@ -79,6 +80,35 @@ public static class ManuelaExtensions
             .TransformPoint(new Windows.Foundation.Point(0, 0));
 
         return new Point(point.X, point.Y);
+#elif ANDROID
+        var platformview = (Android.Views.View?)element.Handler?.PlatformView;
+        var v = (Android.Views.View?)AppPage.Current.Handler?.PlatformView;
+
+        if (platformview is null || v is null) return new Point();
+
+        var location = new int[2];
+        platformview.GetLocationOnScreen(location);
+
+        var x = location[0] / DeviceDisplay.MainDisplayInfo.Density;
+        var y = location[1] / DeviceDisplay.MainDisplayInfo.Density;
+        double offset;
+
+        if (OperatingSystem.IsAndroidVersionAtLeast(30))
+        {
+            var metrics = Platform.CurrentActivity?.Window?.WindowManager?.CurrentWindowMetrics;
+            var insets = metrics?.WindowInsets.GetInsetsIgnoringVisibility(Android.Views.WindowInsets.Type.SystemBars());
+            offset = (insets?.Top ?? 0) / DeviceDisplay.MainDisplayInfo.Density;
+        }
+        else
+        {
+            var dm = new Android.Util.DisplayMetrics();
+            Platform.CurrentActivity?.Window?.WindowManager?.DefaultDisplay?.GetMetrics(dm);
+            offset = (dm.HeightPixels - v.MeasuredHeight) / DeviceDisplay.MainDisplayInfo.Density;
+        }
+
+        //Modal.Show("gg", offset.ToString(), ModalOptions.Ok);
+
+        return new Point(x, y - offset);
 #endif
 
         return new Point();
