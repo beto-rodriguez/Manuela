@@ -1,4 +1,4 @@
-﻿namespace Manuela.Dialogs;
+﻿namespace Manuela.Forms;
 
 [Flags]
 public enum ModalOptions

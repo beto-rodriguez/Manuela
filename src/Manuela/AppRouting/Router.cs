@@ -69,7 +69,7 @@ public class Router : INotifyPropertyChanged
         GoTo(typeof(T).Name, null);
     }
 
-    public void GoTo(string route, View? sender)
+    public void GoTo(string route, View? sender = null)
     {
         Navigation.Stack(ActiveRoute);
         Trace.WriteLine($"Navigating to {route}.");

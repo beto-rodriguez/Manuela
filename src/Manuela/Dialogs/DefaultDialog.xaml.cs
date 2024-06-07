@@ -1,3 +1,5 @@
+using Manuela.Forms;
+
 namespace Manuela.Dialogs;
 
 public partial class DefaultDialog : VerticalStackLayout
