@@ -30,8 +30,8 @@ public class Form : INotifyPropertyChanged
     {
         var isValid = Validator(this, property);
 
-        // if all the properties were valuated (prroperty == null)
-        // then rraise the event.
+        // if all the properties were evaluated (property == null)
+        // then raise the event.
         if (property is null) OnFormValidated?.Invoke(this);
 
         return isValid;
@@ -42,6 +42,19 @@ public class Form : INotifyPropertyChanged
         return Errors.TryGetValue(propertyName, out var message)
             ? message
             : string.Empty;
+    }
+
+    public void SetErrors(IEnumerable<ValidationError> errors)
+    {
+        SetErrors(errors.ToArray());
+    }
+
+    public void SetErrors(params ValidationError[] errors)
+    {
+        foreach (var error in errors)
+            Errors[error.PropertyName] = error.Message;
+
+        OnFormValidated?.Invoke(this);
     }
 
     public virtual object? GetModel()
