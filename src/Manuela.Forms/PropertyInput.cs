@@ -46,7 +46,11 @@ public class PropertyInput(
         });
 
         form.OnFormValidated += f => inputControl.Dispatch(() => inputControl.ValidationMessage = f.GetError(propertyName));
-        form.OnModelChanged += f => inputControl.SetValue(getter());
+        form.OnModelChanged += f =>
+        {
+            inputControl.SetValue(getter());
+            inputControl.SetPlaceholder(displayName);
+        };
 
         inputControl.IsEnabled = form.IsEnabled;
         form.PropertyChanged += (_, e) =>
