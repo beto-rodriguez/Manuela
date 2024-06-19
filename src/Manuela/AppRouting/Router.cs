@@ -15,6 +15,7 @@ namespace Manuela;
 public class Router : INotifyPropertyChanged
 {
     private Route _activeRoute = Route.Empty;
+    private static readonly Dictionary<View, Behaviors.Behavior> s_tracker = [];
 
     private Router()
     { }
@@ -42,15 +43,57 @@ public class Router : INotifyPropertyChanged
             // lets clear the gesture recognizers to avoid multiple taps on different links
             // this has an issue... what if the user is using gestures on the view?
 
-            view.GestureRecognizers.Clear();
+            if (s_tracker.TryGetValue(view, out var tracked))
+            {
+                tracked.Dispose();
+                _ = s_tracker.Remove(view);
+            }
 
-            Command cmd = route == "../"
-                ? new(() => Current.GoBack())
-                : route == "."
-                    ? new(() => Current.Reload())
-                    : new(() => Current.GoTo(route, view));
+            var customGesture = new Behaviors.Behavior(view);
+            s_tracker[view] = customGesture;
 
-            view.GestureRecognizers.Add(new TapGestureRecognizer { Command = cmd });
+            void Unloaded(object? sender, EventArgs e)
+            {
+                if (s_tracker.TryGetValue(view, out var tracked))
+                {
+                    s_tracker[view].Dispose();
+                    _ = s_tracker.Remove(view);
+                }
+
+                view.Unloaded -= Unloaded;
+            }
+
+            view.Unloaded += Unloaded;
+
+            customGesture.Down += () =>
+            {
+                if (route == "../")
+                {
+                    Current.GoBack();
+                    return;
+                }
+
+                if (route == ".")
+                {
+                    Current.Reload();
+                    return;
+                }
+
+                Current.GoTo(route, view);
+            };
+
+            // not sure if we can create 2 TapGestureRecognizers on the same IView.
+            // for now we do our own implementation of the tap gesture recognizer.
+
+            //view.GestureRecognizers.Clear();
+
+            //Command cmd = route == "../"
+            //    ? new(() => Current.GoBack())
+            //    : route == "."
+            //        ? new(() => Current.Reload())
+            //        : new(() => Current.GoTo(route, view));
+
+            //view.GestureRecognizers.Add(new TapGestureRecognizer { Command = cmd });
         });
 #pragma warning restore CA2211 // Non-constant fields should not be visible
 
