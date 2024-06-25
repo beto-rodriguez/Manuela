@@ -11,6 +11,8 @@ public class AppRoutes
         .Where(x => x.Settings.IsMain);
     public static IEnumerable<Route> SecondaryMenu => AllRoutes
         .Where(x => !x.Settings.IsMain && !x.Settings.IsHidden);
+    public static IEnumerable<Route> CollapsedElements => AllRoutes
+        .Where(x => x.Settings.CollapsedRoutes is not null);
 
     public static Route[] Build(Action<AppRoutes> builder)
     {
@@ -65,7 +67,7 @@ public class AppRoutes
         builder(cb);
 
         var collapsableMenuItem = new Route(
-            typeof(object), typeof(object), "{collapsed}", null, false);
+            typeof(object), typeof(object), "{collapsed}", s => s.Main(icon, displayName), false);
 
         collapsableMenuItem.Settings.CollapsedRoutes = cb._routes;
         AllRoutes.Add(collapsableMenuItem);
