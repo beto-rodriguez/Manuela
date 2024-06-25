@@ -90,7 +90,10 @@ public abstract class BaseInput<TInput, TValue, THandler> : Border, IInputContro
             defaultBindingMode: BindingMode.TwoWay);
 
     public static readonly BindableProperty ValueChangedCommandProperty =
-        BindableProperty.Create(nameof(IInputControl.ValueChangedCommand), typeof(ICommand), typeof(BaseInput<TInput, TValue, THandler>), null);
+        BindableProperty.Create(nameof(ValueChangedCommand), typeof(ICommand), typeof(BaseInput<TInput, TValue, THandler>), null);
+
+    public static readonly BindableProperty InputValueChangedCommandProperty =
+        BindableProperty.Create(nameof(IInputControl.InputValueChangedCommand), typeof(ICommand), typeof(BaseInput<TInput, TValue, THandler>), null);
 
     public static readonly BindableProperty InputMinimumHeightRequestProperty =
         BindableProperty.Create(
@@ -178,7 +181,17 @@ public abstract class BaseInput<TInput, TValue, THandler> : Border, IInputContro
         set => SetValue(ForProperty, value);
     }
 
-    ICommand IInputControl.ValueChangedCommand
+    // used for internal purposes
+    ICommand IInputControl.InputValueChangedCommand
+    {
+        get => (ICommand)GetValue(InputValueChangedCommandProperty);
+        set => SetValue(InputValueChangedCommandProperty, value);
+    }
+
+    /// <summary>
+    /// Called when the input value changes.
+    /// </summary>
+    public ICommand ValueChangedCommand
     {
         get => (ICommand)GetValue(ValueChangedCommandProperty);
         set => SetValue(ValueChangedCommandProperty, value);

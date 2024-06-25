@@ -83,7 +83,10 @@ public class CheckBoxInput : VerticalStackLayout, IInputControl
            propertyChanged: OnInputChanged);
 
     public static readonly BindableProperty ValueChangedCommandProperty =
-        BindableProperty.Create(nameof(IInputControl.ValueChangedCommand), typeof(ICommand), typeof(CheckBoxInput), null);
+        BindableProperty.Create(nameof(ValueChangedCommand), typeof(ICommand), typeof(CheckBoxInput), null);
+
+    public static readonly BindableProperty InputValueChangedCommandProperty =
+        BindableProperty.Create(nameof(IInputControl.InputValueChangedCommand), typeof(ICommand), typeof(CheckBoxInput), null);
 
     public static readonly BindableProperty ValueProperty =
         BindableProperty.Create(
@@ -127,7 +130,17 @@ public class CheckBoxInput : VerticalStackLayout, IInputControl
         set => SetValue(ForProperty, value);
     }
 
-    ICommand IInputControl.ValueChangedCommand
+    // used for internal purposes
+    ICommand IInputControl.InputValueChangedCommand
+    {
+        get => (ICommand)GetValue(InputValueChangedCommandProperty);
+        set => SetValue(InputValueChangedCommandProperty, value);
+    }
+
+    /// <summary>
+    /// Called when the value of the checkbox changes.
+    /// </summary>
+    public ICommand ValueChangedCommand
     {
         get => (ICommand)GetValue(ValueChangedCommandProperty);
         set => SetValue(ValueChangedCommandProperty, value);
@@ -162,19 +175,30 @@ public class CheckBoxInput : VerticalStackLayout, IInputControl
 
     #endregion
 
-    void IInputControl.SetValue(object? value) => Value = (bool?)value ?? false;
+    void IInputControl.SetValue(object? value)
+    {
+        Value = (bool?)value ?? false;
+    }
+
     void IInputControl.SetPlaceholder(string placeholder)
     {
         if (string.IsNullOrWhiteSpace(placeholder)) return;
         Placeholder = placeholder;
     }
-    void IInputControl.Dispatch(Action action) => Dispatcher.Dispatch(action);
+
+    void IInputControl.Dispatch(Action action)
+    {
+        _ = Dispatcher.Dispatch(action);
+    }
 
     private static void OnValueChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var checkBox = (CheckBoxInput)bindable;
         checkBox.CheckedChanged?.Invoke(checkBox);
-        ((IInputControl)checkBox).ValueChangedCommand?.Execute(newValue);
+        ((IInputControl)checkBox).InputValueChangedCommand?.Execute(newValue);
+
+        if (checkBox.ValueChangedCommand is not null && checkBox.ValueChangedCommand.CanExecute(newValue))
+            checkBox.ValueChangedCommand?.Execute(newValue);
     }
 
     private void OnDown()

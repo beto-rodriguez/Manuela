@@ -70,7 +70,11 @@ public class AppRoutes
             typeof(object), typeof(object), "{collapsed}", s => s.Main(icon, displayName), false);
 
         collapsableMenuItem.Settings.CollapsedRoutes = cb._routes;
+
         AllRoutes.Add(collapsableMenuItem);
+
+        foreach (var route in cb._routes)
+            AllRoutes.Add(route);
 
         return s_instance;
     }

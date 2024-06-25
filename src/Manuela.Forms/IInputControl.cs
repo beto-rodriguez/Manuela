@@ -6,7 +6,7 @@ public interface IInputControl
 {
     PropertyInput For { get; set; }
     bool IsEnabled { get; set; }
-    ICommand ValueChangedCommand { get; set; }
+    ICommand InputValueChangedCommand { get; set; }
     string ValidationMessage { get; set; }
     void SetValue(object? value);
     void SetPlaceholder(string placeholder);

@@ -18,7 +18,10 @@ public class TextInput : BaseInput<Entry, string, IEntryHandler>
         {
             var newValue = BaseControl.Text;
             SetValue(ValueProperty, newValue);
-            ((IInputControl)this).ValueChangedCommand?.Execute(newValue);
+            ((IInputControl)this).InputValueChangedCommand?.Execute(newValue);
+
+            if (ValueChangedCommand is not null && ValueChangedCommand.CanExecute(newValue))
+                ValueChangedCommand?.Execute(newValue);
         };
     }
 

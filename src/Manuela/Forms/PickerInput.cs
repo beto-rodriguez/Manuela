@@ -15,7 +15,11 @@ public class PickerInput : BaseInput<Picker, object, IPickerHandler>
         {
             var newValue = BaseControl.SelectedItem;
             SetValue(ValueProperty, newValue);
-            ((IInputControl)this).ValueChangedCommand?.Execute(newValue);
+            ((IInputControl)this).InputValueChangedCommand?.Execute(newValue);
+
+            if (ValueChangedCommand is not null && ValueChangedCommand.CanExecute(newValue))
+                ValueChangedCommand?.Execute(newValue);
+
             SetInputFocus(transformViewBox: false); // move placeholder on selection change
         };
     }
@@ -38,10 +42,25 @@ public class PickerInput : BaseInput<Picker, object, IPickerHandler>
     }
 
     protected override bool CanRestoreLabelOnUnFocus => BaseControl.SelectedItem is null;
-    protected override void SetInputValue(object? value) => BaseControl.SelectedItem = value;
-    protected override BindableProperty GetTextColorProperty() => Picker.TextColorProperty;
-    protected override BindableProperty GetFontSizeProperty() => Picker.FontSizeProperty;
-    protected override BindableProperty GetFontAttributesProperty() => Picker.FontAttributesProperty;
+    protected override void SetInputValue(object? value)
+    {
+        BaseControl.SelectedItem = value;
+    }
+
+    protected override BindableProperty GetTextColorProperty()
+    {
+        return Picker.TextColorProperty;
+    }
+
+    protected override BindableProperty GetFontSizeProperty()
+    {
+        return Picker.FontSizeProperty;
+    }
+
+    protected override BindableProperty GetFontAttributesProperty()
+    {
+        return Picker.FontAttributesProperty;
+    }
 
     protected override void OnInputHandlerChanged(IPickerHandler handler)
     {

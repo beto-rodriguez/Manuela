@@ -19,10 +19,16 @@ public class DatePickerInput : BaseInput<DatePicker, DateTime, IDatePickerHandle
             var newValue = BaseControl.Date;
             SetValue(ValueProperty, newValue);
 
-            // at loast on windows, the date picker DateSelected event is called on initialization.
+            // at least on windows, the date picker DateSelected event is called on initialization.
             // lets prevent this ValueChanged call when the control is not loaded yet.
 
-            if (BaseControl.IsLoaded) ((IInputControl)this).ValueChangedCommand?.Execute(newValue);
+            if (BaseControl.IsLoaded)
+            {
+                ((IInputControl)this).InputValueChangedCommand?.Execute(newValue);
+
+                if (ValueChangedCommand is not null && ValueChangedCommand.CanExecute(newValue))
+                    ValueChangedCommand?.Execute(newValue);
+            }
         };
     }
 
@@ -33,10 +39,25 @@ public class DatePickerInput : BaseInput<DatePicker, DateTime, IDatePickerHandle
     }
 
     protected override bool CanRestoreLabelOnUnFocus => false;
-    protected override void SetInputValue(object? value) => BaseControl.Date = (DateTime?)value ?? DateTime.MinValue;
-    protected override BindableProperty GetTextColorProperty() => DatePicker.TextColorProperty;
-    protected override BindableProperty GetFontSizeProperty() => DatePicker.FontSizeProperty;
-    protected override BindableProperty GetFontAttributesProperty() => DatePicker.FontAttributesProperty;
+    protected override void SetInputValue(object? value)
+    {
+        BaseControl.Date = (DateTime?)value ?? DateTime.MinValue;
+    }
+
+    protected override BindableProperty GetTextColorProperty()
+    {
+        return DatePicker.TextColorProperty;
+    }
+
+    protected override BindableProperty GetFontSizeProperty()
+    {
+        return DatePicker.FontSizeProperty;
+    }
+
+    protected override BindableProperty GetFontAttributesProperty()
+    {
+        return DatePicker.FontAttributesProperty;
+    }
 
     protected override void OnInputHandlerChanged(IDatePickerHandler handler)
     {

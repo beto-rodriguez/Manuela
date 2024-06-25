@@ -19,7 +19,7 @@ public class PropertyInput(
         Task? waitTask = null;
         var cts = new CancellationTokenSource();
 
-        inputControl.ValueChangedCommand = new Command(async value =>
+        inputControl.InputValueChangedCommand = new Command(async value =>
         {
             // only execute/show the validation after 800ms without input changes.
             setter(value);

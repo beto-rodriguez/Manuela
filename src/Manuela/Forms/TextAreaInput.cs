@@ -16,7 +16,10 @@ public class TextAreaInput : BaseInput<Editor, string, IEditorHandler>
         {
             var newValue = BaseControl.Text;
             SetValue(ValueProperty, newValue);
-            ((IInputControl)this).ValueChangedCommand?.Execute(newValue);
+            ((IInputControl)this).InputValueChangedCommand?.Execute(newValue);
+
+            if (ValueChangedCommand is not null && ValueChangedCommand.CanExecute(newValue))
+                ValueChangedCommand?.Execute(newValue);
         };
     }
 
@@ -27,10 +30,25 @@ public class TextAreaInput : BaseInput<Editor, string, IEditorHandler>
     }
 
     protected override bool CanRestoreLabelOnUnFocus => string.IsNullOrWhiteSpace(BaseControl.Text);
-    protected override void SetInputValue(object? value) => BaseControl.Text = (string?)value ?? string.Empty;
-    protected override BindableProperty GetTextColorProperty() => Editor.TextColorProperty;
-    protected override BindableProperty GetFontSizeProperty() => Editor.FontSizeProperty;
-    protected override BindableProperty GetFontAttributesProperty() => Editor.FontAttributesProperty;
+    protected override void SetInputValue(object? value)
+    {
+        BaseControl.Text = (string?)value ?? string.Empty;
+    }
+
+    protected override BindableProperty GetTextColorProperty()
+    {
+        return Editor.TextColorProperty;
+    }
+
+    protected override BindableProperty GetFontSizeProperty()
+    {
+        return Editor.FontSizeProperty;
+    }
+
+    protected override BindableProperty GetFontAttributesProperty()
+    {
+        return Editor.FontAttributesProperty;
+    }
 
     public override void SetInputFocus(uint speed = 150, bool? transformLabel = null, bool? transformViewBox = null)
     {
