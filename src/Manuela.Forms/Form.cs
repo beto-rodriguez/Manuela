@@ -2,8 +2,9 @@
 
 namespace Manuela.Forms;
 
-public class Form : INotifyPropertyChanged
+public abstract class Form : INotifyPropertyChanged
 {
+    private object? _model;
     private bool _isEnabled = true;
 
     public static Func<Form, string?, bool> Validator { get; } = Validators.DataAnnotationsValidator;
@@ -59,7 +60,13 @@ public class Form : INotifyPropertyChanged
 
     public virtual object? GetModel()
     {
-        return null;
+        return _model;
+    }
+
+    public virtual void SetModel(object? model)
+    {
+        _model = model;
+        InvokeModelChanged();
     }
 
     protected virtual void InvokeModelChanged()
@@ -73,26 +80,15 @@ public class Form : INotifyPropertyChanged
     }
 }
 
-public class Form<T>() : Form
+public class Form<T> : Form
     where T : new()
 {
-    private T _model = new();
-
-    public T Model
+    public Form()
     {
-        get => _model;
-        set
-        {
-            _model = value;
-            OnPropertyChanged(nameof(Model));
-            InvokeModelChanged();
-        }
+        SetModel(new T());
     }
 
-    public override object? GetModel()
-    {
-        return Model;
-    }
+    public T Model => (T)GetModel()!;
 
     protected virtual void OnInitialized()
     { }

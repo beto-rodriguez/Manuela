@@ -16,33 +16,20 @@ public class PropertyInput(
         inputControl.SetValue(getter());
         inputControl.SetPlaceholder(displayName);
 
-        Task? waitTask = null;
-        var cts = new CancellationTokenSource();
-
-        inputControl.InputValueChangedCommand = new Command(async value =>
+        Timer? waitTimer = null;
+        inputControl.InputValueChangedCommand = new Command(value =>
         {
             // only execute/show the validation after 800ms without input changes.
             setter(value);
 
-            if (waitTask is not null)
+            waitTimer?.Dispose();
+            waitTimer = new(state =>
             {
-                cts.Cancel();
-                cts.Dispose();
-                cts = new CancellationTokenSource();
-            }
+                _ = form.IsValid(propertyName);
+                var error = form.GetError(propertyName);
 
-            waitTask = Task.Delay(800, cts.Token);
-
-            await waitTask
-                .ContinueWith(t =>
-                {
-                    if (t.IsCanceled) return;
-
-                    _ = form.IsValid(propertyName);
-                    var error = form.GetError(propertyName);
-
-                    inputControl.Dispatch(() => inputControl.ValidationMessage = error);
-                });
+                inputControl.Dispatch(() => inputControl.ValidationMessage = error);
+            }, new(), 800, Timeout.Infinite);
         });
 
         form.OnFormValidated += f => inputControl.Dispatch(() => inputControl.ValidationMessage = f.GetError(propertyName));
@@ -50,13 +37,6 @@ public class PropertyInput(
         {
             inputControl.SetValue(getter());
             inputControl.SetPlaceholder(displayName);
-        };
-
-        inputControl.IsEnabled = form.IsEnabled;
-        form.PropertyChanged += (_, e) =>
-        {
-            if (e.PropertyName != nameof(form.IsEnabled)) return;
-            inputControl.IsEnabled = form.IsEnabled;
         };
     }
 
