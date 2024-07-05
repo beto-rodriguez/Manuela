@@ -115,11 +115,21 @@ public class Router : INotifyPropertyChanged
     public void GoTo(string route, View? sender = null)
     {
         Navigation.Stack(ActiveRoute);
+
+#if DEBUG
         Trace.WriteLine($"Navigating to {route}.");
+#endif
 
         var r = GetRoute(route) ?? throw new InvalidOperationException($"The route {route} does not exists.");
 
         LoadView(r, sender);
+    }
+
+    public void GoToParent()
+    {
+        var activeRoute = ActiveRoute.RouteName;
+        var parentRoute = activeRoute.Substring(0, activeRoute.LastIndexOf('/'));
+        GoTo(parentRoute);
     }
 
     public void GoForward()
